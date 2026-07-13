@@ -1,0 +1,421 @@
+.workflow {
+  position: relative;
+  overflow-x: clip;
+  overflow-y: visible;
+  background: #fff;
+  padding: 80px 0 100px;
+}
+
+.workflow__content {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 135px;
+  overflow-x: clip;
+}
+
+.workflow__title {
+  font-family: var(--font-display);
+  font-size: 45px;
+  font-weight: 600;
+  line-height: 60px;
+  color: #495E4C;
+  text-transform: capitalize;
+  margin: 0 0 60px;
+  max-width: 977px;
+}
+
+.workflow__steps {
+  position: relative;
+  width: 100%;
+  max-width: 1170px;
+  --workflow-diagram-height: 1470px;
+  min-height: var(--workflow-diagram-height);
+  margin: 0 auto;
+}
+
+.workflow__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.workflow__lines {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.workflow__line {
+  position: absolute;
+  display: block;
+  height: auto;
+}
+
+.workflow__line--1 { left: 151px;  top: 273px;  width: 527px; }
+.workflow__line--2 { left: 362px;  top: 460px;  width: 506px; }
+.workflow__line--3 { left: 380px;  top: 618px;  width: 225px; }
+.workflow__line--4 { left: 388px;  top: 801px;  width: 587px; }
+.workflow__line--5 { left: 255px;  top: 1016px; width: 698px; }
+
+.workflow__step {
+  position: absolute;
+  z-index: 1;
+}
+
+.workflow__illus {
+  display: block;
+  height: auto;
+  opacity: 0.5;
+  pointer-events: none;
+  user-select: none;
+}
+
+.workflow__step-title {
+  font-family: var(--font-display);
+  font-size: 38px;
+  font-weight: 500;
+  line-height: 48px;
+  color: #78C081;
+  text-transform: capitalize;
+  margin: 0 0 8px;
+}
+
+.workflow__step-text {
+  font-family: var(--font-body);
+  font-size: 17px;
+  line-height: 27px;
+  color: #495E4C;
+  margin: 0;
+}
+
+.workflow__step--1 {
+  left: 0;
+  top: 75px;
+  width: 474px;
+}
+
+.workflow__step--1 .workflow__illus {
+  position: absolute;
+  left: 164px;
+  top: 0;
+  width: 310px;
+}
+
+.workflow__step--1 .workflow__step-body {
+  padding-top: 146px;
+  max-width: 446px;
+}
+
+.workflow__step--2 {
+  left: 630px;
+  top: 206px;
+  width: 540px;
+  text-align: right;
+}
+
+.workflow__step--2 .workflow__illus {
+  position: absolute;
+  left: 67px;
+  top: 0;
+  width: 302px;
+}
+
+.workflow__step--2 .workflow__step-body {
+  padding-top: 83px;
+  margin-left: auto;
+  max-width: 540px;
+}
+
+.workflow__step--3 {
+  left: 0;
+  top: 404px;
+  width: 496px;
+}
+
+.workflow__step--3 .workflow__illus {
+  position: absolute;
+  left: 64px;
+  top: 0;
+  width: 413px;
+}
+
+.workflow__step--3 .workflow__step-body {
+  padding-top: 151px;
+  max-width: 496px;
+}
+
+.workflow__step--4 {
+  left: 545px;
+  top: 563px;
+  width: 625px;
+  text-align: right;
+}
+
+.workflow__step--4 .workflow__illus {
+  position: absolute;
+  left: 101px;
+  top: 0;
+  width: 290px;
+}
+
+.workflow__step--4 .workflow__step-body {
+  padding-top: 135px;
+  margin-left: auto;
+  max-width: 625px;
+}
+
+.workflow__step--5 {
+  left: 0;
+  top: 725px;
+  width: 449px;
+}
+
+.workflow__step--5 .workflow__illus {
+  position: absolute;
+  left: 121px;
+  top: 0;
+  width: 280px;
+}
+
+.workflow__step--5 .workflow__step-body {
+  padding-top: 116px;
+  max-width: 449px;
+}
+
+.workflow__step--6 {
+  left: 594px;
+  top: 970px;
+  width: 576px;
+  text-align: right;
+}
+
+.workflow__step--6 .workflow__illus {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 301px;
+}
+
+.workflow__step--6 .workflow__step-body {
+  padding-top: 70px;
+  margin-left: auto;
+  max-width: 397px;
+}
+
+.workflow__step--7 {
+  left: 224px;
+  top: 1229px;
+  width: 722px;
+  text-align: center;
+}
+
+.workflow__step--7 .workflow__illus {
+  margin: 0 auto 10px;
+  width: 402px;
+}
+
+.workflow__step--7 .workflow__step-body {
+  max-width: 722px;
+  margin: 0 auto;
+  padding-bottom: 8px;
+}
+
+.workflow__step--7 .workflow__step-title {
+  white-space: normal;
+}
+
+@media (max-width: 768px) {
+  .workflow {
+    padding: 50px 0 70px;
+  }
+
+  .workflow__content {
+    padding: 0 24px;
+  }
+
+  .workflow__title {
+    font-size: 32px;
+    line-height: 42px;
+    margin-bottom: 40px;
+  }
+
+  .workflow__steps {
+    min-height: 0;
+    max-width: none;
+    height: auto;
+    transform: none;
+    margin-bottom: 0;
+    overflow: visible;
+  }
+
+  .workflow__lines {
+    display: none;
+  }
+
+  .workflow__list {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .workflow__step {
+    position: relative;
+    left: auto;
+    top: auto;
+    width: 100%;
+    text-align: center;
+    padding-bottom: 40px;
+  }
+
+  .workflow__step:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    bottom: 12px;
+    width: 2px;
+    height: 28px;
+    background: repeating-linear-gradient(
+      to bottom,
+      #5CCD6A 0,
+      #5CCD6A 6px,
+      transparent 6px,
+      transparent 12px
+    );
+    transform: translateX(-50%);
+  }
+
+  .workflow__step .workflow__illus {
+    position: static;
+    left: auto;
+    top: auto;
+    width: min(280px, 80%);
+    margin: 0 auto 16px;
+  }
+
+  .workflow__step .workflow__step-body {
+    padding-top: 0;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: none;
+  }
+
+  .workflow__step-title {
+    font-size: 28px;
+    line-height: 36px;
+  }
+}
+
+@media (max-width: 320px) {
+  .workflow {
+    padding: 40px 0 56px;
+  }
+
+  .workflow__content {
+    padding: 0 16px;
+  }
+
+  .workflow__title {
+    font-size: 26px;
+    line-height: 34px;
+    margin-bottom: 32px;
+  }
+
+  .workflow__step {
+    padding-bottom: 32px;
+  }
+
+  .workflow__step-title {
+    font-size: 24px;
+    line-height: 30px;
+  }
+
+  .workflow__step-text {
+    font-size: 14px;
+    line-height: 22px;
+  }
+
+  .workflow__step .workflow__illus {
+    width: min(220px, 75%);
+  }
+}
+
+@media (min-width: 1440px) {
+  .workflow__content {
+    padding: 0 135px;
+  }
+
+  .workflow__steps {
+    max-width: 1170px;
+  }
+}
+
+@media (min-width: 769px) and (max-width: 1300px) {
+  .workflow__content {
+    padding: 0 clamp(40px, 6vw, 135px);
+    overflow-x: hidden;
+    overflow-y: visible;
+  }
+
+  .workflow__title {
+    font-size: clamp(38px, 3.4vw, 45px);
+    line-height: clamp(50px, 4.2vw, 60px);
+    margin-bottom: clamp(44px, 4vw, 60px);
+  }
+
+  .workflow__step-title {
+    font-size: 40px;
+    line-height: 50px;
+  }
+
+  .workflow__step-text {
+    font-size: 18px;
+    line-height: 28px;
+  }
+
+  .workflow__steps {
+    --workflow-scale: 0.92;
+    width: 1170px;
+    max-width: none;
+    height: var(--workflow-diagram-height);
+    min-height: 0;
+    transform: scale(var(--workflow-scale));
+    transform-origin: top center;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: calc(var(--workflow-diagram-height) * -1 * (1 - var(--workflow-scale)));
+    overflow: visible;
+  }
+}
+
+@media (min-width: 769px) and (max-width: 1200px) {
+  .workflow__content {
+    padding-left: clamp(24px, 3.5vw, 60px);
+    padding-right: clamp(40px, 6vw, 135px);
+  }
+
+  .workflow__steps {
+    --workflow-scale: 0.85;
+    transform-origin: top left;
+    margin-left: 0;
+    margin-right: auto;
+  }
+}
+
+@media (min-width: 769px) and (max-width: 1100px) {
+  .workflow__steps {
+    --workflow-scale: 0.78;
+  }
+}
+
+@media (min-width: 769px) and (max-width: 1000px) {
+  .workflow__steps {
+    --workflow-scale: 0.7;
+  }
+}
+
+@media (min-width: 769px) and (max-width: 900px) {
+  .workflow__steps {
+    --workflow-scale: 0.62;
+  }
+}

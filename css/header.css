@@ -1,0 +1,272 @@
+.header {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 10;
+  padding: 0 45px;
+  max-width: 100%;
+}
+
+.header__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  height: 85px;
+  max-width: 100%;
+}
+
+.header__logo {
+  flex-shrink: 0;
+  display: block;
+  line-height: 0;
+}
+
+.header__logo img {
+  height: 61px;
+  width: auto;
+  display: block;
+}
+
+.header__nav {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  min-width: 0;
+}
+
+.nav__list {
+  display: flex;
+  align-items: center;
+  gap: 37px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.nav__list a {
+  font-family: var(--font-body);
+  font-size: 15px;
+  font-weight: 400;
+  color: var(--color-dark-green);
+  text-decoration: none;
+  text-transform: lowercase;
+  white-space: nowrap;
+  transition: color 0.2s ease;
+}
+
+.nav__list a:hover {
+  color: var(--color-accent-green);
+}
+
+.header__actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-shrink: 0;
+}
+
+.header__burger {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  width: 49px;
+  height: 49px;
+  padding: 0;
+  border: none;
+  border-radius: 15px;
+  background: #fff;
+  box-shadow: 0 4px 10px 0 rgba(73, 93, 76, 0.15);
+  cursor: pointer;
+}
+
+.header__burger-line {
+  display: block;
+  width: 25px;
+  height: 2px;
+  border-radius: 1px;
+  background: #5CCD6A;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.header__burger--open .header__burger-line:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+}
+
+.header__burger--open .header__burger-line:nth-child(2) {
+  opacity: 0;
+}
+
+.header__burger--open .header__burger-line:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
+}
+
+.header__btn {
+  flex-shrink: 0;
+  position: relative;
+  width: 210px;
+  height: 75px;
+  background: rgba(255, 255, 255, 0.45);
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  overflow: hidden;
+  padding: 0;
+}
+
+.header__btn::before {
+  content: '';
+  position: absolute;
+  inset: 10px;
+  background: var(--color-btn-green);
+  border-radius: 17px;
+  box-shadow: var(--shadow-btn);
+  transition: opacity 0.2s ease;
+}
+
+.header__btn:hover::before {
+  opacity: 0.85;
+}
+
+.header__btn-text {
+  position: relative;
+  z-index: 1;
+  font-family: var(--font-display);
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--color-white);
+}
+
+.header__mobile-nav {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  z-index: 9;
+  background: rgba(255, 255, 255, 0.98);
+  box-shadow: 0 12px 24px rgba(73, 93, 76, 0.12);
+  padding: 16px 24px 24px;
+}
+
+.header__mobile-nav[hidden] {
+  display: none;
+}
+
+.header__mobile-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.header__mobile-list a {
+  font-family: var(--font-body);
+  font-size: 16px;
+  color: var(--color-dark-green);
+  text-decoration: none;
+  text-transform: lowercase;
+}
+
+.header__mobile-list a:hover {
+  color: var(--color-accent-green);
+}
+
+@media (max-width: 1200px) {
+  .nav__list {
+    gap: 22px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .header__btn {
+    width: 160px;
+    height: 60px;
+  }
+}
+
+@media (max-width: 1070px) {
+  .header__nav {
+    display: none;
+  }
+
+  .header {
+    padding: 0 24px;
+  }
+
+  .header__burger {
+    display: flex;
+  }
+
+  .header__btn {
+    width: 140px;
+    height: 56px;
+  }
+
+  .header__btn-text {
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 600px) {
+  .header {
+    padding: 0 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  .header {
+    padding: 0 15px;
+  }
+
+  .header__inner {
+    height: 69px;
+    align-items: flex-start;
+    padding-top: 8px;
+  }
+
+  .header__logo img {
+    height: 53px;
+  }
+
+  .header__actions {
+    gap: 10px;
+    margin-top: -8px;
+  }
+
+  .header__burger {
+    width: 49px;
+    height: 49px;
+  }
+
+  .header__btn {
+    width: 120px;
+    height: 49px;
+  }
+
+  .header__btn::before {
+    inset: 8px;
+    border-radius: 14px;
+  }
+
+  .header__btn-text {
+    font-size: 11px;
+  }
+
+  .header__mobile-nav {
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+}
+
+@media (max-width: 395px) {
+  .header__btn {
+    display: none;
+  }
+}

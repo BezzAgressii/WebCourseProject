@@ -1,0 +1,17 @@
+<svg width="510" height="488" viewBox="0 0 510 488" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="lungMain" x1="255" y1="60" x2="255" y2="430" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#C8EBCC"/>
+      <stop offset="0.45" stop-color="#78C081"/>
+      <stop offset="1" stop-color="#5A9E62"/>
+    </linearGradient>
+    <linearGradient id="lungInner" x1="255" y1="100" x2="255" y2="380" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#E8F8EA"/>
+      <stop offset="1" stop-color="#78C081" stop-opacity="0.25"/>
+    </linearGradient>
+  </defs>
+  <path d="M255 55C175 55 120 130 105 210C90 290 125 370 175 415C205 440 230 452 255 455C280 452 305 440 335 415C385 370 420 290 405 210C390 130 335 55 255 55Z" fill="url(#lungMain)" fill-opacity="0.75"/>
+  <path d="M255 95C210 95 175 140 165 195C155 250 170 310 200 350C220 372 238 382 255 385C272 382 290 372 310 350C340 310 355 250 345 195C335 140 300 95 255 95Z" fill="url(#lungInner)"/>
+  <path d="M255 115V375" stroke="#5A9E62" stroke-width="2.5" stroke-linecap="round" opacity="0.35"/>
+  <path d="M255 145C230 165 215 195 210 230M255 145C280 165 295 195 300 230M255 245C235 262 225 285 222 312M255 245C275 262 285 285 288 312" stroke="#5A9E62" stroke-width="2" stroke-linecap="round" opacity="0.3"/>
+</svg>

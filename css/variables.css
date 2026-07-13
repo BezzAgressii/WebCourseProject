@@ -1,0 +1,29 @@
+:root {
+  --color-dark-green:   #495E4C;
+  --color-accent-green: #78C081;
+  --color-btn-green:    #5CCD6A;
+  --color-btn-wrap:     rgba(120, 192, 129, 0.25);
+  --color-gray:         #7B897D;
+  --color-desc:         #7CA381;
+  --color-white:        #FFFFFF;
+
+  --gradient-hero: linear-gradient(
+    180deg,
+    rgba(241, 241, 241, 1)  0%,
+    rgba(240, 242, 241, 1) 16%,
+    rgba(235, 237, 236, 1) 43%,
+    rgba(230, 232, 231, 1) 73%,
+    rgba(222, 226, 225, 1) 100%
+  );
+
+  --shadow-btn: inset 2px -2px 12px 0px rgba(34, 111, 33, 0.36);
+
+  --font-display: 'Ruberoid', 'Montserrat', sans-serif;
+  --font-body:    'Proxima Nova', 'Inter', Arial, sans-serif;
+
+  --hero-h:         820px;
+  --content-pad-l:  135px;
+
+  --radius-btn-outer: 40px;
+  --radius-btn-inner: 30px;
+}
