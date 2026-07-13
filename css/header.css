@@ -10,6 +10,16 @@
   box-sizing: border-box;
 }
 
+.header--page {
+  position: relative;
+  left: auto;
+  transform: none;
+  margin: 0 auto;
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(8px);
+  box-shadow: 0 1px 0 rgba(73, 93, 76, 0.08);
+}
+
 .header__inner {
   display: flex;
   align-items: center;
@@ -59,7 +69,12 @@
   transition: color 0.2s ease;
 }
 
-.nav__list a:hover {
+.nav__list a:hover,
+.nav__list a[aria-current="page"] {
+  color: var(--color-accent-green);
+}
+
+.header__mobile-list a[aria-current="page"] {
   color: var(--color-accent-green);
 }
 
