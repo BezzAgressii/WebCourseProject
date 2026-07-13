@@ -23,7 +23,7 @@
 }
 
 .clients__content-wrap {
-  max-width: 1440px;
+  max-width: var(--page-max);
   margin: 0 auto;
   padding: 24px 135px 0;
   display: grid;
@@ -328,7 +328,7 @@
   }
 }
 
-@media (min-width: 1440px) {
+@media (min-width: 1920px) {
   .clients__content-wrap {
     padding-left: 135px;
     padding-right: 135px;

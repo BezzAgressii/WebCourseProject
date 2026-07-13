@@ -29,7 +29,7 @@
   z-index: 1;
   box-sizing: border-box;
   width: 100%;
-  max-width: 1440px;
+  max-width: var(--page-max);
   margin: 0 auto;
   padding: clamp(56px, 6vw, 86px) clamp(24px, 9vw, 135px) clamp(48px, 5vw, 72px);
   display: grid;
@@ -569,7 +569,7 @@
   }
 }
 
-@media (min-width: 1440px) {
+@media (min-width: 1920px) {
   .footer__content {
     padding-left: 135px;
     padding-right: 135px;

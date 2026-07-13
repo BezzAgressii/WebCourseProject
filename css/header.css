@@ -1,11 +1,13 @@
 .header {
   position: absolute;
   top: 0;
-  left: 0;
-  right: 0;
+  left: 50%;
+  transform: translateX(-50%);
   z-index: 10;
-  padding: 0 45px;
-  max-width: 100%;
+  width: 100%;
+  max-width: var(--page-max);
+  padding: 0 clamp(24px, 5vw, 45px);
+  box-sizing: border-box;
 }
 
 .header__inner {
@@ -14,6 +16,7 @@
   justify-content: space-between;
   gap: 16px;
   height: 85px;
+  width: 100%;
   max-width: 100%;
 }
 

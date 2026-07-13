@@ -6,6 +6,7 @@
   --color-gray:         #7B897D;
   --color-desc:         #7CA381;
   --color-white:        #FFFFFF;
+  --page-max:           1920px;
 
   --gradient-hero: linear-gradient(
     180deg,

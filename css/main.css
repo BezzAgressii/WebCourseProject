@@ -15,6 +15,7 @@ body {
   color: var(--color-dark-green);
   overflow-x: hidden;
   max-width: 100%;
+  background: #f0f2f1;
 }
 
 main {
@@ -40,7 +41,8 @@ button {
   position: relative;
   min-height: var(--hero-h);
   overflow: hidden;
-
+  max-width: var(--page-max);
+  margin: 0 auto;
   background: var(--gradient-hero);
 }
 
@@ -72,9 +74,7 @@ button {
 .hero__content {
   position: relative;
   z-index: 1;
-
-  padding: 167px var(--content-pad-l) 80px var(--content-pad-l);
-
+  padding: 167px clamp(24px, 9vw, var(--content-pad-l)) 80px;
   max-width: 660px;
 }
 

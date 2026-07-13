@@ -7,7 +7,7 @@
 
 .steps__content {
   position: relative;
-  max-width: 1440px;
+  max-width: var(--page-max);
   margin: 0 auto;
   padding: 0 135px;
   overflow-x: clip;

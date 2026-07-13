@@ -6,14 +6,15 @@
 }
 
 .services__content {
-  max-width: 100%;
+  max-width: var(--page-max);
+  margin: 0 auto;
   overflow-x: clip;
 }
 
 .services__main {
   display: flex;
   align-items: stretch;
-  padding-left: 135px;
+  padding-left: clamp(24px, 9vw, 135px);
   max-width: 100%;
 }
 
