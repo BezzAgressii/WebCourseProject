@@ -1,0 +1,28 @@
+{
+  "name": "pascal-vent",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "server": "node server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BezzAgressii/WebCourseProject.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "bugs": {
+    "url": "https://github.com/BezzAgressii/WebCourseProject/issues"
+  },
+  "homepage": "https://github.com/BezzAgressii/WebCourseProject#readme",
+  "dependencies": {
+    "cors": "^2.8.6",
+    "express": "^5.2.1",
+    "json-server": "^0.17.4"
+  }
+}

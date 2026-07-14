@@ -17,51 +17,57 @@
   <link rel="stylesheet" href="css/catalog.css">
   <link rel="stylesheet" href="css/footer.css">
 </head>
-<body>
+<body data-page="catalog">
 
   <header class="header header--page">
     <div class="header__inner">
 
-      <a href="index.html" class="header__logo" aria-label="Pascal Vent — главная">
+      <a href="index.html" class="header__logo" data-i18n-aria="header.logoAria" aria-label="Pascal Vent — главная">
         <picture>
           <source media="(max-width: 480px)" srcset="assets/images/footer-mobile-logo.svg">
           <img src="assets/icons/logo.svg" alt="Pascal Vent">
         </picture>
       </a>
 
-      <nav class="header__nav" aria-label="Основное меню">
+      <nav class="header__nav" data-i18n-aria="header.navAria" aria-label="Основное меню">
         <ul class="nav__list">
-          <li><a href="index.html#services">Услуги</a></li>
-          <li><a href="index.html#about">О Нас</a></li>
-          <li><a href="index.html#benefits">Польза Продукта</a></li>
-          <li><a href="catalog.html" aria-current="page">Каталог</a></li>
-          <li><a href="index.html#steps">Этапы Работы</a></li>
-          <li><a href="index.html#reviews">Отзывы</a></li>
+          <li><a href="index.html#services" data-i18n="header.services">Услуги</a></li>
+          <li><a href="index.html#about" data-i18n="header.about">О Нас</a></li>
+          <li><a href="index.html#benefits" data-i18n="header.benefits">Польза Продукта</a></li>
+          <li><a href="catalog.html" data-i18n="header.catalog" aria-current="page">Каталог</a></li>
+          <li><a href="index.html#steps" data-i18n="header.steps">Этапы Работы</a></li>
+          <li><a href="index.html#reviews" data-i18n="header.reviews">Отзывы</a></li>
         </ul>
       </nav>
 
       <div class="header__actions">
-        <button class="header__burger" type="button" aria-label="Открыть меню" aria-expanded="false" aria-controls="mobile-nav">
+        <div class="lang-switch" role="group" data-i18n-aria="header.langAria" aria-label="Выбор языка">
+          <button type="button" class="lang-switch__btn" data-lang="ru" aria-pressed="true">RU</button>
+          <button type="button" class="lang-switch__btn" data-lang="be" aria-pressed="false">BE</button>
+          <button type="button" class="lang-switch__btn" data-lang="en" aria-pressed="false">EN</button>
+        </div>
+
+        <button class="header__burger" type="button" data-i18n-aria="header.openMenu" aria-label="Открыть меню" aria-expanded="false" aria-controls="mobile-nav">
           <span class="header__burger-line" aria-hidden="true"></span>
           <span class="header__burger-line" aria-hidden="true"></span>
           <span class="header__burger-line" aria-hidden="true"></span>
         </button>
 
-        <button class="header__btn" type="button" data-modal="contact" aria-label="Связаться">
-          <span class="header__btn-text">Связаться</span>
+        <button class="header__btn" type="button" data-modal="contact" data-i18n-aria="header.contact" aria-label="Связаться">
+          <span class="header__btn-text" data-i18n="header.contact">Связаться</span>
         </button>
       </div>
 
     </div>
 
-    <nav class="header__mobile-nav" id="mobile-nav" aria-label="Мобильное меню" hidden>
+    <nav class="header__mobile-nav" id="mobile-nav" data-i18n-aria="header.mobileNavAria" aria-label="Мобильное меню" hidden>
       <ul class="header__mobile-list">
-        <li><a href="index.html#services">Услуги</a></li>
-        <li><a href="index.html#about">О Нас</a></li>
-        <li><a href="index.html#benefits">Польза Продукта</a></li>
-        <li><a href="catalog.html" aria-current="page">Каталог</a></li>
-        <li><a href="index.html#steps">Этапы Работы</a></li>
-        <li><a href="index.html#reviews">Отзывы</a></li>
+        <li><a href="index.html#services" data-i18n="header.services">Услуги</a></li>
+        <li><a href="index.html#about" data-i18n="header.about">О Нас</a></li>
+        <li><a href="index.html#benefits" data-i18n="header.benefits">Польза Продукта</a></li>
+        <li><a href="catalog.html" data-i18n="header.catalog" aria-current="page">Каталог</a></li>
+        <li><a href="index.html#steps" data-i18n="header.steps">Этапы Работы</a></li>
+        <li><a href="index.html#reviews" data-i18n="header.reviews">Отзывы</a></li>
       </ul>
     </nav>
   </header>
@@ -79,24 +85,24 @@
         <header class="catalog__header">
           <p class="catalog__eyebrow">
             <span class="catalog__eyebrow-line" aria-hidden="true"></span>
-            Оборудование
+            <span data-i18n="catalog.eyebrow">Оборудование</span>
           </p>
           <h1 class="catalog__title" id="catalog-title">
             <span class="catalog__title-row">
-              <span>Каталог</span>
+              <span data-i18n="catalog.title.line1">Каталог</span>
               <span class="catalog__title-divider" aria-hidden="true"></span>
             </span>
-            <span>оборудования</span>
+            <span data-i18n="catalog.title.line2">оборудования</span>
           </h1>
-          <p class="catalog__desc">
+          <p class="catalog__desc" data-i18n="catalog.desc">
             Выберите категорию: вентиляционные системы, кондиционеры, решения для бассейнов и комплектующие Pascal Vent.
           </p>
         </header>
 
-        <ul class="catalog__grid" role="list" aria-label="Категории каталога">
+        <ul class="catalog__grid" role="list" data-i18n-aria="catalog.categoriesAria" aria-label="Категории каталога">
 
           <li>
-            <a href="catalog/ventilation/" class="catalog-card">
+            <a href="category.html?category=ventilation" class="catalog-card">
               
               <div class="catalog-card__image-wrap">
                 <picture>
@@ -104,6 +110,7 @@
                   <img
                     class="catalog-card__image"
                     src="assets/images/services-photo-741206.png"
+                    data-i18n-alt="catalog.ventilation.alt"
                     alt="Вентиляционное оборудование"
                     width="640"
                     height="420"
@@ -119,10 +126,10 @@
 
 
               <div class="catalog-card__content">
-                <h2 class="catalog-card__title">Вентиляционное оборудование</h2>
-                <p class="catalog-card__desc">Приточные установки, вытяжные системы, рекуператоры</p>
+                <h2 class="catalog-card__title" data-i18n="catalog.ventilation">Вентиляционное оборудование</h2>
+                <p class="catalog-card__desc" data-i18n="catalog.ventilation.desc">Приточные установки, вытяжные системы, рекуператоры</p>
                 <div class="catalog-card__footer">
-                  <span class="catalog-card__count">42 товара</span>
+                  <span class="catalog-card__count" data-i18n="catalog.count.ventilation">42 товара</span>
                   <span class="catalog-card__arrow" aria-hidden="true">→</span>
                 </div>
               </div>
@@ -130,13 +137,14 @@
           </li>
 
           <li>
-            <a href="catalog/conditioning/" class="catalog-card">
+            <a href="category.html?category=conditioning" class="catalog-card">
               <div class="catalog-card__image-wrap">
                 <picture>
                   <source media="(max-width: 640px)" srcset="assets/images/portfolio-photo-2.png">
                   <img
                     class="catalog-card__image"
                     src="assets/images/portfolio-photo-1.png"
+                    data-i18n-alt="catalog.conditioning.alt"
                     alt="Кондиционеры"
                     width="640"
                     height="420"
@@ -149,10 +157,10 @@
                 </span>
               </div>
               <div class="catalog-card__content">
-                <h2 class="catalog-card__title">Кондиционеры</h2>
-                <p class="catalog-card__desc">Настенные, канальные, кассетные, мульти-сплит системы</p>
+                <h2 class="catalog-card__title" data-i18n="catalog.conditioning">Кондиционеры</h2>
+                <p class="catalog-card__desc" data-i18n="catalog.conditioning.desc">Настенные, канальные, кассетные, мульти-сплит системы</p>
                 <div class="catalog-card__footer">
-                  <span class="catalog-card__count">35 товаров</span>
+                  <span class="catalog-card__count" data-i18n="catalog.count.conditioning">35 товаров</span>
                   <span class="catalog-card__arrow" aria-hidden="true">→</span>
                 </div>
               </div>
@@ -160,13 +168,14 @@
           </li>
 
           <li>
-            <a href="catalog/pools/" class="catalog-card">
+            <a href="category.html?category=pools" class="catalog-card">
               <div class="catalog-card__image-wrap">
                 <picture>
                   <source media="(max-width: 640px)" srcset="assets/images/card-pools-5b74f6.png">
                   <img
                     class="catalog-card__image"
                     src="assets/images/card-pools-5b74f6.png"
+                    data-i18n-alt="catalog.pools.alt"
                     alt="Оборудование для бассейнов"
                     width="640"
                     height="420"
@@ -179,40 +188,10 @@
                 </span>
               </div>
               <div class="catalog-card__content">
-                <h2 class="catalog-card__title">Для бассейнов</h2>
-                <p class="catalog-card__desc">Осушители воздуха для бассейнов</p>
+                <h2 class="catalog-card__title" data-i18n="catalog.pools">Для бассейнов</h2>
+                <p class="catalog-card__desc" data-i18n="catalog.pools.desc">Осушители воздуха для бассейнов</p>
                 <div class="catalog-card__footer">
-                  <span class="catalog-card__count">12 товаров</span>
-                  <span class="catalog-card__arrow" aria-hidden="true">→</span>
-                </div>
-              </div>
-            </a>
-          </li>
-
-          <li>
-            <a href="catalog/components/" class="catalog-card">
-              <div class="catalog-card__image-wrap">
-                <picture>
-                  <source media="(max-width: 640px)" srcset="assets/images/benefits-photo-3-62e3bc.png">
-                  <img
-                    class="catalog-card__image"
-                    src="assets/images/benefits-photo-1-6a89c7.png"
-                    alt="Комплектующие"
-                    width="640"
-                    height="420"
-                    loading="lazy"
-                  >
-                </picture>
-                <div class="catalog-card__overlay" aria-hidden="true"></div>
-                <span class="catalog-card__icon" aria-hidden="true">
-                  <img src="assets/icons/tab-components.svg" alt="" width="33" height="33">
-                </span>
-              </div>
-              <div class="catalog-card__content">
-                <h2 class="catalog-card__title">Комплектующие</h2>
-                <p class="catalog-card__desc">Фильтры, автоматика, решетки и диффузоры</p>
-                <div class="catalog-card__footer">
-                  <span class="catalog-card__count">89 товаров</span>
+                  <span class="catalog-card__count" data-i18n="catalog.count.pools">12 товаров</span>
                   <span class="catalog-card__arrow" aria-hidden="true">→</span>
                 </div>
               </div>
@@ -235,33 +214,33 @@
     <div class="footer__content">
 
       <div class="footer__brand">
-        <a href="index.html" class="footer__logo footer__logo--desktop" aria-label="Pascal Vent — главная">
+        <a href="index.html" class="footer__logo footer__logo--desktop" data-i18n-aria="header.logoAria" aria-label="Pascal Vent — главная">
           <img src="assets/images/footer-logo.svg" alt="Pascal Vent" width="352" height="109">
         </a>
-        <a href="index.html" class="footer__logo footer__logo--mobile" aria-label="Pascal Vent — главная">
+        <a href="index.html" class="footer__logo footer__logo--mobile" data-i18n-aria="header.logoAria" aria-label="Pascal Vent — главная">
           <img src="assets/images/footer-mobile-logo.svg" alt="Pascal Vent" width="168" height="53">
         </a>
         <div class="footer__brand-info">
-          <p class="footer__about">
+          <p class="footer__about" data-i18n-html="footer.about">
             Компания <strong>«Pascal Vent»</strong> входит в число лучших специализированных организаций, с широким ассортиментом товаров и услуг, предназначенных для систем вентиляции и кондиционирования, предоставляющих высокий сервис и удобство обслуживания нашим клиентам.
           </p>
           <span class="footer__divider" aria-hidden="true"></span>
           <p class="footer__tagline">
-            <span class="footer__tagline-main">Чистый воздух вместе с </span>
-            <span class="footer__tagline-accent">Pascal Vent</span>
+            <span class="footer__tagline-main" data-i18n="footer.tagline.main">Чистый воздух вместе с </span>
+            <span class="footer__tagline-accent" data-i18n="footer.tagline.accent">Pascal Vent</span>
           </p>
         </div>
       </div>
 
       <div class="footer__contacts">
-        <h2 class="footer__section-title">Контакты</h2>
+        <h2 class="footer__section-title" data-i18n="footer.contacts">Контакты</h2>
         <div class="footer__contact-grid">
 
           <ul class="footer__contact-col footer__contact-col--left">
             <li class="footer__contact-item footer__contact-item--phone">
               <img src="assets/images/footer-icon-phone.svg" alt="" width="22" height="23" aria-hidden="true">
               <p class="footer__contact-text">
-                <a href="tel:+375222736331">+375 222 73 63 31</a>
+                <a href="tel:+375222736331" data-i18n="footer.phone1">+375 222 73 63 31</a>
               </p>
             </li>
 
@@ -270,7 +249,7 @@
             <li class="footer__contact-item footer__contact-item--phone">
               <img src="assets/images/footer-icon-phone.svg" alt="" width="22" height="23" aria-hidden="true">
               <p class="footer__contact-text">
-                <a href="tel:+375293678929">+375 29 367 89 29</a>
+                <a href="tel:+375293678929" data-i18n="footer.phone2">+375 29 367 89 29</a>
               </p>
             </li>
 
@@ -279,7 +258,7 @@
             <li class="footer__contact-item footer__contact-item--email">
               <img src="assets/images/footer-icon-envelope.svg" alt="" width="24" height="18" aria-hidden="true">
               <p class="footer__contact-text">
-                <a href="mailto:PascalVent@mail.ru">PascalVent@mail.ru</a>
+                <a href="mailto:PascalVent@mail.ru" data-i18n="footer.email">PascalVent@mail.ru</a>
               </p>
             </li>
 
@@ -289,7 +268,7 @@
           <ul class="footer__contact-col footer__contact-col--right">
             <li class="footer__contact-item footer__contact-item--calendar">
               <img src="assets/images/footer-icon-calendar.svg" alt="" width="22" height="22" aria-hidden="true">
-              <p class="footer__contact-text footer__contact-text--small">
+              <p class="footer__contact-text footer__contact-text--small" data-i18n-html="footer.hours">
                 Пн - Сб: 9:00 - 19:00<br>
                 Вс: выходной
               </p>
@@ -298,8 +277,8 @@
             <li class="footer__contact-item footer__contact-item--pin">
               <img src="assets/images/footer-icon-pin.svg" alt="" width="24" height="31" aria-hidden="true">
               <p class="footer__contact-text footer__contact-text--small">
-                <span class="footer__contact-address">Могилёв ул. Первомайская, д. 29</span>
-                <span class="footer__contact-address footer__contact-address--desktop">Республика Беларусь, г. Могилёв<br>ул. Первомайская, д. 29</span>
+                <span class="footer__contact-address" data-i18n="footer.address">Могилёв ул. Первомайская, д. 29</span>
+                <span class="footer__contact-address footer__contact-address--desktop" data-i18n-html="footer.address.full">Республика Беларусь, г. Могилёв<br>ул. Первомайская, д. 29</span>
               </p>
             </li>
           </ul>
@@ -308,18 +287,18 @@
       </div>
 
       <div class="footer__form-block">
-        <h2 class="footer__section-title">Заполнить заявку</h2>
+        <h2 class="footer__section-title" data-i18n="footer.formTitle">Заполнить заявку</h2>
         <form class="footer__form" action="#" method="post">
           <div class="footer__field">
-            <label class="visually-hidden" for="footer-name">Ваше имя</label>
-            <input type="text" id="footer-name" name="name" placeholder="Ваше Имя" autocomplete="name" required>
+            <label class="visually-hidden" for="footer-name" data-i18n="footer.name">Ваше имя</label>
+            <input type="text" id="footer-name" name="name" data-i18n-placeholder="footer.namePlaceholder" placeholder="Ваше Имя" autocomplete="name" required>
           </div>
           <div class="footer__field">
-            <label class="visually-hidden" for="footer-phone">Номер телефона</label>
-            <input type="tel" id="footer-phone" name="phone" placeholder="Номер телефона" autocomplete="tel" required>
+            <label class="visually-hidden" for="footer-phone" data-i18n="footer.phone">Номер телефона</label>
+            <input type="tel" id="footer-phone" name="phone" data-i18n-placeholder="footer.phonePlaceholder" placeholder="Номер телефона" autocomplete="tel" required>
           </div>
           <button class="footer__submit" type="submit">
-            <span>отправить</span>
+            <span data-i18n="footer.submit">отправить</span>
           </button>
         </form>
       </div>
@@ -328,6 +307,7 @@
 
   </footer>
 
+  <script type="module" src="js/i18n.js"></script>
   <script src="js/header.js"></script>
 </body>
 </html>
