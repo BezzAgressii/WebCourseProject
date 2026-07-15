@@ -1,6 +1,11 @@
 import api from './api.js';
 import FILTER_CONFIG from './filter-config.js';
 import i18n from './i18n.js';
+import { isAuthenticated, resolveAssetPath } from './auth-session.js';
+import { addToCart } from './cart-storage.js';
+import { showConfirm } from './components/confirm.js';
+import { openModal } from './components/modal.js';
+import { createHoverCarousel } from './components/slider.js';
 
 class CategoryPage {
   constructor() {
@@ -9,6 +14,8 @@ class CategoryPage {
     this.categoryKey = '';
     this.products = [];
     this.sortCriteria = 'popular';
+    this.currentPage = 1;
+    this.productsPerPage = 6;
     this.elements = {
       breadcrumb: document.getElementById('breadcrumb-current'),
       title: document.getElementById('page-title'),
@@ -18,7 +25,8 @@ class CategoryPage {
       reset: document.getElementById('reset-filters'),
       sort: document.getElementById('sort-select'),
       count: document.getElementById('products-count'),
-      grid: document.getElementById('products-grid')
+      grid: document.getElementById('products-grid'),
+      pagination: document.getElementById('pagination')
     };
   }
 
@@ -129,14 +137,19 @@ class CategoryPage {
     `;
   }
 
-  applyFilters() {
+  applyFilters(resetPage = true) {
     const query = this.elements.search.value.trim();
     const filters = FILTER_CONFIG[this.categoryKey] || [];
     const filteredProducts = filters.reduce((products, filter) => {
       return products.filter((product) => this.matchesFilter(product, filter));
     }, this.searchProducts(query));
 
-    this.renderProducts(this.sortProducts(filteredProducts, this.sortCriteria));
+    if (resetPage) {
+      this.currentPage = 1;
+    }
+
+    this.filteredProducts = this.sortProducts(filteredProducts, this.sortCriteria);
+    this.renderProducts(this.filteredProducts);
   }
 
   matchesFilter(product, filter) {
@@ -199,14 +212,44 @@ class CategoryPage {
 
   renderProducts(filteredProducts) {
     this.elements.count.textContent = `${i18n.t('catalog.found')}: ${filteredProducts.length} ${i18n.t('catalog.products.count')}`;
+    const pageCount = Math.ceil(filteredProducts.length / this.productsPerPage);
+
+    if (this.currentPage > pageCount) {
+      this.currentPage = Math.max(pageCount, 1);
+    }
+
+    const firstProduct = (this.currentPage - 1) * this.productsPerPage;
+    const pageProducts = filteredProducts.slice(firstProduct, firstProduct + this.productsPerPage);
+
     this.elements.grid.innerHTML = filteredProducts.length
-      ? filteredProducts.map((product) => this.renderProductCard(product)).join('')
+      ? pageProducts.map((product) => this.renderProductCard(product)).join('')
       : `<p class="category-page__empty">${this.escapeHtml(i18n.t('category.empty'))}</p>`;
+
+    pageProducts.forEach((product) => {
+      const image = this.elements.grid.querySelector(`[data-product-image="${product.id}"]`);
+      createHoverCarousel(image, (product.images || []).map(resolveAssetPath));
+    });
+
+    this.renderPagination(pageCount);
+  }
+
+  renderPagination(pageCount) {
+    if (pageCount <= 1) {
+      this.elements.pagination.innerHTML = '';
+      return;
+    }
+
+    this.elements.pagination.innerHTML = Array.from({ length: pageCount }, (_, index) => {
+      const page = index + 1;
+      const activeClass = page === this.currentPage ? ' category-page__pagination-button--active' : '';
+
+      return `<button class="category-page__pagination-button${activeClass}" type="button" data-page="${page}" aria-current="${page === this.currentPage ? 'page' : 'false'}">${page}</button>`;
+    }).join('');
   }
 
   renderProductCard(product) {
     const name = product.name_i18n[i18n.currentLang] || product.name_i18n.ru;
-    const image = product.images[0] || 'assets/images/cta-fan.png';
+    const image = resolveAssetPath(product.images[0]);
     const stockKey = product.inStock ? 'catalog.inStock' : 'catalog.outOfStock';
     const stockClass = product.inStock ? '' : ' product-card__stock--out';
     const details = this.getProductDetails(product);
@@ -215,7 +258,7 @@ class CategoryPage {
     return `
       <article class="product-card">
         <div class="product-card__image-wrap">
-          <img class="product-card__image" src="${this.escapeHtml(image)}" alt="${this.escapeHtml(name)}" loading="lazy">
+          <img class="product-card__image" data-product-image="${this.escapeHtml(product.id)}" src="${this.escapeHtml(image)}" alt="${this.escapeHtml(name)}" loading="lazy">
           <span class="product-card__stock${stockClass}">${this.escapeHtml(i18n.t(stockKey))}</span>
         </div>
         <div class="product-card__body">
@@ -283,11 +326,56 @@ class CategoryPage {
     });
 
     this.elements.grid.addEventListener('click', (event) => {
-      const button = event.target.closest('[data-action="add-to-cart"]');
+      const cartButton = event.target.closest('[data-action="add-to-cart"]');
 
-      if (button) {
-        console.log('Added to cart:', button.dataset.productId);
+      if (!cartButton) {
+        return;
       }
+
+      if (!isAuthenticated()) {
+        openModal({
+          title: i18n.t('auth.cartLoginTitle'),
+          message: i18n.t('auth.cartLoginMessage'),
+          type: 'error',
+          actionHref: 'login.html',
+          actionLabel: i18n.t('auth.login.submit'),
+          closeLabel: i18n.t('auth.cartLoginClose')
+        });
+        return;
+      }
+
+      showConfirm(i18n.t('category.addToCartConfirm'), {
+        title: i18n.t('category.addToCart'),
+        confirmLabel: i18n.t('common.confirm'),
+        cancelLabel: i18n.t('common.cancel')
+      }).then((confirmed) => {
+        if (confirmed) {
+          addToCart(cartButton.dataset.productId, 1);
+          openModal({
+            title: i18n.t('category.addedTitle'),
+            message: i18n.t('category.addedMessage'),
+            type: 'success',
+            actionHref: 'cart.html',
+            actionLabel: i18n.t('header.cart'),
+            closeLabel: i18n.t('common.close')
+          });
+        }
+      });
+    });
+
+    this.elements.pagination.addEventListener('click', (event) => {
+      const button = event.target.closest('[data-page]');
+
+      if (!button) {
+        return;
+      }
+
+      this.currentPage = Number(button.dataset.page);
+      this.applyFilters(false);
+      window.scrollTo({
+        top: this.elements.grid.getBoundingClientRect().top + window.scrollY - 90,
+        behavior: 'smooth'
+      });
     });
   }
 

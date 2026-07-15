@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Вход — Pascal Vent</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/variables.css">
+  <link rel="stylesheet" href="../css/auth.css">
+</head>
+<body class="auth-page">
+  <main class="auth-page__container auth-login">
+    <a class="auth-page__logo" href="index.html">
+      <img src="../assets/icons/logo.svg" alt="Pascal Vent">
+    </a>
+
+    <section class="auth-card">
+      <h1 class="auth-card__title" data-i18n="auth.login.title">Вход</h1>
+
+      <form id="login-form" novalidate>
+        <label class="auth-field">
+          <span class="auth-field__label" data-i18n="auth.login.identifier">Email или телефон</span>
+          <div class="auth-field__control">
+            <input class="auth-field__input" name="identifier" autocomplete="username" required>
+          </div>
+          <span class="auth-field__error"></span>
+        </label>
+
+        <label class="auth-field">
+          <span class="auth-field__label" data-i18n="auth.login.password">Пароль</span>
+          <div class="auth-field__control">
+            <input class="auth-field__input" name="password" type="password" autocomplete="current-password" required>
+            <button class="auth-password-toggle" type="button" aria-label="Показать пароль" aria-pressed="false">
+              <svg class="auth-password-toggle__icon auth-password-toggle__icon--show" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
+                <circle cx="12" cy="12" r="3.2" stroke="currentColor" stroke-width="1.8"/>
+              </svg>
+              <svg class="auth-password-toggle__icon auth-password-toggle__icon--hide" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M3 3l18 18" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+                <path d="M10.6 10.6a3.2 3.2 0 0 0 4.5 4.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+                <path d="M9.9 5.3A10.4 10.4 0 0 1 12 5c6.5 0 10 7 10 7a17.7 17.7 0 0 1-3.1 3.9M6.1 6.1C3.8 7.8 2 12 2 12s3.5 7 10 7c1.4 0 2.7-.3 3.9-.8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </button>
+          </div>
+          <span class="auth-field__error"></span>
+        </label>
+
+        <label class="auth-check">
+          <input type="checkbox" name="remember">
+          <span data-i18n="auth.login.remember">Запомнить меня</span>
+        </label>
+
+        <div class="auth-actions">
+          <button class="auth-button" type="submit" data-i18n="auth.login.submit">Войти</button>
+          <a class="auth-link" href="register.html" data-i18n="auth.login.registerLink">
+            Нет аккаунта? Зарегистрироваться
+          </a>
+        </div>
+      </form>
+    </section>
+  </main>
+
+  <script type="module" src="../js/auth/login.js"></script>
+</body>
+</html>

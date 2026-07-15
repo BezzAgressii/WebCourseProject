@@ -1,6 +1,7 @@
 import api from './api.js';
 import DETAILED_TRANSLATIONS from './detailed-translation.js';
 import i18n from './i18n.js';
+import { resolveAssetPath } from './auth-session.js';
 
 class ProductPage {
   constructor() {
@@ -36,17 +37,30 @@ class ProductPage {
   }
 
   render() {
-    if (!this.product || this.product.category !== 'ventilation' || !this.product.details) {
+    if (!this.product || !this.product.details) {
+      this.elements.content.innerHTML = `<p class="product-page__empty">${this.t('unavailable')}</p>`;
+      return;
+    }
+
+    if (this.product.category === 'conditioning') {
+      this.renderConditioningProduct();
+      return;
+    }
+
+    if (this.product.category === 'pools') {
+      this.renderPoolProduct();
+      return;
+    }
+
+    if (this.product.category !== 'ventilation') {
       this.elements.content.innerHTML = `<p class="product-page__empty">${this.t('unavailable')}</p>`;
       return;
     }
 
     const productName = this.product.name_i18n[i18n.currentLang] || this.product.name_i18n.ru;
     const details = this.product.details;
-    const image = this.product.images[0] || 'assets/images/cta-fan.png';
-    const availability = this.product.inStock
-      ? this.t('inStock')
-      : `${this.t('madeToOrder')} (${this.t('deliveryFrom')} ${this.product.deliveryDays || 5} ${this.t('days')})`;
+    const image = resolveAssetPath(this.product.images[0]);
+    const availability = this.getAvailability();
 
     document.title = `${productName} — Pascal Vent`;
     this.elements.content.innerHTML = `
@@ -102,6 +116,178 @@ class ProductPage {
       </div>
     `;
 
+    this.bindOrderButton();
+  }
+
+  renderConditioningProduct() {
+    const product = this.product;
+    const details = product.details;
+    const name = product.name_i18n[i18n.currentLang] || product.name_i18n.ru;
+    const image = resolveAssetPath(product.images[0]);
+
+    document.title = `${name} — Pascal Vent`;
+    this.elements.content.innerHTML = `
+      <a class="product-page__back" href="category.html?category=conditioning">← ${this.t('backToCatalog')}</a>
+      <div class="product-page__hero">
+        <div class="product-page__image-wrap"><img class="product-page__image" src="${this.escapeHtml(image)}" alt="${this.escapeHtml(name)}"></div>
+        <div class="product-page__overview">
+          <h1 class="product-page__title">${this.escapeHtml(name)}</h1>
+          <section class="product-page__detail-card">
+            <h2 class="product-page__detail-title">${this.t('mainParameters')}</h2>
+            <ul class="product-page__summary">
+              ${this.summaryItem('brand', product.brand)}
+              ${this.summaryItem('series', details.series)}
+              ${this.summaryItem('model', details.model)}
+              ${this.summaryItem('installationType', this.getInstallationLabel(product.installType))}
+              ${this.summaryItem('inverterTechnology', this.t(product.isInverter ? 'inverter' : 'onOff'))}
+              ${this.summaryItem('recommendedArea', `${product.area} м²`)}
+              ${this.summaryItem('availability', this.getAvailability())}
+            </ul>
+          </section>
+          <div class="product-page__purchase">
+            <span class="product-page__price">${this.formatPrice(product.price)}</span>
+            <button class="product-page__order" type="button" data-action="create-order">${this.t('order')}</button>
+          </div>
+        </div>
+      </div>
+      <div class="product-page__details">
+        ${this.detailBlock(this.t('operationAndClimate'), [
+          ['minimumHeatingTemp', `${this.t('upTo')} ${product.heatingTemp} °C`],
+          ['minimumCoolingTemp', `${this.t('upTo')} ${details.coolingMinTemp} °C`],
+          ['maximumOperatingTemp', `${this.t('upTo')} +${details.maxOperatingTemp} °C`],
+          ['refrigerant', details.refrigerant]
+        ])}
+        ${this.detailBlock(this.t('controlAndSmartFeatures'), [
+          ['wifiControl', this.getWifiLabel(details.wifiMode)],
+          ['smartHome', details.smartHomeMode === 'alica' ? this.t('smartHomeYes') : this.t('no')],
+          ['remoteControl', details.remoteControl ? this.t('yes') : this.t('no')],
+          ['indoorNoise', `${details.indoorNoiseMin} / ${details.indoorNoiseMax} дБ`],
+          ['outdoorNoise', `${details.outdoorNoise} дБ`]
+        ])}
+        ${this.detailBlock(this.t('electricalDetails'), [
+          ['maxPower', `${product.maxPower} кВт`],
+          ['coolingPower', `${product.coolingPower} кВт`],
+          ['heatingPower', `${product.heatingPower} кВт`],
+          ['powerSupply', details.powerSupply],
+          ['nominalCurrent', `${details.nominalCurrent} А`]
+        ])}
+        ${this.detailBlock(this.t('designAndDimensions'), [
+          ['color', this.getColorLabel(product.color)],
+          ['width', `${details.width} см`],
+          ['height', `${details.height} см`],
+          ['depth', `${details.depth} см`],
+          ['netWeight', `${details.netWeight} кг`],
+          ['grossWeight', `${details.grossWeight} кг`]
+        ])}
+      </div>
+    `;
+    this.bindOrderButton();
+  }
+
+  renderPoolProduct() {
+    const product = this.product;
+    const details = product.details;
+    const name = product.name_i18n[i18n.currentLang] || product.name_i18n.ru;
+    const image = resolveAssetPath(product.images[0]);
+
+    document.title = `${name} — Pascal Vent`;
+    this.elements.content.innerHTML = `
+      <a class="product-page__back" href="category.html?category=pools">← ${this.t('backToCatalog')}</a>
+      <div class="product-page__hero">
+        <div class="product-page__image-wrap"><img class="product-page__image" src="${this.escapeHtml(image)}" alt="${this.escapeHtml(name)}"></div>
+        <div class="product-page__overview">
+          <h1 class="product-page__title">${this.escapeHtml(name)}</h1>
+          <section class="product-page__detail-card">
+            <h2 class="product-page__detail-title">${this.t('mainParameters')}</h2>
+            <ul class="product-page__summary">
+              ${this.summaryItem('brand', product.brand)}
+              ${this.summaryItem('series', details.series)}
+              ${this.summaryItem('model', details.model)}
+              ${this.summaryItem('mountType', this.getMountLabel(product.mountType))}
+              ${this.summaryItem('chassis', product.hasChassis ? this.t('chassisYes') : this.t('chassisNo'))}
+              ${this.summaryItem('availability', this.getAvailability())}
+              ${this.summaryItem('warranty', `${details.warrantyYears} ${this.t('years')}`)}
+            </ul>
+          </section>
+          <div class="product-page__purchase">
+            <span class="product-page__price">${this.formatPrice(product.price)}</span>
+            <button class="product-page__order" type="button" data-action="create-order">${this.t('order')}</button>
+          </div>
+        </div>
+      </div>
+      <div class="product-page__details">
+        ${this.detailBlock(this.t('dehumidificationPerformance'), [
+          ['moistureRemoval', `${product.moistureRemoval} л/сутки`],
+          ['airflow', `${product.performance} м³/час`]
+        ])}
+        ${this.detailBlock(this.t('electricityAndSafety'), [
+          ['powerSupply', `${product.powerType} В`],
+          ['protectionClass', details.protectionClass]
+        ])}
+        ${this.detailBlock(this.t('condensateAndConstruction'), [
+          ['drainPump', product.hasDrainPump ? this.t('yes') : this.t('no')],
+          ['noiseLevel', `${product.noiseLevel} дБ`]
+        ])}
+        ${this.detailBlock(this.t('dimensionsAndWeight'), [
+          ['width', `${details.width} см`],
+          ['height', `${details.height} см`],
+          ['depth', `${details.depth} см`],
+          ['netWeight', `${details.netWeight} кг`],
+          ['grossWeight', `${details.grossWeight} кг`]
+        ])}
+      </div>
+    `;
+    this.bindOrderButton();
+  }
+
+  getAvailability() {
+    return this.product.inStock
+      ? this.t('inStock')
+      : `${this.t('madeToOrder')} (${this.t('deliveryFrom')} ${this.product.deliveryDays || 5} ${this.t('days')})`;
+  }
+
+  getInstallationLabel(type) {
+    const labels = {
+      wall: 'wallMount',
+      duct: 'ductMount',
+      cassette: 'cassetteMount'
+    };
+
+    return this.t(labels[type] || type);
+  }
+
+  getMountLabel(type) {
+    const labels = {
+      floor: 'floorMount',
+      wall: 'wallMount',
+      duct: 'ductMount'
+    };
+
+    return this.t(labels[type] || type);
+  }
+
+  getColorLabel(color) {
+    const labels = {
+      white: 'whiteColor',
+      'matte-white': 'matteWhiteColor',
+      'graphite-black': 'graphiteBlackColor',
+      gold: 'goldColor'
+    };
+
+    return this.t(labels[color] || color);
+  }
+
+  getWifiLabel(mode) {
+    const labels = {
+      builtIn: 'wifiBuiltIn',
+      option: 'wifiOption',
+      none: 'wifiNone'
+    };
+
+    return this.t(labels[mode] || 'wifiNone');
+  }
+
+  bindOrderButton() {
     this.elements.content.querySelector('[data-action="create-order"]').addEventListener('click', () => {
       console.log('Create order for:', this.product.id);
     });

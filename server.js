@@ -49,7 +49,12 @@ function removeNullForeignKeys(value) {
 
 function sanitizeDatabase() {
   const database = JSON.parse(fs.readFileSync(databasePath, 'utf8'));
-  const hasChanges = removeNullForeignKeys(database);
+  let hasChanges = removeNullForeignKeys(database);
+
+  if (!Array.isArray(database.orders)) {
+    database.orders = [];
+    hasChanges = true;
+  }
 
   if (hasChanges) {
     fs.writeFileSync(databasePath, `${JSON.stringify(database, null, 2)}\n`, 'utf8');
@@ -71,12 +76,29 @@ const jsonServerOptions = {
 server.use(middlewares);
 server.use(jsonServer.bodyParser);
 
+server.get('/', (request, response) => {
+  response.redirect('/pages/index.html');
+});
+
 server.post('/api/order', (request, response) => {
-  console.log('New order:', request.body);
-  response.status(201).json({
-    success: true,
-    message: 'Заказ создан'
-  });
+  const db = router.db;
+
+  if (!db.has('orders').value()) {
+    db.set('orders', []).write();
+  }
+
+  const order = {
+    id: `order-${Date.now()}`,
+    userId: request.body.userId || null,
+    items: Array.isArray(request.body.items) ? request.body.items : [],
+    total: Number(request.body.total) || 0,
+    status: request.body.status || 'processing',
+    createdAt: new Date().toISOString()
+  };
+
+  db.get('orders').push(order).write();
+  console.log('New order:', order.id);
+  response.status(201).json(order);
 });
 
 server.post('/api/callback', (request, response) => {
@@ -97,4 +119,5 @@ if (jsonServerOptions.watch) {
 
 server.listen(port, () => {
   console.log(`Pascal Vent API is running at http://localhost:${port}`);
+  console.log(`Pages: http://localhost:${port}/pages/index.html`);
 });

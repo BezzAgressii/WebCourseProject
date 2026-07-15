@@ -2,11 +2,19 @@
   "products": [
     {
       "id": "pv-vent-001",
-      "name_i18n": {"ru": "Приточно-вытяжная установка AirFlow 500", "be": "Прытокава-выцяжная ўстаноўка AirFlow 500", "en": "AirFlow 500 supply and exhaust unit"},
+      "name_i18n": {
+        "ru": "Приточно-вытяжная установка AirFlow 500",
+        "be": "Прытокава-выцяжная ўстаноўка AirFlow 500",
+        "en": "AirFlow 500 supply and exhaust unit"
+      },
       "category": "ventilation",
       "subcategory": "supply-exhaust",
       "price": 4890,
-      "specs": ["500 м³/ч", "до 70 м²", "Рекуперация до 85%"],
+      "specs": [
+        "500 м³/ч",
+        "до 70 м²",
+        "Рекуперация до 85%"
+      ],
       "performance": 500,
       "area": 70,
       "maxPower": 1.8,
@@ -19,7 +27,11 @@
       "details": {
         "brand": "iVent",
         "model": "iVent 500 Sand Hill",
-        "type_i18n": {"ru": "Приточно-вытяжная установка с рекуперацией", "be": "Прытокава-выцяжная ўстаноўка з рэкуперацыяй", "en": "Supply and exhaust unit with heat recovery"},
+        "type_i18n": {
+          "ru": "Приточно-вытяжная установка с рекуперацией",
+          "be": "Прытокава-выцяжная ўстаноўка з рэкуперацыяй",
+          "en": "Supply and exhaust unit with heat recovery"
+        },
         "staticPressure": 320,
         "recoveryEfficiency": 85,
         "noiseLevel": 32,
@@ -36,15 +48,27 @@
         "grossWeight": 38
       },
       "inStock": true,
-      "images": ["assets/images/services-photo-741206.png"]
+      "images": [
+        "assets/images/services-photo-741206.png",
+        "assets/images/portfolio-photo-1.png",
+        "assets/images/benefits-photo-1-6a89c7.png"
+      ]
     },
     {
       "id": "pv-vent-002",
-      "name_i18n": {"ru": "Приточно-вытяжная установка VentPro 800", "be": "Прытокава-выцяжная ўстаноўка VentPro 800", "en": "VentPro 800 supply and exhaust unit"},
+      "name_i18n": {
+        "ru": "Приточно-вытяжная установка VentPro 800",
+        "be": "Прытокава-выцяжная ўстаноўка VentPro 800",
+        "en": "VentPro 800 supply and exhaust unit"
+      },
       "category": "ventilation",
       "subcategory": "supply-exhaust",
       "price": 6720,
-      "specs": ["800 м³/ч", "до 115 м²", "EC-двигатель"],
+      "specs": [
+        "800 м³/ч",
+        "до 115 м²",
+        "EC-двигатель"
+      ],
       "performance": 800,
       "area": 115,
       "maxPower": 2.4,
@@ -57,7 +81,11 @@
       "details": {
         "brand": "VentPro",
         "model": "VentPro 800 EC",
-        "type_i18n": {"ru": "Компактная приточно-вытяжная установка с роторным рекуператором", "be": "Кампактная прытокава-выцяжная ўстаноўка з ротарным рэкуператарам", "en": "Compact supply and exhaust unit with rotary heat recovery"},
+        "type_i18n": {
+          "ru": "Компактная приточно-вытяжная установка с роторным рекуператором",
+          "be": "Кампактная прытокава-выцяжная ўстаноўка з ротарным рэкуператарам",
+          "en": "Compact supply and exhaust unit with rotary heat recovery"
+        },
         "staticPressure": 420,
         "recoveryEfficiency": 82,
         "noiseLevel": 39,
@@ -74,15 +102,27 @@
         "grossWeight": 52
       },
       "inStock": true,
-      "images": ["assets/images/portfolio-photo-1.png"]
+      "images": [
+        "assets/images/portfolio-photo-1.png",
+        "assets/images/services-photo-741206.png",
+        "assets/images/portfolio-photo-2.png"
+      ]
     },
     {
       "id": "pv-vent-003",
-      "name_i18n": {"ru": "Приточно-вытяжная установка NordAir 1200", "be": "Прытокава-выцяжная ўстаноўка NordAir 1200", "en": "NordAir 1200 supply and exhaust unit"},
+      "name_i18n": {
+        "ru": "Приточно-вытяжная установка NordAir 1200",
+        "be": "Прытокава-выцяжная ўстаноўка NordAir 1200",
+        "en": "NordAir 1200 supply and exhaust unit"
+      },
       "category": "ventilation",
       "subcategory": "supply-exhaust",
       "price": 9250,
-      "specs": ["1200 м³/ч", "до 170 м²", "Жидкостный нагреватель"],
+      "specs": [
+        "1200 м³/ч",
+        "до 170 м²",
+        "Жидкостный нагреватель"
+      ],
       "performance": 1200,
       "area": 170,
       "maxPower": 3.6,
@@ -95,7 +135,11 @@
       "details": {
         "brand": "NordAir",
         "model": "NordAir 1200 Hydro",
-        "type_i18n": {"ru": "Центральная приточно-вытяжная установка с пластинчатым рекуператором", "be": "Цэнтральная прытокава-выцяжная ўстаноўка з пласціністым рэкуператарам", "en": "Central supply and exhaust unit with plate heat recovery"},
+        "type_i18n": {
+          "ru": "Центральная приточно-вытяжная установка с пластинчатым рекуператором",
+          "be": "Цэнтральная прытокава-выцяжная ўстаноўка з пласціністым рэкуператарам",
+          "en": "Central supply and exhaust unit with plate heat recovery"
+        },
         "staticPressure": 550,
         "recoveryEfficiency": 78,
         "noiseLevel": 51,
@@ -112,15 +156,27 @@
         "grossWeight": 90
       },
       "inStock": false,
-      "images": ["assets/images/services-photo-mobile-77f5cf.png"]
+      "images": [
+        "assets/images/services-photo-mobile-77f5cf.png",
+        "assets/images/portfolio-photo-3.png",
+        "assets/images/benefits-photo-2-12310e.png"
+      ]
     },
     {
       "id": "pv-vent-004",
-      "name_i18n": {"ru": "Установка высокой фильтрации PureAir 600", "be": "Устаноўка высокай фільтрацыі PureAir 600", "en": "PureAir 600 high-filtration unit"},
+      "name_i18n": {
+        "ru": "Установка высокой фильтрации PureAir 600",
+        "be": "Устаноўка высокай фільтрацыі PureAir 600",
+        "en": "PureAir 600 high-filtration unit"
+      },
       "category": "ventilation",
       "subcategory": "high-filtration",
       "price": 5480,
-      "specs": ["600 м³/ч", "до 85 м²", "Фильтрация HEPA H13"],
+      "specs": [
+        "600 м³/ч",
+        "до 85 м²",
+        "Фильтрация HEPA H13"
+      ],
       "performance": 600,
       "area": 85,
       "maxPower": 1.5,
@@ -133,12 +189,16 @@
       "details": {
         "brand": "PureAir",
         "model": "PureAir 600 H13",
-        "type_i18n": {"ru": "Приточная установка высокой фильтрации", "be": "Прытокавая ўстаноўка высокай фільтрацыі", "en": "High-filtration supply air unit"},
+        "type_i18n": {
+          "ru": "Приточная установка высокой фильтрации",
+          "be": "Прытокавая ўстаноўка высокай фільтрацыі",
+          "en": "High-filtration supply air unit"
+        },
         "staticPressure": 360,
         "recoveryEfficiency": 0,
         "noiseLevel": 41,
         "warrantyYears": 3,
-        "heaterPower": 1.0,
+        "heaterPower": 1,
         "powerSupply": "220–240 В (1 фаза)",
         "nominalCurrent": 6.8,
         "bodyMaterial": "galvanizedSteel",
@@ -150,15 +210,27 @@
         "grossWeight": 46
       },
       "inStock": true,
-      "images": ["assets/images/benefits-photo-1-6a89c7.png"]
+      "images": [
+        "assets/images/benefits-photo-1-6a89c7.png",
+        "assets/images/services-photo-741206.png",
+        "assets/images/portfolio-photo-4.png"
+      ]
     },
     {
       "id": "pv-vent-005",
-      "name_i18n": {"ru": "Канальный увлажнитель HumidAir 300", "be": "Канальны ўвільгатняльнік HumidAir 300", "en": "HumidAir 300 duct humidifier"},
+      "name_i18n": {
+        "ru": "Канальный увлажнитель HumidAir 300",
+        "be": "Канальны ўвільгатняльнік HumidAir 300",
+        "en": "HumidAir 300 duct humidifier"
+      },
       "category": "ventilation",
       "subcategory": "humidifiers",
       "price": 2960,
-      "specs": ["300 м³/ч", "до 45 м²", "Ультразвуковое увлажнение"],
+      "specs": [
+        "300 м³/ч",
+        "до 45 м²",
+        "Ультразвуковое увлажнение"
+      ],
       "performance": 300,
       "area": 45,
       "maxPower": 0.6,
@@ -171,7 +243,11 @@
       "details": {
         "brand": "HumidAir",
         "model": "HumidAir 300 Ultra",
-        "type_i18n": {"ru": "Канальный ультразвуковой увлажнитель", "be": "Канальны ультрагукавы ўвільгатняльнік", "en": "Ducted ultrasonic humidifier"},
+        "type_i18n": {
+          "ru": "Канальный ультразвуковой увлажнитель",
+          "be": "Канальны ультрагукавы ўвільгатняльнік",
+          "en": "Ducted ultrasonic humidifier"
+        },
         "staticPressure": 180,
         "recoveryEfficiency": 0,
         "noiseLevel": 29,
@@ -188,15 +264,27 @@
         "grossWeight": 20
       },
       "inStock": true,
-      "images": ["assets/images/benefits-photo-2-12310e.png"]
+      "images": [
+        "assets/images/benefits-photo-2-12310e.png",
+        "assets/images/services-photo-mobile-77f5cf.png",
+        "assets/images/portfolio-photo-1.png"
+      ]
     },
     {
       "id": "pv-cond-001",
-      "name_i18n": {"ru": "Инверторный кондиционер AUX ASW-H12", "be": "Інвертарны кандыцыянер AUX ASW-H12", "en": "AUX ASW-H12 inverter air conditioner"},
+      "name_i18n": {
+        "ru": "Инверторный кондиционер AUX ASW-H12",
+        "be": "Інвертарны кандыцыянер AUX ASW-H12",
+        "en": "AUX ASW-H12 inverter air conditioner"
+      },
       "category": "conditioning",
       "subcategory": "nastennye",
       "price": 2150,
-      "specs": ["AUX", "3.5 кВт", "до 35 м²"],
+      "specs": [
+        "AUX",
+        "3.5 кВт",
+        "до 35 м²"
+      ],
       "performance": 550,
       "area": 35,
       "maxPower": 1.1,
@@ -216,15 +304,27 @@
       "powerType": "220",
       "bodyMaterial": "polypropylene",
       "inStock": true,
-      "images": ["assets/images/portfolio-photo-2.png"]
+      "images": [
+        "assets/images/portfolio-photo-2.png",
+        "assets/images/portfolio-photo-1.png",
+        "assets/images/portfolio-photo-4.png"
+      ]
     },
     {
       "id": "pv-cond-002",
-      "name_i18n": {"ru": "Канальный кондиционер Ballu BLCI-24", "be": "Канальны кандыцыянер Ballu BLCI-24", "en": "Ballu BLCI-24 ducted air conditioner"},
+      "name_i18n": {
+        "ru": "Канальный кондиционер Ballu BLCI-24",
+        "be": "Канальны кандыцыянер Ballu BLCI-24",
+        "en": "Ballu BLCI-24 ducted air conditioner"
+      },
       "category": "conditioning",
       "subcategory": "kanalnye",
       "price": 5840,
-      "specs": ["Ballu", "7.1 кВт", "до 70 м²"],
+      "specs": [
+        "Ballu",
+        "7.1 кВт",
+        "до 70 м²"
+      ],
       "performance": 1100,
       "area": 70,
       "maxPower": 2.2,
@@ -244,15 +344,27 @@
       "powerType": "220",
       "bodyMaterial": "galvanized-steel",
       "inStock": true,
-      "images": ["assets/images/portfolio-photo-3.png"]
+      "images": [
+        "assets/images/portfolio-photo-3.png",
+        "assets/images/portfolio-photo-2.png",
+        "assets/images/benefits-photo-1-6a89c7.png"
+      ]
     },
     {
       "id": "pv-cond-003",
-      "name_i18n": {"ru": "Настенный кондиционер Breeon BRC-09", "be": "Насценны кандыцыянер Breeon BRC-09", "en": "Breeon BRC-09 wall-mounted air conditioner"},
+      "name_i18n": {
+        "ru": "Настенный кондиционер Breeon BRC-09",
+        "be": "Насценны кандыцыянер Breeon BRC-09",
+        "en": "Breeon BRC-09 wall-mounted air conditioner"
+      },
       "category": "conditioning",
       "subcategory": "nastennye",
       "price": 1680,
-      "specs": ["Breeon", "2.6 кВт", "до 25 м²"],
+      "specs": [
+        "Breeon",
+        "2.6 кВт",
+        "до 25 м²"
+      ],
       "performance": 430,
       "area": 25,
       "maxPower": 0.82,
@@ -272,15 +384,27 @@
       "powerType": "220",
       "bodyMaterial": "polypropylene",
       "inStock": true,
-      "images": ["assets/images/portfolio-photo-4.png"]
+      "images": [
+        "assets/images/portfolio-photo-4.png",
+        "assets/images/portfolio-photo-1.png",
+        "assets/images/benefits-photo-2-12310e.png"
+      ]
     },
     {
       "id": "pv-cond-004",
-      "name_i18n": {"ru": "Кассетный кондиционер Chigo CCA-18", "be": "Касетны кандыцыянер Chigo CCA-18", "en": "Chigo CCA-18 cassette air conditioner"},
+      "name_i18n": {
+        "ru": "Кассетный кондиционер Chigo CCA-18",
+        "be": "Касетны кандыцыянер Chigo CCA-18",
+        "en": "Chigo CCA-18 cassette air conditioner"
+      },
       "category": "conditioning",
       "subcategory": "kassetnye",
       "price": 4620,
-      "specs": ["Chigo", "5.3 кВт", "до 55 м²"],
+      "specs": [
+        "Chigo",
+        "5.3 кВт",
+        "до 55 м²"
+      ],
       "performance": 850,
       "area": 55,
       "maxPower": 1.7,
@@ -300,15 +424,27 @@
       "powerType": "220",
       "bodyMaterial": "galvanized-steel",
       "inStock": true,
-      "images": ["assets/images/portfolio-photo-1.png"]
+      "images": [
+        "assets/images/portfolio-photo-1.png",
+        "assets/images/portfolio-photo-3.png",
+        "assets/images/benefits-photo-3-62e3bc.png"
+      ]
     },
     {
       "id": "pv-cond-005",
-      "name_i18n": {"ru": "Инверторный кондиционер Dahatsu DMI-12", "be": "Інвертарны кандыцыянер Dahatsu DMI-12", "en": "Dahatsu DMI-12 inverter air conditioner"},
+      "name_i18n": {
+        "ru": "Инверторный кондиционер Dahatsu DMI-12",
+        "be": "Інвертарны кандыцыянер Dahatsu DMI-12",
+        "en": "Dahatsu DMI-12 inverter air conditioner"
+      },
       "category": "conditioning",
       "subcategory": "nastennye",
       "price": 2470,
-      "specs": ["Dahatsu", "3.5 кВт", "до 35 м²"],
+      "specs": [
+        "Dahatsu",
+        "3.5 кВт",
+        "до 35 м²"
+      ],
       "performance": 580,
       "area": 35,
       "maxPower": 1.05,
@@ -328,15 +464,27 @@
       "powerType": "220",
       "bodyMaterial": "polypropylene",
       "inStock": false,
-      "images": ["assets/images/portfolio-photo-2.png"]
+      "images": [
+        "assets/images/portfolio-photo-2.png",
+        "assets/images/portfolio-photo-4.png",
+        "assets/images/benefits-photo-1-6a89c7.png"
+      ]
     },
     {
       "id": "pv-cond-006",
-      "name_i18n": {"ru": "Настенный кондиционер Daichi ICE25", "be": "Насценны кандыцыянер Daichi ICE25", "en": "Daichi ICE25 wall-mounted air conditioner"},
+      "name_i18n": {
+        "ru": "Настенный кондиционер Daichi ICE25",
+        "be": "Насценны кандыцыянер Daichi ICE25",
+        "en": "Daichi ICE25 wall-mounted air conditioner"
+      },
       "category": "conditioning",
       "subcategory": "nastennye",
       "price": 2890,
-      "specs": ["Daichi", "2.5 кВт", "до 25 м²"],
+      "specs": [
+        "Daichi",
+        "2.5 кВт",
+        "до 25 м²"
+      ],
       "performance": 420,
       "area": 25,
       "maxPower": 0.78,
@@ -356,15 +504,27 @@
       "powerType": "220",
       "bodyMaterial": "polypropylene",
       "inStock": true,
-      "images": ["assets/images/benefits-photo-1-6a89c7.png"]
+      "images": [
+        "assets/images/benefits-photo-1-6a89c7.png",
+        "assets/images/portfolio-photo-2.png",
+        "assets/images/portfolio-photo-3.png"
+      ]
     },
     {
       "id": "pv-cond-007",
-      "name_i18n": {"ru": "Канальный кондиционер Denko DU-36", "be": "Канальны кандыцыянер Denko DU-36", "en": "Denko DU-36 ducted air conditioner"},
+      "name_i18n": {
+        "ru": "Канальный кондиционер Denko DU-36",
+        "be": "Канальны кандыцыянер Denko DU-36",
+        "en": "Denko DU-36 ducted air conditioner"
+      },
       "category": "conditioning",
       "subcategory": "kanalnye",
       "price": 8240,
-      "specs": ["Denko", "10.5 кВт", "до 105 м²"],
+      "specs": [
+        "Denko",
+        "10.5 кВт",
+        "до 105 м²"
+      ],
       "performance": 1650,
       "area": 105,
       "maxPower": 3.5,
@@ -384,15 +544,27 @@
       "powerType": "380",
       "bodyMaterial": "galvanized-steel",
       "inStock": true,
-      "images": ["assets/images/benefits-photo-2-12310e.png"]
+      "images": [
+        "assets/images/benefits-photo-2-12310e.png",
+        "assets/images/portfolio-photo-3.png",
+        "assets/images/portfolio-photo-4.png"
+      ]
     },
     {
       "id": "pv-pool-001",
-      "name_i18n": {"ru": "Осушитель воздуха PoolDry 90", "be": "Асушальнік паветра PoolDry 90", "en": "PoolDry 90 dehumidifier"},
+      "name_i18n": {
+        "ru": "Осушитель воздуха PoolDry 90",
+        "be": "Асушальнік паветра PoolDry 90",
+        "en": "PoolDry 90 dehumidifier"
+      },
       "category": "pools",
       "subcategory": "osushiteli",
       "price": 7390,
-      "specs": ["90 л/сутки", "до 100 м²", "Встроенный гигростат"],
+      "specs": [
+        "90 л/сутки",
+        "до 100 м²",
+        "Встроенный гигростат"
+      ],
       "performance": 900,
       "area": 100,
       "maxPower": 2.1,
@@ -410,15 +582,27 @@
       "powerType": "220",
       "bodyMaterial": "polypropylene",
       "inStock": true,
-      "images": ["assets/images/card-pools-5b74f6.png"]
+      "images": [
+        "assets/images/card-pools-5b74f6.png",
+        "assets/images/benefits-photo-3-62e3bc.png",
+        "assets/images/portfolio-photo-1.png"
+      ]
     },
     {
       "id": "pv-pool-002",
-      "name_i18n": {"ru": "Канальный осушитель AquaVent 160", "be": "Канальны асушальнік AquaVent 160", "en": "AquaVent 160 ducted dehumidifier"},
+      "name_i18n": {
+        "ru": "Канальный осушитель AquaVent 160",
+        "be": "Канальны асушальнік AquaVent 160",
+        "en": "AquaVent 160 ducted dehumidifier"
+      },
       "category": "pools",
       "subcategory": "osushiteli",
       "price": 11800,
-      "specs": ["160 л/сутки", "1650 м³/ч", "Подключение к воздуховодам"],
+      "specs": [
+        "160 л/сутки",
+        "1650 м³/ч",
+        "Подключение к воздуховодам"
+      ],
       "performance": 1650,
       "area": 180,
       "maxPower": 4.3,
@@ -436,7 +620,63 @@
       "powerType": "380",
       "bodyMaterial": "galvanized-steel",
       "inStock": false,
-      "images": ["assets/images/benefits-photo-3-62e3bc.png"]
+      "images": [
+        "assets/images/benefits-photo-3-62e3bc.png",
+        "assets/images/card-pools-5b74f6.png",
+        "assets/images/portfolio-photo-4.png"
+      ]
+    }
+  ],
+  "users": [
+    {
+      "id": "admin-pascal-vent",
+      "firstName": "Администратор",
+      "lastName": "Pascal Vent",
+      "middleName": "",
+      "birthDate": "1990-01-01",
+      "phone": "+375 (29) 000-00-00",
+      "email": "admin@pascalvent.by",
+      "nickname": "pascal_admin",
+      "password": "Admin123!",
+      "role": "admin",
+      "createdAt": "2026-07-15T00:00:00.000Z"
+    },
+    {
+      "id": "user-ivan-petrov",
+      "firstName": "Иван",
+      "lastName": "Петров",
+      "middleName": "Сергеевич",
+      "birthDate": "1995-03-15",
+      "phone": "+375 (29) 123-45-67",
+      "email": "ivan.petrov@example.com",
+      "nickname": "ivan_petrov",
+      "password": "UserPass123!",
+      "role": "user",
+      "createdAt": "2026-07-15T00:00:00.000Z"
+    }
+  ],
+  "orders": [
+    {
+      "id": "order-1784138105723",
+      "userId": "user-ivan-petrov",
+      "items": [
+        {
+          "productId": "pv-vent-001",
+          "name": "Приточно-вытяжная установка AirFlow 500",
+          "name_i18n": {
+            "ru": "Приточно-вытяжная установка AirFlow 500",
+            "be": "Прытокава-выцяжная ўстаноўка AirFlow 500",
+            "en": "AirFlow 500 supply and exhaust unit"
+          },
+          "price": 4890,
+          "quantity": 23,
+          "lineTotal": 112470,
+          "image": "assets/images/services-photo-741206.png"
+        }
+      ],
+      "total": 112470,
+      "status": "processing",
+      "createdAt": "2026-07-15T17:55:05.723Z"
     }
   ]
 }

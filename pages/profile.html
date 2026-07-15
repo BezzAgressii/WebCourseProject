@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Профиль — Pascal Vent</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/variables.css">
+  <link rel="stylesheet" href="../css/header.css">
+  <link rel="stylesheet" href="../css/main.css">
+  <link rel="stylesheet" href="../css/cart.css">
+  <link rel="stylesheet" href="../css/profile.css">
+  <link rel="stylesheet" href="../css/auth.css">
+  <link rel="stylesheet" href="../css/footer.css">
+</head>
+<body data-page="profile">
+  <header class="header header--page">
+    <div class="header__inner">
+      <a href="index.html" class="header__logo" data-i18n-aria="header.logoAria" aria-label="Pascal Vent — главная">
+        <picture>
+          <source media="(max-width: 480px)" srcset="../assets/images/footer-mobile-logo.svg">
+          <img src="../assets/icons/logo.svg" alt="Pascal Vent">
+        </picture>
+      </a>
+      <nav class="header__nav" data-i18n-aria="header.navAria" aria-label="Основное меню">
+        <ul class="nav__list">
+          <li><a href="index.html#services" data-i18n="header.services">Услуги</a></li>
+          <li><a href="catalog.html" data-i18n="header.catalog">Каталог</a></li>
+          <li><a href="cart.html" data-i18n="header.cart">Корзина</a></li>
+          <li><a href="profile.html" data-i18n="header.profile">Профиль</a></li>
+        </ul>
+      </nav>
+      <div class="header__actions">
+        <div class="lang-switch" role="group" data-i18n-aria="header.langAria" aria-label="Выбор языка">
+          <button type="button" class="lang-switch__btn" data-lang="ru" aria-pressed="true">RU</button>
+          <button type="button" class="lang-switch__btn" data-lang="be" aria-pressed="false">BE</button>
+          <button type="button" class="lang-switch__btn" data-lang="en" aria-pressed="false">EN</button>
+        </div>
+        <a class="header__profile" href="login.html" data-header-profile data-i18n-aria="header.profile" aria-label="Профиль">
+          <svg class="header__profile-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <circle cx="12" cy="8" r="3.5" stroke="currentColor" stroke-width="1.8"/>
+            <path d="M5 19.5c1.8-3.2 4.2-4.8 7-4.8s5.2 1.6 7 4.8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+          </svg>
+        </a>
+        <button class="header__burger" type="button" data-i18n-aria="header.openMenu" aria-label="Открыть меню" aria-expanded="false" aria-controls="mobile-nav">
+          <span class="header__burger-line" aria-hidden="true"></span>
+          <span class="header__burger-line" aria-hidden="true"></span>
+          <span class="header__burger-line" aria-hidden="true"></span>
+        </button>
+        <button class="header__btn" type="button" data-i18n-aria="header.contact" aria-label="Связаться">
+          <span class="header__btn-text" data-i18n="header.contact">Связаться</span>
+        </button>
+      </div>
+    </div>
+    <nav class="header__mobile-nav" id="mobile-nav" data-i18n-aria="header.mobileNavAria" aria-label="Мобильное меню" hidden>
+      <ul class="header__mobile-list">
+        <li><a href="catalog.html" data-i18n="header.catalog">Каталог</a></li>
+        <li><a href="cart.html" data-i18n="header.cart">Корзина</a></li>
+        <li><a href="profile.html" data-i18n="header.profile">Профиль</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <section class="account-page" aria-labelledby="profile-title">
+      <div class="account-page__inner">
+        <nav class="account-page__breadcrumbs" aria-label="Хлебные крошки">
+          <a href="index.html" data-i18n="category.home">Главная</a>
+          <span aria-hidden="true">/</span>
+          <span data-i18n="profile.title">Профиль</span>
+        </nav>
+
+        <h1 class="account-page__title" id="profile-title" data-i18n="profile.title">Профиль</h1>
+
+        <div class="profile-layout">
+          <section class="profile-hero" aria-labelledby="profile-name">
+            <h2 class="profile-hero__name" id="profile-name">—</h2>
+            <ul class="profile-hero__meta">
+              <li><strong data-i18n="profile.nickname">Никнейм</strong>: <span id="profile-nickname">—</span></li>
+              <li><strong data-i18n="auth.register.email">Email</strong>: <span id="profile-email">—</span></li>
+              <li><strong data-i18n="auth.register.phone">Телефон</strong>: <span id="profile-phone">—</span></li>
+              <li><strong data-i18n="profile.role">Роль</strong>: <span id="profile-role">—</span></li>
+            </ul>
+          </section>
+
+          <div class="profile-grid">
+            <section class="profile-panel" aria-labelledby="orders-title">
+              <h2 class="profile-panel__title" id="orders-title" data-i18n="profile.ordersTitle">История заказов</h2>
+              <p class="account-page__empty" id="orders-empty" data-i18n="profile.ordersEmpty">Заказов пока нет</p>
+              <div class="profile-orders" id="orders-list" hidden></div>
+            </section>
+
+            <section class="profile-panel" aria-labelledby="settings-title">
+              <h2 class="profile-panel__title" id="settings-title" data-i18n="profile.settingsTitle">Настройки</h2>
+              <form class="profile-settings" id="profile-settings-form" novalidate>
+                <label class="profile-settings__field">
+                  <span class="profile-settings__label" data-i18n="auth.register.firstName">Имя</span>
+                  <input class="profile-settings__input" name="firstName" required>
+                </label>
+                <label class="profile-settings__field">
+                  <span class="profile-settings__label" data-i18n="auth.register.lastName">Фамилия</span>
+                  <input class="profile-settings__input" name="lastName" required>
+                </label>
+                <label class="profile-settings__field">
+                  <span class="profile-settings__label" data-i18n="auth.register.email">Email</span>
+                  <input class="profile-settings__input" name="email" type="email" required>
+                </label>
+                <label class="profile-settings__field">
+                  <span class="profile-settings__label" data-i18n="auth.register.phone">Телефон</span>
+                  <input class="profile-settings__input" name="phone" required>
+                </label>
+                <div class="profile-settings__actions">
+                  <button class="profile-button" type="submit" data-i18n="profile.save">Сохранить</button>
+                  <button class="profile-button profile-button--ghost" type="button" id="profile-logout" data-i18n="profile.logout">Выйти</button>
+                </div>
+              </form>
+            </section>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer" id="footer">
+    <div class="footer__bg" aria-hidden="true"><img src="../assets/images/footer-bg.svg" alt="" width="1440" height="528"></div>
+    <div class="footer__content">
+      <div class="footer__brand">
+        <a href="index.html" class="footer__logo footer__logo--desktop" data-i18n-aria="header.logoAria" aria-label="Pascal Vent — главная"><img src="../assets/images/footer-logo.svg" alt="Pascal Vent" width="352" height="109"></a>
+        <a href="index.html" class="footer__logo footer__logo--mobile" data-i18n-aria="header.logoAria" aria-label="Pascal Vent — главная"><img src="../assets/images/footer-mobile-logo.svg" alt="Pascal Vent" width="168" height="53"></a>
+      </div>
+    </div>
+  </footer>
+
+  <script type="module" src="../js/profile.js"></script>
+  <script type="module" src="../js/header.js"></script>
+</body>
+</html>

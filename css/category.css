@@ -463,6 +463,34 @@
   text-align: center;
 }
 
+.category-page__pagination {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 32px;
+}
+
+.category-page__pagination-button {
+  width: 42px;
+  height: 42px;
+  border: 1px solid rgba(73, 93, 76, 0.25);
+  border-radius: 12px;
+  background: #fff;
+  color: var(--color-dark-green);
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease;
+}
+
+.category-page__pagination-button:hover,
+.category-page__pagination-button--active {
+  border-color: var(--color-btn-green);
+  background: var(--color-btn-green);
+  color: #fff;
+  transform: translateY(-2px);
+}
+
 @media (max-width: 900px) {
   .category-page__layout {
     grid-template-columns: 1fr;

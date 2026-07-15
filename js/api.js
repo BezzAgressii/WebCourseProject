@@ -64,10 +64,32 @@ export const api = {
     return categoryIds.map((id) => ({ id }));
   },
 
+  async getUsers(filters = {}) {
+    return fetchAPI(`/users${createQueryString(filters)}`);
+  },
+
+  async createUser(userData) {
+    return fetchAPI('/users', {
+      method: 'POST',
+      body: JSON.stringify(userData)
+    });
+  },
+
   async createOrder(orderData) {
     return fetchAPI('/api/order', {
       method: 'POST',
       body: JSON.stringify(orderData)
+    });
+  },
+
+  async getOrders(filters = {}) {
+    return fetchAPI(`/orders${createQueryString(filters)}`);
+  },
+
+  async updateUser(id, userData) {
+    return fetchAPI(`/users/${encodeURIComponent(id)}`, {
+      method: 'PATCH',
+      body: JSON.stringify(userData)
     });
   },
 
