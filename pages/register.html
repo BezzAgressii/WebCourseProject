@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Регистрация — Pascal Vent</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/variables.css">
+  <link rel="stylesheet" href="../css/auth.css">
+</head>
+<body class="auth-page">
+  <main class="auth-page__container">
+    <a class="auth-page__logo" href="index.html">
+      <img src="../assets/icons/logo.svg" alt="Pascal Vent">
+    </a>
+
+    <section class="auth-card">
+      <h1 class="auth-card__title" data-i18n="auth.register.title">Регистрация</h1>
+
+      <form id="register-form" novalidate>
+        <fieldset class="auth-card__section">
+          <legend class="auth-card__legend" data-i18n="auth.register.personal">Личная информация</legend>
+          <div class="auth-card__grid">
+            <label class="auth-field">
+              <span class="auth-field__label" data-i18n="auth.register.firstName">Имя</span>
+              <input class="auth-field__input" name="firstName" required>
+              <span class="auth-field__error"></span>
+            </label>
+
+            <label class="auth-field">
+              <span class="auth-field__label" data-i18n="auth.register.lastName">Фамилия</span>
+              <input class="auth-field__input" name="lastName" required>
+              <span class="auth-field__error"></span>
+            </label>
+
+            <label class="auth-field">
+              <span class="auth-field__label" data-i18n="auth.register.middleName">Отчество</span>
+              <input class="auth-field__input" name="middleName">
+              <span class="auth-field__error"></span>
+            </label>
+
+            <label class="auth-field">
+              <span class="auth-field__label" data-i18n="auth.register.birthDate">Дата рождения</span>
+              <input class="auth-field__input" name="birthDate" type="date" required>
+              <span class="auth-field__error"></span>
+            </label>
+          </div>
+        </fieldset>
+
+        <fieldset class="auth-card__section">
+          <legend class="auth-card__legend" data-i18n="auth.register.contacts">Контактные данные</legend>
+          <div class="auth-card__grid">
+            <label class="auth-field">
+              <span class="auth-field__label" data-i18n="auth.register.phone">Телефон</span>
+              <input class="auth-field__input" name="phone" inputmode="tel" required>
+              <span class="auth-field__error"></span>
+            </label>
+
+            <label class="auth-field">
+              <span class="auth-field__label" data-i18n="auth.register.email">Email</span>
+              <input class="auth-field__input" name="email" type="email" required>
+              <span class="auth-field__error"></span>
+            </label>
+
+            <label class="auth-field auth-field--full">
+              <span class="auth-field__label" data-i18n="auth.register.nickname">Никнейм</span>
+              <div class="auth-actions">
+                <input class="auth-field__input" name="nickname" required>
+                <button class="auth-button auth-button--secondary" type="button" id="generate-nickname" data-i18n="auth.register.generateNickname">
+                  Сгенерировать
+                </button>
+              </div>
+              <span class="auth-field__error"></span>
+            </label>
+          </div>
+        </fieldset>
+
+        <fieldset class="auth-card__section">
+          <legend class="auth-card__legend" data-i18n="auth.register.passwordMethod">Способ создания пароля</legend>
+
+          <label class="auth-radio">
+            <input type="radio" name="passwordMethod" value="manual" checked>
+            <span data-i18n="auth.register.manualPassword">Ввести самостоятельно</span>
+          </label>
+
+          <label class="auth-radio">
+            <input type="radio" name="passwordMethod" value="auto">
+            <span data-i18n="auth.register.autoPassword">Сгенерировать автоматически</span>
+          </label>
+
+          <div class="auth-card__password-box" id="manual-password-box">
+            <div class="auth-card__grid">
+              <label class="auth-field">
+                <span class="auth-field__label" data-i18n="auth.register.password">Пароль</span>
+                <div class="auth-field__control">
+                  <input class="auth-field__input" name="password" type="password" autocomplete="new-password">
+                  <button class="auth-password-toggle" type="button" aria-label="Показать пароль" aria-pressed="false"></button>
+                </div>
+                <span class="auth-field__error"></span>
+              </label>
+
+              <label class="auth-field">
+                <span class="auth-field__label" data-i18n="auth.register.confirmPassword">Подтверждение пароля</span>
+                <div class="auth-field__control">
+                  <input class="auth-field__input" name="confirmPassword" type="password" autocomplete="new-password">
+                  <button class="auth-password-toggle" type="button" aria-label="Показать пароль" aria-pressed="false"></button>
+                </div>
+                <span class="auth-field__error"></span>
+              </label>
+            </div>
+          </div>
+
+          <div class="auth-card__password-box" id="auto-password-box" hidden>
+            <label class="auth-field">
+              <span class="auth-field__label" data-i18n="auth.register.generatedPassword">Сгенерированный пароль</span>
+              <input class="auth-field__input" name="generatedPassword" readonly>
+              <span class="auth-field__error"></span>
+            </label>
+
+            <div class="auth-actions">
+              <button class="auth-button auth-button--secondary" type="button" id="generate-password" data-i18n="auth.register.generateNew">
+                Сгенерировать новый
+              </button>
+              <button class="auth-button auth-button--secondary" type="button" id="copy-password" data-i18n="auth.register.copy">
+                Копировать
+              </button>
+            </div>
+          </div>
+
+          <ul class="auth-requirements" id="password-requirements">
+            <li data-requirement="length">8-20 символов</li>
+            <li data-requirement="upper">Заглавная буква</li>
+            <li data-requirement="lower">Строчная буква</li>
+            <li data-requirement="digit">Цифра</li>
+            <li data-requirement="special">Спецсимвол</li>
+          </ul>
+        </fieldset>
+
+        <label class="auth-check">
+          <input name="agreement" type="checkbox" required>
+          <span data-i18n="auth.register.agreement">Принимаю условия и согласен на обработку данных</span>
+        </label>
+        <span class="auth-field__error" id="agreement-error"></span>
+
+        <div class="auth-actions">
+          <button class="auth-button" type="submit" data-i18n="auth.register.submit">Зарегистрироваться</button>
+          <a class="auth-link" href="login.html" data-i18n="auth.login.title">Вход</a>
+        </div>
+      </form>
+    </section>
+  </main>
+
+  <script type="module" src="../js/auth/register.js"></script>
+</body>
+</html>
