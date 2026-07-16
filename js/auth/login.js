@@ -55,7 +55,12 @@ class Login {
     const storage = this.form.elements.remember.checked ? localStorage : sessionStorage;
     storage.setItem('currentUser', JSON.stringify(user));
 
-    if (user.role === 'admin' || user.role === 'guest') {
+    if (user.role === 'admin') {
+      window.location.href = 'admin.html';
+      return;
+    }
+
+    if (user.role === 'guest') {
       window.location.href = 'index.html';
       return;
     }
