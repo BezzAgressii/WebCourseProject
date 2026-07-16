@@ -1,5 +1,6 @@
 import { initBurgerMenu } from './components/burger-menu.js';
-import { getCurrentUser } from './auth-session.js';
+import { initContactModals } from './components/contact-modals.js';
+import { getCurrentUser, isAdmin } from './auth-session.js';
 import { getCartCount } from './cart-storage.js';
 import i18n from './i18n.js';
 
@@ -8,6 +9,7 @@ void initHeaderExtras();
 
 async function initHeaderExtras() {
   await i18n.init();
+  initContactModals();
 
   const actions = document.querySelector('.header__actions');
 
@@ -54,12 +56,13 @@ function ensureCartLink(actions) {
 
 function updateAuthLinks() {
   const user = getCurrentUser();
+  const admin = isAdmin();
   const profile = document.querySelector('[data-header-profile]');
   const cart = document.querySelector('[data-header-cart]');
 
   if (profile) {
     if (user) {
-      profile.href = 'profile.html';
+      profile.href = admin ? 'admin.html' : 'profile.html';
       profile.classList.add('header__profile--auth');
       profile.title = user.nickname || user.email || '';
     } else {
@@ -72,7 +75,8 @@ function updateAuthLinks() {
   }
 
   if (cart) {
-    cart.href = user ? 'cart.html' : 'login.html';
+    cart.hidden = admin;
+    cart.href = user && !admin ? 'cart.html' : 'login.html';
     cart.setAttribute('aria-label', i18n.t('header.cart'));
   }
 }
@@ -84,7 +88,19 @@ function updateCartBadge() {
     return;
   }
 
-  const count = getCurrentUser() ? getCartCount() : 0;
-  badge.textContent = String(count);
-  badge.hidden = count < 1;
+  if (isAdmin() || !getCurrentUser()) {
+    badge.hidden = true;
+    badge.textContent = '0';
+    return;
+  }
+
+  void getCartCount()
+    .then((count) => {
+      badge.textContent = String(count);
+      badge.hidden = count < 1;
+    })
+    .catch(() => {
+      badge.textContent = '0';
+      badge.hidden = true;
+    });
 }

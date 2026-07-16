@@ -1,5 +1,6 @@
 import api from '../api.js';
 import i18n from '../i18n.js';
+import { isAdmin } from '../auth-session.js';
 import { openModal } from './modal.js';
 
 const CLOCK_ICON = `
@@ -102,7 +103,21 @@ function brandFooter() {
   `;
 }
 
+function showAdminForbidden() {
+  openModal({
+    title: i18n.t('auth.adminForbiddenTitle'),
+    message: i18n.t('auth.adminForbiddenMessage'),
+    type: 'error',
+    closeLabel: i18n.t('common.close')
+  });
+}
+
 export function openRequestModal() {
+  if (isAdmin()) {
+    showAdminForbidden();
+    return;
+  }
+
   const existing = document.querySelector('.pv-modal--request');
 
   if (existing) {
@@ -214,6 +229,11 @@ export function openContactModal() {
 }
 
 async function submitInlineCallbackForm(form) {
+  if (isAdmin()) {
+    showAdminForbidden();
+    return;
+  }
+
   const name = form.elements.name?.value.trim() || '';
   const phone = form.elements.phone?.value.trim() || '';
 

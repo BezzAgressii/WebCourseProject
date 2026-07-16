@@ -66,6 +66,11 @@ function sanitizeDatabase() {
     hasChanges = true;
   }
 
+  if (!Array.isArray(database.carts)) {
+    database.carts = [];
+    hasChanges = true;
+  }
+
   if (hasChanges) {
     fs.writeFileSync(databasePath, `${JSON.stringify(database, null, 2)}\n`, 'utf8');
   }
@@ -130,6 +135,174 @@ server.post('/api/callback', (request, response) => {
     success: true,
     message: 'Заявка отправлена'
   });
+});
+
+function ensureCartsCollection(db) {
+  if (!db.has('carts').value()) {
+    db.set('carts', []).write();
+  }
+}
+
+function normalizeCartItems(items) {
+  if (!Array.isArray(items)) {
+    return [];
+  }
+
+  return items
+    .map((item) => ({
+      productId: String(item.productId || ''),
+      quantity: Math.max(1, Number(item.quantity) || 1)
+    }))
+    .filter((item) => item.productId);
+}
+
+function getOrCreateCart(db, userId) {
+  ensureCartsCollection(db);
+
+  let cart = db.get('carts').find({ userId }).value();
+
+  if (!cart) {
+    cart = {
+      id: `cart-${userId}`,
+      userId,
+      items: [],
+      updatedAt: new Date().toISOString()
+    };
+    db.get('carts').push(cart).write();
+  }
+
+  return cart;
+}
+
+server.get('/api/cart', (request, response) => {
+  const userId = request.query.userId;
+
+  if (!userId) {
+    response.status(400).json({ message: 'userId is required' });
+    return;
+  }
+
+  const db = router.db;
+  const cart = getOrCreateCart(db, userId);
+  response.json(cart);
+});
+
+server.put('/api/cart', (request, response) => {
+  const userId = request.body?.userId;
+
+  if (!userId) {
+    response.status(400).json({ message: 'userId is required' });
+    return;
+  }
+
+  const db = router.db;
+  getOrCreateCart(db, userId);
+
+  const items = normalizeCartItems(request.body.items);
+  const updated = db
+    .get('carts')
+    .find({ userId })
+    .assign({ items, updatedAt: new Date().toISOString() })
+    .write();
+
+  response.json(updated);
+});
+
+server.post('/api/cart/items', (request, response) => {
+  const userId = request.body?.userId;
+  const productId = request.body?.productId;
+  const quantity = Math.max(1, Number(request.body?.quantity) || 1);
+
+  if (!userId || !productId) {
+    response.status(400).json({ message: 'userId and productId are required' });
+    return;
+  }
+
+  const db = router.db;
+  const cart = getOrCreateCart(db, userId);
+  const items = normalizeCartItems(cart.items);
+  const existing = items.find((item) => item.productId === productId);
+
+  if (existing) {
+    existing.quantity += quantity;
+  } else {
+    items.push({ productId: String(productId), quantity });
+  }
+
+  const updated = db
+    .get('carts')
+    .find({ userId })
+    .assign({ items, updatedAt: new Date().toISOString() })
+    .write();
+
+  response.status(201).json(updated);
+});
+
+server.patch('/api/cart/items/:productId', (request, response) => {
+  const userId = request.body?.userId;
+  const productId = request.params.productId;
+  const quantity = Math.max(1, Number(request.body?.quantity) || 1);
+
+  if (!userId || !productId) {
+    response.status(400).json({ message: 'userId and productId are required' });
+    return;
+  }
+
+  const db = router.db;
+  const cart = getOrCreateCart(db, userId);
+  const items = normalizeCartItems(cart.items).map((item) =>
+    item.productId === productId ? { ...item, quantity } : item
+  );
+
+  const updated = db
+    .get('carts')
+    .find({ userId })
+    .assign({ items, updatedAt: new Date().toISOString() })
+    .write();
+
+  response.json(updated);
+});
+
+server.delete('/api/cart/items/:productId', (request, response) => {
+  const userId = request.query.userId || request.body?.userId;
+  const productId = request.params.productId;
+
+  if (!userId || !productId) {
+    response.status(400).json({ message: 'userId and productId are required' });
+    return;
+  }
+
+  const db = router.db;
+  const cart = getOrCreateCart(db, userId);
+  const items = normalizeCartItems(cart.items).filter((item) => item.productId !== productId);
+
+  const updated = db
+    .get('carts')
+    .find({ userId })
+    .assign({ items, updatedAt: new Date().toISOString() })
+    .write();
+
+  response.json(updated);
+});
+
+server.delete('/api/cart', (request, response) => {
+  const userId = request.query.userId || request.body?.userId;
+
+  if (!userId) {
+    response.status(400).json({ message: 'userId is required' });
+    return;
+  }
+
+  const db = router.db;
+  getOrCreateCart(db, userId);
+
+  const updated = db
+    .get('carts')
+    .find({ userId })
+    .assign({ items: [], updatedAt: new Date().toISOString() })
+    .write();
+
+  response.json(updated);
 });
 
 server.post('/api/products-with-images', upload.array('images', 8), (request, response) => {

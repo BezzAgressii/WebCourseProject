@@ -1,6 +1,6 @@
 import api from './api.js';
 import i18n from './i18n.js';
-import { getCurrentUser, requireAuth, setCurrentUser } from './auth-session.js';
+import { getCurrentUser, isAdmin, requireAuth, setCurrentUser } from './auth-session.js';
 import { openModal } from './components/modal.js';
 
 class ProfilePage {
@@ -22,6 +22,11 @@ class ProfilePage {
 
   async init() {
     if (!requireAuth()) {
+      return;
+    }
+
+    if (isAdmin()) {
+      window.location.href = 'admin.html';
       return;
     }
 

@@ -150,6 +150,43 @@ export const api = {
       method: 'POST',
       body: JSON.stringify(callbackData)
     });
+  },
+
+  async getCart(userId) {
+    return fetchAPI(`/api/cart${createQueryString({ userId })}`);
+  },
+
+  async setCartItems(userId, items) {
+    return fetchAPI('/api/cart', {
+      method: 'PUT',
+      body: JSON.stringify({ userId, items })
+    });
+  },
+
+  async addCartItem(userId, productId, quantity = 1) {
+    return fetchAPI('/api/cart/items', {
+      method: 'POST',
+      body: JSON.stringify({ userId, productId, quantity })
+    });
+  },
+
+  async updateCartItem(userId, productId, quantity) {
+    return fetchAPI(`/api/cart/items/${encodeURIComponent(productId)}`, {
+      method: 'PATCH',
+      body: JSON.stringify({ userId, quantity })
+    });
+  },
+
+  async removeCartItem(userId, productId) {
+    return fetchAPI(`/api/cart/items/${encodeURIComponent(productId)}${createQueryString({ userId })}`, {
+      method: 'DELETE'
+    });
+  },
+
+  async clearCart(userId) {
+    return fetchAPI(`/api/cart${createQueryString({ userId })}`, {
+      method: 'DELETE'
+    });
   }
 };
 

@@ -6,13 +6,14 @@ import {
   removeFromCart,
   updateCartQuantity
 } from './cart-storage.js';
-import { getCurrentUser, requireAuth, resolveAssetPath } from './auth-session.js';
+import { getCurrentUser, isAdmin, requireAuth, resolveAssetPath } from './auth-session.js';
 import { showConfirm } from './components/confirm.js';
 import { openModal } from './components/modal.js';
 
 class CartPage {
   constructor() {
     this.products = new Map();
+    this.cartItems = [];
     this.elements = {
       list: document.getElementById('cart-list'),
       empty: document.getElementById('cart-empty'),
@@ -27,9 +28,14 @@ class CartPage {
       return;
     }
 
+    if (isAdmin()) {
+      window.location.href = 'admin.html';
+      return;
+    }
+
     await i18n.init();
     await this.loadProducts();
-    this.render();
+    await this.refreshCart();
     this.bindEvents();
 
     document.addEventListener('languageChanged', () => this.render());
@@ -40,8 +46,13 @@ class CartPage {
     this.products = new Map(products.map((product) => [product.id, product]));
   }
 
+  async refreshCart() {
+    this.cartItems = await getCartItems();
+    this.render();
+  }
+
   getLines() {
-    return getCartItems()
+    return this.cartItems
       .map((item) => {
         const product = this.products.get(item.productId);
 
@@ -116,7 +127,7 @@ class CartPage {
   }
 
   bindEvents() {
-    this.elements.list.addEventListener('click', (event) => {
+    this.elements.list.addEventListener('click', async (event) => {
       const item = event.target.closest('.cart-item');
 
       if (!item) {
@@ -125,27 +136,35 @@ class CartPage {
 
       const productId = item.dataset.productId;
 
-      if (event.target.closest('[data-action="increase"]')) {
-        const input = item.querySelector('[data-action="quantity"]');
-        updateCartQuantity(productId, Number(input.value) + 1);
-        this.render();
-        return;
-      }
+      try {
+        if (event.target.closest('[data-action="increase"]')) {
+          const input = item.querySelector('[data-action="quantity"]');
+          this.cartItems = await updateCartQuantity(productId, Number(input.value) + 1);
+          this.render();
+          return;
+        }
 
-      if (event.target.closest('[data-action="decrease"]')) {
-        const input = item.querySelector('[data-action="quantity"]');
-        updateCartQuantity(productId, Math.max(1, Number(input.value) - 1));
-        this.render();
-        return;
-      }
+        if (event.target.closest('[data-action="decrease"]')) {
+          const input = item.querySelector('[data-action="quantity"]');
+          this.cartItems = await updateCartQuantity(productId, Math.max(1, Number(input.value) - 1));
+          this.render();
+          return;
+        }
 
-      if (event.target.closest('[data-action="remove"]')) {
-        removeFromCart(productId);
-        this.render();
+        if (event.target.closest('[data-action="remove"]')) {
+          this.cartItems = await removeFromCart(productId);
+          this.render();
+        }
+      } catch (error) {
+        openModal({
+          title: i18n.t('common.error'),
+          message: error.message || i18n.t('cart.orderErrorMessage'),
+          type: 'error'
+        });
       }
     });
 
-    this.elements.list.addEventListener('change', (event) => {
+    this.elements.list.addEventListener('change', async (event) => {
       const input = event.target.closest('[data-action="quantity"]');
       const item = event.target.closest('.cart-item');
 
@@ -153,8 +172,16 @@ class CartPage {
         return;
       }
 
-      updateCartQuantity(item.dataset.productId, input.value);
-      this.render();
+      try {
+        this.cartItems = await updateCartQuantity(item.dataset.productId, input.value);
+        this.render();
+      } catch (error) {
+        openModal({
+          title: i18n.t('common.error'),
+          message: error.message || i18n.t('cart.orderErrorMessage'),
+          type: 'error'
+        });
+      }
     });
 
     this.elements.order.addEventListener('click', () => this.handleOrder());
@@ -196,7 +223,7 @@ class CartPage {
         }))
       });
 
-      clearCart();
+      this.cartItems = await clearCart();
       this.render();
 
       openModal({

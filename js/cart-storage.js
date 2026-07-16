@@ -1,83 +1,101 @@
-import { getCurrentUser } from './auth-session.js';
+import api from './api.js';
+import { getCurrentUser, isAdmin } from './auth-session.js';
 
-const CART_STORAGE_KEY = 'pascalVentCart';
-
-function readStore() {
-  try {
-    return JSON.parse(localStorage.getItem(CART_STORAGE_KEY) || '{}');
-  } catch {
-    return {};
-  }
+// Удаляем устаревшее локальное хранилище корзины (раньше было в localStorage)
+try {
+  localStorage.removeItem('pascalVentCart');
+} catch {
+  /* ignore */
 }
 
-function writeStore(store) {
-  localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(store));
+function notifyCartUpdated(cart) {
+  document.dispatchEvent(new CustomEvent('cartUpdated', {
+    detail: { items: Array.isArray(cart?.items) ? cart.items : [] }
+  }));
+  return cart;
 }
 
-function getUserCartKey() {
+function requireUserId() {
   const user = getCurrentUser();
   return user?.id || null;
 }
 
-export function getCartItems() {
-  const key = getUserCartKey();
+export async function getCartItems() {
+  const userId = requireUserId();
 
-  if (!key) {
+  if (!userId) {
     return [];
   }
 
-  const items = readStore()[key];
-
-  return Array.isArray(items) ? items : [];
+  const cart = await api.getCart(userId);
+  return Array.isArray(cart?.items) ? cart.items : [];
 }
 
-export function setCartItems(items) {
-  const key = getUserCartKey();
+export async function setCartItems(items) {
+  const userId = requireUserId();
 
-  if (!key) {
-    return;
+  if (!userId) {
+    return [];
   }
 
-  const store = readStore();
-  store[key] = items;
-  writeStore(store);
-  document.dispatchEvent(new CustomEvent('cartUpdated'));
+  const cart = await api.setCartItems(userId, items);
+  notifyCartUpdated(cart);
+  return Array.isArray(cart?.items) ? cart.items : [];
 }
 
-export function addToCart(productId, quantity = 1) {
-  const items = getCartItems();
-  const existing = items.find((item) => item.productId === productId);
-
-  if (existing) {
-    existing.quantity += quantity;
-  } else {
-    items.push({ productId, quantity });
+export async function addToCart(productId, quantity = 1) {
+  if (isAdmin()) {
+    return getCartItems();
   }
 
-  setCartItems(items);
-  return items;
+  const userId = requireUserId();
+
+  if (!userId) {
+    return [];
+  }
+
+  const cart = await api.addCartItem(userId, productId, quantity);
+  notifyCartUpdated(cart);
+  return Array.isArray(cart?.items) ? cart.items : [];
 }
 
-export function updateCartQuantity(productId, quantity) {
-  const nextQuantity = Math.max(1, Number(quantity) || 1);
-  const items = getCartItems().map((item) =>
-    item.productId === productId ? { ...item, quantity: nextQuantity } : item
-  );
+export async function updateCartQuantity(productId, quantity) {
+  const userId = requireUserId();
 
-  setCartItems(items);
-  return items;
+  if (!userId) {
+    return [];
+  }
+
+  const cart = await api.updateCartItem(userId, productId, quantity);
+  notifyCartUpdated(cart);
+  return Array.isArray(cart?.items) ? cart.items : [];
 }
 
-export function removeFromCart(productId) {
-  const items = getCartItems().filter((item) => item.productId !== productId);
-  setCartItems(items);
-  return items;
+export async function removeFromCart(productId) {
+  const userId = requireUserId();
+
+  if (!userId) {
+    return [];
+  }
+
+  const cart = await api.removeCartItem(userId, productId);
+  notifyCartUpdated(cart);
+  return Array.isArray(cart?.items) ? cart.items : [];
 }
 
-export function clearCart() {
-  setCartItems([]);
+export async function clearCart() {
+  const userId = requireUserId();
+
+  if (!userId) {
+    return [];
+  }
+
+  const cart = await api.clearCart(userId);
+  notifyCartUpdated(cart);
+  return Array.isArray(cart?.items) ? cart.items : [];
 }
 
-export function getCartCount() {
-  return getCartItems().reduce((sum, item) => sum + Number(item.quantity || 0), 0);
+export async function getCartCount() {
+  const items = await getCartItems();
+  return items.reduce((sum, item) => sum + Number(item.quantity || 0), 0);
 }

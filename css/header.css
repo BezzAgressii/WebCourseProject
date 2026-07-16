@@ -157,6 +157,10 @@
   color: var(--color-accent-green);
 }
 
+.header__cart[hidden] {
+  display: none !important;
+}
+
 .header__profile--auth {
   color: var(--color-btn-green);
 }

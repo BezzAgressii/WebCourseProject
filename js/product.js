@@ -1,13 +1,15 @@
 import api from './api.js';
 import DETAILED_TRANSLATIONS from './detailed-translation.js';
 import i18n from './i18n.js';
-import { resolveAssetPath } from './auth-session.js';
+import { isAdmin, resolveAssetPath } from './auth-session.js';
+import { openModal } from './components/modal.js';
 
 class ProductPage {
   constructor() {
     this.product = null;
     this.elements = {
       content: document.getElementById('product-content')
+      
     };
   }
 
@@ -84,7 +86,7 @@ class ProductPage {
           </section>
           <div class="product-page__purchase">
             <span class="product-page__price">${this.formatPrice(this.product.price)}</span>
-            <button class="product-page__order" type="button" data-action="create-order">${this.t('order')}</button>
+            ${this.getOrderButtonHtml()}
           </div>
         </div>
       </div>
@@ -146,7 +148,7 @@ class ProductPage {
           </section>
           <div class="product-page__purchase">
             <span class="product-page__price">${this.formatPrice(product.price)}</span>
-            <button class="product-page__order" type="button" data-action="create-order">${this.t('order')}</button>
+            ${this.getOrderButtonHtml()}
           </div>
         </div>
       </div>
@@ -211,7 +213,7 @@ class ProductPage {
           </section>
           <div class="product-page__purchase">
             <span class="product-page__price">${this.formatPrice(product.price)}</span>
-            <button class="product-page__order" type="button" data-action="create-order">${this.t('order')}</button>
+            ${this.getOrderButtonHtml()}
           </div>
         </div>
       </div>
@@ -288,9 +290,33 @@ class ProductPage {
   }
 
   bindOrderButton() {
-    this.elements.content.querySelector('[data-action="create-order"]').addEventListener('click', () => {
+    const orderButton = this.elements.content.querySelector('[data-action="create-order"]');
+
+    if (!orderButton) {
+      return;
+    }
+
+    orderButton.addEventListener('click', () => {
+      if (isAdmin()) {
+        openModal({
+          title: i18n.t('auth.adminForbiddenTitle'),
+          message: i18n.t('auth.adminForbiddenMessage'),
+          type: 'error',
+          closeLabel: i18n.t('common.close')
+        });
+        return;
+      }
+
       console.log('Create order for:', this.product.id);
     });
+  }
+
+  getOrderButtonHtml() {
+    if (isAdmin()) {
+      return '';
+    }
+
+    return `<button class="product-page__order" type="button" data-action="create-order">${this.t('order')}</button>`;
   }
 
   summaryItem(key, value) {
