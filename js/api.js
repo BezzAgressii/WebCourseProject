@@ -93,6 +93,58 @@ export const api = {
     });
   },
 
+  async createProduct(productData) {
+    return fetchAPI('/products', {
+      method: 'POST',
+      body: JSON.stringify(productData)
+    });
+  },
+
+  async createProductWithImages(productData, files = []) {
+    const formData = new FormData();
+    formData.append('data', JSON.stringify(productData));
+
+    files.forEach((file) => {
+      formData.append('images', file);
+    });
+
+    const response = await fetch(`${baseURL}/api/products-with-images`, {
+      method: 'POST',
+      body: formData
+    });
+
+    if (!response.ok) {
+      let message = `Request failed with status ${response.status}`;
+      const responseText = await response.text();
+
+      if (responseText) {
+        try {
+          const errorData = JSON.parse(responseText);
+          message = errorData.message || errorData.error || message;
+        } catch {
+          message = responseText;
+        }
+      }
+
+      throw new Error(message);
+    }
+
+    return response.json();
+  },
+
+  async updateProduct(id, productData) {
+    return fetchAPI(`/products/${encodeURIComponent(id)}`, {
+      method: 'PATCH',
+      body: JSON.stringify(productData)
+    });
+  },
+
+  async deleteProduct(id) {
+    return fetchAPI(`/products/${encodeURIComponent(id)}`, {
+      method: 'DELETE'
+    });
+  },
+
   async createCallback(callbackData) {
     return fetchAPI('/api/callback', {
       method: 'POST',
