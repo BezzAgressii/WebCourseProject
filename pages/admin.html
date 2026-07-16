@@ -31,13 +31,13 @@
           </button>
         </li>
         <li>
-          <button class="admin-nav__btn" type="button" data-admin-tab="orders" disabled title="Скоро">
+          <button class="admin-nav__btn" type="button" data-admin-tab="orders" aria-selected="false">
             Заказы
           </button>
         </li>
         <li>
-          <button class="admin-nav__btn" type="button" data-admin-tab="users" disabled title="Скоро">
-            Пользователи
+          <button class="admin-nav__btn" type="button" data-admin-tab="callbacks" aria-selected="false">
+            Заявки
           </button>
         </li>
       </ul>
@@ -79,6 +79,80 @@
               </tr>
             </thead>
             <tbody id="admin-products-body">
+              <tr>
+                <td colspan="5"><p class="admin-empty">Загрузка...</p></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="admin-panel" data-admin-panel="orders" aria-labelledby="admin-orders-title" hidden>
+        <header class="admin-main__header">
+          <div>
+            <h1 class="admin-main__title" id="admin-orders-title">Заказы</h1>
+            <p class="admin-main__counter" id="admin-orders-count">Всего заказов: 0</p>
+          </div>
+        </header>
+
+        <div class="admin-toolbar">
+          <select class="admin-toolbar__select" id="admin-orders-status-filter" aria-label="Фильтр по статусу">
+            <option value="">Все статусы</option>
+            <option value="processing">В обработке</option>
+            <option value="shipped">Отправлен</option>
+            <option value="delivered">Доставлен</option>
+            <option value="cancelled">Отменён</option>
+          </select>
+        </div>
+
+        <div class="admin-table-wrap">
+          <table class="admin-table admin-table--orders">
+            <thead>
+              <tr>
+                <th>Клиент</th>
+                <th>Дата</th>
+                <th>Состав заказа</th>
+                <th>Сумма</th>
+                <th>Статус</th>
+              </tr>
+            </thead>
+            <tbody id="admin-orders-body">
+              <tr>
+                <td colspan="5"><p class="admin-empty">Загрузка...</p></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="admin-panel" data-admin-panel="callbacks" aria-labelledby="admin-callbacks-title" hidden>
+        <header class="admin-main__header">
+          <div>
+            <h1 class="admin-main__title" id="admin-callbacks-title">Заявки</h1>
+            <p class="admin-main__counter" id="admin-callbacks-count">Всего заявок: 0</p>
+          </div>
+        </header>
+
+        <div class="admin-toolbar">
+          <select class="admin-toolbar__select" id="admin-callbacks-status-filter" aria-label="Фильтр по статусу заявки">
+            <option value="">Все статусы</option>
+            <option value="new">Новая</option>
+            <option value="processed">Обработана</option>
+          </select>
+        </div>
+
+        <div class="admin-table-wrap">
+          <table class="admin-table admin-table--callbacks">
+            <thead>
+              <tr>
+                <th>Имя</th>
+                <th>Телефон</th>
+                <th>Тип</th>
+                <th>Статус</th>
+                <th>Дата</th>
+              </tr>
+            </thead>
+            <tbody id="admin-callbacks-body">
               <tr>
                 <td colspan="5"><p class="admin-empty">Загрузка...</p></td>
               </tr>

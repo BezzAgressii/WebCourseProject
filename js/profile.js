@@ -56,7 +56,7 @@ class ProfilePage {
   }
 
   formatPrice(price) {
-    return `${new Intl.NumberFormat(i18n.currentLang).format(price)} ${i18n.t('common.currency')}`;
+    return `${new Intl.NumberFormat(i18n.currentLang).format(price)}\u00A0${i18n.t('common.currency')}`;
   }
 
   formatDate(value) {

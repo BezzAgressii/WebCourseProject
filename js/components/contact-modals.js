@@ -1,7 +1,8 @@
 import api from '../api.js';
 import i18n from '../i18n.js';
-import { isAdmin } from '../auth-session.js';
+import { getCurrentUser, isAdmin } from '../auth-session.js';
 import { openModal } from './modal.js';
+import { bindPhoneMask, isValidBelarusPhone } from '../utils/phone-mask.js';
 
 const CLOCK_ICON = `
   <svg class="pv-modal__schedule-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
@@ -148,23 +149,36 @@ export function openRequestModal() {
   const phoneInput = form.elements.phone;
   const submit = form.querySelector('.pv-modal__submit');
 
-  const validate = (input) => {
+  bindPhoneMask(phoneInput);
+
+  const validateName = (input) => {
     const valid = input.value.trim().length >= 2;
     input.classList.toggle('pv-modal__input--invalid', !valid);
     return valid;
   };
 
-  [nameInput, phoneInput].forEach((input) => {
-    input.addEventListener('input', () => validate(input));
-  });
+  const validatePhone = (input) => {
+    const valid = isValidBelarusPhone(input.value);
+    input.classList.toggle('pv-modal__input--invalid', !valid);
+    return valid;
+  };
+
+  nameInput.addEventListener('input', () => validateName(nameInput));
+  phoneInput.addEventListener('input', () => validatePhone(phoneInput));
 
   form.addEventListener('submit', async (event) => {
     event.preventDefault();
 
-    const nameOk = validate(nameInput);
-    const phoneOk = validate(phoneInput);
+    const nameOk = validateName(nameInput);
+    const phoneOk = validatePhone(phoneInput);
 
     if (!nameOk || !phoneOk) {
+      openModal({
+        title: i18n.t('modal.request.errorTitle'),
+        message: phoneOk ? i18n.t('modal.request.invalid') : i18n.t('validation.phone'),
+        type: 'error',
+        closeLabel: i18n.t('common.close')
+      });
       return;
     }
 
@@ -174,7 +188,7 @@ export function openRequestModal() {
       await api.createCallback({
         name: nameInput.value.trim(),
         phone: phoneInput.value.trim(),
-        source: 'request-modal',
+        userId: getCurrentUser()?.id ?? null,
         createdAt: new Date().toISOString()
       });
 
@@ -215,9 +229,9 @@ export function openContactModal() {
         <span>${i18n.t('modal.contact.schedule')}</span>
       </div>
       <div class="pv-modal__phones">
-        <a class="pv-modal__phone" href="tel:+74923736331">
+        <a class="pv-modal__phone" href="tel:+375222736331">
           ${PHONE_ICON}
-          <span>+ 7 492 373 63 31</span>
+          <span>+375 222 73-63-31</span>
         </a>
         <a class="pv-modal__phone" href="tel:+375293678929">
           ${PHONE_ICON}
@@ -237,11 +251,12 @@ async function submitInlineCallbackForm(form) {
   const name = form.elements.name?.value.trim() || '';
   const phone = form.elements.phone?.value.trim() || '';
 
-  if (name.length < 2 || phone.length < 2) {
+  if (name.length < 2 || !isValidBelarusPhone(phone)) {
     openModal({
       title: i18n.t('modal.request.errorTitle'),
-      message: i18n.t('modal.request.invalid'),
-      type: 'error'
+      message: name.length < 2 ? i18n.t('modal.request.invalid') : i18n.t('validation.phone'),
+      type: 'error',
+      closeLabel: i18n.t('common.close')
     });
     return;
   }
@@ -256,7 +271,7 @@ async function submitInlineCallbackForm(form) {
     await api.createCallback({
       name,
       phone,
-      source: form.className || 'inline-form',
+      userId: getCurrentUser()?.id ?? null,
       createdAt: new Date().toISOString()
     });
 
@@ -281,8 +296,20 @@ async function submitInlineCallbackForm(form) {
   }
 }
 
+function bindPhoneMasksInDocument() {
+  document.querySelectorAll('.footer__form input[name="phone"], .cta-form__form input[name="phone"], #pv-request-phone').forEach((input) => {
+    bindPhoneMask(input);
+  });
+}
+
 export function initContactModals() {
+  if (document.documentElement.dataset.contactModalsReady === 'true') {
+    return;
+  }
+
+  document.documentElement.dataset.contactModalsReady = 'true';
   ensureStylesheet();
+  bindPhoneMasksInDocument();
 
   document.addEventListener('click', (event) => {
     const contactTrigger = event.target.closest('[data-modal="contact"]');
@@ -290,7 +317,7 @@ export function initContactModals() {
 
     if (contactTrigger) {
       event.preventDefault();
-      openContactModal();
+      void i18n.init().then(() => openContactModal());
       return;
     }
 
@@ -303,13 +330,13 @@ export function initContactModals() {
     }
 
     event.preventDefault();
-    openRequestModal();
+    void i18n.init().then(() => openRequestModal());
   });
 
   document.querySelectorAll('.footer__form, .cta-form__form').forEach((form) => {
     form.addEventListener('submit', (event) => {
       event.preventDefault();
-      submitInlineCallbackForm(form);
+      void i18n.init().then(() => submitInlineCallbackForm(form));
     });
   });
 }

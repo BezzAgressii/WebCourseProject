@@ -1,0 +1,235 @@
+.pv-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 400;
+  display: grid;
+  place-items: center;
+  padding: 20px;
+  font-family: var(--font-body);
+  color: var(--color-dark-green);
+}
+
+.pv-modal__backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(73, 94, 76, 0.35);
+  backdrop-filter: blur(6px);
+}
+
+.pv-modal__dialog {
+  position: relative;
+  z-index: 1;
+  width: min(480px, 100%);
+  max-height: min(90vh, 720px);
+  overflow: auto;
+  padding: 36px 32px 28px;
+  border-radius: 28px;
+  background: #fff;
+  box-shadow: 0 24px 60px rgba(73, 93, 76, 0.22);
+}
+
+.pv-modal__close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  width: 40px;
+  height: 40px;
+  border: 0;
+  border-radius: 12px;
+  background: var(--color-btn-green);
+  box-shadow: var(--shadow-btn);
+  color: #fff;
+  font-size: 22px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.pv-modal__header {
+  margin-bottom: 20px;
+  padding-right: 40px;
+}
+
+.pv-modal__title {
+  margin: 0;
+  display: grid;
+  gap: 6px;
+  font-family: var(--font-display);
+  font-size: clamp(28px, 4vw, 36px);
+  font-weight: 700;
+  line-height: 1.15;
+  text-transform: lowercase;
+}
+
+.pv-modal__title-line {
+  display: block;
+}
+
+.pv-modal__accent {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.pv-modal__accent-text {
+  color: var(--color-accent-green);
+}
+
+.pv-modal__accent-rule {
+  flex: 1;
+  height: 2px;
+  background: var(--color-accent-green);
+  border-radius: 999px;
+}
+
+.pv-modal__body {
+  display: grid;
+  gap: 16px;
+}
+
+.pv-modal__text {
+  margin: 0;
+  color: var(--color-gray);
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+.pv-modal__schedule-title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.pv-modal__schedule {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--color-dark-green);
+  font-size: 15px;
+}
+
+.pv-modal__schedule-icon,
+.pv-modal__phone-icon {
+  width: 22px;
+  height: 22px;
+  flex-shrink: 0;
+  color: var(--color-accent-green);
+}
+
+.pv-modal__phones {
+  display: grid;
+  gap: 12px;
+}
+
+.pv-modal__phone {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--color-dark-green);
+  font-family: var(--font-display);
+  font-size: 18px;
+  font-weight: 700;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.pv-modal__phone:hover {
+  color: var(--color-accent-green);
+}
+
+.pv-modal__form {
+  display: grid;
+  gap: 14px;
+}
+
+.pv-modal__field {
+  display: grid;
+}
+
+.pv-modal__input {
+  width: 100%;
+  min-height: 52px;
+  padding: 0 16px;
+  border: 1px solid rgba(73, 93, 76, 0.2);
+  border-radius: 14px;
+  background: #f7faf8;
+  color: var(--color-dark-green);
+  font: inherit;
+  font-size: 15px;
+  outline: none;
+  box-sizing: border-box;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.pv-modal__input:focus {
+  border-color: var(--color-accent-green);
+  box-shadow: 0 0 0 3px rgba(92, 205, 106, 0.16);
+  background: #fff;
+}
+
+.pv-modal__input--invalid {
+  border-color: #d25d5d;
+}
+
+.pv-modal__submit {
+  min-height: 52px;
+  border: 0;
+  border-radius: 40px;
+  background: var(--color-btn-green);
+  box-shadow: var(--shadow-btn);
+  color: #fff;
+  font-family: var(--font-display);
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: filter 0.2s ease;
+}
+
+.pv-modal__submit:hover {
+  filter: brightness(1.05);
+}
+
+.pv-modal__submit:disabled {
+  cursor: wait;
+  opacity: 0.7;
+}
+
+.pv-modal__brand {
+  margin-top: 24px;
+  display: flex;
+  justify-content: center;
+}
+
+.pv-modal__brand img {
+  display: block;
+  width: 140px;
+  height: auto;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+@media (max-width: 480px) {
+  .pv-modal__dialog {
+    padding: 28px 20px 22px;
+  }
+
+  .pv-modal__title {
+    font-size: 26px;
+  }
+
+  .pv-modal__phone {
+    font-size: 16px;
+  }
+}

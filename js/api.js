@@ -86,6 +86,13 @@ export const api = {
     return fetchAPI(`/orders${createQueryString(filters)}`);
   },
 
+  async updateOrder(id, orderData) {
+    return fetchAPI(`/orders/${encodeURIComponent(id)}`, {
+      method: 'PATCH',
+      body: JSON.stringify(orderData)
+    });
+  },
+
   async updateUser(id, userData) {
     return fetchAPI(`/users/${encodeURIComponent(id)}`, {
       method: 'PATCH',
@@ -148,6 +155,25 @@ export const api = {
   async createCallback(callbackData) {
     return fetchAPI('/api/callback', {
       method: 'POST',
+      body: JSON.stringify(callbackData)
+    });
+  },
+
+  async getCallbacks() {
+    try {
+      return await fetchAPI('/api/callbacks');
+    } catch (error) {
+      if (!String(error.message || '').includes('404')) {
+        throw error;
+      }
+
+      return fetchAPI('/callbacks');
+    }
+  },
+
+  async updateCallback(id, callbackData) {
+    return fetchAPI(`/api/callbacks/${encodeURIComponent(id)}`, {
+      method: 'PATCH',
       body: JSON.stringify(callbackData)
     });
   },

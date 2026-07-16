@@ -629,7 +629,7 @@
   ],
   "users": [
     {
-      "id": "admin-pascal-vent",
+      "id": 1,
       "firstName": "Администратор",
       "lastName": "Pascal Vent",
       "middleName": "",
@@ -642,7 +642,7 @@
       "createdAt": "2026-07-15T00:00:00.000Z"
     },
     {
-      "id": "user-ivan-petrov",
+      "id": 2,
       "firstName": "Иван",
       "lastName": "Петров",
       "middleName": "Сергеевич",
@@ -653,12 +653,25 @@
       "password": "UserPass123!",
       "role": "user",
       "createdAt": "2026-07-15T00:00:00.000Z"
+    },
+    {
+      "id": 3,
+      "firstName": "Анна",
+      "lastName": "Сидорова",
+      "middleName": "Игоревна",
+      "birthDate": "1992-08-21",
+      "phone": "+375 (33) 555-12-34",
+      "email": "anna.sidorova@example.com",
+      "nickname": "anna_s",
+      "password": "UserPass123!",
+      "role": "user",
+      "createdAt": "2026-07-16T08:00:00.000Z"
     }
   ],
   "orders": [
     {
-      "id": "order-1784138105723",
-      "userId": "user-ivan-petrov",
+      "id": 1,
+      "userId": 2,
       "items": [
         {
           "productId": "pv-vent-001",
@@ -669,15 +682,147 @@
             "en": "AirFlow 500 supply and exhaust unit"
           },
           "price": 4890,
-          "quantity": 23,
-          "lineTotal": 112470,
+          "quantity": 1,
+          "lineTotal": 4890,
           "image": "assets/images/services-photo-741206.png"
         }
       ],
-      "total": 112470,
+      "total": 4890,
       "status": "processing",
       "createdAt": "2026-07-15T17:55:05.723Z"
+    },
+    {
+      "id": 2,
+      "userId": 2,
+      "items": [
+        {
+          "productId": "pv-cond-001",
+          "name": "Настенный кондиционер CoolWall 9",
+          "name_i18n": {
+            "ru": "Настенный кондиционер CoolWall 9",
+            "be": "Насценны кандыцыянер CoolWall 9",
+            "en": "CoolWall 9 wall-mounted air conditioner"
+          },
+          "price": 2590,
+          "quantity": 2,
+          "lineTotal": 5180,
+          "image": "assets/images/portfolio-photo-3.png"
+        },
+        {
+          "productId": "pv-vent-002",
+          "name": "Приточная установка FreshAir 300",
+          "name_i18n": {
+            "ru": "Приточная установка FreshAir 300",
+            "be": "Прытокавая ўстаноўка FreshAir 300",
+            "en": "FreshAir 300 supply unit"
+          },
+          "price": 3190,
+          "quantity": 1,
+          "lineTotal": 3190,
+          "image": "assets/images/portfolio-photo-2.png"
+        }
+      ],
+      "total": 8370,
+      "status": "shipped",
+      "createdAt": "2026-07-16T10:20:00.000Z"
+    },
+    {
+      "id": 3,
+      "userId": 3,
+      "items": [
+        {
+          "productId": "pv-pool-001",
+          "name": "Осушитель воздуха PoolDry 60",
+          "name_i18n": {
+            "ru": "Осушитель воздуха PoolDry 60",
+            "be": "Асушальнік паветра PoolDry 60",
+            "en": "PoolDry 60 dehumidifier"
+          },
+          "price": 6450,
+          "quantity": 1,
+          "lineTotal": 6450,
+          "image": "assets/images/card-pools-5b74f6.png"
+        }
+      ],
+      "total": 6450,
+      "status": "shipped",
+      "createdAt": "2026-07-14T12:00:00.000Z"
+    },
+    {
+      "id": 4,
+      "userId": 2,
+      "items": [
+        {
+          "productId": "pv-vent-001",
+          "name": "Приточно-вытяжная установка AirFlow 500",
+          "name_i18n": {
+            "ru": "Приточно-вытяжная установка AirFlow 500",
+            "be": "Прытокава-выцяжная ўстаноўка AirFlow 500",
+            "en": "AirFlow 500 supply and exhaust unit"
+          },
+          "price": 4890,
+          "quantity": 1,
+          "lineTotal": 4890,
+          "image": "assets/images/services-photo-741206.png"
+        }
+      ],
+      "total": 4890,
+      "status": "cancelled",
+      "createdAt": "2026-07-13T09:15:00.000Z"
     }
   ],
-  "carts": []
+  "carts": [
+    {
+      "id": 1,
+      "userId": 2,
+      "items": [],
+      "updatedAt": "2026-07-16T12:00:00.000Z"
+    }
+  ],
+  "callbacks": [
+    {
+      "id": 1,
+      "name": "Гость Алексей",
+      "phone": "+375 (29) 111-22-33",
+      "status": "new",
+      "createdAt": "2026-07-16T11:30:00.000Z"
+    },
+    {
+      "id": 2,
+      "name": "Иван Петров",
+      "phone": "+375 (29) 123-45-67",
+      "status": "processed",
+      "userId": 2,
+      "createdAt": "2026-07-16T14:05:00.000Z"
+    },
+    {
+      "id": 3,
+      "name": "Мария Козлова",
+      "phone": "+375 (44) 777-88-99",
+      "status": "processed",
+      "createdAt": "2026-07-15T16:40:00.000Z"
+    },
+    {
+      "id": 4,
+      "name": "Сергей Новиков",
+      "phone": "+375 (33) 200-10-20",
+      "status": "new",
+      "createdAt": "2026-07-16T18:20:00.000Z"
+    },
+    {
+      "id": 5,
+      "name": "Анна Сидорова",
+      "phone": "+375 (33) 555-12-34",
+      "status": "new",
+      "userId": 3,
+      "createdAt": "2026-07-16T09:10:00.000Z"
+    },
+    {
+      "id": 6,
+      "name": "Дмитрий Волков",
+      "phone": "+375 (25) 888-77-66",
+      "status": "processed",
+      "createdAt": "2026-07-14T13:45:00.000Z"
+    }
+  ]
 }

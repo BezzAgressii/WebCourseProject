@@ -35,6 +35,9 @@ const DEFAULT_IMAGES = [
 class AdminPage {
   constructor() {
     this.products = [];
+    this.orders = [];
+    this.callbacks = [];
+    this.users = [];
     this.editingId = null;
     this.imageUploader = null;
     this.elements = {
@@ -44,6 +47,14 @@ class AdminPage {
       search: document.getElementById('admin-search'),
       categoryFilter: document.getElementById('admin-category-filter'),
       tableBody: document.getElementById('admin-products-body'),
+      ordersBody: document.getElementById('admin-orders-body'),
+      ordersCount: document.getElementById('admin-orders-count'),
+      ordersStatusFilter: document.getElementById('admin-orders-status-filter'),
+      callbacksBody: document.getElementById('admin-callbacks-body'),
+      callbacksCount: document.getElementById('admin-callbacks-count'),
+      callbacksStatusFilter: document.getElementById('admin-callbacks-status-filter'),
+      tabButtons: document.querySelectorAll('[data-admin-tab]'),
+      panels: document.querySelectorAll('[data-admin-panel]'),
       modal: document.getElementById('product-modal'),
       modalTitle: document.getElementById('product-modal-title'),
       form: document.getElementById('product-form'),
@@ -81,6 +92,10 @@ class AdminPage {
     this.elements.search.addEventListener('input', () => this.renderProducts());
     this.elements.categoryFilter.addEventListener('change', () => this.renderProducts());
 
+    this.elements.tabButtons.forEach((button) => {
+      button.addEventListener('click', () => this.openTab(button.dataset.adminTab));
+    });
+
     this.elements.modal.querySelectorAll('[data-close-modal]').forEach((element) => {
       element.addEventListener('click', () => this.closeProductModal());
     });
@@ -116,6 +131,25 @@ class AdminPage {
       }
     });
 
+    this.elements.ordersBody.addEventListener('change', (event) => {
+      const statusSelect = event.target.closest('[data-order-status]');
+
+      if (statusSelect) {
+        this.updateOrderStatus(statusSelect.dataset.orderId, statusSelect.value, statusSelect);
+      }
+    });
+
+    this.elements.callbacksBody.addEventListener('change', (event) => {
+      const statusSelect = event.target.closest('[data-callback-status]');
+
+      if (statusSelect) {
+        this.updateCallbackStatus(statusSelect.dataset.callbackId, statusSelect.value, statusSelect);
+      }
+    });
+
+    this.elements.ordersStatusFilter.addEventListener('change', () => this.renderOrders());
+    this.elements.callbacksStatusFilter.addEventListener('change', () => this.renderCallbacks());
+
     document.addEventListener('keydown', (event) => {
       if (event.key === 'Escape' && !this.elements.modal.hidden) {
         this.closeProductModal();
@@ -129,6 +163,283 @@ class AdminPage {
       this.renderProducts();
     } catch (error) {
       this.elements.tableBody.innerHTML = `<tr><td colspan="5"><p class="admin-empty">${this.escapeHtml(error.message)}</p></td></tr>`;
+    }
+  }
+
+  async loadOrders() {
+    this.elements.ordersBody.innerHTML = '<tr><td colspan="5"><p class="admin-empty">Загрузка...</p></td></tr>';
+
+    try {
+      const [orders, users] = await Promise.all([api.getOrders(), api.getUsers()]);
+      this.orders = Array.isArray(orders)
+        ? orders.sort((first, second) => new Date(second.createdAt) - new Date(first.createdAt))
+        : [];
+      this.users = Array.isArray(users) ? users : [];
+      this.renderOrders();
+    } catch (error) {
+      this.elements.ordersCount.textContent = 'Всего заказов: 0';
+      this.elements.ordersBody.innerHTML = `<tr><td colspan="5"><p class="admin-empty">${this.escapeHtml(error.message || 'Не удалось загрузить заказы')}</p></td></tr>`;
+    }
+  }
+
+  async loadCallbacks() {
+    this.elements.callbacksBody.innerHTML = '<tr><td colspan="5"><p class="admin-empty">Загрузка...</p></td></tr>';
+
+    try {
+      const [callbacks, users] = await Promise.all([api.getCallbacks(), api.getUsers()]);
+      this.callbacks = Array.isArray(callbacks) ? callbacks : [];
+      this.users = Array.isArray(users) ? users : [];
+      this.renderCallbacks();
+    } catch (error) {
+      this.elements.callbacksCount.textContent = 'Всего заявок: 0';
+      this.elements.callbacksBody.innerHTML = `<tr><td colspan="5"><p class="admin-empty">${this.escapeHtml(error.message || 'Не удалось загрузить заявки')}</p></td></tr>`;
+    }
+  }
+
+  openTab(tabName) {
+    if (!['products', 'orders', 'callbacks'].includes(tabName)) {
+      return;
+    }
+
+    this.elements.tabButtons.forEach((button) => {
+      const isActive = button.dataset.adminTab === tabName;
+      button.classList.toggle('admin-nav__btn--active', isActive);
+      button.setAttribute('aria-selected', String(isActive));
+    });
+
+    this.elements.panels.forEach((panel) => {
+      panel.hidden = panel.dataset.adminPanel !== tabName;
+    });
+
+    if (tabName === 'orders') {
+      void this.loadOrders();
+    }
+
+    if (tabName === 'callbacks') {
+      void this.loadCallbacks();
+    }
+  }
+
+  getUserLabel(userId) {
+    if (userId === null || userId === undefined || userId === '') {
+      return { name: 'Гость', contact: '—' };
+    }
+
+    const user = this.users.find((item) => String(item.id) === String(userId));
+
+    if (!user) {
+      return { name: 'Пользователь удалён', contact: String(userId) };
+    }
+
+    const name = [user.firstName, user.lastName].filter(Boolean).join(' ')
+      || user.nickname
+      || user.email;
+
+    return {
+      name,
+      contact: user.email || user.phone || '—'
+    };
+  }
+
+  formatDate(value) {
+    if (!value) {
+      return '—';
+    }
+
+    return new Intl.DateTimeFormat('ru-RU', {
+      day: '2-digit',
+      month: '2-digit',
+      year: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit'
+    }).format(new Date(value));
+  }
+
+  getFilteredOrders() {
+    const status = this.elements.ordersStatusFilter.value;
+    return this.orders.filter((order) => !status || order.status === status);
+  }
+
+  renderOrders() {
+    const orders = this.getFilteredOrders();
+    const total = this.orders.length;
+    const filtered = orders.length;
+
+    this.elements.ordersCount.textContent = this.elements.ordersStatusFilter.value
+      ? `Показано: ${filtered} из ${total}`
+      : `Всего заказов: ${total}`;
+
+    if (!orders.length) {
+      this.elements.ordersBody.innerHTML = '<tr><td colspan="5"><p class="admin-empty">Заказы не найдены</p></td></tr>';
+      return;
+    }
+
+    this.elements.ordersBody.innerHTML = orders.map((order) => {
+      const customer = this.getUserLabel(order.userId);
+      const items = Array.isArray(order.items) ? order.items : [];
+      const itemsHtml = items.length
+        ? items.map((item) => {
+          const name = item.name_i18n?.ru || item.name || item.productId;
+          return `<li>${this.escapeHtml(name)} × ${this.escapeHtml(item.quantity)}</li>`;
+        }).join('')
+        : '<li>Нет товаров</li>';
+
+      return `
+        <tr>
+          <td>
+            <div class="admin-table__name">${this.escapeHtml(customer.name)}</div>
+            <div class="admin-table__meta">${this.escapeHtml(customer.contact)}</div>
+          </td>
+          <td class="admin-table__date">${this.escapeHtml(this.formatDate(order.createdAt))}</td>
+          <td><ul class="admin-order-items">${itemsHtml}</ul></td>
+          <td><span class="admin-table__price">${this.formatPrice(order.total)}</span></td>
+          <td>
+            <select class="admin-order-status" data-order-status data-order-id="${this.escapeHtml(order.id)}" aria-label="Статус заказа ${this.escapeHtml(order.id)}">
+              ${this.renderStatusOptions(order.status)}
+            </select>
+          </td>
+        </tr>
+      `;
+    }).join('');
+  }
+
+  getFilteredCallbacks() {
+    const status = this.elements.callbacksStatusFilter.value;
+    return this.callbacks.filter((callback) => {
+      const callbackStatus = callback.status === 'processed' ? 'processed' : 'new';
+      return !status || callbackStatus === status;
+    });
+  }
+
+  renderCallbacks() {
+    const callbacks = this.getFilteredCallbacks();
+    const total = this.callbacks.length;
+    const filtered = callbacks.length;
+
+    this.elements.callbacksCount.textContent = this.elements.callbacksStatusFilter.value
+      ? `Показано: ${filtered} из ${total}`
+      : `Всего заявок: ${total}`;
+
+    if (!callbacks.length) {
+      this.elements.callbacksBody.innerHTML = '<tr><td colspan="5"><p class="admin-empty">Заявки не найдены</p></td></tr>';
+      return;
+    }
+
+    this.elements.callbacksBody.innerHTML = callbacks.map((callback) => {
+      const isGuest = callback.userId === null || callback.userId === undefined || callback.userId === '';
+      const user = isGuest ? null : this.users.find((item) => String(item.id) === String(callback.userId));
+      const typeLabel = isGuest ? 'Гость' : 'Пользователь';
+      const typeClass = isGuest ? 'admin-badge--guest' : 'admin-badge--user';
+      const status = callback.status === 'processed' ? 'processed' : 'new';
+      const userMeta = user
+        ? [user.email, user.nickname].filter(Boolean).join(' · ')
+        : (isGuest ? 'Без аккаунта' : `ID ${callback.userId}`);
+
+      return `
+        <tr>
+          <td>
+            <div class="admin-table__name">${this.escapeHtml(callback.name)}</div>
+            <div class="admin-table__meta">${this.escapeHtml(userMeta)}</div>
+          </td>
+          <td><a class="admin-table__phone" href="tel:${this.escapeHtml(String(callback.phone).replace(/[^\d+]/g, ''))}">${this.escapeHtml(callback.phone)}</a></td>
+          <td><span class="admin-badge ${typeClass}">${typeLabel}</span></td>
+          <td>
+            <select class="admin-callback-status admin-callback-status--${status}" data-callback-status data-callback-id="${this.escapeHtml(callback.id)}" aria-label="Статус заявки">
+              ${this.renderCallbackStatusOptions(status)}
+            </select>
+          </td>
+          <td class="admin-table__date">${this.escapeHtml(this.formatDate(callback.createdAt))}</td>
+        </tr>
+      `;
+    }).join('');
+  }
+
+  renderCallbackStatusOptions(currentStatus) {
+    const statuses = [
+      ['new', 'Новая'],
+      ['processed', 'Обработана']
+    ];
+
+    return statuses.map(([value, label]) =>
+      `<option value="${value}"${value === currentStatus ? ' selected' : ''}>${label}</option>`
+    ).join('');
+  }
+
+  renderStatusOptions(currentStatus) {
+    const statuses = [
+      ['processing', 'В обработке'],
+      ['shipped', 'Отправлен'],
+      ['delivered', 'Доставлен'],
+      ['cancelled', 'Отменён']
+    ];
+
+    return statuses.map(([value, label]) =>
+      `<option value="${value}"${value === currentStatus ? ' selected' : ''}>${label}</option>`
+    ).join('');
+  }
+
+  async updateOrderStatus(orderId, status, select) {
+    const previousOrder = this.orders.find((order) => String(order.id) === String(orderId));
+
+    if (!previousOrder || previousOrder.status === status) {
+      return;
+    }
+
+    select.disabled = true;
+
+    try {
+      const updated = await api.updateOrder(orderId, { status });
+      this.orders = this.orders.map((order) =>
+        String(order.id) === String(orderId) ? { ...order, ...updated } : order
+      );
+      this.renderOrders();
+      openModal({
+        title: 'Статус обновлён',
+        message: `Статус заказа #${orderId} изменён`,
+        type: 'success'
+      });
+    } catch (error) {
+      select.value = previousOrder.status;
+      openModal({
+        title: 'Ошибка обновления',
+        message: error.message || 'Не удалось изменить статус заказа',
+        type: 'error'
+      });
+    } finally {
+      select.disabled = false;
+    }
+  }
+
+  async updateCallbackStatus(callbackId, status, select) {
+    const previousCallback = this.callbacks.find((callback) => String(callback.id) === String(callbackId));
+    const previousStatus = previousCallback?.status === 'processed' ? 'processed' : 'new';
+
+    if (!previousCallback || previousStatus === status) {
+      return;
+    }
+
+    select.disabled = true;
+
+    try {
+      const updated = await api.updateCallback(callbackId, { status });
+      this.callbacks = this.callbacks.map((callback) =>
+        String(callback.id) === String(callbackId) ? { ...callback, ...updated } : callback
+      );
+      this.renderCallbacks();
+      openModal({
+        title: 'Статус обновлён',
+        message: 'Статус заявки изменён',
+        type: 'success'
+      });
+    } catch (error) {
+      select.value = previousStatus;
+      openModal({
+        title: 'Ошибка обновления',
+        message: error.message || 'Не удалось изменить статус заявки',
+        type: 'error'
+      });
+    } finally {
+      select.disabled = false;
     }
   }
 
@@ -493,7 +804,7 @@ class AdminPage {
   }
 
   formatPrice(price) {
-    return `${new Intl.NumberFormat('ru-RU').format(price || 0)} ₽`;
+    return `${new Intl.NumberFormat('ru-RU').format(price || 0)}\u00A0₽`;
   }
 
   escapeHtml(value) {

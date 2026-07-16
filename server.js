@@ -71,6 +71,11 @@ function sanitizeDatabase() {
     hasChanges = true;
   }
 
+  if (!Array.isArray(database.callbacks)) {
+    database.callbacks = [];
+    hasChanges = true;
+  }
+
   if (hasChanges) {
     fs.writeFileSync(databasePath, `${JSON.stringify(database, null, 2)}\n`, 'utf8');
   }
@@ -108,6 +113,14 @@ server.get('/', (request, response) => {
   response.redirect('/index.html');
 });
 
+function nextNumericId(db, collection) {
+  const items = db.get(collection).value() || [];
+  return items.reduce((max, item) => {
+    const numericId = Number(item.id);
+    return Number.isFinite(numericId) ? Math.max(max, numericId) : max;
+  }, 0) + 1;
+}
+
 server.post('/api/order', (request, response) => {
   const db = router.db;
 
@@ -116,8 +129,8 @@ server.post('/api/order', (request, response) => {
   }
 
   const order = {
-    id: `order-${Date.now()}`,
-    userId: request.body.userId || null,
+    id: nextNumericId(db, 'orders'),
+    userId: request.body.userId ?? null,
     items: Array.isArray(request.body.items) ? request.body.items : [],
     total: Number(request.body.total) || 0,
     status: request.body.status || 'processing',
@@ -130,11 +143,78 @@ server.post('/api/order', (request, response) => {
 });
 
 server.post('/api/callback', (request, response) => {
-  console.log('New callback request:', request.body);
-  response.status(201).json({
-    success: true,
-    message: 'Заявка отправлена'
-  });
+  const db = router.db;
+
+  if (!db.has('callbacks').value()) {
+    db.set('callbacks', []).write();
+  }
+
+  const callback = {
+    id: nextNumericId(db, 'callbacks'),
+    name: String(request.body?.name || '').trim(),
+    phone: String(request.body?.phone || '').trim(),
+    status: 'new',
+    userId: request.body?.userId ?? null,
+    createdAt: request.body?.createdAt || new Date().toISOString()
+  };
+
+  if (!callback.name || !callback.phone) {
+    response.status(400).json({ message: 'Укажите имя и телефон' });
+    return;
+  }
+
+  db.get('callbacks').push(callback).write();
+  console.log('New callback request:', callback.id);
+  response.status(201).json(callback);
+});
+
+server.patch('/api/callbacks/:id', (request, response) => {
+  const db = router.db;
+
+  if (!db.has('callbacks').value()) {
+    db.set('callbacks', []).write();
+  }
+
+  const id = request.params.id;
+  const existing = db.get('callbacks').find({ id: Number(id) }).value()
+    || db.get('callbacks').find({ id }).value();
+
+  if (!existing) {
+    response.status(404).json({ message: 'Заявка не найдена' });
+    return;
+  }
+
+  const allowedStatuses = ['new', 'processed'];
+  const nextStatus = String(request.body?.status || '').trim();
+
+  if (!allowedStatuses.includes(nextStatus)) {
+    response.status(400).json({ message: 'Статус должен быть new или processed' });
+    return;
+  }
+
+  const updated = db.get('callbacks')
+    .find({ id: existing.id })
+    .assign({ status: nextStatus })
+    .write();
+
+  response.json(updated);
+});
+
+server.get('/api/callbacks', (request, response) => {
+  const db = router.db;
+
+  if (!db.has('callbacks').value()) {
+    db.set('callbacks', []).write();
+  }
+
+  const callbacks = [...(db.get('callbacks').value() || [])]
+    .map((callback) => ({
+      ...callback,
+      status: callback.status === 'processed' ? 'processed' : 'new'
+    }))
+    .sort((first, second) => new Date(second.createdAt) - new Date(first.createdAt));
+
+  response.json(callbacks);
 });
 
 function ensureCartsCollection(db) {
@@ -159,12 +239,14 @@ function normalizeCartItems(items) {
 function getOrCreateCart(db, userId) {
   ensureCartsCollection(db);
 
-  let cart = db.get('carts').find({ userId }).value();
+  const normalizedUserId = Number.isFinite(Number(userId)) ? Number(userId) : userId;
+  let cart = db.get('carts').find({ userId: normalizedUserId }).value()
+    || db.get('carts').find({ userId: String(normalizedUserId) }).value();
 
   if (!cart) {
     cart = {
-      id: `cart-${userId}`,
-      userId,
+      id: nextNumericId(db, 'carts'),
+      userId: normalizedUserId,
       items: [],
       updatedAt: new Date().toISOString()
     };
