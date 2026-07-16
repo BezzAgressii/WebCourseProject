@@ -38,12 +38,27 @@ export function isAuthenticated() {
   return Boolean(getCurrentUser());
 }
 
+export function isAdmin() {
+  return getCurrentUser()?.role === 'admin';
+}
+
 export function getLoginPath() {
   return 'login.html';
 }
 
 export function requireAuth(redirectTo = 'login.html') {
   if (isAuthenticated()) {
+    return true;
+  }
+
+  window.location.href = redirectTo;
+  return false;
+}
+
+export function requireAdmin(redirectTo = 'login.html') {
+  const user = getCurrentUser();
+
+  if (user?.role === 'admin') {
     return true;
   }
 
