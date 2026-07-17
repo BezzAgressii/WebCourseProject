@@ -295,6 +295,12 @@
   display: grid;
   place-items: center;
   padding: 20px;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.auth-modal.is-open {
+  opacity: 1;
 }
 
 .auth-modal__backdrop {

@@ -183,51 +183,26 @@
 
       <div class="services__panel">
 
-        <div class="services__tabs">
+        <div class="services__tabs" role="tablist" aria-label="Категории услуг">
 
-          <button class="services__tab services__tab--active" type="button" data-i18n-aria="services.tab.ventilation" aria-label="Система вентиляции">
+          <button class="services__tab services__tab--active" type="button" role="tab" aria-selected="true" data-services-tab="ventilation" data-i18n-aria="services.tab.ventilation" aria-label="Система вентиляции">
             <img class="services__tab-icon" src="../assets/icons/tab-ventilation.svg" alt="">
             <span class="services__tab-label" data-i18n="services.tab.ventilation">Система Вентиляции</span>
           </button>
 
-          <button class="services__tab" type="button" data-i18n-aria="services.tab.conditioning" aria-label="Кондиционирование">
+          <button class="services__tab" type="button" role="tab" aria-selected="false" tabindex="-1" data-services-tab="conditioning" data-i18n-aria="services.tab.conditioning" aria-label="Кондиционирование">
             <img class="services__tab-icon" src="../assets/icons/tab-conditioning.svg" alt="">
             <span class="services__tab-label" data-i18n="services.tab.conditioning">Кондиционирование</span>
           </button>
 
         </div>
 
-        <ul class="services__list">
-          <li class="services__item">
-            <img class="services__item-icon" src="../assets/icons/svc-icon-1.svg" alt="">
-            <span class="services__item-text" data-i18n="services.item1">Проектирование систем вентиляции любой сложности</span>
-          </li>
-          <li class="services__item">
-            <img class="services__item-icon" src="../assets/icons/svc-icon-2.svg" alt="">
-            <span class="services__item-text" data-i18n="services.item2">Монтаж приточной вентиляции</span>
-          </li>
-          <li class="services__item">
-            <img class="services__item-icon" src="../assets/icons/svc-icon-3.svg" alt="">
-            <span class="services__item-text" data-i18n="services.item3">Монтаж вытяжной вентиляции</span>
-          </li>
-          <li class="services__item">
-            <img class="services__item-icon" src="../assets/icons/svc-icon-4.svg" alt="">
-            <span class="services__item-text" data-i18n="services.item4">Монтаж вентиляции с увлажнением воздуха</span>
-          </li>
-          <li class="services__item">
-            <img class="services__item-icon" src="../assets/icons/svc-icon-5.svg" alt="">
-            <span class="services__item-text" data-i18n="services.item5">Монтаж вентиляции с рекуператором</span>
-          </li>
-          <li class="services__item">
-            <img class="services__item-icon" src="../assets/icons/svc-icon-6.svg" alt="">
-            <span class="services__item-text" data-i18n="services.item6">Монтаж вентиляции с осушением для бассейна</span>
-          </li>
-        </ul>
+        <ul class="services__list" data-services-category="ventilation"></ul>
 
         <div class="services__panel-photo">
           <picture>
-            <source media="(max-width: 900px)" srcset="../assets/images/services-photo-mobile-77f5cf.png">
-            <img src="../assets/images/services-photo-741206.png" data-i18n-alt="services.photoAlt" alt="Монтаж системы вентиляции">
+            <source media="(max-width: 900px)" srcset="../assets/images/services-photo-mobile.png">
+            <img src="../assets/images/services-photo.png" data-i18n-alt="services.photoAlt" alt="Монтаж системы вентиляции">
           </picture>
         </div>
 
@@ -274,7 +249,7 @@
 
         <article class="showcase-card">
           <div class="showcase-card__image">
-            <img src="../assets/images/card-apartments-402d0f.png" data-i18n-alt="showcase.card.apartments" alt="Квартиры и офисы">
+            <img src="../assets/images/card-apartments.png" data-i18n-alt="showcase.card.apartments" alt="Квартиры и офисы">
             <div class="showcase-card__badge" data-i18n="showcase.badge.100k">от 100 000 ₽</div>
           </div>
           <div class="showcase-card__footer">
@@ -284,7 +259,7 @@
 
         <article class="showcase-card">
           <div class="showcase-card__image">
-            <img src="../assets/images/card-shops-61ed73.png" data-i18n-alt="showcase.card.shops" alt="Магазины и ТЦ">
+            <img src="../assets/images/card-shops.png" data-i18n-alt="showcase.card.shops" alt="Магазины и ТЦ">
             <div class="showcase-card__badge" data-i18n="showcase.badge.100k">от 100 000 ₽</div>
           </div>
           <div class="showcase-card__footer">
@@ -294,7 +269,7 @@
 
         <article class="showcase-card">
           <div class="showcase-card__image">
-            <img src="../assets/images/card-fitness-426f2d.png" data-i18n-alt="showcase.card.fitness" alt="Фитнес центры">
+            <img src="../assets/images/card-fitness.png" data-i18n-alt="showcase.card.fitness" alt="Фитнес центры">
             <div class="showcase-card__badge" data-i18n="showcase.badge.150k">от 150 000 ₽</div>
           </div>
           <div class="showcase-card__footer">
@@ -304,7 +279,7 @@
 
         <article class="showcase-card">
           <div class="showcase-card__image">
-            <img src="../assets/images/card-pools-5b74f6.png" data-i18n-alt="showcase.card.pools" alt="Бассейны">
+            <img src="../assets/images/card-pools.png" data-i18n-alt="showcase.card.pools" alt="Бассейны">
             <div class="showcase-card__badge" data-i18n="showcase.badge.150k">от 150 000 ₽</div>
           </div>
           <div class="showcase-card__footer">
@@ -314,7 +289,7 @@
 
         <article class="showcase-card">
           <div class="showcase-card__image">
-            <img src="../assets/images/card-houses-3398ea.png" data-i18n-alt="showcase.card.houses" alt="Загородные дома">
+            <img src="../assets/images/card-houses.png" data-i18n-alt="showcase.card.houses" alt="Загородные дома">
             <div class="showcase-card__badge" data-i18n="showcase.badge.200k">от 200 000 ₽</div>
           </div>
           <div class="showcase-card__footer showcase-card__footer--tall">
@@ -324,7 +299,7 @@
 
         <article class="showcase-card">
           <div class="showcase-card__image">
-            <img src="../assets/images/card-restaurants-46d60f.png" data-i18n-alt="showcase.card.restaurants" alt="Рестораны и кафе">
+            <img src="../assets/images/card-restaurants.png" data-i18n-alt="showcase.card.restaurants" alt="Рестораны и кафе">
             <div class="showcase-card__badge" data-i18n="showcase.badge.200k">от 200 000 ₽</div>
           </div>
           <div class="showcase-card__footer">
@@ -334,7 +309,7 @@
 
         <article class="showcase-card">
           <div class="showcase-card__image">
-            <img src="../assets/images/card-clinics-690540.png" data-i18n-alt="showcase.card.clinics" alt="Стоматологии и клиники">
+            <img src="../assets/images/card-clinics.png" data-i18n-alt="showcase.card.clinics" alt="Стоматологии и клиники">
             <div class="showcase-card__badge" data-i18n="showcase.badge.200k">от 200 000 ₽</div>
           </div>
           <div class="showcase-card__footer">
@@ -344,7 +319,7 @@
 
         <article class="showcase-card">
           <div class="showcase-card__image">
-            <img src="../assets/images/card-beauty-76ae5d.png" data-i18n-alt="showcase.card.beauty" alt="Салоны красоты и СПА">
+            <img src="../assets/images/card-beauty.png" data-i18n-alt="showcase.card.beauty" alt="Салоны красоты и СПА">
             <div class="showcase-card__badge" data-i18n="showcase.badge.100k">от 100 000 ₽</div>
           </div>
           <div class="showcase-card__footer">
@@ -592,10 +567,10 @@
       </div>
 
       <div class="benefits__gallery" aria-hidden="true">
-        <img class="benefits__photo benefits__photo--1" src="../assets/images/benefits-photo-1-6a89c7.png" alt="" width="273" height="358">
-        <img class="benefits__photo benefits__photo--2" src="../assets/images/benefits-photo-2-12310e.png" alt="" width="267" height="350">
-        <img class="benefits__photo benefits__photo--3" src="../assets/images/benefits-photo-3-62e3bc.png" alt="" width="267" height="294">
-        <img class="benefits__photo benefits__photo--4" src="../assets/images/benefits-photo-4-6cbda9.png" alt="" width="273" height="424">
+        <img class="benefits__photo benefits__photo--1" src="../assets/images/benefits-photo-1.png" alt="" width="273" height="358">
+        <img class="benefits__photo benefits__photo--2" src="../assets/images/benefits-photo-2.png" alt="" width="267" height="350">
+        <img class="benefits__photo benefits__photo--3" src="../assets/images/benefits-photo-3.png" alt="" width="267" height="294">
+        <img class="benefits__photo benefits__photo--4" src="../assets/images/benefits-photo-4.png" alt="" width="273" height="424">
       </div>
 
     </div>
@@ -714,43 +689,43 @@
         <div class="portfolio__slider" tabindex="0" role="region" data-i18n-aria="portfolio.galleryAria" aria-label="Галерея проектов">
 
           <article class="portfolio__card portfolio__card--featured">
-            <img class="portfolio__card-photo" src="../assets/images/portfolio-photo-1.png" data-i18n-alt="portfolio.card1.alt" alt="Монтаж приточной вентиляции в Прайм Парк">
+            <img class="portfolio__card-photo" src="../assets/images/portfolio-photo-1.png" data-i18n-alt="portfolio.card1.alt" alt="Приточно-вытяжная установка AirFlow 500">
             <div class="portfolio__card-badge" aria-hidden="true">
               <img src="../assets/images/portfolio-logo-badge.svg" alt="">
             </div>
             <div class="portfolio__card-caption">
-              <h3 class="portfolio__card-title" data-i18n="portfolio.card1.title">приточная вентиляция</h3>
-              <p class="portfolio__card-subtitle" data-i18n="portfolio.card1.subtitle">Монтаж приточной вентиляции (объект в Прайм Парк)</p>
+              <h3 class="portfolio__card-title" data-i18n="portfolio.card1.title">AirFlow 500</h3>
+              <p class="portfolio__card-subtitle" data-i18n="portfolio.card1.subtitle">Монтаж приточно-вытяжной установки с рекуперацией</p>
             </div>
           </article>
 
           <article class="portfolio__card">
-            <img class="portfolio__card-photo" src="../assets/images/portfolio-photo-2.png" data-i18n-alt="portfolio.card2.alt" alt="Приточная вентиляция">
+            <img class="portfolio__card-photo" src="../assets/images/portfolio-photo-2.png" data-i18n-alt="portfolio.card2.alt" alt="Установка высокой фильтрации PureAir 600">
             <div class="portfolio__card-badge" aria-hidden="true">
               <img src="../assets/images/portfolio-logo-badge.svg" alt="">
             </div>
             <div class="portfolio__card-caption">
-              <h3 class="portfolio__card-title" data-i18n="portfolio.card2.title">приточная вентиляция</h3>
+              <h3 class="portfolio__card-title" data-i18n="portfolio.card2.title">PureAir 600</h3>
             </div>
           </article>
 
           <article class="portfolio__card">
-            <img class="portfolio__card-photo" src="../assets/images/portfolio-photo-3.png" data-i18n-alt="portfolio.card3.alt" alt="Канальные кондиционеры">
+            <img class="portfolio__card-photo" src="../assets/images/portfolio-photo-3.png" data-i18n-alt="portfolio.card3.alt" alt="Инверторный кондиционер AUX ASW-H12">
             <div class="portfolio__card-badge" aria-hidden="true">
               <img src="../assets/images/portfolio-logo-badge.svg" alt="">
             </div>
             <div class="portfolio__card-caption">
-              <h3 class="portfolio__card-title" data-i18n="portfolio.card3.title">канальные кондиционеры</h3>
+              <h3 class="portfolio__card-title" data-i18n="portfolio.card3.title">AUX ASW-H12</h3>
             </div>
           </article>
 
           <article class="portfolio__card">
-            <img class="portfolio__card-photo" src="../assets/images/portfolio-photo-4.png" data-i18n-alt="portfolio.card4.alt" alt="Канальные кондиционеры">
+            <img class="portfolio__card-photo" src="../assets/images/portfolio-photo-4.png" data-i18n-alt="portfolio.card4.alt" alt="Канальный кондиционер Ballu BLCI-24">
             <div class="portfolio__card-badge" aria-hidden="true">
               <img src="../assets/images/portfolio-logo-badge.svg" alt="">
             </div>
             <div class="portfolio__card-caption">
-              <h3 class="portfolio__card-title" data-i18n="portfolio.card4.title">канальные кондиционеры</h3>
+              <h3 class="portfolio__card-title" data-i18n="portfolio.card4.title">Ballu BLCI-24</h3>
             </div>
           </article>
 
@@ -801,17 +776,23 @@
                 <span class="clients__card-name-part clients__card-name-part--serif">Эко</span><span class="clients__card-name-part clients__card-name-part--sans">Климат</span>
               </p>
             </article>
+            <article class="clients__card" role="listitem">
+              <p class="clients__card-name">
+                <span class="clients__card-name-part clients__card-name-part--serif">УКС</span><span class="clients__card-name-part clients__card-name-part--sans">Могилёв</span>
+              </p>
+            </article>
+            <article class="clients__card" role="listitem">
+              <p class="clients__card-name">
+                <span class="clients__card-name-part clients__card-name-part--serif">ДСК</span><span class="clients__card-name-part clients__card-name-part--sans">Могилёв</span>
+              </p>
+            </article>
+            <article class="clients__card" role="listitem">
+              <p class="clients__card-name">
+                <span class="clients__card-name-part clients__card-name-part--serif">Пром</span><span class="clients__card-name-part clients__card-name-part--sans">жилстрой</span>
+              </p>
+            </article>
 
           </div>
-        </div>
-
-        <div class="clients__nav clients__nav--hidden" data-i18n-aria="clients.navAria" aria-label="Навигация по клиентам">
-          <button class="clients__nav-btn clients__nav-btn--prev" type="button" data-i18n-aria="clients.prev" aria-label="Предыдущие клиенты">
-            <img src="../assets/images/portfolio-arrow-next.svg" alt="" width="28" height="28">
-          </button>
-          <button class="clients__nav-btn clients__nav-btn--next" type="button" data-i18n-aria="clients.next" aria-label="Следующие клиенты">
-            <img src="../assets/images/portfolio-arrow-next.svg" alt="" width="28" height="28">
-          </button>
         </div>
       </div>
 
@@ -821,110 +802,11 @@
 
   </main>
 
-  <footer class="footer" id="footer">
-
-    <div class="footer__bg" aria-hidden="true">
-      <img src="../assets/images/footer-bg.svg" alt="" width="1440" height="528">
-    </div>
-
-    <div class="footer__content">
-
-      <div class="footer__brand">
-        <a href="/" class="footer__logo footer__logo--desktop" data-i18n-aria="header.logoAria" aria-label="Pascal Vent — главная">
-          <img src="../assets/images/footer-logo.svg" alt="Pascal Vent" width="352" height="109">
-        </a>
-        <a href="/" class="footer__logo footer__logo--mobile" data-i18n-aria="header.logoAria" aria-label="Pascal Vent — главная">
-          <img src="../assets/images/footer-mobile-logo.svg" alt="Pascal Vent" width="168" height="53">
-        </a>
-        <div class="footer__brand-info">
-          <p class="footer__about" data-i18n-html="footer.about">
-            Компания <strong>«Pascal Vent»</strong> входит в число лучших специализированных организаций, с широким ассортиментом товаров и услуг, предназначенных для систем вентиляции и кондиционирования, предоставляющих высокий сервис и удобство обслуживания нашим клиентам.
-          </p>
-          <span class="footer__divider" aria-hidden="true"></span>
-          <p class="footer__tagline">
-            <span class="footer__tagline-main" data-i18n="footer.tagline.main">Чистый воздух вместе с </span>
-            <span class="footer__tagline-accent" data-i18n="footer.tagline.accent">Pascal Vent</span>
-          </p>
-        </div>
-      </div>
-
-      <div class="footer__contacts">
-        <h2 class="footer__section-title" data-i18n="footer.contacts">Контакты</h2>
-        <div class="footer__contact-grid">
-
-          <ul class="footer__contact-col footer__contact-col--left">
-            <li class="footer__contact-item footer__contact-item--phone">
-              <img src="../assets/images/footer-icon-phone.svg" alt="" width="22" height="23" aria-hidden="true">
-              <p class="footer__contact-text">
-                <a href="tel:+375 222 73 63 31" data-i18n="footer.phone1">+375 222 73 63 31</a>
-              </p>
-            </li>
-
-            <li class="footer__contact-rule" aria-hidden="true"></li>
-
-            <li class="footer__contact-item footer__contact-item--phone">
-              <img src="../assets/images/footer-icon-phone.svg" alt="" width="22" height="23" aria-hidden="true">
-              <p class="footer__contact-text">
-                <a href="tel:+375 29 367 89 29" data-i18n="footer.phone2">+375 29 367 89 29</a>
-              </p>
-            </li>
-
-            <li class="footer__contact-rule" aria-hidden="true"></li>
-
-            <li class="footer__contact-item footer__contact-item--email">
-              <img src="../assets/images/footer-icon-envelope.svg" alt="" width="24" height="18" aria-hidden="true">
-              <p class="footer__contact-text">
-                <a href="mailto:PascalVent@mail.ru" data-i18n="footer.email">PascalVent@mail.ru</a>
-              </p>
-            </li>
-
-            <li class="footer__contact-rule footer__contact-rule--desktop" aria-hidden="true"></li>
-          </ul>
-
-          <ul class="footer__contact-col footer__contact-col--right">
-            <li class="footer__contact-item footer__contact-item--calendar">
-              <img src="../assets/images/footer-icon-calendar.svg" alt="" width="22" height="22" aria-hidden="true">
-              <p class="footer__contact-text footer__contact-text--small" data-i18n-html="footer.hours">
-                Пн - Сб: 9:00 - 19:00<br>
-                Вс: выходной
-              </p>
-            </li>
-
-            <li class="footer__contact-item footer__contact-item--pin">
-              <img src="../assets/images/footer-icon-pin.svg" alt="" width="24" height="31" aria-hidden="true">
-              <p class="footer__contact-text footer__contact-text--small">
-                <span class="footer__contact-address" data-i18n="footer.address">Могилёв ул. Первомайская, д. 29</span>
-                <span class="footer__contact-address footer__contact-address--desktop" data-i18n-html="footer.address.full">Республика Беларусь, г. Могилёв<br>ул. Первомайская, д. 29</span>
-              </p>
-            </li>
-          </ul>
-
-        </div>
-      </div>
-
-      <div class="footer__form-block">
-        <h2 class="footer__section-title" data-i18n="footer.formTitle">Заполнить заявку</h2>
-        <form class="footer__form" action="#" method="post">
-          <div class="footer__field">
-            <label class="visually-hidden" for="footer-name" data-i18n="footer.name">Ваше имя</label>
-            <input type="text" id="footer-name" name="name" data-i18n-placeholder="footer.namePlaceholder" placeholder="Ваше Имя" autocomplete="name" required>
-          </div>
-          <div class="footer__field">
-            <label class="visually-hidden" for="footer-phone" data-i18n="footer.phone">Номер телефона</label>
-            <input type="tel" id="footer-phone" name="phone" data-i18n-placeholder="footer.phonePlaceholder" placeholder="Номер телефона" autocomplete="tel" required>
-          </div>
-          <button class="footer__submit" type="submit">
-            <span data-i18n="footer.submit">отправить</span>
-          </button>
-        </form>
-      </div>
-
-    </div>
-
-  </footer>
+  <div data-footer></div>
 
   <script type="module" src="../js/i18n.js"></script>
   <script type="module" src="../js/header.js"></script>
+  <script type="module" src="../js/services.js"></script>
   <script src="../js/portfolio.js"></script>
   <script src="../js/clients.js"></script>
 </body>

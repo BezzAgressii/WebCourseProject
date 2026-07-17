@@ -39,6 +39,10 @@
   align-items: start;
 }
 
+.footer[data-footer-variant="compact"] .footer__content {
+  grid-template-columns: minmax(0, 1.1fr) minmax(240px, 0.9fr);
+}
+
 .footer__brand,
 .footer__form-block {
   min-width: 0;

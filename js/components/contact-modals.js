@@ -1,7 +1,7 @@
 import api from '../api.js';
 import i18n from '../i18n.js';
 import { getCurrentUser, isAdmin } from '../auth-session.js';
-import { openModal } from './modal.js';
+import { Modal } from './modal.js';
 import { bindPhoneMask, isValidBelarusPhone } from '../utils/phone-mask.js';
 
 const CLOCK_ICON = `
@@ -19,71 +19,6 @@ const PHONE_ICON = `
 
 function assetUrl(relativeFromJsComponents) {
   return new URL(relativeFromJsComponents, import.meta.url).href;
-}
-
-function ensureStylesheet() {
-  if (!document.querySelector('link[data-contact-modals-css]')) {
-    const link = document.createElement('link');
-    link.rel = 'stylesheet';
-    link.href = assetUrl('../../css/contact-modals.css');
-    link.dataset.contactModalsCss = '';
-    document.head.append(link);
-  }
-
-  if (!document.querySelector('link[data-auth-css]')) {
-    const authLink = document.createElement('link');
-    authLink.rel = 'stylesheet';
-    authLink.href = assetUrl('../../css/auth.css');
-    authLink.dataset.authCss = '';
-    document.head.append(authLink);
-  }
-}
-
-function lockScroll(lock) {
-  document.body.style.overflow = lock ? 'hidden' : '';
-}
-
-function closePvModal(modal) {
-  document.removeEventListener('keydown', modal._onKeyDown);
-  lockScroll(false);
-  modal.remove();
-}
-
-function createShell({ type, titleHtml, bodyHtml, footerHtml = '' }) {
-  ensureStylesheet();
-
-  const modal = document.createElement('div');
-  modal.className = `pv-modal pv-modal--${type}`;
-  modal.setAttribute('role', 'dialog');
-  modal.setAttribute('aria-modal', 'true');
-  modal.innerHTML = `
-    <div class="pv-modal__backdrop" data-action="close"></div>
-    <section class="pv-modal__dialog">
-      <button class="pv-modal__close" type="button" data-action="close" aria-label="${i18n.t('common.close')}">×</button>
-      <header class="pv-modal__header">
-        <h2 class="pv-modal__title">${titleHtml}</h2>
-      </header>
-      <div class="pv-modal__body">${bodyHtml}</div>
-      ${footerHtml}
-    </section>
-  `;
-
-  modal._onKeyDown = (event) => {
-    if (event.key === 'Escape') {
-      closePvModal(modal);
-    }
-  };
-
-  modal.querySelectorAll('[data-action="close"]').forEach((element) => {
-    element.addEventListener('click', () => closePvModal(modal));
-  });
-
-  document.addEventListener('keydown', modal._onKeyDown);
-  document.body.append(modal);
-  lockScroll(true);
-  modal.querySelector('.pv-modal__close').focus();
-
-  return modal;
 }
 
 function titleWithAccent(line1, line2) {
@@ -105,10 +40,8 @@ function brandFooter() {
 }
 
 function showAdminForbidden() {
-  openModal({
+  Modal.showError(i18n.t('auth.adminForbiddenMessage'), {
     title: i18n.t('auth.adminForbiddenTitle'),
-    message: i18n.t('auth.adminForbiddenMessage'),
-    type: 'error',
     closeLabel: i18n.t('common.close')
   });
 }
@@ -119,16 +52,15 @@ export function openRequestModal() {
     return;
   }
 
-  const existing = document.querySelector('.pv-modal--request');
-
-  if (existing) {
+  if (Modal.element?.classList.contains('pv-modal--request')) {
     return;
   }
 
-  const modal = createShell({
+  Modal.open({
+    variant: 'pv',
     type: 'request',
     titleHtml: titleWithAccent(i18n.t('modal.request.title1'), i18n.t('modal.request.title2')),
-    bodyHtml: `
+    body: `
       <form class="pv-modal__form" id="pv-request-form" novalidate>
         <div class="pv-modal__field">
           <label class="visually-hidden" for="pv-request-name">${i18n.t('footer.name')}</label>
@@ -141,87 +73,86 @@ export function openRequestModal() {
         <button class="pv-modal__submit" type="submit">${i18n.t('modal.request.submit')}</button>
       </form>
     `,
-    footerHtml: brandFooter()
-  });
+    footerHtml: brandFooter(),
+    onReady: (modal) => {
+      const form = modal.querySelector('#pv-request-form');
+      const nameInput = form.elements.name;
+      const phoneInput = form.elements.phone;
+      const submit = form.querySelector('.pv-modal__submit');
 
-  const form = modal.querySelector('#pv-request-form');
-  const nameInput = form.elements.name;
-  const phoneInput = form.elements.phone;
-  const submit = form.querySelector('.pv-modal__submit');
+      bindPhoneMask(phoneInput);
 
-  bindPhoneMask(phoneInput);
+      const validateName = (input) => {
+        const valid = input.value.trim().length >= 2;
+        input.classList.toggle('pv-modal__input--invalid', !valid);
+        return valid;
+      };
 
-  const validateName = (input) => {
-    const valid = input.value.trim().length >= 2;
-    input.classList.toggle('pv-modal__input--invalid', !valid);
-    return valid;
-  };
+      const validatePhone = (input) => {
+        const valid = isValidBelarusPhone(input.value);
+        input.classList.toggle('pv-modal__input--invalid', !valid);
+        return valid;
+      };
 
-  const validatePhone = (input) => {
-    const valid = isValidBelarusPhone(input.value);
-    input.classList.toggle('pv-modal__input--invalid', !valid);
-    return valid;
-  };
+      nameInput.addEventListener('input', () => validateName(nameInput));
+      phoneInput.addEventListener('input', () => validatePhone(phoneInput));
 
-  nameInput.addEventListener('input', () => validateName(nameInput));
-  phoneInput.addEventListener('input', () => validatePhone(phoneInput));
+      form.addEventListener('submit', async (event) => {
+        event.preventDefault();
 
-  form.addEventListener('submit', async (event) => {
-    event.preventDefault();
+        const nameOk = validateName(nameInput);
+        const phoneOk = validatePhone(phoneInput);
 
-    const nameOk = validateName(nameInput);
-    const phoneOk = validatePhone(phoneInput);
+        if (!nameOk || !phoneOk) {
+          Modal.showError(
+            phoneOk ? i18n.t('modal.request.invalid') : i18n.t('validation.phone'),
+            {
+              title: i18n.t('modal.request.errorTitle'),
+              closeLabel: i18n.t('common.close'),
+              stack: true
+            }
+          );
+          return;
+        }
 
-    if (!nameOk || !phoneOk) {
-      openModal({
-        title: i18n.t('modal.request.errorTitle'),
-        message: phoneOk ? i18n.t('modal.request.invalid') : i18n.t('validation.phone'),
-        type: 'error',
-        closeLabel: i18n.t('common.close')
+        submit.disabled = true;
+
+        try {
+          await api.createCallback({
+            name: nameInput.value.trim(),
+            phone: phoneInput.value.trim(),
+            userId: getCurrentUser()?.id ?? null,
+            createdAt: new Date().toISOString()
+          });
+
+          Modal.close({ silent: true });
+          Modal.showSuccess(i18n.t('modal.request.successMessage'), {
+            title: i18n.t('modal.request.successTitle'),
+            closeLabel: i18n.t('common.close')
+          });
+        } catch (error) {
+          Modal.showError(error.message || i18n.t('modal.request.errorMessage'), {
+            title: i18n.t('modal.request.errorTitle'),
+            closeLabel: i18n.t('common.close'),
+            stack: true
+          });
+          submit.disabled = false;
+        }
       });
-      return;
-    }
-
-    submit.disabled = true;
-
-    try {
-      await api.createCallback({
-        name: nameInput.value.trim(),
-        phone: phoneInput.value.trim(),
-        userId: getCurrentUser()?.id ?? null,
-        createdAt: new Date().toISOString()
-      });
-
-      closePvModal(modal);
-      openModal({
-        title: i18n.t('modal.request.successTitle'),
-        message: i18n.t('modal.request.successMessage'),
-        type: 'success',
-        closeLabel: i18n.t('common.close')
-      });
-    } catch (error) {
-      openModal({
-        title: i18n.t('modal.request.errorTitle'),
-        message: error.message || i18n.t('modal.request.errorMessage'),
-        type: 'error',
-        closeLabel: i18n.t('common.close')
-      });
-      submit.disabled = false;
     }
   });
 }
 
 export function openContactModal() {
-  const existing = document.querySelector('.pv-modal--contact');
-
-  if (existing) {
+  if (Modal.element?.classList.contains('pv-modal--contact')) {
     return;
   }
 
-  createShell({
+  Modal.open({
+    variant: 'pv',
     type: 'contact',
     titleHtml: titleWithAccent(i18n.t('modal.contact.title1'), i18n.t('modal.contact.title2')),
-    bodyHtml: `
+    body: `
       <p class="pv-modal__text">${i18n.t('modal.contact.text')}</p>
       <p class="pv-modal__schedule-title">${i18n.t('modal.contact.scheduleTitle')}</p>
       <div class="pv-modal__schedule">
@@ -252,12 +183,13 @@ async function submitInlineCallbackForm(form) {
   const phone = form.elements.phone?.value.trim() || '';
 
   if (name.length < 2 || !isValidBelarusPhone(phone)) {
-    openModal({
-      title: i18n.t('modal.request.errorTitle'),
-      message: name.length < 2 ? i18n.t('modal.request.invalid') : i18n.t('validation.phone'),
-      type: 'error',
-      closeLabel: i18n.t('common.close')
-    });
+    Modal.showError(
+      name.length < 2 ? i18n.t('modal.request.invalid') : i18n.t('validation.phone'),
+      {
+        title: i18n.t('modal.request.errorTitle'),
+        closeLabel: i18n.t('common.close')
+      }
+    );
     return;
   }
 
@@ -276,17 +208,13 @@ async function submitInlineCallbackForm(form) {
     });
 
     form.reset();
-    openModal({
+    Modal.showSuccess(i18n.t('modal.request.successMessage'), {
       title: i18n.t('modal.request.successTitle'),
-      message: i18n.t('modal.request.successMessage'),
-      type: 'success',
       closeLabel: i18n.t('common.close')
     });
   } catch (error) {
-    openModal({
+    Modal.showError(error.message || i18n.t('modal.request.errorMessage'), {
       title: i18n.t('modal.request.errorTitle'),
-      message: error.message || i18n.t('modal.request.errorMessage'),
-      type: 'error',
       closeLabel: i18n.t('common.close')
     });
   } finally {
@@ -308,7 +236,6 @@ export function initContactModals() {
   }
 
   document.documentElement.dataset.contactModalsReady = 'true';
-  ensureStylesheet();
   bindPhoneMasksInDocument();
 
   document.addEventListener('click', (event) => {
@@ -333,10 +260,14 @@ export function initContactModals() {
     void i18n.init().then(() => openRequestModal());
   });
 
-  document.querySelectorAll('.footer__form, .cta-form__form').forEach((form) => {
-    form.addEventListener('submit', (event) => {
-      event.preventDefault();
-      void i18n.init().then(() => submitInlineCallbackForm(form));
-    });
+  document.addEventListener('submit', (event) => {
+    const form = event.target.closest('.footer__form, .cta-form__form');
+
+    if (!form) {
+      return;
+    }
+
+    event.preventDefault();
+    void i18n.init().then(() => submitInlineCallbackForm(form));
   });
 }

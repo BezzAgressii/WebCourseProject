@@ -8,7 +8,7 @@ import {
 } from './cart-storage.js';
 import { getCurrentUser, isAdmin, requireAuth, resolveAssetPath } from './auth-session.js';
 import { showConfirm } from './components/confirm.js';
-import { openModal } from './components/modal.js';
+import { Modal } from './components/modal.js';
 
 class CartPage {
   constructor() {
@@ -156,10 +156,8 @@ class CartPage {
           this.render();
         }
       } catch (error) {
-        openModal({
-          title: i18n.t('common.error'),
-          message: error.message || i18n.t('cart.orderErrorMessage'),
-          type: 'error'
+        Modal.showError(error.message || i18n.t('cart.orderErrorMessage'), {
+          title: i18n.t('common.error')
         });
       }
     });
@@ -176,10 +174,8 @@ class CartPage {
         this.cartItems = await updateCartQuantity(item.dataset.productId, input.value);
         this.render();
       } catch (error) {
-        openModal({
-          title: i18n.t('common.error'),
-          message: error.message || i18n.t('cart.orderErrorMessage'),
-          type: 'error'
+        Modal.showError(error.message || i18n.t('cart.orderErrorMessage'), {
+          title: i18n.t('common.error')
         });
       }
     });
@@ -226,19 +222,15 @@ class CartPage {
       this.cartItems = await clearCart();
       this.render();
 
-      openModal({
+      Modal.showSuccess(i18n.t('cart.orderSuccessMessage'), {
         title: i18n.t('cart.orderSuccessTitle'),
-        message: i18n.t('cart.orderSuccessMessage'),
-        type: 'success',
         actionHref: 'profile.html',
         actionLabel: i18n.t('cart.goToProfile'),
         closeLabel: i18n.t('common.close')
       });
     } catch (error) {
-      openModal({
-        title: i18n.t('cart.orderErrorTitle'),
-        message: error.message || i18n.t('cart.orderErrorMessage'),
-        type: 'error'
+      Modal.showError(error.message || i18n.t('cart.orderErrorMessage'), {
+        title: i18n.t('cart.orderErrorTitle')
       });
     }
   }

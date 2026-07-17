@@ -1,7 +1,7 @@
 import api from './api.js';
 import i18n from './i18n.js';
 import { getCurrentUser, isAdmin, requireAuth, setCurrentUser } from './auth-session.js';
-import { openModal } from './components/modal.js';
+import { Modal } from './components/modal.js';
 
 class ProfilePage {
   constructor() {
@@ -194,10 +194,8 @@ class ProfilePage {
     const phone = this.elements.form.elements.phone.value.trim();
 
     if (firstName.length < 2 || lastName.length < 2 || !email || !phone) {
-      openModal({
-        title: i18n.t('profile.settingsErrorTitle'),
-        message: i18n.t('profile.settingsInvalid'),
-        type: 'error'
+      Modal.showError(i18n.t('profile.settingsInvalid'), {
+        title: i18n.t('profile.settingsErrorTitle')
       });
       return;
     }
@@ -214,16 +212,12 @@ class ProfilePage {
       setCurrentUser(this.user);
       this.renderUser();
 
-      openModal({
-        title: i18n.t('profile.settingsSuccessTitle'),
-        message: i18n.t('profile.settingsSuccessMessage'),
-        type: 'success'
+      Modal.showSuccess(i18n.t('profile.settingsSuccessMessage'), {
+        title: i18n.t('profile.settingsSuccessTitle')
       });
     } catch (error) {
-      openModal({
-        title: i18n.t('profile.settingsErrorTitle'),
-        message: error.message || i18n.t('profile.settingsErrorMessage'),
-        type: 'error'
+      Modal.showError(error.message || i18n.t('profile.settingsErrorMessage'), {
+        title: i18n.t('profile.settingsErrorTitle')
       });
     }
   }

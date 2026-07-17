@@ -1,6 +1,6 @@
 import api from './api.js';
 import { getCurrentUser, requireAdmin, setCurrentUser, resolveAssetPath } from './auth-session.js';
-import { openModal } from './components/modal.js';
+import { Modal } from './components/modal.js';
 import { showConfirm } from './components/confirm.js';
 import ImageUploader from './loadImages.js';
 
@@ -27,9 +27,9 @@ const CATEGORY_LABELS = {
 };
 
 const DEFAULT_IMAGES = [
-  'assets/images/services-photo-741206.png',
+  'assets/images/services-photo.png',
   'assets/images/portfolio-photo-1.png',
-  'assets/images/benefits-photo-1-6a89c7.png'
+  'assets/images/benefits-photo-1.png'
 ];
 
 class AdminPage {
@@ -393,17 +393,13 @@ class AdminPage {
         String(order.id) === String(orderId) ? { ...order, ...updated } : order
       );
       this.renderOrders();
-      openModal({
-        title: 'Статус обновлён',
-        message: `Статус заказа #${orderId} изменён`,
-        type: 'success'
+      Modal.showSuccess(`Статус заказа #${orderId} изменён`, {
+        title: 'Статус обновлён'
       });
     } catch (error) {
       select.value = previousOrder.status;
-      openModal({
-        title: 'Ошибка обновления',
-        message: error.message || 'Не удалось изменить статус заказа',
-        type: 'error'
+      Modal.showError(error.message || 'Не удалось изменить статус заказа', {
+        title: 'Ошибка обновления'
       });
     } finally {
       select.disabled = false;
@@ -426,17 +422,13 @@ class AdminPage {
         String(callback.id) === String(callbackId) ? { ...callback, ...updated } : callback
       );
       this.renderCallbacks();
-      openModal({
-        title: 'Статус обновлён',
-        message: 'Статус заявки изменён',
-        type: 'success'
+      Modal.showSuccess('Статус заявки изменён', {
+        title: 'Статус обновлён'
       });
     } catch (error) {
       select.value = previousStatus;
-      openModal({
-        title: 'Ошибка обновления',
-        message: error.message || 'Не удалось изменить статус заявки',
-        type: 'error'
+      Modal.showError(error.message || 'Не удалось изменить статус заявки', {
+        title: 'Ошибка обновления'
       });
     } finally {
       select.disabled = false;
@@ -728,10 +720,8 @@ class AdminPage {
     event.preventDefault();
 
     if (!this.validateForm()) {
-      openModal({
-        title: 'Проверьте форму',
-        message: 'Заполните обязательные поля корректно',
-        type: 'error'
+      Modal.showError('Заполните обязательные поля корректно', {
+        title: 'Проверьте форму'
       });
       return;
     }
@@ -743,29 +733,23 @@ class AdminPage {
     try {
       if (this.editingId && !selectedFiles.length) {
         await api.updateProduct(this.editingId, payload);
-        openModal({
-          title: 'Товар обновлён',
-          message: 'Изменения успешно сохранены',
-          type: 'success'
+        Modal.showSuccess('Изменения успешно сохранены', {
+          title: 'Товар обновлён'
         });
       } else {
         await api.createProductWithImages(payload, selectedFiles);
-        openModal({
-          title: this.editingId ? 'Товар обновлён' : 'Товар добавлен',
-          message: this.editingId
+        Modal.showSuccess(this.editingId
             ? 'Изменения и изображения успешно сохранены'
-            : 'Новый товар появился в каталоге',
-          type: 'success'
+            : 'Новый товар появился в каталоге', {
+          title: this.editingId ? 'Товар обновлён' : 'Товар добавлен'
         });
       }
 
       this.closeProductModal();
       await this.loadProducts();
     } catch (error) {
-      openModal({
-        title: 'Ошибка сохранения',
-        message: error.message || 'Не удалось сохранить товар',
-        type: 'error'
+      Modal.showError(error.message || 'Не удалось сохранить товар', {
+        title: 'Ошибка сохранения'
       });
     } finally {
       this.elements.submit.disabled = false;
@@ -789,16 +773,12 @@ class AdminPage {
     try {
       await api.deleteProduct(productId);
       await this.loadProducts();
-      openModal({
-        title: 'Товар удалён',
-        message: `«${name}» удалён из каталога`,
-        type: 'success'
+      Modal.showSuccess(`«${name}» удалён из каталога`, {
+        title: 'Товар удалён'
       });
     } catch (error) {
-      openModal({
-        title: 'Ошибка удаления',
-        message: error.message || 'Не удалось удалить товар',
-        type: 'error'
+      Modal.showError(error.message || 'Не удалось удалить товар', {
+        title: 'Ошибка удаления'
       });
     }
   }

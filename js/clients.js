@@ -1,49 +1,61 @@
 (function () {
   var viewport = document.querySelector('.clients__cards-viewport');
-  var nav = document.querySelector('.clients__nav');
-  var prevBtn = document.querySelector('.clients__nav-btn--prev');
-  var nextBtn = document.querySelector('.clients__nav-btn--next');
+  var track = document.querySelector('.clients__cards');
 
-  if (!viewport || !nav || !prevBtn || !nextBtn) return;
-
-  function getScrollStep() {
-    var card = viewport.querySelector('.clients__card');
-    if (!card) return 278;
-    var gap = parseFloat(getComputedStyle(viewport.querySelector('.clients__cards')).gap) || 20;
-    return card.offsetWidth + gap;
+  if (!viewport || !track) {
+    return;
   }
 
-  function hasOverflow() {
-    return viewport.scrollWidth > viewport.clientWidth + 2;
+  var cards = Array.from(track.children);
+  if (cards.length < 2) {
+    return;
   }
 
-  function updateButtons() {
-    var overflow = hasOverflow();
+  cards.forEach(function (card) {
+    var clone = card.cloneNode(true);
+    clone.setAttribute('aria-hidden', 'true');
+    track.appendChild(clone);
+  });
 
-    nav.classList.toggle('clients__nav--hidden', !overflow);
-    viewport.classList.toggle('clients__cards-viewport--static', !overflow);
+  var offset = 0;
+  var speed = 0.45;
+  var paused = false;
+  var reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-    if (!overflow) {
-      viewport.scrollLeft = 0;
-      prevBtn.disabled = true;
-      nextBtn.disabled = true;
-      return;
+  function halfWidth() {
+    return track.scrollWidth / 2;
+  }
+
+  function tick() {
+    if (!paused && !reducedMotion) {
+      offset += speed;
+      var loopWidth = halfWidth();
+
+      if (loopWidth > 0 && offset >= loopWidth) {
+        offset -= loopWidth;
+      }
+
+      track.style.transform = 'translate3d(' + (-offset) + 'px, 0, 0)';
     }
 
-    var maxScroll = viewport.scrollWidth - viewport.clientWidth - 2;
-    prevBtn.disabled = viewport.scrollLeft <= 2;
-    nextBtn.disabled = viewport.scrollLeft >= maxScroll;
+    window.requestAnimationFrame(tick);
   }
 
-  prevBtn.addEventListener('click', function () {
-    viewport.scrollBy({ left: -getScrollStep(), behavior: 'smooth' });
+  viewport.addEventListener('mouseenter', function () {
+    paused = true;
   });
 
-  nextBtn.addEventListener('click', function () {
-    viewport.scrollBy({ left: getScrollStep(), behavior: 'smooth' });
+  viewport.addEventListener('mouseleave', function () {
+    paused = false;
   });
 
-  viewport.addEventListener('scroll', updateButtons, { passive: true });
-  window.addEventListener('resize', updateButtons);
-  updateButtons();
+  viewport.addEventListener('focusin', function () {
+    paused = true;
+  });
+
+  viewport.addEventListener('focusout', function () {
+    paused = false;
+  });
+
+  window.requestAnimationFrame(tick);
 })();

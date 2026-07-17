@@ -49,9 +49,9 @@
       },
       "inStock": true,
       "images": [
-        "assets/images/services-photo-741206.png",
+        "assets/images/services-photo.png",
         "assets/images/portfolio-photo-1.png",
-        "assets/images/benefits-photo-1-6a89c7.png"
+        "assets/images/benefits-photo-1.png"
       ]
     },
     {
@@ -104,7 +104,7 @@
       "inStock": true,
       "images": [
         "assets/images/portfolio-photo-1.png",
-        "assets/images/services-photo-741206.png",
+        "assets/images/services-photo.png",
         "assets/images/portfolio-photo-2.png"
       ]
     },
@@ -157,9 +157,9 @@
       },
       "inStock": false,
       "images": [
-        "assets/images/services-photo-mobile-77f5cf.png",
+        "assets/images/services-photo-mobile.png",
         "assets/images/portfolio-photo-3.png",
-        "assets/images/benefits-photo-2-12310e.png"
+        "assets/images/benefits-photo-2.png"
       ]
     },
     {
@@ -211,8 +211,8 @@
       },
       "inStock": true,
       "images": [
-        "assets/images/benefits-photo-1-6a89c7.png",
-        "assets/images/services-photo-741206.png",
+        "assets/images/benefits-photo-1.png",
+        "assets/images/services-photo.png",
         "assets/images/portfolio-photo-4.png"
       ]
     },
@@ -265,8 +265,8 @@
       },
       "inStock": true,
       "images": [
-        "assets/images/benefits-photo-2-12310e.png",
-        "assets/images/services-photo-mobile-77f5cf.png",
+        "assets/images/benefits-photo-2.png",
+        "assets/images/services-photo-mobile.png",
         "assets/images/portfolio-photo-1.png"
       ]
     },
@@ -347,7 +347,7 @@
       "images": [
         "assets/images/portfolio-photo-3.png",
         "assets/images/portfolio-photo-2.png",
-        "assets/images/benefits-photo-1-6a89c7.png"
+        "assets/images/benefits-photo-1.png"
       ]
     },
     {
@@ -387,7 +387,7 @@
       "images": [
         "assets/images/portfolio-photo-4.png",
         "assets/images/portfolio-photo-1.png",
-        "assets/images/benefits-photo-2-12310e.png"
+        "assets/images/benefits-photo-2.png"
       ]
     },
     {
@@ -427,7 +427,7 @@
       "images": [
         "assets/images/portfolio-photo-1.png",
         "assets/images/portfolio-photo-3.png",
-        "assets/images/benefits-photo-3-62e3bc.png"
+        "assets/images/benefits-photo-3.png"
       ]
     },
     {
@@ -467,7 +467,7 @@
       "images": [
         "assets/images/portfolio-photo-2.png",
         "assets/images/portfolio-photo-4.png",
-        "assets/images/benefits-photo-1-6a89c7.png"
+        "assets/images/benefits-photo-1.png"
       ]
     },
     {
@@ -505,7 +505,7 @@
       "bodyMaterial": "polypropylene",
       "inStock": true,
       "images": [
-        "assets/images/benefits-photo-1-6a89c7.png",
+        "assets/images/benefits-photo-1.png",
         "assets/images/portfolio-photo-2.png",
         "assets/images/portfolio-photo-3.png"
       ]
@@ -545,7 +545,7 @@
       "bodyMaterial": "galvanized-steel",
       "inStock": true,
       "images": [
-        "assets/images/benefits-photo-2-12310e.png",
+        "assets/images/benefits-photo-2.png",
         "assets/images/portfolio-photo-3.png",
         "assets/images/portfolio-photo-4.png"
       ]
@@ -583,8 +583,8 @@
       "bodyMaterial": "polypropylene",
       "inStock": true,
       "images": [
-        "assets/images/card-pools-5b74f6.png",
-        "assets/images/benefits-photo-3-62e3bc.png",
+        "assets/images/card-pools.png",
+        "assets/images/benefits-photo-3.png",
         "assets/images/portfolio-photo-1.png"
       ]
     },
@@ -621,8 +621,8 @@
       "bodyMaterial": "galvanized-steel",
       "inStock": false,
       "images": [
-        "assets/images/benefits-photo-3-62e3bc.png",
-        "assets/images/card-pools-5b74f6.png",
+        "assets/images/benefits-photo-3.png",
+        "assets/images/card-pools.png",
         "assets/images/portfolio-photo-4.png"
       ]
     }
@@ -684,7 +684,7 @@
           "price": 4890,
           "quantity": 1,
           "lineTotal": 4890,
-          "image": "assets/images/services-photo-741206.png"
+          "image": "assets/images/services-photo.png"
         }
       ],
       "total": 4890,
@@ -741,7 +741,7 @@
           "price": 6450,
           "quantity": 1,
           "lineTotal": 6450,
-          "image": "assets/images/card-pools-5b74f6.png"
+          "image": "assets/images/card-pools.png"
         }
       ],
       "total": 6450,
@@ -763,7 +763,7 @@
           "price": 4890,
           "quantity": 1,
           "lineTotal": 4890,
-          "image": "assets/images/services-photo-741206.png"
+          "image": "assets/images/services-photo.png"
         }
       ],
       "total": 4890,
@@ -791,7 +791,7 @@
       "id": 2,
       "name": "Иван Петров",
       "phone": "+375 (29) 123-45-67",
-      "status": "processed",
+      "status": "new",
       "userId": 2,
       "createdAt": "2026-07-16T14:05:00.000Z"
     },

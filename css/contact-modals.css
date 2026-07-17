@@ -7,6 +7,12 @@
   padding: 20px;
   font-family: var(--font-body);
   color: var(--color-dark-green);
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.pv-modal.is-open {
+  opacity: 1;
 }
 
 .pv-modal__backdrop {

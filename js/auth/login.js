@@ -1,6 +1,6 @@
 import api from '../api.js';
 import i18n from '../i18n.js';
-import { openModal } from '../components/modal.js';
+import { Modal } from '../components/modal.js';
 import { bindPasswordToggles } from './password-toggle.js';
 
 class Login {
@@ -29,7 +29,7 @@ class Login {
   }
 
   showLoginError(message) {
-    openModal({ title: i18n.t('auth.login.errorTitle'), message, type: 'error' });
+    Modal.showError(message, { title: i18n.t('auth.login.errorTitle') });
   }
 
   async handleSubmit(event) {

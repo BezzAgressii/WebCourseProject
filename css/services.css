@@ -94,12 +94,35 @@
   cursor: pointer;
   padding: 20px 0;
   position: relative;
-  transition: background 0.25s ease;
+  transition: background 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.services__tab:hover:not(.services__tab--active) {
+  background: rgba(120, 192, 129, 0.22);
+}
+
+.services__tab:hover:not(.services__tab--active) .services__tab-icon {
+  opacity: 1;
+  transform: scale(1.08);
+}
+
+.services__tab:hover:not(.services__tab--active) .services__tab-label {
+  color: var(--color-dark-green);
+}
+
+.services__tab:focus-visible {
+  outline: 2px solid var(--color-accent-green);
+  outline-offset: -4px;
 }
 
 .services__tab--active {
   background: var(--color-btn-green);
   box-shadow: var(--shadow-btn);
+}
+
+.services__tab--active:hover {
+  background: #54c463;
+  box-shadow: var(--shadow-btn), 0 8px 18px rgba(34, 111, 33, 0.18);
 }
 
 .services__tab-icon {
@@ -109,6 +132,7 @@
 
   filter: brightness(0) invert(1);
   opacity: 0.9;
+  transition: opacity 0.25s ease, transform 0.25s ease, filter 0.25s ease;
 }
 
 .services__tab:not(.services__tab--active) .services__tab-icon {
@@ -127,6 +151,7 @@
   letter-spacing: 0.03em;
   white-space: nowrap;
   color: #fff;
+  transition: color 0.25s ease;
 }
 
 .services__tab:not(.services__tab--active) .services__tab-label {
@@ -279,6 +304,10 @@
     box-shadow: none;
   }
 
+  .services__tab:hover:not(.services__tab--active) {
+    background: rgba(217, 250, 221, 0.95);
+  }
+
   .services__tab:not(.services__tab--active) .services__tab-label {
     color: #7CA281;
   }
@@ -286,6 +315,10 @@
   .services__tab--active {
     background: var(--color-btn-green);
     box-shadow: inset -2px -2px 12px rgba(34, 111, 33, 0.3);
+  }
+
+  .services__tab--active:hover {
+    background: #54c463;
   }
 
   .services__tab--active .services__tab-label {

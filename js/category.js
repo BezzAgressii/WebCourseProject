@@ -4,7 +4,7 @@ import i18n from './i18n.js';
 import { isAdmin, isAuthenticated, resolveAssetPath } from './auth-session.js';
 import { addToCart } from './cart-storage.js';
 import { showConfirm } from './components/confirm.js';
-import { openModal } from './components/modal.js';
+import { Modal } from './components/modal.js';
 import { createHoverCarousel } from './components/slider.js';
 
 class CategoryPage {
@@ -336,20 +336,16 @@ class CategoryPage {
       }
 
       if (isAdmin()) {
-        openModal({
+        Modal.showError(i18n.t('auth.adminForbiddenMessage'), {
           title: i18n.t('auth.adminForbiddenTitle'),
-          message: i18n.t('auth.adminForbiddenMessage'),
-          type: 'error',
           closeLabel: i18n.t('common.close')
         });
         return;
       }
 
       if (!isAuthenticated()) {
-        openModal({
+        Modal.showError(i18n.t('auth.cartLoginMessage'), {
           title: i18n.t('auth.cartLoginTitle'),
-          message: i18n.t('auth.cartLoginMessage'),
-          type: 'error',
           actionHref: 'login.html',
           actionLabel: i18n.t('auth.login.submit'),
           closeLabel: i18n.t('auth.cartLoginClose')
@@ -368,19 +364,15 @@ class CategoryPage {
 
         try {
           await addToCart(cartButton.dataset.productId, 1);
-          openModal({
+          Modal.showSuccess(i18n.t('category.addedMessage'), {
             title: i18n.t('category.addedTitle'),
-            message: i18n.t('category.addedMessage'),
-            type: 'success',
             actionHref: 'cart.html',
             actionLabel: i18n.t('header.cart'),
             closeLabel: i18n.t('common.close')
           });
         } catch (error) {
-          openModal({
+          Modal.showError(error.message || i18n.t('cart.orderErrorMessage'), {
             title: i18n.t('common.error'),
-            message: error.message || i18n.t('cart.orderErrorMessage'),
-            type: 'error',
             closeLabel: i18n.t('common.close')
           });
         }

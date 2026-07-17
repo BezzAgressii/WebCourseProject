@@ -1,6 +1,6 @@
 import api from '../api.js';
 import i18n from '../i18n.js';
-import { openModal } from '../components/modal.js';
+import { Modal } from '../components/modal.js';
 import { bindPasswordToggles } from './password-toggle.js';
 
 class Register {
@@ -115,7 +115,7 @@ class Register {
     const userData = { firstName:this.fields.firstName.value.trim(), lastName:this.fields.lastName.value.trim(), middleName:this.fields.middleName.value.trim(), birthDate:this.fields.birthDate.value, phone:this.fields.phone.value, email:this.fields.email.value.trim(), nickname:this.fields.nickname.value.trim(), password:method === 'auto' ? this.fields.generatedPassword.value : this.fields.password.value, role:'user', createdAt:new Date().toISOString() };
     const user = await api.createUser(userData);
     localStorage.setItem('currentUser', JSON.stringify(user));
-    openModal({ title:i18n.t('auth.register.successTitle'), message:i18n.t('auth.register.successMessage'), type:'success', onClose:() => { window.location.href='catalog.html'; } });
+    Modal.showSuccess(i18n.t('auth.register.successMessage'), { title: i18n.t('auth.register.successTitle'), onClose: () => { window.location.href='catalog.html'; } });
   }
 }
 new Register().init();

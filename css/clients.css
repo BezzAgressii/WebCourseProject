@@ -84,19 +84,9 @@
 
 .clients__cards-viewport {
   width: 100%;
-  overflow-x: auto;
-  overflow-y: hidden;
-  scroll-behavior: smooth;
-  -webkit-overflow-scrolling: touch;
-  scrollbar-width: none;
-}
-
-.clients__cards-viewport::-webkit-scrollbar {
-  display: none;
-}
-
-.clients__cards-viewport--static {
-  overflow-x: hidden;
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 8%, #000 92%, transparent 100%);
+  mask-image: linear-gradient(90deg, transparent 0%, #000 8%, #000 92%, transparent 100%);
 }
 
 .clients__cards {
@@ -105,6 +95,7 @@
   flex-wrap: nowrap;
   gap: 20px;
   width: max-content;
+  will-change: transform;
 }
 
 .clients__card {
@@ -153,9 +144,7 @@
 }
 
 .clients__nav {
-  display: flex;
-  align-items: center;
-  gap: 25px;
+  display: none;
 }
 
 .clients__nav--hidden {

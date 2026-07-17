@@ -2,12 +2,14 @@ import { initBurgerMenu } from './components/burger-menu.js';
 import { initContactModals } from './components/contact-modals.js';
 import { getCurrentUser, isAdmin } from './auth-session.js';
 import { getCartCount } from './cart-storage.js';
+import { loadFooter } from './footer.js';
 import i18n from './i18n.js';
 
 initBurgerMenu();
 void initHeaderExtras();
 
 async function initHeaderExtras() {
+  await loadFooter();
   await i18n.init();
   initContactModals();
 

@@ -2,7 +2,7 @@ import api from './api.js';
 import DETAILED_TRANSLATIONS from './detailed-translation.js';
 import i18n from './i18n.js';
 import { isAdmin, resolveAssetPath } from './auth-session.js';
-import { openModal } from './components/modal.js';
+import { Modal } from './components/modal.js';
 
 class ProductPage {
   constructor() {
@@ -298,10 +298,8 @@ class ProductPage {
 
     orderButton.addEventListener('click', () => {
       if (isAdmin()) {
-        openModal({
+        Modal.showError(i18n.t('auth.adminForbiddenMessage'), {
           title: i18n.t('auth.adminForbiddenTitle'),
-          message: i18n.t('auth.adminForbiddenMessage'),
-          type: 'error',
           closeLabel: i18n.t('common.close')
         });
         return;
