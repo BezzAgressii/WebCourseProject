@@ -76,47 +76,105 @@
 
         <div class="profile-layout">
           <section class="profile-hero" aria-labelledby="profile-name">
-            <h2 class="profile-hero__name" id="profile-name">—</h2>
+            <div class="profile-hero__top">
+              <div class="profile-hero__avatar" id="profile-avatar" aria-hidden="true">—</div>
+              <div class="profile-hero__intro">
+                <p class="profile-hero__eyebrow" data-i18n="profile.personalCabinet">Личный кабинет</p>
+                <h2 class="profile-hero__name" id="profile-name">—</h2>
+                <span class="profile-hero__role" id="profile-role">—</span>
+              </div>
+            </div>
+
             <ul class="profile-hero__meta">
-              <li><strong data-i18n="profile.nickname">Никнейм</strong>: <span id="profile-nickname">—</span></li>
-              <li><strong data-i18n="auth.register.email">Email</strong>: <span id="profile-email">—</span></li>
-              <li><strong data-i18n="auth.register.phone">Телефон</strong>: <span id="profile-phone">—</span></li>
-              <li><strong data-i18n="profile.role">Роль</strong>: <span id="profile-role">—</span></li>
+              <li class="profile-hero__meta-item">
+                <span class="profile-hero__meta-label" data-i18n="profile.nickname">Никнейм</span>
+                <span class="profile-hero__meta-value" id="profile-nickname">—</span>
+              </li>
+              <li class="profile-hero__meta-item">
+                <span class="profile-hero__meta-label" data-i18n="auth.register.email">Email</span>
+                <span class="profile-hero__meta-value" id="profile-email">—</span>
+              </li>
+              <li class="profile-hero__meta-item">
+                <span class="profile-hero__meta-label" data-i18n="auth.register.phone">Телефон</span>
+                <span class="profile-hero__meta-value" id="profile-phone">—</span>
+              </li>
             </ul>
           </section>
 
-          <div class="profile-grid">
-            <section class="profile-panel" aria-labelledby="orders-title">
-              <h2 class="profile-panel__title" id="orders-title" data-i18n="profile.ordersTitle">История заказов</h2>
-              <p class="account-page__empty" id="orders-empty" data-i18n="profile.ordersEmpty">Заказов пока нет</p>
-              <div class="profile-orders" id="orders-list" hidden></div>
-            </section>
+          <div class="profile-tabs">
+            <div class="profile-tabs__nav" role="tablist" aria-label="Разделы профиля">
+              <button
+                class="profile-tabs__btn profile-tabs__btn--active"
+                type="button"
+                role="tab"
+                id="profile-tab-orders"
+                aria-selected="true"
+                aria-controls="profile-panel-orders"
+                data-profile-tab="orders"
+              >
+                <span data-i18n="profile.ordersTitle">История заказов</span>
+                <span class="profile-tabs__count" id="profile-orders-count" hidden>0</span>
+              </button>
+              <button
+                class="profile-tabs__btn"
+                type="button"
+                role="tab"
+                id="profile-tab-settings"
+                aria-selected="false"
+                aria-controls="profile-panel-settings"
+                data-profile-tab="settings"
+                tabindex="-1"
+              >
+                <span data-i18n="profile.settingsTitle">Настройки</span>
+              </button>
+            </div>
 
-            <section class="profile-panel" aria-labelledby="settings-title">
-              <h2 class="profile-panel__title" id="settings-title" data-i18n="profile.settingsTitle">Настройки</h2>
-              <form class="profile-settings" id="profile-settings-form" novalidate>
-                <label class="profile-settings__field">
-                  <span class="profile-settings__label" data-i18n="auth.register.firstName">Имя</span>
-                  <input class="profile-settings__input" name="firstName" required>
-                </label>
-                <label class="profile-settings__field">
-                  <span class="profile-settings__label" data-i18n="auth.register.lastName">Фамилия</span>
-                  <input class="profile-settings__input" name="lastName" required>
-                </label>
-                <label class="profile-settings__field">
-                  <span class="profile-settings__label" data-i18n="auth.register.email">Email</span>
-                  <input class="profile-settings__input" name="email" type="email" required>
-                </label>
-                <label class="profile-settings__field">
-                  <span class="profile-settings__label" data-i18n="auth.register.phone">Телефон</span>
-                  <input class="profile-settings__input" name="phone" required>
-                </label>
-                <div class="profile-settings__actions">
-                  <button class="profile-button" type="submit" data-i18n="profile.save">Сохранить</button>
-                  <button class="profile-button profile-button--ghost" type="button" id="profile-logout" data-i18n="profile.logout">Выйти</button>
-                </div>
-              </form>
-            </section>
+            <div class="profile-tabs__panels">
+              <section
+                class="profile-panel profile-panel--orders"
+                id="profile-panel-orders"
+                role="tabpanel"
+                aria-labelledby="profile-tab-orders"
+                data-profile-panel="orders"
+              >
+                <p class="profile-panel__empty" id="orders-empty" data-i18n="profile.ordersEmpty">Заказов пока нет</p>
+                <div class="profile-orders" id="orders-list" hidden></div>
+              </section>
+
+              <section
+                class="profile-panel profile-panel--settings"
+                id="profile-panel-settings"
+                role="tabpanel"
+                aria-labelledby="profile-tab-settings"
+                data-profile-panel="settings"
+                hidden
+              >
+                <form class="profile-settings" id="profile-settings-form" novalidate>
+                  <div class="profile-settings__grid">
+                    <label class="profile-settings__field">
+                      <span class="profile-settings__label" data-i18n="auth.register.firstName">Имя</span>
+                      <input class="profile-settings__input" name="firstName" required>
+                    </label>
+                    <label class="profile-settings__field">
+                      <span class="profile-settings__label" data-i18n="auth.register.lastName">Фамилия</span>
+                      <input class="profile-settings__input" name="lastName" required>
+                    </label>
+                    <label class="profile-settings__field">
+                      <span class="profile-settings__label" data-i18n="auth.register.email">Email</span>
+                      <input class="profile-settings__input" name="email" type="email" required>
+                    </label>
+                    <label class="profile-settings__field">
+                      <span class="profile-settings__label" data-i18n="auth.register.phone">Телефон</span>
+                      <input class="profile-settings__input" name="phone" type="tel" autocomplete="tel" required>
+                    </label>
+                  </div>
+                  <div class="profile-settings__actions">
+                    <button class="profile-button" type="submit" data-i18n="profile.save">Сохранить</button>
+                    <button class="profile-button profile-button--ghost" type="button" id="profile-logout" data-i18n="profile.logout">Выйти</button>
+                  </div>
+                </form>
+              </section>
+            </div>
           </div>
         </div>
       </div>

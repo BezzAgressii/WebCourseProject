@@ -7,7 +7,9 @@ class ProfilePage {
   constructor() {
     this.user = null;
     this.orders = [];
+    this.activeTab = 'orders';
     this.elements = {
+      avatar: document.getElementById('profile-avatar'),
       name: document.getElementById('profile-name'),
       nickname: document.getElementById('profile-nickname'),
       email: document.getElementById('profile-email'),
@@ -15,6 +17,9 @@ class ProfilePage {
       role: document.getElementById('profile-role'),
       orders: document.getElementById('orders-list'),
       ordersEmpty: document.getElementById('orders-empty'),
+      ordersCount: document.getElementById('profile-orders-count'),
+      tabButtons: document.querySelectorAll('[data-profile-tab]'),
+      panels: document.querySelectorAll('[data-profile-panel]'),
       form: document.getElementById('profile-settings-form'),
       logout: document.getElementById('profile-logout')
     };
@@ -36,6 +41,7 @@ class ProfilePage {
     this.renderUser();
     this.fillSettingsForm();
     this.renderOrders();
+    this.openTab(this.activeTab);
     this.bindEvents();
 
     document.addEventListener('languageChanged', () => {
@@ -85,8 +91,21 @@ class ProfilePage {
     return i18n.t(`profile.status.${status}`) || status;
   }
 
+  getInitials() {
+    const first = String(this.user.firstName || '').trim().charAt(0);
+    const last = String(this.user.lastName || '').trim().charAt(0);
+
+    if (first || last) {
+      return `${first}${last}`.toUpperCase();
+    }
+
+    const nickname = String(this.user.nickname || this.user.email || '?').trim();
+    return nickname.slice(0, 2).toUpperCase();
+  }
+
   renderUser() {
     const fullName = [this.user.firstName, this.user.lastName].filter(Boolean).join(' ');
+    this.elements.avatar.textContent = this.getInitials();
     this.elements.name.textContent = fullName || this.user.nickname || this.user.email;
     this.elements.nickname.textContent = this.user.nickname || '—';
     this.elements.email.textContent = this.user.email || '—';
@@ -105,6 +124,8 @@ class ProfilePage {
     const hasOrders = this.orders.length > 0;
     this.elements.ordersEmpty.hidden = hasOrders;
     this.elements.orders.hidden = !hasOrders;
+    this.elements.ordersCount.hidden = !hasOrders;
+    this.elements.ordersCount.textContent = String(this.orders.length);
 
     if (!hasOrders) {
       this.elements.orders.innerHTML = '';
@@ -133,7 +154,30 @@ class ProfilePage {
     }).join('');
   }
 
+  openTab(tabName) {
+    if (!['orders', 'settings'].includes(tabName)) {
+      return;
+    }
+
+    this.activeTab = tabName;
+
+    this.elements.tabButtons.forEach((button) => {
+      const isActive = button.dataset.profileTab === tabName;
+      button.classList.toggle('profile-tabs__btn--active', isActive);
+      button.setAttribute('aria-selected', String(isActive));
+      button.tabIndex = isActive ? 0 : -1;
+    });
+
+    this.elements.panels.forEach((panel) => {
+      panel.hidden = panel.dataset.profilePanel !== tabName;
+    });
+  }
+
   bindEvents() {
+    this.elements.tabButtons.forEach((button) => {
+      button.addEventListener('click', () => this.openTab(button.dataset.profileTab));
+    });
+
     this.elements.form.addEventListener('submit', (event) => this.handleSettingsSubmit(event));
     this.elements.logout.addEventListener('click', () => {
       setCurrentUser(null);

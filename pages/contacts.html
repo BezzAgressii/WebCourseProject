@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Контакты — Pascal Vent</title>
+  <meta name="description" content="Контакты Pascal Vent: телефоны, email, адрес в Могилёве и карта проезда.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="../css/variables.css">
+  <link rel="stylesheet" href="../css/header.css">
+  <link rel="stylesheet" href="../css/main.css">
+  <link rel="stylesheet" href="../css/cart.css">
+  <link rel="stylesheet" href="../css/contacts.css">
+  <link rel="stylesheet" href="../css/footer.css">
+</head>
+<body data-page="contacts">
+  <header class="header header--page">
+    <div class="header__inner">
+      <a href="index.html" class="header__logo" data-i18n-aria="header.logoAria" aria-label="Pascal Vent — главная">
+        <picture>
+          <source media="(max-width: 480px)" srcset="../assets/images/footer-mobile-logo.svg">
+          <img src="../assets/icons/logo.svg" alt="Pascal Vent">
+        </picture>
+      </a>
+      <nav class="header__nav" data-i18n-aria="header.navAria" aria-label="Основное меню">
+        <ul class="nav__list">
+          <li><a href="index.html#services" data-i18n="header.services">Услуги</a></li>
+          <li><a href="index.html#about" data-i18n="header.about">О Нас</a></li>
+          <li><a href="catalog.html" data-i18n="header.catalog">Каталог</a></li>
+          <li><a href="contacts.html" data-i18n="header.contacts" aria-current="page">Контакты</a></li>
+        </ul>
+      </nav>
+      <div class="header__actions">
+        <div class="lang-switch" role="group" data-i18n-aria="header.langAria" aria-label="Выбор языка">
+          <button type="button" class="lang-switch__btn" data-lang="ru" aria-pressed="true">RU</button>
+          <button type="button" class="lang-switch__btn" data-lang="be" aria-pressed="false">BE</button>
+          <button type="button" class="lang-switch__btn" data-lang="en" aria-pressed="false">EN</button>
+        </div>
+        <a class="header__profile" href="login.html" data-header-profile data-i18n-aria="header.profile" aria-label="Профиль">
+          <svg class="header__profile-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <circle cx="12" cy="8" r="3.5" stroke="currentColor" stroke-width="1.8"/>
+            <path d="M5 19.5c1.8-3.2 4.2-4.8 7-4.8s5.2 1.6 7 4.8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+          </svg>
+        </a>
+        <button class="header__burger" type="button" data-i18n-aria="header.openMenu" aria-label="Открыть меню" aria-expanded="false" aria-controls="mobile-nav">
+          <span class="header__burger-line" aria-hidden="true"></span>
+          <span class="header__burger-line" aria-hidden="true"></span>
+          <span class="header__burger-line" aria-hidden="true"></span>
+        </button>
+        <button class="header__btn" type="button" data-modal="contact" data-i18n-aria="header.contact" aria-label="Связаться">
+          <span class="header__btn-text" data-i18n="header.contact">Связаться</span>
+        </button>
+      </div>
+    </div>
+    <nav class="header__mobile-nav" id="mobile-nav" data-i18n-aria="header.mobileNavAria" aria-label="Мобильное меню" hidden>
+      <ul class="header__mobile-list">
+        <li><a href="index.html#services" data-i18n="header.services">Услуги</a></li>
+        <li><a href="catalog.html" data-i18n="header.catalog">Каталог</a></li>
+        <li><a href="contacts.html" data-i18n="header.contacts" aria-current="page">Контакты</a></li>
+        <li><a href="profile.html" data-i18n="header.profile">Профиль</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <section class="contacts-page" aria-labelledby="contacts-title">
+      <div class="contacts-page__inner">
+        <nav class="account-page__breadcrumbs" aria-label="Хлебные крошки">
+          <a href="index.html" data-i18n="category.home">Главная</a>
+          <span aria-hidden="true">/</span>
+          <span data-i18n="header.contacts">Контакты</span>
+        </nav>
+
+        <header class="contacts-page__header">
+          <p class="contacts-page__eyebrow" data-i18n="contacts.eyebrow">Как нас найти</p>
+          <h1 class="contacts-page__title" id="contacts-title" data-i18n="contacts.title">Контакты</h1>
+          <p class="contacts-page__lead" data-i18n="contacts.lead">
+            Свяжитесь с нами удобным способом — ответим на вопросы по вентиляции, кондиционированию и подбору оборудования.
+          </p>
+        </header>
+
+        <div class="contacts-layout">
+          <div class="contacts-cards">
+            <article class="contacts-card">
+              <div class="contacts-card__icon" aria-hidden="true">
+                <img src="../assets/images/footer-icon-phone.svg" alt="" width="22" height="23">
+              </div>
+              <div class="contacts-card__body">
+                <h2 class="contacts-card__title" data-i18n="contacts.phonesTitle">Телефоны</h2>
+                <a class="contacts-card__link" href="tel:+375222736331" data-i18n="footer.phone1">+375 222 73 63 31</a>
+                <a class="contacts-card__link" href="tel:+375293678929" data-i18n="footer.phone2">+375 29 367 89 29</a>
+              </div>
+            </article>
+
+            <article class="contacts-card">
+              <div class="contacts-card__icon" aria-hidden="true">
+                <img src="../assets/images/footer-icon-envelope.svg" alt="" width="24" height="18">
+              </div>
+              <div class="contacts-card__body">
+                <h2 class="contacts-card__title" data-i18n="contacts.emailTitle">Email</h2>
+                <a class="contacts-card__link" href="mailto:PascalVent@mail.ru" data-i18n="footer.email">PascalVent@mail.ru</a>
+              </div>
+            </article>
+
+            <article class="contacts-card">
+              <div class="contacts-card__icon" aria-hidden="true">
+                <img src="../assets/images/footer-icon-pin.svg" alt="" width="24" height="31">
+              </div>
+              <div class="contacts-card__body">
+                <h2 class="contacts-card__title" data-i18n="contacts.addressTitle">Адрес</h2>
+                <p class="contacts-card__text" data-i18n-html="footer.address.full">Республика Беларусь, г. Могилёв<br>ул. Первомайская, д. 29</p>
+              </div>
+            </article>
+
+            <article class="contacts-card">
+              <div class="contacts-card__icon" aria-hidden="true">
+                <img src="../assets/images/footer-icon-calendar.svg" alt="" width="22" height="22">
+              </div>
+              <div class="contacts-card__body">
+                <h2 class="contacts-card__title" data-i18n="modal.contact.scheduleTitle">График работы</h2>
+                <p class="contacts-card__text" data-i18n-html="footer.hours">Пн - Сб: 9:00 - 19:00<br>Вс: выходной</p>
+              </div>
+            </article>
+          </div>
+
+          <aside class="contacts-cta">
+            <p class="contacts-cta__eyebrow" data-i18n="contacts.ctaEyebrow">Нужна консультация?</p>
+            <h2 class="contacts-cta__title" data-i18n="contacts.ctaTitle">Оставьте заявку — перезвоним</h2>
+            <p class="contacts-cta__text" data-i18n="contacts.ctaText">
+              Расскажите о задаче, и мы подберём решение по вентиляции или климату под ваш объект.
+            </p>
+            <button class="contacts-cta__btn" type="button" data-modal="request" data-i18n="contacts.ctaButton">
+              Оставить заявку
+            </button>
+          </aside>
+        </div>
+
+        <section class="contacts-map" aria-labelledby="contacts-map-title">
+          <div class="contacts-map__intro">
+            <h2 class="contacts-map__title" id="contacts-map-title" data-i18n="contacts.mapTitle">Мы на карте</h2>
+            <p class="contacts-map__subtitle" data-i18n="contacts.mapSubtitle">
+              Могилёв, ул. Первомайская, д. 29
+            </p>
+          </div>
+          <div class="contacts-map__frame" id="contacts-map" role="region" aria-label="Яндекс Карта"></div>
+        </section>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer" id="footer">
+    <div class="footer__bg" aria-hidden="true"><img src="../assets/images/footer-bg.svg" alt="" width="1440" height="528"></div>
+    <div class="footer__content">
+      <div class="footer__brand">
+        <a href="index.html" class="footer__logo footer__logo--desktop" data-i18n-aria="header.logoAria" aria-label="Pascal Vent — главная"><img src="../assets/images/footer-logo.svg" alt="Pascal Vent" width="352" height="109"></a>
+        <a href="index.html" class="footer__logo footer__logo--mobile" data-i18n-aria="header.logoAria" aria-label="Pascal Vent — главная"><img src="../assets/images/footer-mobile-logo.svg" alt="Pascal Vent" width="168" height="53"></a>
+      </div>
+    </div>
+  </footer>
+
+  <script type="module" src="../js/contacts.js"></script>
+  <script type="module" src="../js/header.js"></script>
+</body>
+</html>
