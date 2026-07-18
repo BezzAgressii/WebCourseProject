@@ -1,6 +1,7 @@
 <!DOCTYPE html>
-<html lang="ru" class="is-preload">
+<html lang="ru" class="is-preload" data-theme="light">
 <head>
+  <script>(function(){try{var t=localStorage.getItem('theme');document.documentElement.setAttribute('data-theme',t==='dark'?'dark':'light');}catch(e){document.documentElement.setAttribute('data-theme','light');}})();</script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Вход — Pascal Vent</title>
@@ -11,8 +12,17 @@
   <link rel="stylesheet" href="../css/preloader.css">
   <script src="../js/common/preloader.js"></script>
   <link rel="stylesheet" href="../css/auth.css">
+  <link rel="stylesheet" href="../css/theme.css">
 </head>
 <body class="auth-page">
+  <div class="theme-switch theme-switch--auth" role="group" aria-label="Тема оформления">
+    <button type="button" class="theme-switch__btn" data-theme-toggle="light" aria-pressed="false" aria-label="Светлая тема" title="Светлая">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="1.8"/><path d="M12 2v2.5M12 19.5V22M4.5 12H2M22 12h-2.5M5.6 5.6l1.8 1.8M16.6 16.6l1.8 1.8M18.4 5.6l-1.8 1.8M7.4 16.6l-1.8 1.8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+    </button>
+    <button type="button" class="theme-switch__btn" data-theme-toggle="dark" aria-pressed="false" aria-label="Тёмная тема" title="Тёмная">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M19 14.5A7.5 7.5 0 1 1 9.5 5a6 6 0 0 0 9.5 9.5Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
+    </button>
+  </div>
   <div id="preloader" class="preloader" role="status" aria-live="polite" aria-busy="true">
     <div class="preloader__inner">
       <img class="preloader__logo" src="../assets/icons/logo.svg" alt="Pascal Vent" width="196" height="61">

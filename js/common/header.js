@@ -4,8 +4,11 @@ import { getCurrentUser, isAdmin } from '../utils/auth-session.js';
 import { getCartCount } from '../utils/cart-storage.js';
 import { loadFooter } from './footer.js';
 import i18n from './i18n.js';
+import ThemeManager from './theme.js';
 
 initBurgerMenu();
+ThemeManager.init();
+initHeaderSettings();
 void initHeaderExtras();
 
 async function initHeaderExtras() {
@@ -27,6 +30,67 @@ async function initHeaderExtras() {
   document.addEventListener('languageChanged', () => {
     updateAuthLinks();
     updateCartBadge();
+  });
+}
+
+function initHeaderSettings() {
+  const roots = document.querySelectorAll('.header-settings');
+
+  if (!roots.length) {
+    return;
+  }
+
+  const closeAll = (except = null) => {
+    roots.forEach((root) => {
+      if (root === except) {
+        return;
+      }
+
+      const toggle = root.querySelector('.header-settings__toggle');
+      const panel = root.querySelector('.header-settings__panel');
+
+      if (!toggle || !panel) {
+        return;
+      }
+
+      toggle.setAttribute('aria-expanded', 'false');
+      panel.hidden = true;
+      root.classList.remove('header-settings--open');
+    });
+  };
+
+  roots.forEach((root) => {
+    const toggle = root.querySelector('.header-settings__toggle');
+    const panel = root.querySelector('.header-settings__panel');
+
+    if (!toggle || !panel) {
+      return;
+    }
+
+    toggle.addEventListener('click', (event) => {
+      event.stopPropagation();
+      const isOpen = toggle.getAttribute('aria-expanded') === 'true';
+      closeAll();
+
+      if (!isOpen) {
+        toggle.setAttribute('aria-expanded', 'true');
+        panel.hidden = false;
+        root.classList.add('header-settings--open');
+      }
+    });
+  });
+
+  document.addEventListener('click', (event) => {
+    if (event.target.closest('.header-settings')) {
+      return;
+    }
+
+    closeAll();
+  });
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape') {
+      closeAll();
+    }
   });
 }
 

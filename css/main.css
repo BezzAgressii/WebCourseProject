@@ -12,10 +12,10 @@ html {
 
 body {
   font-family: var(--font-body);
-  color: var(--color-dark-green);
+  color: var(--text-primary);
   overflow-x: hidden;
   max-width: 100%;
-  background: #f0f2f1;
+  background: var(--bg-primary);
 }
 
 main {
@@ -355,7 +355,7 @@ button {
 }
 
 .hero__cta--catalog::before {
-  background: var(--color-dark-green);
+  background: var(--color-ink);
   box-shadow: inset 2px -2px 12px 0 rgba(34, 60, 40, 0.28);
 }
 

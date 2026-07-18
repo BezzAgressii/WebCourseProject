@@ -1,7 +1,7 @@
 .steps {
   position: relative;
   overflow-x: clip;
-  background: #fff;
+  background: var(--bg-secondary);
   padding: 60px 0 80px;
 }
 
@@ -35,7 +35,7 @@
   font-size: 45px;
   font-weight: 600;
   line-height: 60px;
-  color: #495E4C;
+  color: var(--text-primary);
   text-transform: capitalize;
   margin: 0;
 }
@@ -99,7 +99,7 @@
   font-family: var(--font-body);
   font-size: 16px;
   line-height: 24px;
-  color: #7CA381;
+  color: var(--text-desc);
 }
 
 .steps__track {
@@ -162,7 +162,7 @@
   width: 100px;
   height: 100px;
   border-radius: 50%;
-  background: #D9FADD;
+  background: var(--bg-tertiary);
   flex-shrink: 0;
 }
 
@@ -180,7 +180,7 @@
   font-size: 24px;
   font-weight: 600;
   line-height: 29px;
-  color: #495E4C;
+  color: var(--text-primary);
   white-space: nowrap;
 }
 

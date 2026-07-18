@@ -1,5 +1,5 @@
 .services {
-  background: #fff;
+  background: var(--bg-secondary);
   padding-top: 80px;
   overflow-x: clip;
   max-width: 100%;
@@ -33,7 +33,7 @@
   font-size: 45px;
   font-weight: 600;
   line-height: 60px;
-  color: var(--color-dark-green);
+  color: var(--text-primary);
   text-transform: capitalize;
   margin: 0;
 }
@@ -57,7 +57,7 @@
   font-family: var(--font-body);
   font-size: 16px;
   line-height: 26px;
-  color: #848484;
+  color: var(--text-muted);
   margin-top: 32px;
 }
 
@@ -68,7 +68,7 @@
   display: flex;
   align-items: stretch;
 
-  background: #D9FADD;
+  background: var(--bg-tertiary);
   border-radius: 65px 0 0 65px;
   overflow: hidden;
   min-height: 575px;
@@ -186,7 +186,7 @@
   font-family: var(--font-body);
   font-size: 18px;
   line-height: 28px;
-  color: #495D4C;
+  color: var(--text-primary);
   padding-top: 3px;
 }
 

@@ -1,7 +1,7 @@
 .benefits {
   position: relative;
   overflow: hidden;
-  background: #fff;
+  background: var(--bg-secondary);
   padding: 80px 0 100px;
 }
 
@@ -24,7 +24,7 @@
   width: 718px;
   height: 718px;
   border-radius: 50%;
-  background: #BAFFC3;
+  background: var(--bg-mint);
   filter: blur(175px);
   pointer-events: none;
   z-index: 0;
@@ -41,7 +41,7 @@
   font-size: 45px;
   font-weight: 600;
   line-height: 60px;
-  color: #495E4C;
+  color: var(--text-primary);
   text-transform: capitalize;
   margin: 0 0 28px;
 }
@@ -121,13 +121,13 @@
   font-family: var(--font-body);
   font-size: 16px;
   line-height: 26px;
-  color: #848484;
+  color: var(--text-muted);
   margin: 0 0 50px;
 }
 
 .benefits__desc strong {
   font-weight: 600;
-  color: #848484;
+  color: var(--text-muted);
 }
 
 .benefits__cta {

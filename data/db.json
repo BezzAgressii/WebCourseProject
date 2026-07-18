@@ -775,8 +775,17 @@
     {
       "id": 1,
       "userId": 2,
-      "items": [],
-      "updatedAt": "2026-07-16T12:00:00.000Z"
+      "items": [
+        {
+          "productId": "pv-cond-001",
+          "quantity": 2
+        },
+        {
+          "productId": "pv-cond-002",
+          "quantity": 1
+        }
+      ],
+      "updatedAt": "2026-07-18T19:55:03.561Z"
     }
   ],
   "callbacks": [

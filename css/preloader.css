@@ -2,7 +2,7 @@
 
 html.is-preload {
   overflow: hidden;
-  background: #f0f2f1;
+  background: var(--bg-primary);
 }
 
 /* Cover the outgoing page immediately on link click (before unload). */
@@ -17,16 +17,7 @@ html.is-preload body {
   display: flex;
   align-items: center;
   justify-content: center;
-  background:
-    radial-gradient(ellipse 80% 60% at 50% 40%, rgba(190, 225, 194, 0.55) 0%, transparent 70%),
-    linear-gradient(
-      180deg,
-      #f1f1f1 0%,
-      #f0f2f1 16%,
-      #ebeded 43%,
-      #e6e8e7 73%,
-      #dee2e1 100%
-    );
+  background: var(--gradient-preloader);
   opacity: 1;
   visibility: visible;
   transition: opacity 0.25s ease, visibility 0.25s ease;

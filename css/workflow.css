@@ -2,7 +2,7 @@
   position: relative;
   overflow-x: clip;
   overflow-y: visible;
-  background: #fff;
+  background: var(--bg-secondary);
   padding: 80px 0 100px;
 }
 

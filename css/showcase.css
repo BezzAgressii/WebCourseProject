@@ -1,7 +1,7 @@
 .showcase {
   position: relative;
   overflow-x: clip;
-  background: #fff;
+  background: var(--bg-secondary);
   padding: 100px 0 80px;
 }
 

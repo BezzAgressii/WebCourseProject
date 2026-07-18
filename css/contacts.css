@@ -234,6 +234,12 @@
   border: 1px solid rgba(73, 93, 76, 0.08);
 }
 
+[data-theme='dark'] .contacts-map__frame {
+  background: #1a221c;
+  box-shadow: 0 16px 42px rgba(0, 0, 0, 0.35);
+  border-color: rgba(255, 255, 255, 0.08);
+}
+
 .contacts-map__frame iframe,
 .contacts-map__frame .ymaps-2-1-79-map {
   display: block;

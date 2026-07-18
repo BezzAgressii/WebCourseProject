@@ -1,32 +1,114 @@
 :root {
-  --color-dark-green:   #495E4C;
+  /* Brand accents (stable across themes) */
+  --color-dark-green: #495E4C;
+  --color-ink: #495E4C;
   --color-accent-green: #78C081;
-  --color-btn-green:    #5CCD6A;
-  --color-btn-wrap:     rgba(120, 192, 129, 0.25);
-  --color-gray:         #7B897D;
-  --color-desc:         #7CA381;
-  --color-white:        #FFFFFF;
-  --page-max:           1920px;
+  --color-btn-green: #5CCD6A;
+  --color-btn-wrap: rgba(120, 192, 129, 0.25);
+  --color-gray: #7B897D;
+  --color-desc: #7CA381;
+  --color-white: #FFFFFF;
+  --color-primary: var(--color-accent-green);
+
+  /* Surfaces */
+  --bg-primary: #f0f2f1;
+  --bg-secondary: #ffffff;
+  --bg-tertiary: #d9fadd;
+  --bg-card: #ffffff;
+  --bg-overlay: rgba(255, 255, 255, 0.88);
+  --bg-soft: rgba(186, 255, 195, 0.5);
+  --bg-mint: #baffc3;
+  --bg-header: rgba(255, 255, 255, 0.92);
+  --bg-input: #ffffff;
+  --bg-elevated: #ffffff;
+
+  /* Text */
+  --text-primary: #495e4c;
+  --text-secondary: #7b897d;
+  --text-muted: #848484;
+  --text-light: #ffffff;
+  --text-desc: #7ca381;
+
+  /* Borders & shadows */
+  --border-color: rgba(73, 93, 76, 0.22);
+  --border-light: rgba(73, 93, 76, 0.1);
+  --shadow-sm: 0 1px 2px rgba(73, 93, 76, 0.06);
+  --shadow-md: 0 4px 14px rgba(73, 93, 76, 0.1);
+  --shadow-lg: 0 12px 28px rgba(73, 93, 76, 0.14);
+  --shadow-xl: 0 20px 48px rgba(73, 93, 76, 0.18);
+
+  --page-max: 1920px;
 
   --gradient-hero: linear-gradient(
     180deg,
-    rgba(241, 241, 241, 1)  0%,
+    rgba(241, 241, 241, 1) 0%,
     rgba(240, 242, 241, 1) 16%,
     rgba(235, 237, 236, 1) 43%,
     rgba(230, 232, 231, 1) 73%,
     rgba(222, 226, 225, 1) 100%
   );
 
+  --gradient-preloader:
+    radial-gradient(ellipse 80% 60% at 50% 40%, rgba(190, 225, 194, 0.55) 0%, transparent 70%),
+    linear-gradient(180deg, #f1f1f1 0%, #f0f2f1 16%, #ebeded 43%, #e6e8e7 73%, #dee2e1 100%);
+
   --shadow-btn: inset 2px -2px 12px 0px rgba(34, 111, 33, 0.36);
 
   --font-display: 'Ruberoid', 'Montserrat', sans-serif;
-  --font-body:    'Proxima Nova', 'Inter', Arial, sans-serif;
+  --font-body: 'Proxima Nova', 'Inter', Arial, sans-serif;
 
-  --hero-h:         820px;
-  --content-pad-l:  135px;
+  --hero-h: 820px;
+  --content-pad-l: 135px;
 
   --radius-btn-outer: 40px;
   --radius-btn-inner: 30px;
+}
+
+[data-theme='dark'] {
+  /* Keep brand greens recognizable; retune text-oriented tokens */
+  --color-dark-green: #d7e4d9;
+  --color-gray: #a4b1a6;
+  --color-desc: #9bb8a0;
+  --color-btn-wrap: rgba(120, 192, 129, 0.22);
+  --color-white: #ffffff;
+
+  --bg-primary: #141a16;
+  --bg-secondary: #1b231e;
+  --bg-tertiary: #243028;
+  --bg-card: #1e2821;
+  --bg-overlay: rgba(30, 40, 33, 0.92);
+  --bg-soft: rgba(92, 205, 106, 0.12);
+  --bg-mint: #2a3d30;
+  --bg-header: rgba(20, 26, 22, 0.94);
+  --bg-input: #232c26;
+  --bg-elevated: #243028;
+
+  --text-primary: #e4eee6;
+  --text-secondary: #a4b1a6;
+  --text-muted: #8d998f;
+  --text-light: #ffffff;
+  --text-desc: #9bb8a0;
+
+  --border-color: rgba(212, 224, 214, 0.18);
+  --border-light: rgba(212, 224, 214, 0.1);
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.35);
+  --shadow-md: 0 4px 14px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 12px 28px rgba(0, 0, 0, 0.45);
+  --shadow-xl: 0 20px 48px rgba(0, 0, 0, 0.5);
+
+  --gradient-hero: linear-gradient(
+    180deg,
+    #171e19 0%,
+    #151b17 30%,
+    #131914 65%,
+    #101510 100%
+  );
+
+  --gradient-preloader:
+    radial-gradient(ellipse 80% 60% at 50% 40%, rgba(92, 205, 106, 0.14) 0%, transparent 70%),
+    linear-gradient(180deg, #171e19 0%, #151b17 40%, #121812 100%);
+
+  --shadow-btn: inset 2px -2px 12px 0px rgba(0, 0, 0, 0.45);
 }
 
 .currency-icon {

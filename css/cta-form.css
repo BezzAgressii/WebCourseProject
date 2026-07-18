@@ -1,7 +1,7 @@
 .cta-form {
   position: relative;
   overflow: hidden;
-  background: #D9FADD;
+  background: var(--bg-tertiary);
   min-height: 248px;
 }
 

@@ -1,5 +1,5 @@
 .product-page {
-  background: #f0f2f1;
+  background: var(--bg-primary);
   padding: clamp(48px, 6vw, 80px) 0 clamp(72px, 8vw, 120px);
 }
 

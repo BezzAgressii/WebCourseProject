@@ -2,6 +2,11 @@ import i18n from '../common/i18n.js';
 
 const MAP_COORDS = [53.901212, 30.335829];
 const MAP_LON_LAT = [30.335829, 53.901212];
+const DARK_MAP_TYPE = 'pascal#dark';
+
+let mapInstance = null;
+let placemarkInstance = null;
+let iframeMode = false;
 
 function getAddressPlain() {
   return String(i18n.t('footer.address.full') || '')
@@ -18,19 +23,86 @@ function getBalloonHtml() {
   `;
 }
 
-function renderIframeFallback(container) {
+function getSiteTheme() {
+  return document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'light';
+}
+
+function buildIframeSrc(theme) {
   const [lon, lat] = MAP_LON_LAT;
-  const src = `https://yandex.ru/map-widget/v1/?ll=${encodeURIComponent(`${lon},${lat}`)}&z=17&pt=${encodeURIComponent(`${lon},${lat}`)},pm2rdm&l=map`;
+  const params = new URLSearchParams({
+    ll: `${lon},${lat}`,
+    z: '17',
+    pt: `${lon},${lat},pm2rdm`,
+    l: 'map',
+    theme: theme === 'dark' ? 'dark' : 'light'
+  });
+
+  return `https://yandex.ru/map-widget/v1/?${params.toString()}`;
+}
+
+function renderIframeFallback(container, theme = getSiteTheme()) {
+  iframeMode = true;
+  mapInstance = null;
+  placemarkInstance = null;
 
   container.innerHTML = `
     <iframe
       title="Pascal Vent — ${getAddressPlain()}"
-      src="${src}"
+      src="${buildIframeSrc(theme)}"
       loading="lazy"
       allowfullscreen
       referrerpolicy="no-referrer-when-downgrade"
     ></iframe>
   `;
+}
+
+function ensureDarkMapType() {
+  if (!window.ymaps || window.ymaps.mapType.storage.get(DARK_MAP_TYPE)) {
+    return;
+  }
+
+  const darkLayer = new window.ymaps.Layer(
+    'https://core-renderer-tiles.maps.yandex.net/tiles?l=map&theme=dark&x=%x&y=%y&z=%z&scale=%s&lang=ru_RU',
+    {
+      projection: window.ymaps.projection.sphericalMercator
+    }
+  );
+
+  window.ymaps.mapType.storage.add(
+    DARK_MAP_TYPE,
+    new window.ymaps.MapType('Dark', [darkLayer])
+  );
+}
+
+function applyMapTheme(theme) {
+  const next = theme === 'dark' ? 'dark' : 'light';
+  const container = document.getElementById('contacts-map');
+
+  if (!container) {
+    return;
+  }
+
+  if (iframeMode) {
+    const iframe = container.querySelector('iframe');
+    const nextSrc = buildIframeSrc(next);
+
+    if (iframe) {
+      const current = iframe.getAttribute('src') || '';
+      if (!current.includes(`theme=${next}`)) {
+        iframe.src = nextSrc;
+      }
+    } else {
+      renderIframeFallback(container, next);
+    }
+    return;
+  }
+
+  if (!mapInstance || !window.ymaps) {
+    return;
+  }
+
+  ensureDarkMapType();
+  mapInstance.setType(next === 'dark' ? DARK_MAP_TYPE : 'yandex#map');
 }
 
 function initYandexMap(container) {
@@ -40,15 +112,21 @@ function initYandexMap(container) {
   }
 
   window.ymaps.ready(() => {
-    const map = new window.ymaps.Map(container, {
+    iframeMode = false;
+    ensureDarkMapType();
+
+    const theme = getSiteTheme();
+
+    mapInstance = new window.ymaps.Map(container, {
       center: MAP_COORDS,
       zoom: 17,
+      type: theme === 'dark' ? DARK_MAP_TYPE : 'yandex#map',
       controls: ['zoomControl', 'geolocationControl', 'fullscreenControl']
     }, {
       suppressMapOpenBlock: true
     });
 
-    const placemark = new window.ymaps.Placemark(MAP_COORDS, {
+    placemarkInstance = new window.ymaps.Placemark(MAP_COORDS, {
       balloonContentHeader: 'Pascal Vent',
       balloonContentBody: getBalloonHtml(),
       hintContent: getAddressPlain()
@@ -57,15 +135,30 @@ function initYandexMap(container) {
       openBalloonOnClick: true
     });
 
-    map.geoObjects.add(placemark);
-    placemark.balloon.open();
+    mapInstance.geoObjects.add(placemarkInstance);
+    placemarkInstance.balloon.open();
 
     document.addEventListener('languageChanged', () => {
-      placemark.properties.set({
+      if (!placemarkInstance) {
+        return;
+      }
+
+      placemarkInstance.properties.set({
         balloonContentBody: getBalloonHtml(),
         hintContent: getAddressPlain()
       });
     });
+  });
+}
+
+function observeSiteTheme() {
+  const observer = new MutationObserver(() => {
+    applyMapTheme(getSiteTheme());
+  });
+
+  observer.observe(document.documentElement, {
+    attributes: true,
+    attributeFilter: ['data-theme']
   });
 }
 
@@ -100,6 +193,8 @@ async function initContactsPage() {
   if (!mapContainer) {
     return;
   }
+
+  observeSiteTheme();
 
   try {
     await loadYandexMapsScript();

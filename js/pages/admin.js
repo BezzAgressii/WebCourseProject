@@ -3,6 +3,9 @@ import { getCurrentUser, requireAdmin, setCurrentUser } from '../utils/auth-sess
 import { Modal } from '../components/modal.js';
 import { showConfirm } from '../components/confirm.js';
 import ImageUploader from '../utils/loadImages.js';
+import ThemeManager from '../common/theme.js';
+
+ThemeManager.init();
 
 const SUBCATEGORIES = {
   ventilation: [
