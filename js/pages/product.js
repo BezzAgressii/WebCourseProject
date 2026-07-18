@@ -4,6 +4,7 @@ import i18n from '../common/i18n.js';
 import { isAdmin } from '../utils/auth-session.js';
 import { Modal } from '../components/modal.js';
 import { createImageSlider } from '../components/slider.js';
+import { initSpecTooltips, renderSpecTooltipTrigger } from '../components/spec-tooltip.js';
 
 class ProductPage {
   constructor() {
@@ -16,6 +17,7 @@ class ProductPage {
 
   async init() {
     await i18n.init();
+    initSpecTooltips(this.elements.content);
     await this.loadProduct();
     this.render();
 
@@ -324,7 +326,15 @@ class ProductPage {
   }
 
   summaryItem(key, value) {
-    return `<li class="product-page__summary-item"><span>${this.t(key)}</span><strong>${this.escapeHtml(value)}</strong></li>`;
+    return `
+      <li class="product-page__summary-item">
+        <span class="product-page__spec-label">
+          ${this.escapeHtml(this.t(key))}
+          ${renderSpecTooltipTrigger(key, i18n.currentLang)}
+        </span>
+        <strong>${this.escapeHtml(value)}</strong>
+      </li>
+    `;
   }
 
   detailBlock(title, rows) {
@@ -334,7 +344,12 @@ class ProductPage {
         <dl class="product-page__detail-list">
           ${rows.map(([key, value]) => `
             <div class="product-page__detail-row">
-              <dt>${this.t(key)}</dt>
+              <dt>
+                <span class="product-page__spec-label">
+                  ${this.escapeHtml(this.t(key))}
+                  ${renderSpecTooltipTrigger(key, i18n.currentLang)}
+                </span>
+              </dt>
               <dd>${this.escapeHtml(value)}</dd>
             </div>
           `).join('')}
