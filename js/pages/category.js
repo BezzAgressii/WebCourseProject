@@ -6,6 +6,7 @@ import { addToCart } from '../utils/cart-storage.js';
 import { showConfirm } from '../components/confirm.js';
 import { Modal } from '../components/modal.js';
 import { createHoverCarousel } from '../components/slider.js';
+import { initCategoryMobileControls } from '../components/category-mobile-controls.js';
 
 class CategoryPage {
   constructor() {
@@ -16,6 +17,7 @@ class CategoryPage {
     this.sortCriteria = 'popular';
     this.currentPage = 1;
     this.productsPerPage = 6;
+    this.mobileControls = null;
     this.elements = {
       breadcrumb: document.getElementById('breadcrumb-current'),
       title: document.getElementById('page-title'),
@@ -36,6 +38,14 @@ class CategoryPage {
     await this.loadProducts();
     this.renderPage();
     this.bindEvents();
+    this.mobileControls = initCategoryMobileControls({
+      root: document.querySelector('.category-page'),
+      sortSelect: this.elements.sort,
+      onSortChange: (value) => {
+        this.sortCriteria = value;
+        this.applyFilters();
+      }
+    });
 
     document.addEventListener('languageChanged', () => {
       this.renderPage();

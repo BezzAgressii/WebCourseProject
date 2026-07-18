@@ -89,8 +89,30 @@
         </nav>
         <h1 class="category-page__title" id="page-title"></h1>
         <div class="category-page__layout">
-          <aside class="category-page__sidebar" data-i18n-aria="catalog.filters" aria-label="Фильтры">
-            <h2 class="category-page__filter-title" data-i18n="catalog.filters">Фильтры</h2>
+          <div class="category-mobile-bar" data-category-mobile-bar>
+            <button class="category-mobile-bar__btn" type="button" data-mobile-filters-open>
+              <svg class="category-mobile-bar__icon" width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M4 6h16M7 12h10M10 18h4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+              </svg>
+              <span data-i18n="catalog.filters">Фильтры</span>
+            </button>
+            <button class="category-mobile-bar__btn" type="button" data-mobile-sort-open>
+              <svg class="category-mobile-bar__icon" width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M7 6v12M7 18l-2.5-2.5M7 18l2.5-2.5M17 18V6M17 6l-2.5 2.5M17 6l2.5 2.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              <span data-i18n="catalog.sort">Сортировка</span>
+            </button>
+          </div>
+
+          <div class="category-mobile-overlay" data-mobile-overlay hidden></div>
+
+          <aside class="category-page__sidebar" data-mobile-filters-panel data-i18n-aria="catalog.filters" aria-label="Фильтры">
+            <div class="category-page__filter-header">
+              <h2 class="category-page__filter-title" data-i18n="catalog.filters">Фильтры</h2>
+              <button class="category-mobile-close" type="button" data-mobile-filters-close data-i18n-aria="category.closeFilters" aria-label="Закрыть фильтры">
+                <span aria-hidden="true">×</span>
+              </button>
+            </div>
             <form id="filters-form">
               <div class="category-page__field">
                 <label class="category-page__label" for="search-input" data-i18n="category.searchLabel">Поиск</label>
@@ -103,6 +125,16 @@
               </div>
             </form>
           </aside>
+
+          <div class="category-mobile-sheet" data-mobile-sort-sheet hidden>
+            <div class="category-mobile-sheet__header">
+              <h2 class="category-mobile-sheet__title" data-i18n="catalog.sort">Сортировка</h2>
+              <button class="category-mobile-close" type="button" data-mobile-sort-close data-i18n-aria="category.closeSort" aria-label="Закрыть сортировку">
+                <span aria-hidden="true">×</span>
+              </button>
+            </div>
+            <div class="category-mobile-sheet__options" data-mobile-sort-options role="listbox" data-i18n-aria="catalog.sort" aria-label="Сортировка"></div>
+          </div>
 
           <section class="category-page__products" aria-labelledby="page-title">
             <div class="category-page__toolbar">
