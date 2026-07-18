@@ -3,6 +3,7 @@ import DETAILED_TRANSLATIONS from '../utils/detailed-translation.js';
 import i18n from '../common/i18n.js';
 import { isAdmin } from '../utils/auth-session.js';
 import { Modal } from '../components/modal.js';
+import { createImageSlider } from '../components/slider.js';
 
 class ProductPage {
   constructor() {
@@ -61,16 +62,13 @@ class ProductPage {
 
     const productName = this.product.name_i18n[i18n.currentLang] || this.product.name_i18n.ru;
     const details = this.product.details;
-    const image = `../${this.product.images[0]}`;
     const availability = this.getAvailability();
 
     document.title = `${productName} — Pascal Vent`;
     this.elements.content.innerHTML = `
       <a class="product-page__back" href="category.html?category=ventilation">← ${this.t('backToCatalog')}</a>
       <div class="product-page__hero">
-        <div class="product-page__image-wrap">
-          <img class="product-page__image" src="${this.escapeHtml(image)}" alt="${this.escapeHtml(productName)}">
-        </div>
+        <div class="product-page__image-wrap" data-product-gallery></div>
         <div class="product-page__overview">
           <h1 class="product-page__title">${this.escapeHtml(productName)}</h1>
           <section class="product-page__detail-card">
@@ -118,6 +116,7 @@ class ProductPage {
       </div>
     `;
 
+    this.initGallery(productName);
     this.bindOrderButton();
   }
 
@@ -125,13 +124,12 @@ class ProductPage {
     const product = this.product;
     const details = product.details;
     const name = product.name_i18n[i18n.currentLang] || product.name_i18n.ru;
-    const image = `../${product.images[0]}`;
 
     document.title = `${name} — Pascal Vent`;
     this.elements.content.innerHTML = `
       <a class="product-page__back" href="category.html?category=conditioning">← ${this.t('backToCatalog')}</a>
       <div class="product-page__hero">
-        <div class="product-page__image-wrap"><img class="product-page__image" src="${this.escapeHtml(image)}" alt="${this.escapeHtml(name)}"></div>
+        <div class="product-page__image-wrap" data-product-gallery></div>
         <div class="product-page__overview">
           <h1 class="product-page__title">${this.escapeHtml(name)}</h1>
           <section class="product-page__detail-card">
@@ -183,6 +181,7 @@ class ProductPage {
         ])}
       </div>
     `;
+    this.initGallery(name);
     this.bindOrderButton();
   }
 
@@ -190,13 +189,12 @@ class ProductPage {
     const product = this.product;
     const details = product.details;
     const name = product.name_i18n[i18n.currentLang] || product.name_i18n.ru;
-    const image = `../${product.images[0]}`;
 
     document.title = `${name} — Pascal Vent`;
     this.elements.content.innerHTML = `
       <a class="product-page__back" href="category.html?category=pools">← ${this.t('backToCatalog')}</a>
       <div class="product-page__hero">
-        <div class="product-page__image-wrap"><img class="product-page__image" src="${this.escapeHtml(image)}" alt="${this.escapeHtml(name)}"></div>
+        <div class="product-page__image-wrap" data-product-gallery></div>
         <div class="product-page__overview">
           <h1 class="product-page__title">${this.escapeHtml(name)}</h1>
           <section class="product-page__detail-card">
@@ -239,7 +237,15 @@ class ProductPage {
         ])}
       </div>
     `;
+    this.initGallery(name);
     this.bindOrderButton();
+  }
+
+  initGallery(alt) {
+    const container = this.elements.content.querySelector('[data-product-gallery]');
+    const images = (this.product.images || []).map((src) => `../${src}`);
+
+    createImageSlider(container, images, alt);
   }
 
   getAvailability() {

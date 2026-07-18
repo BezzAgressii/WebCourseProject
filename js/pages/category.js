@@ -263,7 +263,7 @@ class CategoryPage {
       : `<button class="product-card__cart" type="button" data-action="add-to-cart" data-product-id="${this.escapeHtml(product.id)}" aria-label="${this.escapeHtml(i18n.t('category.addToCart'))}" title="${this.escapeHtml(i18n.t('category.addToCart'))}">🛒</button>`;
 
     return `
-      <article class="product-card">
+      <article class="product-card" data-product-href="${this.escapeHtml(detailUrl)}" role="link" tabindex="0" aria-label="${this.escapeHtml(name)}">
         <div class="product-card__image-wrap">
           <img class="product-card__image" data-product-image="${this.escapeHtml(product.id)}" src="${this.escapeHtml(image)}" alt="${this.escapeHtml(name)}" loading="lazy">
           <span class="product-card__stock${stockClass}">${this.escapeHtml(i18n.t(stockKey))}</span>
@@ -272,10 +272,7 @@ class CategoryPage {
           <h2 class="product-card__title">${this.escapeHtml(name)}</h2>
           <ul class="product-card__specs">${details}</ul>
           <p class="product-card__price">${this.formatPrice(product.price)}</p>
-          <div class="product-card__actions">
-            ${cartButton}
-            <a class="product-card__more" href="${detailUrl}">${this.escapeHtml(i18n.t('catalog.more'))}</a>
-          </div>
+          ${cartButton ? `<div class="product-card__actions">${cartButton}</div>` : ''}
         </div>
       </article>
     `;
@@ -335,52 +332,79 @@ class CategoryPage {
     this.elements.grid.addEventListener('click', (event) => {
       const cartButton = event.target.closest('[data-action="add-to-cart"]');
 
-      if (!cartButton) {
-        return;
-      }
+      if (cartButton) {
+        event.preventDefault();
+        event.stopPropagation();
 
-      if (isAdmin()) {
-        Modal.showError(i18n.t('auth.adminForbiddenMessage'), {
-          title: i18n.t('auth.adminForbiddenTitle'),
-          closeLabel: i18n.t('common.close')
-        });
-        return;
-      }
-
-      if (!isAuthenticated()) {
-        Modal.showError(i18n.t('auth.cartLoginMessage'), {
-          title: i18n.t('auth.cartLoginTitle'),
-          actionHref: 'login.html',
-          actionLabel: i18n.t('auth.login.submit'),
-          closeLabel: i18n.t('auth.cartLoginClose')
-        });
-        return;
-      }
-
-      showConfirm(i18n.t('category.addToCartConfirm'), {
-        title: i18n.t('category.addToCart'),
-        confirmLabel: i18n.t('common.confirm'),
-        cancelLabel: i18n.t('common.cancel')
-      }).then(async (confirmed) => {
-        if (!confirmed) {
+        if (isAdmin()) {
+          Modal.showError(i18n.t('auth.adminForbiddenMessage'), {
+            title: i18n.t('auth.adminForbiddenTitle'),
+            closeLabel: i18n.t('common.close')
+          });
           return;
         }
 
-        try {
-          await addToCart(cartButton.dataset.productId, 1);
-          Modal.showSuccess(i18n.t('category.addedMessage'), {
-            title: i18n.t('category.addedTitle'),
-            actionHref: 'cart.html',
-            actionLabel: i18n.t('header.cart'),
-            closeLabel: i18n.t('common.close')
+        if (!isAuthenticated()) {
+          Modal.showError(i18n.t('auth.cartLoginMessage'), {
+            title: i18n.t('auth.cartLoginTitle'),
+            actionHref: 'login.html',
+            actionLabel: i18n.t('auth.login.submit'),
+            closeLabel: i18n.t('auth.cartLoginClose')
           });
-        } catch (error) {
-          Modal.showError(error.message || i18n.t('cart.orderErrorMessage'), {
-            title: i18n.t('common.error'),
-            closeLabel: i18n.t('common.close')
-          });
+          return;
         }
-      });
+
+        showConfirm(i18n.t('category.addToCartConfirm'), {
+          title: i18n.t('category.addToCart'),
+          confirmLabel: i18n.t('common.confirm'),
+          cancelLabel: i18n.t('common.cancel')
+        }).then(async (confirmed) => {
+          if (!confirmed) {
+            return;
+          }
+
+          try {
+            await addToCart(cartButton.dataset.productId, 1);
+            Modal.showSuccess(i18n.t('category.addedMessage'), {
+              title: i18n.t('category.addedTitle'),
+              actionHref: 'cart.html',
+              actionLabel: i18n.t('header.cart'),
+              closeLabel: i18n.t('common.close')
+            });
+          } catch (error) {
+            Modal.showError(error.message || i18n.t('cart.orderErrorMessage'), {
+              title: i18n.t('common.error'),
+              closeLabel: i18n.t('common.close')
+            });
+          }
+        });
+        return;
+      }
+
+      if (event.target.closest('.product-card__gallery-dot')) {
+        return;
+      }
+
+      const card = event.target.closest('.product-card[data-product-href]');
+
+      if (card) {
+        window.location.href = card.dataset.productHref;
+      }
+    });
+
+    this.elements.grid.addEventListener('keydown', (event) => {
+      if (event.key !== 'Enter' && event.key !== ' ') {
+        return;
+      }
+
+      const card = event.target.closest('.product-card[data-product-href]');
+
+      if (!card || event.target.closest('[data-action="add-to-cart"]')) {
+        return;
+      }
+
+      event.preventDefault();
+      window.location.href = card.dataset.productHref;
     });
 
     this.elements.pagination.addEventListener('click', (event) => {
