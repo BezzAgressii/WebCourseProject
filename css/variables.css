@@ -28,3 +28,14 @@
   --radius-btn-outer: 40px;
   --radius-btn-inner: 30px;
 }
+
+.currency-icon {
+  display: inline-block;
+  width: 0.72em;
+  height: 0.9em;
+  margin-left: 0.12em;
+  vertical-align: -0.08em;
+  background-color: currentColor;
+  -webkit-mask: url('../assets/icons/byn-ico.svg') center / contain no-repeat;
+  mask: url('../assets/icons/byn-ico.svg') center / contain no-repeat;
+}

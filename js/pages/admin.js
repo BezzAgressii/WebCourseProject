@@ -784,7 +784,7 @@ class AdminPage {
   }
 
   formatPrice(price) {
-    return `${new Intl.NumberFormat('ru-RU').format(price || 0)}\u00A0₽`;
+    return `${new Intl.NumberFormat('ru-RU').format(price || 0)}\u00A0<span class="currency-icon" aria-hidden="true"></span>`;
   }
 
   escapeHtml(value) {

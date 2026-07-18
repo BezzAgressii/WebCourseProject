@@ -91,7 +91,7 @@ class CartPage {
 
     if (!hasItems) {
       this.elements.list.innerHTML = '';
-      this.elements.total.textContent = this.formatPrice(0);
+      this.elements.total.innerHTML = this.formatPrice(0);
       return;
     }
 
@@ -125,7 +125,7 @@ class CartPage {
     }).join('');
 
     const total = lines.reduce((sum, line) => sum + line.lineTotal, 0);
-    this.elements.total.textContent = this.formatPrice(total);
+    this.elements.total.innerHTML = this.formatPrice(total);
   }
 
   bindEvents() {
