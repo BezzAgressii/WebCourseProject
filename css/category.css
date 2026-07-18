@@ -196,31 +196,89 @@
 }
 
 .category-page__range {
+  --range-min: 0%;
+  --range-max: 100%;
+  --range-track: #dce8de;
+  --range-fill: var(--color-btn-green);
+
   position: relative;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 8px;
+  height: 28px;
   margin-top: 12px;
+  display: flex;
+  align-items: center;
+}
+
+.category-page__range::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 5px;
+  border-radius: 999px;
+  background: linear-gradient(
+    to right,
+    var(--range-track) 0%,
+    var(--range-track) var(--range-min),
+    var(--range-fill) var(--range-min),
+    var(--range-fill) var(--range-max),
+    var(--range-track) var(--range-max),
+    var(--range-track) 100%
+  );
+  pointer-events: none;
 }
 
 .category-page__range-input {
+  position: absolute;
+  left: 0;
   width: 100%;
-  height: 5px;
+  height: 28px;
+  margin: 0;
   appearance: none;
-  border-radius: 999px;
+  background: transparent;
   outline: none;
-  background: linear-gradient(90deg, var(--color-btn-green), #d9fadd);
+  pointer-events: none;
   cursor: pointer;
+}
+
+.category-page__range-input[data-filter-range-min] {
+  z-index: 2;
+}
+
+.category-page__range-input[data-filter-range-max] {
+  z-index: 3;
+}
+
+.category-page__range-input::-webkit-slider-runnable-track {
+  height: 5px;
+  background: transparent;
+  border: none;
 }
 
 .category-page__range-input::-webkit-slider-thumb {
   width: 17px;
   height: 17px;
+  margin-top: -6px;
   appearance: none;
   border: 3px solid #fff;
   border-radius: 50%;
   background: var(--color-btn-green);
   box-shadow: 0 2px 7px rgba(73, 93, 76, 0.28);
+  pointer-events: auto;
+  cursor: grab;
+}
+
+.category-page__range-input::-webkit-slider-thumb:active {
+  cursor: grabbing;
+}
+
+.category-page__range-input::-moz-range-track {
+  height: 5px;
+  background: transparent;
+  border: none;
+}
+
+.category-page__range-input::-moz-range-progress {
+  background: transparent;
 }
 
 .category-page__range-input::-moz-range-thumb {
@@ -230,6 +288,12 @@
   border-radius: 50%;
   background: var(--color-btn-green);
   box-shadow: 0 2px 7px rgba(73, 93, 76, 0.28);
+  pointer-events: auto;
+  cursor: grab;
+}
+
+.category-page__range-input::-moz-range-thumb:active {
+  cursor: grabbing;
 }
 
 .category-page__actions {

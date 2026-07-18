@@ -1,11 +1,11 @@
-import api from './api.js';
-import FILTER_CONFIG from './filter-config.js';
-import i18n from './i18n.js';
-import { isAdmin, isAuthenticated, resolveAssetPath } from './auth-session.js';
-import { addToCart } from './cart-storage.js';
-import { showConfirm } from './components/confirm.js';
-import { Modal } from './components/modal.js';
-import { createHoverCarousel } from './components/slider.js';
+import api from '../utils/api.js';
+import FILTER_CONFIG from '../utils/filter-config.js';
+import i18n from '../common/i18n.js';
+import { isAdmin, isAuthenticated } from '../utils/auth-session.js';
+import { addToCart } from '../utils/cart-storage.js';
+import { showConfirm } from '../components/confirm.js';
+import { Modal } from '../components/modal.js';
+import { createHoverCarousel } from '../components/slider.js';
 
 class CategoryPage {
   constructor() {
@@ -87,6 +87,10 @@ class CategoryPage {
     this.elements.generatedFilters.innerHTML = filters
       .map((filter) => this.renderFilter(filter))
       .join('');
+
+    this.elements.generatedFilters.querySelectorAll('[data-filter-range-min]').forEach((input) => {
+      this.updateRangeFill(input.dataset.filterRangeMin);
+    });
   }
 
   renderFilter(filter) {
@@ -227,7 +231,7 @@ class CategoryPage {
 
     pageProducts.forEach((product) => {
       const image = this.elements.grid.querySelector(`[data-product-image="${product.id}"]`);
-      createHoverCarousel(image, (product.images || []).map(resolveAssetPath));
+      createHoverCarousel(image, (product.images || []).map((src) => `../${src}`));
     });
 
     this.renderPagination(pageCount);
@@ -249,7 +253,7 @@ class CategoryPage {
 
   renderProductCard(product) {
     const name = product.name_i18n[i18n.currentLang] || product.name_i18n.ru;
-    const image = resolveAssetPath(product.images[0]);
+    const image = `../${product.images[0]}`;
     const stockKey = product.inStock ? 'catalog.inStock' : 'catalog.outOfStock';
     const stockClass = product.inStock ? '' : ' product-card__stock--out';
     const details = this.getProductDetails(product);
@@ -396,32 +400,69 @@ class CategoryPage {
   }
 
   syncRangeInputs(input) {
-    const attribute = [...input.attributes].find((item) => item.name.startsWith('data-filter-range-'));
+    const rangeAttribute = [...input.attributes].find((item) => item.name.startsWith('data-filter-range-'));
+    const numberAttribute = [...input.attributes].find((item) => item.name === 'data-filter-min' || item.name === 'data-filter-max');
 
-    if (!attribute) {
+    if (!rangeAttribute && !numberAttribute) {
       return;
     }
 
-    const field = attribute.value;
-    const isMin = attribute.name === 'data-filter-range-min';
-    const numberInput = this.elements.generatedFilters.querySelector(isMin
-      ? `[data-filter-min="${field}"]`
-      : `[data-filter-max="${field}"]`);
-
-    numberInput.value = input.value;
-
+    const field = (rangeAttribute || numberAttribute).value;
+    const isMin = rangeAttribute
+      ? rangeAttribute.name === 'data-filter-range-min'
+      : numberAttribute.name === 'data-filter-min';
     const minRange = this.elements.generatedFilters.querySelector(`[data-filter-range-min="${field}"]`);
     const maxRange = this.elements.generatedFilters.querySelector(`[data-filter-range-max="${field}"]`);
+    const minNumber = this.elements.generatedFilters.querySelector(`[data-filter-min="${field}"]`);
+    const maxNumber = this.elements.generatedFilters.querySelector(`[data-filter-max="${field}"]`);
+
+    if (rangeAttribute) {
+      input.style.zIndex = '4';
+      (isMin ? maxRange : minRange).style.zIndex = '';
+
+      if (isMin) {
+        minNumber.value = input.value;
+      } else {
+        maxNumber.value = input.value;
+      }
+    } else if (input.value !== '') {
+      if (isMin) {
+        minRange.value = input.value;
+      } else {
+        maxRange.value = input.value;
+      }
+    }
 
     if (Number(minRange.value) > Number(maxRange.value)) {
       if (isMin) {
         maxRange.value = minRange.value;
-        this.elements.generatedFilters.querySelector(`[data-filter-max="${field}"]`).value = minRange.value;
+        maxNumber.value = minRange.value;
       } else {
         minRange.value = maxRange.value;
-        this.elements.generatedFilters.querySelector(`[data-filter-min="${field}"]`).value = maxRange.value;
+        minNumber.value = maxRange.value;
       }
     }
+
+    this.updateRangeFill(field);
+  }
+
+  updateRangeFill(field) {
+    const minRange = this.elements.generatedFilters.querySelector(`[data-filter-range-min="${field}"]`);
+    const maxRange = this.elements.generatedFilters.querySelector(`[data-filter-range-max="${field}"]`);
+
+    if (!minRange || !maxRange) {
+      return;
+    }
+
+    const container = minRange.closest('.category-page__range');
+    const min = Number(minRange.min);
+    const max = Number(minRange.max);
+    const span = max - min || 1;
+    const minPercent = ((Number(minRange.value) - min) / span) * 100;
+    const maxPercent = ((Number(maxRange.value) - min) / span) * 100;
+
+    container.style.setProperty('--range-min', `${minPercent}%`);
+    container.style.setProperty('--range-max', `${maxPercent}%`);
   }
 
   resetRangeInputs() {
@@ -430,6 +471,7 @@ class CategoryPage {
     });
     this.elements.generatedFilters.querySelectorAll('[data-filter-range-max]').forEach((input) => {
       input.value = input.max;
+      this.updateRangeFill(input.dataset.filterRangeMax);
     });
   }
 

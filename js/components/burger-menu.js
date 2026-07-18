@@ -2,9 +2,11 @@ export function initBurgerMenu() {
   const burger = document.querySelector('.header__burger');
   const mobileNav = document.getElementById('mobile-nav');
 
-  if (!burger || !mobileNav) {
+  if (!burger || !mobileNav || burger.dataset.burgerBound === 'true') {
     return;
   }
+
+  burger.dataset.burgerBound = 'true';
 
   const closeMenu = () => {
     burger.setAttribute('aria-expanded', 'false');

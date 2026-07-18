@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="ru" class="is-preload">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,11 +8,20 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../css/variables.css">
+  <link rel="stylesheet" href="../css/preloader.css">
+  <script src="../js/common/preloader.js"></script>
   <link rel="stylesheet" href="../css/auth.css">
 </head>
 <body class="auth-page">
+  <div id="preloader" class="preloader" role="status" aria-live="polite" aria-busy="true">
+    <div class="preloader__inner">
+      <img class="preloader__logo" src="../assets/icons/logo.svg" alt="Pascal Vent" width="196" height="61">
+      <div class="preloader__spinner" aria-hidden="true"></div>
+      <p class="preloader__text">Загрузка...</p>
+    </div>
+  </div>
   <main class="auth-page__container">
-    <a class="auth-page__logo" href="index.html">
+    <a class="auth-page__logo" href="../index.html">
       <img src="../assets/icons/logo.svg" alt="Pascal Vent">
     </a>
 

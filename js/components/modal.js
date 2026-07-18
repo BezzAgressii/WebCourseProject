@@ -1,4 +1,4 @@
-import i18n from '../i18n.js';
+import i18n from '../common/i18n.js';
 
 function assetUrl(relativeFromJsComponents) {
   return new URL(relativeFromJsComponents, import.meta.url).href;

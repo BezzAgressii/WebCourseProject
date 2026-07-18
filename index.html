@@ -1,12 +1,822 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="ru" class="is-preload">
 <head>
   <meta charset="UTF-8">
-  <meta http-equiv="refresh" content="0; url=pages/index.html">
-  <title>Pascal Vent</title>
-  <script>window.location.replace('pages/index.html');</script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pascal Vent — Системы вентиляции и кондиционирования</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Inter:wght@400;500&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/preloader.css">
+  <script src="js/common/preloader.js"></script>
+  <link rel="stylesheet" href="css/header.css">
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/services.css">
+  <link rel="stylesheet" href="css/about.css">
+  <link rel="stylesheet" href="css/benefits.css">
+  <link rel="stylesheet" href="css/showcase.css">
+  <link rel="stylesheet" href="css/steps.css">
+  <link rel="stylesheet" href="css/cta-form.css">
+  <link rel="stylesheet" href="css/workflow.css">
+  <link rel="stylesheet" href="css/portfolio.css">
+  <link rel="stylesheet" href="css/clients.css">
+  <link rel="stylesheet" href="css/footer.css">
 </head>
-<body>
-  <p><a href="pages/index.html">Перейти на главную</a></p>
+<body data-page="home">
+
+  <div id="preloader" class="preloader" role="status" aria-live="polite" aria-busy="true">
+    <div class="preloader__inner">
+      <img class="preloader__logo" src="assets/icons/logo.svg" alt="Pascal Vent" width="196" height="61">
+      <div class="preloader__spinner" aria-hidden="true"></div>
+      <p class="preloader__text">Загрузка...</p>
+    </div>
+  </div>
+
+  <header class="header">
+    <div class="header__inner">
+
+      <a href="index.html" class="header__logo" data-i18n-aria="header.logoAria" aria-label="Pascal Vent — главная">
+        <picture>
+          <source media="(max-width: 480px)" srcset="assets/images/footer-mobile-logo.svg">
+          <img src="assets/icons/logo.svg" alt="Pascal Vent">
+        </picture>
+      </a>
+
+      <nav class="header__nav" data-i18n-aria="header.navAria" aria-label="Основное меню">
+
+        <ul class="nav__list">
+          <li><a href="#services" data-i18n="header.services">Услуги</a></li>
+          <li><a href="#about" data-i18n="header.about">О Нас</a></li>
+          <li><a href="#benefits" data-i18n="header.benefits">Польза Продукта</a></li>
+          <li><a href="pages/catalog.html" data-i18n="header.catalog">Каталог</a></li>
+          <li><a href="#steps" data-i18n="header.steps">Этапы Работы</a></li>
+          <li><a href="pages/contacts.html" data-i18n="header.contacts">Контакты</a></li>
+        </ul>
+      </nav>
+
+      <div class="header__actions">
+        <div class="lang-switch" role="group" data-i18n-aria="header.langAria" aria-label="Выбор языка">
+          <button type="button" class="lang-switch__btn" data-lang="ru" aria-pressed="true">RU</button>
+          <button type="button" class="lang-switch__btn" data-lang="be" aria-pressed="false">BE</button>
+          <button type="button" class="lang-switch__btn" data-lang="en" aria-pressed="false">EN</button>
+        </div>
+
+        <a class="header__profile" href="pages/login.html" data-header-profile data-i18n-aria="header.profile" aria-label="Профиль">
+          <svg class="header__profile-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <circle cx="12" cy="8" r="3.5" stroke="currentColor" stroke-width="1.8"/>
+            <path d="M5 19.5c1.8-3.2 4.2-4.8 7-4.8s5.2 1.6 7 4.8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+          </svg>
+        </a>
+
+        <button class="header__burger" type="button" data-i18n-aria="header.openMenu" aria-label="Открыть меню" aria-expanded="false" aria-controls="mobile-nav">
+          <span class="header__burger-line" aria-hidden="true"></span>
+          <span class="header__burger-line" aria-hidden="true"></span>
+          <span class="header__burger-line" aria-hidden="true"></span>
+        </button>
+
+        <button class="header__btn" type="button" data-modal="contact" data-i18n-aria="header.contact" aria-label="Связаться">
+          <span class="header__btn-text" data-i18n="header.contact">Связаться</span>
+        </button>
+      </div>
+
+    </div>
+
+    <nav class="header__mobile-nav" id="mobile-nav" data-i18n-aria="header.mobileNavAria" aria-label="Мобильное меню" hidden>
+      <ul class="header__mobile-list">
+        <li><a href="#services" data-i18n="header.services">Услуги</a></li>
+        <li><a href="#about" data-i18n="header.about">О Нас</a></li>
+        <li><a href="#benefits" data-i18n="header.benefits">Польза Продукта</a></li>
+        <li><a href="pages/catalog.html" data-i18n="header.catalog">Каталог</a></li>
+        <li><a href="#steps" data-i18n="header.steps">Этапы Работы</a></li>
+        <li><a href="pages/contacts.html" data-i18n="header.contacts">Контакты</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+
+  <section class="hero" aria-labelledby="hero-title">
+
+    <div class="hero__content">
+
+      <h1 class="hero__title" id="hero-title">
+
+        <span class="hero__title-line" data-i18n="hero.title.line1">Чистый Воздух</span>
+
+        <span class="hero__title-middle">
+          <span class="hero__divider" aria-hidden="true"></span>
+          <span class="hero__title-line hero__title-line--together" data-i18n="hero.title.together">Вместе&nbsp;С</span>
+        </span>
+
+        <span class="hero__title-line hero__title-accent" data-i18n="hero.title.accent">Pascal Vent</span>
+
+      </h1>
+
+      <div class="hero__description-row">
+
+        <div class="hero__dots" aria-hidden="true">
+          <span class="hero__dot"></span>
+          <span class="hero__dot"></span>
+          <span class="hero__dot"></span>
+        </div>
+
+        <p class="hero__description" data-i18n="hero.description">
+          Проектирование, поставка и монтаж систем вентиляции и кондиционирования
+        </p>
+
+      </div>
+
+      <div class="hero__contacts">
+
+        <div class="hero__contact-item hero__contact-item--address">
+          <img class="hero__contact-icon hero__contact-icon--pin hero__contact-icon--pin-desktop" src="assets/icons/pin.svg" alt="" aria-hidden="true" width="32" height="32">
+          <img class="hero__contact-icon hero__contact-icon--pin hero__contact-icon--pin-mobile" src="assets/images/footer-mobile-icon-pin.svg" alt="" aria-hidden="true" width="20" height="20">
+          <span data-i18n="hero.address">Республика Беларусь, г. Могилёв, ул. Первомайская, д. 29</span>
+        </div>
+
+        <div class="hero__phones">
+          <a class="hero__phone" href="tel:+74923736331">
+            <img class="hero__phone-icon" src="assets/images/footer-mobile-icon-phone.svg" alt="" aria-hidden="true" width="20" height="20">
+            <span data-i18n="hero.phone1">+375 222 73-63-31</span>
+          </a>
+          <a class="hero__phone" href="tel:+74243678929">
+            <img class="hero__phone-icon" src="assets/images/footer-mobile-icon-phone.svg" alt="" aria-hidden="true" width="20" height="20">
+            <span data-i18n="hero.phone2">+375 29 367-89-29</span>
+          </a>
+        </div>
+
+      </div>
+
+      <div class="hero__actions">
+        <button class="hero__cta" type="button" data-action="submit">
+          <span data-i18n="hero.cta">Оставить заявку</span>
+        </button>
+        <a class="hero__cta hero__cta--catalog" href="pages/catalog.html">
+          <span data-i18n="hero.catalog">Каталог</span>
+        </a>
+      </div>
+
+    </div>
+
+    <img class="hero__image-phone" src="assets/images/hero-bg-mobile.png" alt="" aria-hidden="true" decoding="async" width="450" height="876">
+
+  </section>
+
+  <section class="services" id="services" aria-labelledby="services-title">
+
+    <div class="services__content">
+
+    <div class="services__main">
+
+      <div class="services__info">
+
+        <h2 class="services__title" id="services-title">
+
+          <span data-i18n="services.title.line1">Предоставляемые</span>
+
+          <span class="services__title-row">
+            <span data-i18n="services.title.line2">услуги</span>
+            <span class="services__title-divider" aria-hidden="true"></span>
+          </span>
+        </h2>
+
+        <p class="services__desc" data-i18n-html="services.desc">
+          При разработке проекта предложим техническое решение оптимальное по соотношению цены и качества, оно идеально впишется в ваш дизайн, а также будет учитывать все ваши пожелания.<br><br>
+          Монтаж выполняется опытными бригадами с соблюдением всех действующих технических норм, правил безопасности и строго по согласованному проекту.<br><br>
+          Одинаково эффективно выполняем проектирование и монтаж на объектах любой сложности — от небольшой квартиры, до объектов со сложными технологическими процессами.
+        </p>
+
+      </div>
+
+      <div class="services__panel">
+
+        <div class="services__tabs" role="tablist" aria-label="Категории услуг">
+
+          <button class="services__tab services__tab--active" type="button" role="tab" aria-selected="true" data-services-tab="ventilation" data-i18n-aria="services.tab.ventilation" aria-label="Система вентиляции">
+            <img class="services__tab-icon" src="assets/icons/tab-ventilation.svg" alt="">
+            <span class="services__tab-label" data-i18n="services.tab.ventilation">Система Вентиляции</span>
+          </button>
+
+          <button class="services__tab" type="button" role="tab" aria-selected="false" tabindex="-1" data-services-tab="conditioning" data-i18n-aria="services.tab.conditioning" aria-label="Кондиционирование">
+            <img class="services__tab-icon" src="assets/icons/tab-conditioning.svg" alt="">
+            <span class="services__tab-label" data-i18n="services.tab.conditioning">Кондиционирование</span>
+          </button>
+
+        </div>
+
+        <ul class="services__list" data-services-category="ventilation"></ul>
+
+        <div class="services__panel-photo">
+          <picture>
+            <source media="(max-width: 900px)" srcset="assets/images/services-photo-mobile.png">
+            <img src="assets/images/services-photo.png" data-i18n-alt="services.photoAlt" alt="Монтаж системы вентиляции">
+          </picture>
+        </div>
+
+      </div>
+
+    </div>
+
+    </div>
+
+  </section>
+
+  <section class="showcase" id="showcase" aria-labelledby="showcase-title">
+
+    <div class="showcase__content">
+
+      <h2 class="showcase__title" id="showcase-title">
+        <span class="showcase__title-desktop">
+          <span class="showcase__title-line" data-i18n="showcase.title.line1">Комплексное решение по монтажу</span>
+          <span class="showcase__title-row">
+            <span class="showcase__title-divider" aria-hidden="true"></span>
+            <span class="showcase__title-line" data-i18n="showcase.title.line2">и вентиляции под ключ</span>
+          </span>
+        </span>
+        <span class="showcase__title-mobile">
+          <span class="showcase__title-line" data-i18n="showcase.title.mobile1">Комплексное решение</span>
+          <span class="showcase__title-mid">
+            <span class="showcase__title-line" data-i18n="showcase.title.mobile2">по монтажу и</span>
+            <span class="showcase__title-divider" aria-hidden="true"></span>
+          </span>
+          <span class="showcase__title-line" data-i18n="showcase.title.mobile3">вентиляции под ключ</span>
+        </span>
+      </h2>
+
+      <div class="showcase__grid-area">
+
+        <div class="showcase__decor-layer" aria-hidden="true">
+          <img class="showcase__decor showcase__decor--lung" src="assets/images/showcase-lung.svg" alt="" width="510" height="488">
+          <img class="showcase__decor showcase__decor--frame-top" src="assets/images/showcase-decor-top.svg" alt="" width="1027" height="221">
+          <img class="showcase__decor showcase__decor--frame-bottom" src="assets/images/showcase-decor-bottom.svg" alt="" width="1027" height="221">
+
+        </div>
+
+        <div class="showcase__grid">
+
+        <article class="showcase-card">
+          <div class="showcase-card__image">
+            <img src="assets/images/card-apartments.png" data-i18n-alt="showcase.card.apartments" alt="Квартиры и офисы">
+            <div class="showcase-card__badge" data-i18n="showcase.badge.100k">от 100 000 ₽</div>
+          </div>
+          <div class="showcase-card__footer">
+            <span class="showcase-card__name" data-i18n="showcase.card.apartments">Квартиры и офисы</span>
+          </div>
+        </article>
+
+        <article class="showcase-card">
+          <div class="showcase-card__image">
+            <img src="assets/images/card-shops.png" data-i18n-alt="showcase.card.shops" alt="Магазины и ТЦ">
+            <div class="showcase-card__badge" data-i18n="showcase.badge.100k">от 100 000 ₽</div>
+          </div>
+          <div class="showcase-card__footer">
+            <span class="showcase-card__name" data-i18n="showcase.card.shops">Магазины и ТЦ</span>
+          </div>
+        </article>
+
+        <article class="showcase-card">
+          <div class="showcase-card__image">
+            <img src="assets/images/card-fitness.png" data-i18n-alt="showcase.card.fitness" alt="Фитнес центры">
+            <div class="showcase-card__badge" data-i18n="showcase.badge.150k">от 150 000 ₽</div>
+          </div>
+          <div class="showcase-card__footer">
+            <span class="showcase-card__name" data-i18n="showcase.card.fitness">Фитнес центры</span>
+          </div>
+        </article>
+
+        <article class="showcase-card">
+          <div class="showcase-card__image">
+            <img src="assets/images/card-pools.png" data-i18n-alt="showcase.card.pools" alt="Бассейны">
+            <div class="showcase-card__badge" data-i18n="showcase.badge.150k">от 150 000 ₽</div>
+          </div>
+          <div class="showcase-card__footer">
+            <span class="showcase-card__name" data-i18n="showcase.card.pools">Бассейны</span>
+          </div>
+        </article>
+
+        <article class="showcase-card">
+          <div class="showcase-card__image">
+            <img src="assets/images/card-houses.png" data-i18n-alt="showcase.card.houses" alt="Загородные дома">
+            <div class="showcase-card__badge" data-i18n="showcase.badge.200k">от 200 000 ₽</div>
+          </div>
+          <div class="showcase-card__footer showcase-card__footer--tall">
+            <span class="showcase-card__name" data-i18n="showcase.card.houses">Загородные дома, коттеджи, таунхаусы</span>
+          </div>
+        </article>
+
+        <article class="showcase-card">
+          <div class="showcase-card__image">
+            <img src="assets/images/card-restaurants.png" data-i18n-alt="showcase.card.restaurants" alt="Рестораны и кафе">
+            <div class="showcase-card__badge" data-i18n="showcase.badge.200k">от 200 000 ₽</div>
+          </div>
+          <div class="showcase-card__footer">
+            <span class="showcase-card__name" data-i18n="showcase.card.restaurants">Рестораны, кафе, бары</span>
+          </div>
+        </article>
+
+        <article class="showcase-card">
+          <div class="showcase-card__image">
+            <img src="assets/images/card-clinics.png" data-i18n-alt="showcase.card.clinics" alt="Стоматологии и клиники">
+            <div class="showcase-card__badge" data-i18n="showcase.badge.200k">от 200 000 ₽</div>
+          </div>
+          <div class="showcase-card__footer">
+            <span class="showcase-card__name" data-i18n="showcase.card.clinics">Стоматологии, клиники</span>
+          </div>
+        </article>
+
+        <article class="showcase-card">
+          <div class="showcase-card__image">
+            <img src="assets/images/card-beauty.png" data-i18n-alt="showcase.card.beauty" alt="Салоны красоты и СПА">
+            <div class="showcase-card__badge" data-i18n="showcase.badge.100k">от 100 000 ₽</div>
+          </div>
+          <div class="showcase-card__footer">
+            <span class="showcase-card__name" data-i18n="showcase.card.beauty">Салоны красоты, СПА</span>
+          </div>
+        </article>
+
+      </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <section class="steps" id="steps" aria-labelledby="steps-title">
+
+    <div class="steps__content">
+
+      <div class="steps__top">
+
+        <div class="steps__title-block">
+          <h2 class="steps__title" id="steps-title">
+            <span class="steps__title-row">
+              <span data-i18n="steps.title.line1">3 простых шага</span>
+              <span class="steps__title-divider" aria-hidden="true"></span>
+            </span>
+            <span data-i18n="steps.title.line2">к очищению воздуха</span>
+          </h2>
+        </div>
+
+        <aside class="steps__promo">
+          <h3 class="steps__promo-title" data-i18n="steps.promo.title">Кажется, это знак...</h3>
+          <ul class="steps__promo-list">
+            <li class="steps__promo-item">
+              <img class="steps__promo-icon" src="assets/images/steps-promo-icon.svg" alt="" aria-hidden="true" width="17" height="17" loading="lazy">
+              <span class="steps__promo-text" data-i18n="steps.promo.item1">Получите скидку 5% на монтаж при заполнении анкеты на сайте</span>
+            </li>
+            <li class="steps__promo-item">
+              <img class="steps__promo-icon" src="assets/images/steps-promo-icon.svg" alt="" aria-hidden="true" width="17" height="17" loading="lazy">
+              <span class="steps__promo-text" data-i18n="steps.promo.item2">Бесплатно сделаем проект и пусконаладку системы при заказе монтажа</span>
+            </li>
+            <li class="steps__promo-item">
+              <img class="steps__promo-icon" src="assets/images/steps-promo-icon.svg" alt="" aria-hidden="true" width="17" height="17" loading="lazy">
+              <span class="steps__promo-text" data-i18n="steps.promo.item3">Кэшбек до 10% дизайнерам при передаче Клиента и заказе у нас проекта с монтажом!</span>
+            </li>
+          </ul>
+        </aside>
+
+      </div>
+
+      <div class="steps__track">
+        <div class="steps__waves" aria-hidden="true">
+          <picture class="steps__wave steps__wave--4">
+            <source media="(max-width: 1100px)" srcset="assets/images/steps-wave-mobile-enter.svg">
+            <img src="assets/images/steps-wave-4.svg" alt="" width="287" height="58" loading="lazy">
+          </picture>
+          <picture class="steps__wave steps__wave--1">
+            <source media="(max-width: 1100px)" srcset="assets/images/steps-wave-mobile-12.svg">
+            <img src="assets/images/steps-wave-1.svg" alt="" width="277" height="44" loading="lazy">
+          </picture>
+          <picture class="steps__wave steps__wave--2">
+            <source media="(max-width: 1100px)" srcset="assets/images/steps-wave-mobile-23.svg">
+            <img src="assets/images/steps-wave-2.svg" alt="" width="284" height="37" loading="lazy">
+          </picture>
+          <picture class="steps__wave steps__wave--3">
+            <source media="(max-width: 1100px)" srcset="assets/images/steps-wave-mobile-exit.svg">
+            <img src="assets/images/steps-wave-3.svg" alt="" width="282" height="35" loading="lazy">
+          </picture>
+        </div>
+
+        <ol class="steps__list">
+          <li class="steps__item steps__item--1">
+            <div class="steps__circle">
+              <img src="assets/images/steps-icon-wish.svg" alt="" width="49" height="60" loading="lazy">
+            </div>
+            <span class="steps__label" data-i18n="steps.item1">Ваше желание</span>
+          </li>
+          <li class="steps__item steps__item--2">
+            <div class="steps__circle">
+              <img src="assets/images/steps-icon-request.svg" alt="" width="42" height="58" loading="lazy">
+            </div>
+            <span class="steps__label" data-i18n="steps.item2">Заявка</span>
+          </li>
+          <li class="steps__item steps__item--3">
+            <div class="steps__circle">
+              <img src="assets/images/steps-icon-implementation.svg" alt="" width="50" height="51" loading="lazy">
+            </div>
+            <span class="steps__label" data-i18n="steps.item3">Реализация</span>
+          </li>
+        </ol>
+      </div>
+
+    </div>
+
+  </section>
+
+  <section class="cta-form" id="cta-form" aria-labelledby="cta-form-title">
+
+    <img class="cta-form__decor" src="assets/images/cta-decor-bg.svg" alt="" aria-hidden="true" width="1289" height="196">
+
+    <div class="cta-form__content">
+
+      <h2 class="cta-form__title" id="cta-form-title" data-i18n="cta.title">Оставьте заявку и мы с вами свяжемся</h2>
+
+      <form class="cta-form__form" action="#" method="post">
+        <div class="cta-form__field">
+          <label class="visually-hidden" for="cta-name" data-i18n="cta.name">Ваше имя</label>
+          <input type="text" id="cta-name" name="name" data-i18n-placeholder="cta.namePlaceholder" placeholder="Ваше Имя" autocomplete="name" required>
+        </div>
+        <div class="cta-form__field">
+          <label class="visually-hidden" for="cta-phone" data-i18n="cta.phone">Номер телефона</label>
+          <input type="tel" id="cta-phone" name="phone" data-i18n-placeholder="cta.phonePlaceholder" placeholder="Номер телефона" autocomplete="tel" required>
+        </div>
+        <button class="cta-form__submit" type="submit">
+          <span data-i18n="cta.submit">отправить</span>
+        </button>
+      </form>
+
+    </div>
+
+    <img class="cta-form__fan" src="assets/images/cta-fan.svg" alt="" aria-hidden="true" width="209" height="236">
+
+  </section>
+
+  <section class="about" id="about" aria-labelledby="about-title">
+
+    <div class="about__content">
+
+      <div class="about__blobs" aria-hidden="true">
+        <div class="about__blob about__blob--large"></div>
+        <div class="about__blob about__blob--sm about__blob--1"></div>
+        <div class="about__blob about__blob--sm about__blob--2"></div>
+        <div class="about__blob about__blob--sm about__blob--3"></div>
+        <div class="about__blob about__blob--sm about__blob--4"></div>
+      </div>
+
+      <article class="about__card">
+        <div class="about__card-head">
+          <div class="about__card-head-row">
+            <h2 class="about__title" id="about-title" data-i18n="about.title">о нас</h2>
+            <div class="about__brand">
+              <span class="about__brand-name" data-i18n="about.brand">Pascal vent</span>
+              <span class="about__brand-line" aria-hidden="true"></span>
+            </div>
+          </div>
+          <h3 class="about__subtitle" data-i18n="about.subtitle">Особенности</h3>
+        </div>
+
+        <div class="about__text">
+          <p data-i18n="about.text1">Мы любим то, чем занимаемся – поэтому у нас индивидуальный подход к каждому человеку, креативные решения для проекта любой сложности и высокий уровень клиентского сервиса.</p>
+          <p data-i18n-html="about.text2">Именно поэтому нам доверяют сложнейшие задачи, рекомендуют нас и возвращаются вновь. Доверьте нам воплощение ваших самых изысканных и технологичных задач, и мы сделаем всё с высочайшим уровнем сервиса <strong>Pascal Vent</strong>.</p>
+          <p data-i18n-html="about.text3"><strong>Pascal Vent</strong> гарантирует сертифицированные современные системы, оборудование, качественные материалы и самые оптимальные решения под любой бюджет.</p>
+        </div>
+      </article>
+
+      <div class="about__stats">
+
+        <article class="about__stat">
+          <p class="about__stat-value">
+            <span class="about__stat-num" data-i18n="about.stat1.value">10</span>
+            <span class="about__stat-label" data-i18n="about.stat1.label"> лет на рынке</span>
+          </p>
+          <p class="about__stat-desc" data-i18n-html="about.stat1.desc">Работаем<br>как единое целое</p>
+        </article>
+
+        <article class="about__stat">
+          <p class="about__stat-value">
+            <span class="about__stat-num" data-i18n="about.stat2.value">+ 11</span>
+            <span class="about__stat-label" data-i18n="about.stat2.label"> лет стажа</span>
+          </p>
+          <p class="about__stat-desc" data-i18n="about.stat2.desc">Опытные и обученые специалисты своего дела</p>
+        </article>
+
+        <article class="about__stat">
+          <p class="about__stat-value">
+            <span class="about__stat-num" data-i18n="about.stat3.value">+ 180</span>
+            <span class="about__stat-label" data-i18n="about.stat3.label"> клиентов</span>
+          </p>
+          <p class="about__stat-desc" data-i18n="about.stat3.desc">Число счастливых клиентов за этот период</p>
+        </article>
+
+        <article class="about__stat">
+          <p class="about__stat-value">
+            <span class="about__stat-num" data-i18n="about.stat4.value">+ 470</span>
+            <span class="about__stat-label" data-i18n="about.stat4.label"> проектов</span>
+          </p>
+          <p class="about__stat-desc" data-i18n-html="about.stat4.desc">Большое количество<br>реализованных проектов</p>
+        </article>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <section class="benefits" id="benefits" aria-labelledby="benefits-title">
+
+    <div class="benefits__content-wrap">
+
+      <div class="benefits__blob" aria-hidden="true"></div>
+
+      <div class="benefits__content">
+
+        <h2 class="benefits__title" id="benefits-title" data-i18n-html="benefits.title">
+          комфорт и уют<br>в любое время года
+        </h2>
+
+        <div class="benefits__tags" aria-hidden="true">
+          <span class="benefits__tag"><img src="assets/images/benefits-icon-snowflake.svg" alt="" width="32" height="23"></span>
+          <span class="benefits__tag"><img src="assets/images/benefits-icon-conditioning.svg" alt="" width="16" height="29"></span>
+          <span class="benefits__tag"><img src="assets/images/benefits-icon-house.svg" alt="" width="28" height="28"></span>
+          <span class="benefits__tag"><img src="assets/images/benefits-icon-air.svg" alt="" width="28" height="28"></span>
+          <span class="benefits__tag"><img src="assets/images/benefits-icon-humidity.svg" alt="" width="22" height="28"></span>
+          <span class="benefits__tag"><img src="assets/images/benefits-icon-pollution.svg" alt="" width="28" height="24"></span>
+        </div>
+
+        <ul class="benefits__list">
+          <li class="benefits__item">
+            <span class="benefits__bullet" aria-hidden="true"></span>
+            <span class="benefits__item-text" data-i18n="benefits.item1">Создание комфортных условий для работы и отдыха</span>
+          </li>
+          <li class="benefits__item">
+            <span class="benefits__bullet" aria-hidden="true"></span>
+            <span class="benefits__item-text" data-i18n="benefits.item2">Чистый, свежий, приточный воздух круглый год</span>
+          </li>
+          <li class="benefits__item">
+            <span class="benefits__bullet" aria-hidden="true"></span>
+            <span class="benefits__item-text" data-i18n="benefits.item3">Удаление не приятных запахов, избыточной влажности и накопившегося углекислого газа из помещений</span>
+          </li>
+          <li class="benefits__item">
+            <span class="benefits__bullet" aria-hidden="true"></span>
+            <span class="benefits__item-text" data-i18n="benefits.item4">Поддержание комфортной температуры и влажности воздуха зимой и летом</span>
+          </li>
+        </ul>
+
+        <p class="benefits__desc" data-i18n-html="benefits.desc">
+          <strong>Pascal Vent</strong> поможет улучшить ваше самочувствие и повысить работоспособность днем, а ночью подарит здоровый и крепкий сон. Это важно для тех, кто следит за своим здоровьем и здоровьем своих близких.
+        </p>
+
+        <button class="benefits__cta" type="button" data-action="submit">
+          <span data-i18n="benefits.cta">заполнить заявку</span>
+        </button>
+
+      </div>
+
+      <div class="benefits__gallery" aria-hidden="true">
+        <img class="benefits__photo benefits__photo--1" src="assets/images/benefits-photo-1.png" alt="" width="273" height="358">
+        <img class="benefits__photo benefits__photo--2" src="assets/images/benefits-photo-2.png" alt="" width="267" height="350">
+        <img class="benefits__photo benefits__photo--3" src="assets/images/benefits-photo-3.png" alt="" width="267" height="294">
+        <img class="benefits__photo benefits__photo--4" src="assets/images/benefits-photo-4.png" alt="" width="273" height="424">
+      </div>
+
+    </div>
+
+  </section>
+
+  <section class="workflow" id="workflow" aria-labelledby="workflow-title">
+
+    <div class="workflow__content">
+
+      <h2 class="workflow__title" id="workflow-title" data-i18n="workflow.title">Понятная и эффективная схема работы</h2>
+
+      <div class="workflow__steps">
+
+        <div class="workflow__lines" aria-hidden="true">
+          <img class="workflow__line workflow__line--1" src="assets/images/workflow-line-1.svg" alt="" width="527" height="78">
+          <img class="workflow__line workflow__line--2" src="assets/images/workflow-line-2.svg" alt="" width="506" height="80">
+          <img class="workflow__line workflow__line--3" src="assets/images/workflow-line-3.svg" alt="" width="225" height="109">
+          <img class="workflow__line workflow__line--4" src="assets/images/workflow-line-4.svg" alt="" width="587" height="139">
+          <img class="workflow__line workflow__line--5" src="assets/images/workflow-line-5.svg" alt="" width="698" height="165">
+        </div>
+
+        <ol class="workflow__list">
+
+        <li class="workflow__step workflow__step--1">
+          <img class="workflow__illus" src="assets/images/workflow-illus-1.svg" alt="" width="310" height="301">
+          <div class="workflow__step-body">
+            <h3 class="workflow__step-title" data-i18n="workflow.step1.title">Получение заявки</h3>
+            <p class="workflow__step-text" data-i18n="workflow.step1.text">Заполните форму, укажите свои данные и отправьте нашим менеджерам в обработку</p>
+          </div>
+        </li>
+
+        <li class="workflow__step workflow__step--2">
+          <img class="workflow__illus" src="assets/images/workflow-illus-2.svg" alt="" width="302" height="273">
+          <div class="workflow__step-body">
+            <h3 class="workflow__step-title" data-i18n="workflow.step2.title">Консультация</h3>
+            <p class="workflow__step-text" data-i18n="workflow.step2.text">После обработки Вашей заявки, мы связываемся с Вами, выявляем потребности и пожелания, а также проводим техническую консультацию</p>
+          </div>
+        </li>
+
+        <li class="workflow__step workflow__step--3">
+          <img class="workflow__illus" src="assets/images/workflow-illus-3.svg" alt="" width="413" height="254">
+          <div class="workflow__step-body">
+            <h3 class="workflow__step-title" data-i18n="workflow.step3.title">Выезд на объект</h3>
+            <p class="workflow__step-text" data-i18n="workflow.step3.text">В назначенное время мы выезжаем на объект и согласовываем основные технические решения, обсуждаем техническое задание</p>
+          </div>
+        </li>
+
+        <li class="workflow__step workflow__step--4">
+          <img class="workflow__illus" src="assets/images/workflow-illus-4.svg" alt="" width="290" height="275">
+          <div class="workflow__step-body">
+            <h3 class="workflow__step-title" data-i18n="workflow.step4.title">Составляем график</h3>
+            <p class="workflow__step-text" data-i18n="workflow.step4.text">На этом этапе мы составляем коммерческое предложение и занимаемся согласованием графика работ (проектирования, закупки оборудования и монтажа).</p>
+          </div>
+        </li>
+
+        <li class="workflow__step workflow__step--5">
+          <img class="workflow__illus" src="assets/images/workflow-illus-5.svg" alt="" width="280" height="301">
+          <div class="workflow__step-body">
+            <h3 class="workflow__step-title" data-i18n="workflow.step5.title">Договор</h3>
+            <p class="workflow__step-text" data-i18n="workflow.step5.text">Мы заключаем с Вами договор и начинаем проектирование и согласование проекта</p>
+          </div>
+        </li>
+
+        <li class="workflow__step workflow__step--6">
+          <img class="workflow__illus" src="assets/images/workflow-illus-6.svg" alt="" width="301" height="189">
+          <div class="workflow__step-body">
+            <h3 class="workflow__step-title" data-i18n="workflow.step6.title">Поставка и монтаж</h3>
+            <p class="workflow__step-text" data-i18n="workflow.step6.text">На этом этапе, происходит поставка всех материалов и начинается выполнение монтажных работ</p>
+          </div>
+        </li>
+
+        <li class="workflow__step workflow__step--7">
+          <img class="workflow__illus" src="assets/images/workflow-illus-7.svg" alt="" width="402" height="99">
+          <div class="workflow__step-body">
+            <h3 class="workflow__step-title" data-i18n="workflow.step7.title">Подписание акта выполненных работ</h3>
+          </div>
+        </li>
+
+        </ol>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <section class="portfolio" id="portfolio" aria-labelledby="portfolio-title">
+
+    <div class="portfolio__content">
+
+      <div class="portfolio__blob" aria-hidden="true">
+        <img src="assets/images/portfolio-blob.svg" alt="" width="656" height="499">
+      </div>
+
+      <div class="portfolio__header">
+        <div class="portfolio__head-left">
+          <h2 class="portfolio__title" id="portfolio-title" data-i18n-html="portfolio.title">
+            Портфолио и<br>процесс работы
+          </h2>
+          <div class="portfolio__nav" data-i18n-aria="portfolio.navAria" aria-label="Навигация по портфолио">
+            <button class="portfolio__nav-btn portfolio__nav-btn--prev" type="button" data-i18n-aria="portfolio.prev" aria-label="Предыдущий проект">
+              <img src="assets/images/portfolio-arrow-next.svg" alt="" width="34" height="34">
+            </button>
+            <button class="portfolio__nav-btn portfolio__nav-btn--next" type="button" data-i18n-aria="portfolio.next" aria-label="Следующий проект">
+              <img src="assets/images/portfolio-arrow-next.svg" alt="" width="34" height="34">
+            </button>
+          </div>
+        </div>
+        <p class="portfolio__desc" data-i18n="portfolio.desc">
+          Технические решения, принятые в рабочих чертежах, соответствуют требованиям экологических, санитарно-гигиенических, противопожарных и других норм и правил, и обеспечивают безопасную для жизни людей эксплуатацию объекта при соблюдении предусмотренных рабочими чертежами мероприятий.
+        </p>
+      </div>
+
+      <div class="portfolio__slider-wrap">
+        <div class="portfolio__slider" tabindex="0" role="region" data-i18n-aria="portfolio.galleryAria" aria-label="Галерея проектов">
+
+          <article class="portfolio__card portfolio__card--featured">
+            <img class="portfolio__card-photo" src="assets/images/portfolio-photo-1.png" data-i18n-alt="portfolio.card1.alt" alt="Приточно-вытяжная установка AirFlow 500">
+            <div class="portfolio__card-badge" aria-hidden="true">
+              <img src="assets/images/portfolio-logo-badge.svg" alt="">
+            </div>
+            <div class="portfolio__card-caption">
+              <h3 class="portfolio__card-title" data-i18n="portfolio.card1.title">AirFlow 500</h3>
+              <p class="portfolio__card-subtitle" data-i18n="portfolio.card1.subtitle">Монтаж приточно-вытяжной установки с рекуперацией</p>
+            </div>
+          </article>
+
+          <article class="portfolio__card">
+            <img class="portfolio__card-photo" src="assets/images/portfolio-photo-2.png" data-i18n-alt="portfolio.card2.alt" alt="Установка высокой фильтрации PureAir 600">
+            <div class="portfolio__card-badge" aria-hidden="true">
+              <img src="assets/images/portfolio-logo-badge.svg" alt="">
+            </div>
+            <div class="portfolio__card-caption">
+              <h3 class="portfolio__card-title" data-i18n="portfolio.card2.title">PureAir 600</h3>
+            </div>
+          </article>
+
+          <article class="portfolio__card">
+            <img class="portfolio__card-photo" src="assets/images/portfolio-photo-3.png" data-i18n-alt="portfolio.card3.alt" alt="Инверторный кондиционер AUX ASW-H12">
+            <div class="portfolio__card-badge" aria-hidden="true">
+              <img src="assets/images/portfolio-logo-badge.svg" alt="">
+            </div>
+            <div class="portfolio__card-caption">
+              <h3 class="portfolio__card-title" data-i18n="portfolio.card3.title">AUX ASW-H12</h3>
+            </div>
+          </article>
+
+          <article class="portfolio__card">
+            <img class="portfolio__card-photo" src="assets/images/portfolio-photo-4.png" data-i18n-alt="portfolio.card4.alt" alt="Канальный кондиционер Ballu BLCI-24">
+            <div class="portfolio__card-badge" aria-hidden="true">
+              <img src="assets/images/portfolio-logo-badge.svg" alt="">
+            </div>
+            <div class="portfolio__card-caption">
+              <h3 class="portfolio__card-title" data-i18n="portfolio.card4.title">Ballu BLCI-24</h3>
+            </div>
+          </article>
+
+        </div>
+      </div>
+
+    </div>
+
+  </section>
+
+  <section class="clients" id="clients" aria-labelledby="clients-title">
+
+    <div class="clients__wave" aria-hidden="true">
+      <img src="assets/images/clients-wave.svg" alt="" width="1440" height="90" loading="lazy">
+    </div>
+
+    <div class="clients__content-wrap">
+
+      <div class="clients__content">
+        <h2 class="clients__title" id="clients-title">
+          <span class="clients__title-row">
+            <span data-i18n="clients.title.line1">Известные клиенты</span>
+            <span class="clients__title-divider" aria-hidden="true"></span>
+          </span>
+          <span data-i18n="clients.title.line2">которые нам доверились</span>
+        </h2>
+        <p class="clients__desc" data-i18n-html="clients.desc">
+          Реализованы проекты квартир и коммерческих помещений в жилых комплексах и домах от крупных застройщиков, таких как: УКС г. Могилева, Могилевский ДСК, Промжилстрой, Строительная компания «Восток» и Могилевское областное УКС. Мы ценим каждого клиента <strong>Pascal Vent</strong> и с радостью готовы расширять нашу клиентскую базу.
+        </p>
+      </div>
+
+      <div class="clients__cards-block">
+        <div class="clients__cards-viewport">
+          <div class="clients__cards" role="list" data-i18n-aria="clients.listAria" aria-label="Клиенты Pascal Vent">
+
+            <article class="clients__card" role="listitem">
+              <p class="clients__card-name">
+                <span class="clients__card-name-part clients__card-name-part--serif">Kond</span><span class="clients__card-name-part clients__card-name-part--sans">Master</span>
+              </p>
+            </article>
+            <article class="clients__card" role="listitem">
+              <p class="clients__card-name">
+                <span class="clients__card-name-part clients__card-name-part--serif">Cool</span><span class="clients__card-name-part clients__card-name-part--sans">Climat</span>
+              </p>
+            </article>
+            <article class="clients__card" role="listitem">
+              <p class="clients__card-name">
+                <span class="clients__card-name-part clients__card-name-part--serif">Эко</span><span class="clients__card-name-part clients__card-name-part--sans">Климат</span>
+              </p>
+            </article>
+            <article class="clients__card" role="listitem">
+              <p class="clients__card-name">
+                <span class="clients__card-name-part clients__card-name-part--serif">УКС</span><span class="clients__card-name-part clients__card-name-part--sans">Могилёв</span>
+              </p>
+            </article>
+            <article class="clients__card" role="listitem">
+              <p class="clients__card-name">
+                <span class="clients__card-name-part clients__card-name-part--serif">ДСК</span><span class="clients__card-name-part clients__card-name-part--sans">Могилёв</span>
+              </p>
+            </article>
+            <article class="clients__card" role="listitem">
+              <p class="clients__card-name">
+                <span class="clients__card-name-part clients__card-name-part--serif">Пром</span><span class="clients__card-name-part clients__card-name-part--sans">жилстрой</span>
+              </p>
+            </article>
+
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </section>
+
+  </main>
+
+  <div data-footer></div>
+
+  <script type="module" src="js/main.js"></script>
+  <script type="module" src="js/pages/services.js"></script>
+  <script src="js/pages/portfolio.js"></script>
+  <script src="js/pages/clients.js"></script>
 </body>
 </html>

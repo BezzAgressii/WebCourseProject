@@ -1,8 +1,8 @@
-import api from './api.js';
-import { getCurrentUser, requireAdmin, setCurrentUser, resolveAssetPath } from './auth-session.js';
-import { Modal } from './components/modal.js';
-import { showConfirm } from './components/confirm.js';
-import ImageUploader from './loadImages.js';
+import api from '../utils/api.js';
+import { getCurrentUser, requireAdmin, setCurrentUser } from '../utils/auth-session.js';
+import { Modal } from '../components/modal.js';
+import { showConfirm } from '../components/confirm.js';
+import ImageUploader from '../utils/loadImages.js';
 
 const SUBCATEGORIES = {
   ventilation: [
@@ -457,7 +457,7 @@ class AdminPage {
 
     this.elements.tableBody.innerHTML = products.map((product) => {
       const name = product.name_i18n?.ru || product.id;
-      const image = resolveAssetPath(product.images?.[0] || DEFAULT_IMAGES[0]);
+      const image = `../${product.images?.[0] || DEFAULT_IMAGES[0]}`;
       const stockClass = product.inStock ? '' : ' admin-table__stock--out';
       const stockText = product.inStock ? 'В наличии' : 'Нет в наличии';
 

@@ -1,7 +1,7 @@
-import api from './api.js';
-import i18n from './i18n.js';
-import { getCurrentUser, isAdmin, requireAuth, setCurrentUser } from './auth-session.js';
-import { Modal } from './components/modal.js';
+import api from '../utils/api.js';
+import i18n from '../common/i18n.js';
+import { getCurrentUser, isAdmin, requireAuth, setCurrentUser } from '../utils/auth-session.js';
+import { Modal } from '../components/modal.js';
 
 class ProfilePage {
   constructor() {
@@ -181,7 +181,7 @@ class ProfilePage {
     this.elements.form.addEventListener('submit', (event) => this.handleSettingsSubmit(event));
     this.elements.logout.addEventListener('click', () => {
       setCurrentUser(null);
-      window.location.href = 'index.html';
+      window.location.href = '../index.html';
     });
   }
 

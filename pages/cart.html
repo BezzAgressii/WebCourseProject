@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="ru" class="is-preload">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,6 +8,8 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../css/variables.css">
+  <link rel="stylesheet" href="../css/preloader.css">
+  <script src="../js/common/preloader.js"></script>
   <link rel="stylesheet" href="../css/header.css">
   <link rel="stylesheet" href="../css/main.css">
   <link rel="stylesheet" href="../css/cart.css">
@@ -15,9 +17,16 @@
   <link rel="stylesheet" href="../css/footer.css">
 </head>
 <body data-page="cart">
+  <div id="preloader" class="preloader" role="status" aria-live="polite" aria-busy="true">
+    <div class="preloader__inner">
+      <img class="preloader__logo" src="../assets/icons/logo.svg" alt="Pascal Vent" width="196" height="61">
+      <div class="preloader__spinner" aria-hidden="true"></div>
+      <p class="preloader__text">Загрузка...</p>
+    </div>
+  </div>
   <header class="header header--page">
     <div class="header__inner">
-      <a href="index.html" class="header__logo" data-i18n-aria="header.logoAria" aria-label="Pascal Vent — главная">
+      <a href="../index.html" class="header__logo" data-i18n-aria="header.logoAria" aria-label="Pascal Vent — главная">
         <picture>
           <source media="(max-width: 480px)" srcset="../assets/images/footer-mobile-logo.svg">
           <img src="../assets/icons/logo.svg" alt="Pascal Vent">
@@ -25,8 +34,8 @@
       </a>
       <nav class="header__nav" data-i18n-aria="header.navAria" aria-label="Основное меню">
         <ul class="nav__list">
-          <li><a href="index.html#services" data-i18n="header.services">Услуги</a></li>
-          <li><a href="index.html#about" data-i18n="header.about">О Нас</a></li>
+          <li><a href="../index.html#services" data-i18n="header.services">Услуги</a></li>
+          <li><a href="../index.html#about" data-i18n="header.about">О Нас</a></li>
           <li><a href="catalog.html" data-i18n="header.catalog">Каталог</a></li>
           <li><a href="cart.html" data-i18n="header.cart">Корзина</a></li>
         </ul>
@@ -66,7 +75,7 @@
     <section class="account-page" aria-labelledby="cart-title">
       <div class="account-page__inner">
         <nav class="account-page__breadcrumbs" aria-label="Хлебные крошки">
-          <a href="index.html" data-i18n="category.home">Главная</a>
+          <a href="../index.html" data-i18n="category.home">Главная</a>
           <span aria-hidden="true">/</span>
           <a href="catalog.html" data-i18n="header.catalog">Каталог</a>
           <span aria-hidden="true">/</span>
@@ -95,7 +104,7 @@
 
   <div data-footer></div>
 
-  <script type="module" src="../js/cart.js"></script>
-  <script type="module" src="../js/header.js"></script>
+  <script type="module" src="../js/main.js"></script>
+  <script type="module" src="../js/pages/cart.js"></script>
 </body>
 </html>

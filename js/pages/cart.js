@@ -1,14 +1,14 @@
-import api from './api.js';
-import i18n from './i18n.js';
+import api from '../utils/api.js';
+import i18n from '../common/i18n.js';
 import {
   clearCart,
   getCartItems,
   removeFromCart,
   updateCartQuantity
-} from './cart-storage.js';
-import { getCurrentUser, isAdmin, requireAuth, resolveAssetPath } from './auth-session.js';
-import { showConfirm } from './components/confirm.js';
-import { Modal } from './components/modal.js';
+} from '../utils/cart-storage.js';
+import { getCurrentUser, isAdmin, requireAuth } from '../utils/auth-session.js';
+import { showConfirm } from '../components/confirm.js';
+import { Modal } from '../components/modal.js';
 
 class CartPage {
   constructor() {
@@ -97,7 +97,9 @@ class CartPage {
 
     this.elements.list.innerHTML = lines.map(({ product, quantity, lineTotal }) => {
       const name = product.name_i18n?.[i18n.currentLang] || product.name_i18n?.ru || product.id;
-      const image = resolveAssetPath(product.images?.[0]);
+      const image = product.images?.[0]
+        ? `../${product.images[0]}`
+        : '../assets/images/cta-fan.png';
       const detailUrl = `product.html?id=${encodeURIComponent(product.id)}`;
 
       return `

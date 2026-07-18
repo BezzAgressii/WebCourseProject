@@ -1,8 +1,8 @@
-import api from './api.js';
-import DETAILED_TRANSLATIONS from './detailed-translation.js';
-import i18n from './i18n.js';
-import { isAdmin, resolveAssetPath } from './auth-session.js';
-import { Modal } from './components/modal.js';
+import api from '../utils/api.js';
+import DETAILED_TRANSLATIONS from '../utils/detailed-translation.js';
+import i18n from '../common/i18n.js';
+import { isAdmin } from '../utils/auth-session.js';
+import { Modal } from '../components/modal.js';
 
 class ProductPage {
   constructor() {
@@ -61,7 +61,7 @@ class ProductPage {
 
     const productName = this.product.name_i18n[i18n.currentLang] || this.product.name_i18n.ru;
     const details = this.product.details;
-    const image = resolveAssetPath(this.product.images[0]);
+    const image = `../${this.product.images[0]}`;
     const availability = this.getAvailability();
 
     document.title = `${productName} — Pascal Vent`;
@@ -125,7 +125,7 @@ class ProductPage {
     const product = this.product;
     const details = product.details;
     const name = product.name_i18n[i18n.currentLang] || product.name_i18n.ru;
-    const image = resolveAssetPath(product.images[0]);
+    const image = `../${product.images[0]}`;
 
     document.title = `${name} — Pascal Vent`;
     this.elements.content.innerHTML = `
@@ -190,7 +190,7 @@ class ProductPage {
     const product = this.product;
     const details = product.details;
     const name = product.name_i18n[i18n.currentLang] || product.name_i18n.ru;
-    const image = resolveAssetPath(product.images[0]);
+    const image = `../${product.images[0]}`;
 
     document.title = `${name} — Pascal Vent`;
     this.elements.content.innerHTML = `

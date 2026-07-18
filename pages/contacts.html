@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="ru" class="is-preload">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,6 +11,8 @@
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
 
   <link rel="stylesheet" href="../css/variables.css">
+  <link rel="stylesheet" href="../css/preloader.css">
+  <script src="../js/common/preloader.js"></script>
   <link rel="stylesheet" href="../css/header.css">
   <link rel="stylesheet" href="../css/main.css">
   <link rel="stylesheet" href="../css/cart.css">
@@ -18,9 +20,16 @@
   <link rel="stylesheet" href="../css/footer.css">
 </head>
 <body data-page="contacts">
+  <div id="preloader" class="preloader" role="status" aria-live="polite" aria-busy="true">
+    <div class="preloader__inner">
+      <img class="preloader__logo" src="../assets/icons/logo.svg" alt="Pascal Vent" width="196" height="61">
+      <div class="preloader__spinner" aria-hidden="true"></div>
+      <p class="preloader__text">Загрузка...</p>
+    </div>
+  </div>
   <header class="header header--page">
     <div class="header__inner">
-      <a href="index.html" class="header__logo" data-i18n-aria="header.logoAria" aria-label="Pascal Vent — главная">
+      <a href="../index.html" class="header__logo" data-i18n-aria="header.logoAria" aria-label="Pascal Vent — главная">
         <picture>
           <source media="(max-width: 480px)" srcset="../assets/images/footer-mobile-logo.svg">
           <img src="../assets/icons/logo.svg" alt="Pascal Vent">
@@ -28,8 +37,8 @@
       </a>
       <nav class="header__nav" data-i18n-aria="header.navAria" aria-label="Основное меню">
         <ul class="nav__list">
-          <li><a href="index.html#services" data-i18n="header.services">Услуги</a></li>
-          <li><a href="index.html#about" data-i18n="header.about">О Нас</a></li>
+          <li><a href="../index.html#services" data-i18n="header.services">Услуги</a></li>
+          <li><a href="../index.html#about" data-i18n="header.about">О Нас</a></li>
           <li><a href="catalog.html" data-i18n="header.catalog">Каталог</a></li>
           <li><a href="contacts.html" data-i18n="header.contacts" aria-current="page">Контакты</a></li>
         </ul>
@@ -58,7 +67,7 @@
     </div>
     <nav class="header__mobile-nav" id="mobile-nav" data-i18n-aria="header.mobileNavAria" aria-label="Мобильное меню" hidden>
       <ul class="header__mobile-list">
-        <li><a href="index.html#services" data-i18n="header.services">Услуги</a></li>
+        <li><a href="../index.html#services" data-i18n="header.services">Услуги</a></li>
         <li><a href="catalog.html" data-i18n="header.catalog">Каталог</a></li>
         <li><a href="contacts.html" data-i18n="header.contacts" aria-current="page">Контакты</a></li>
         <li><a href="profile.html" data-i18n="header.profile">Профиль</a></li>
@@ -70,7 +79,7 @@
     <section class="contacts-page" aria-labelledby="contacts-title">
       <div class="contacts-page__inner">
         <nav class="account-page__breadcrumbs" aria-label="Хлебные крошки">
-          <a href="index.html" data-i18n="category.home">Главная</a>
+          <a href="../index.html" data-i18n="category.home">Главная</a>
           <span aria-hidden="true">/</span>
           <span data-i18n="header.contacts">Контакты</span>
         </nav>
@@ -154,7 +163,7 @@
 
   <div data-footer></div>
 
-  <script type="module" src="../js/contacts.js"></script>
-  <script type="module" src="../js/header.js"></script>
+  <script type="module" src="../js/main.js"></script>
+  <script type="module" src="../js/pages/contacts.js"></script>
 </body>
 </html>

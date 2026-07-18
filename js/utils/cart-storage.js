@@ -1,7 +1,7 @@
 import api from './api.js';
 import { getCurrentUser, isAdmin } from './auth-session.js';
 
-// Удаляем устаревшее локальное хранилище корзины (раньше было в localStorage)
+
 try {
   localStorage.removeItem('pascalVentCart');
 } catch {

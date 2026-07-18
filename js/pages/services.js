@@ -1,4 +1,4 @@
-import i18n from './i18n.js';
+import i18n from '../common/i18n.js';
 
 const SERVICE_LISTS = {
   ventilation: [
@@ -24,7 +24,7 @@ function renderServicesList(listElement, category) {
 
   listElement.innerHTML = keys.map((key, index) => `
     <li class="services__item">
-      <img class="services__item-icon" src="../assets/icons/svc-icon-${(index % 6) + 1}.svg" alt="">
+      <img class="services__item-icon" src="assets/icons/svc-icon-${(index % 6) + 1}.svg" alt="">
       <span class="services__item-text" data-i18n="${key}">${i18n.t(key)}</span>
     </li>
   `).join('');

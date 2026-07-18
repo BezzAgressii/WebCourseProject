@@ -1,4 +1,4 @@
-import i18n from './i18n.js';
+import i18n from '../common/i18n.js';
 
 const MAP_COORDS = [53.901212, 30.335829];
 const MAP_LON_LAT = [30.335829, 53.901212];

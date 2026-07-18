@@ -1,5 +1,5 @@
-import api from './api.js';
-import i18n from './i18n.js';
+import api from '../utils/api.js';
+import i18n from '../common/i18n.js';
 
 function getProductWord(count, language) {
   if (language === 'ru') {

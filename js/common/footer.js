@@ -1,5 +1,5 @@
 import i18n from './i18n.js';
-import { bindPhoneMask } from './utils/phone-mask.js';
+import { bindPhoneMask } from '../utils/phone-mask.js';
 
 const FOOTER_VARIANT_BY_PAGE = {
   home: 'full',
@@ -29,6 +29,38 @@ function applyFooterVariant(footer, variant) {
   }
 }
 
+/** Partial uses paths for /pages/*; on the home page strip one "../". */
+function rewriteFooterPathsForHome(footer) {
+  if (document.body.dataset.page !== 'home') {
+    return;
+  }
+
+  footer.querySelectorAll('a[href]').forEach((link) => {
+    const href = link.getAttribute('href');
+    if (!href) {
+      return;
+    }
+
+    if (href === '../index.html' || href.startsWith('../index.html#')) {
+      link.setAttribute('href', href.replace('../index.html', 'index.html'));
+    }
+  });
+
+  footer.querySelectorAll('[src]').forEach((el) => {
+    const src = el.getAttribute('src');
+    if (src?.startsWith('../assets/')) {
+      el.setAttribute('src', src.slice(3));
+    }
+  });
+
+  footer.querySelectorAll('[srcset]').forEach((el) => {
+    const srcset = el.getAttribute('srcset');
+    if (srcset) {
+      el.setAttribute('srcset', srcset.replaceAll('../assets/', 'assets/'));
+    }
+  });
+}
+
 function bindFooterPhoneMask(footer) {
   footer.querySelectorAll('.footer__form input[name="phone"]').forEach((input) => {
     bindPhoneMask(input);
@@ -47,7 +79,7 @@ export async function loadFooter() {
   }
 
   const variant = resolveFooterVariant(mount);
-  const footerUrl = new URL('../partials/footer.html', import.meta.url);
+  const footerUrl = new URL('../../partials/footer.html', import.meta.url);
 
   try {
     const response = await fetch(footerUrl);
@@ -67,6 +99,7 @@ export async function loadFooter() {
     }
 
     applyFooterVariant(footer, variant);
+    rewriteFooterPathsForHome(footer);
     mount.replaceWith(footer);
     bindFooterPhoneMask(footer);
     i18n.translatePage();

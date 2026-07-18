@@ -42,10 +42,6 @@ export function isAdmin() {
   return getCurrentUser()?.role === 'admin';
 }
 
-export function getLoginPath() {
-  return 'login.html';
-}
-
 export function requireAuth(redirectTo = 'login.html') {
   if (isAuthenticated()) {
     return true;
@@ -64,17 +60,4 @@ export function requireAdmin(redirectTo = 'login.html') {
 
   window.location.href = redirectTo;
   return false;
-}
-
-/** Resolve asset paths stored as root-relative (assets/...) for pages in /pages/. */
-export function resolveAssetPath(path) {
-  if (!path) {
-    return '../assets/images/cta-fan.png';
-  }
-
-  if (/^(https?:|data:|\/|\.\.\/)/i.test(path)) {
-    return path;
-  }
-
-  return `../${path}`;
 }

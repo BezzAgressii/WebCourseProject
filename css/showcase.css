@@ -148,6 +148,7 @@
   padding: 0 14px;
   display: flex;
   align-items: center;
+  gap: 0.3em;
   background: #D9FADD;
   border-radius: 0 10px 10px 0;
   font-family: var(--font-body);

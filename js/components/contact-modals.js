@@ -1,6 +1,6 @@
-import api from '../api.js';
-import i18n from '../i18n.js';
-import { getCurrentUser, isAdmin } from '../auth-session.js';
+import api from '../utils/api.js';
+import i18n from '../common/i18n.js';
+import { getCurrentUser, isAdmin } from '../utils/auth-session.js';
 import { Modal } from './modal.js';
 import { bindPhoneMask, isValidBelarusPhone } from '../utils/phone-mask.js';
 

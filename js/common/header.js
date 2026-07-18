@@ -1,7 +1,7 @@
-import { initBurgerMenu } from './components/burger-menu.js';
-import { initContactModals } from './components/contact-modals.js';
-import { getCurrentUser, isAdmin } from './auth-session.js';
-import { getCartCount } from './cart-storage.js';
+import { initBurgerMenu } from '../components/burger-menu.js';
+import { initContactModals } from '../components/contact-modals.js';
+import { getCurrentUser, isAdmin } from '../utils/auth-session.js';
+import { getCartCount } from '../utils/cart-storage.js';
 import { loadFooter } from './footer.js';
 import i18n from './i18n.js';
 
@@ -61,12 +61,21 @@ function updateAuthLinks() {
   const admin = isAdmin();
   const profile = document.querySelector('[data-header-profile]');
   const cart = document.querySelector('[data-header-cart]');
+  const onHome = document.body.dataset.page === 'home';
 
   if (profile) {
     if (user) {
-      profile.href = admin ? 'admin.html' : 'profile.html';
+      if (onHome) {
+        profile.href = admin ? 'pages/admin.html' : 'pages/profile.html';
+      } else {
+        profile.href = admin ? 'admin.html' : 'profile.html';
+      }
       profile.classList.add('header__profile--auth');
       profile.title = user.nickname || user.email || '';
+    } else if (onHome) {
+      profile.href = 'pages/login.html';
+      profile.classList.remove('header__profile--auth');
+      profile.title = '';
     } else {
       profile.href = 'login.html';
       profile.classList.remove('header__profile--auth');
@@ -78,7 +87,11 @@ function updateAuthLinks() {
 
   if (cart) {
     cart.hidden = admin;
-    cart.href = user && !admin ? 'cart.html' : 'login.html';
+    if (onHome) {
+      cart.href = user && !admin ? 'pages/cart.html' : 'pages/login.html';
+    } else {
+      cart.href = user && !admin ? 'cart.html' : 'login.html';
+    }
     cart.setAttribute('aria-label', i18n.t('header.cart'));
   }
 }

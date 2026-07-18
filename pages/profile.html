@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="ru" class="is-preload">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,6 +8,8 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../css/variables.css">
+  <link rel="stylesheet" href="../css/preloader.css">
+  <script src="../js/common/preloader.js"></script>
   <link rel="stylesheet" href="../css/header.css">
   <link rel="stylesheet" href="../css/main.css">
   <link rel="stylesheet" href="../css/cart.css">
@@ -16,58 +18,24 @@
   <link rel="stylesheet" href="../css/footer.css">
 </head>
 <body data-page="profile">
-  <header class="header header--page">
-    <div class="header__inner">
-      <a href="index.html" class="header__logo" data-i18n-aria="header.logoAria" aria-label="Pascal Vent — главная">
-        <picture>
-          <source media="(max-width: 480px)" srcset="../assets/images/footer-mobile-logo.svg">
-          <img src="../assets/icons/logo.svg" alt="Pascal Vent">
-        </picture>
-      </a>
-      <nav class="header__nav" data-i18n-aria="header.navAria" aria-label="Основное меню">
-        <ul class="nav__list">
-          <li><a href="index.html#services" data-i18n="header.services">Услуги</a></li>
-          <li><a href="catalog.html" data-i18n="header.catalog">Каталог</a></li>
-          <li><a href="cart.html" data-i18n="header.cart">Корзина</a></li>
-          <li><a href="profile.html" data-i18n="header.profile">Профиль</a></li>
-        </ul>
-      </nav>
-      <div class="header__actions">
-        <div class="lang-switch" role="group" data-i18n-aria="header.langAria" aria-label="Выбор языка">
-          <button type="button" class="lang-switch__btn" data-lang="ru" aria-pressed="true">RU</button>
-          <button type="button" class="lang-switch__btn" data-lang="be" aria-pressed="false">BE</button>
-          <button type="button" class="lang-switch__btn" data-lang="en" aria-pressed="false">EN</button>
-        </div>
-        <a class="header__profile" href="login.html" data-header-profile data-i18n-aria="header.profile" aria-label="Профиль">
-          <svg class="header__profile-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-            <circle cx="12" cy="8" r="3.5" stroke="currentColor" stroke-width="1.8"/>
-            <path d="M5 19.5c1.8-3.2 4.2-4.8 7-4.8s5.2 1.6 7 4.8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
-          </svg>
-        </a>
-        <button class="header__burger" type="button" data-i18n-aria="header.openMenu" aria-label="Открыть меню" aria-expanded="false" aria-controls="mobile-nav">
-          <span class="header__burger-line" aria-hidden="true"></span>
-          <span class="header__burger-line" aria-hidden="true"></span>
-          <span class="header__burger-line" aria-hidden="true"></span>
-        </button>
-        <button class="header__btn" type="button" data-modal="contact" data-i18n-aria="header.contact" aria-label="Связаться">
-          <span class="header__btn-text" data-i18n="header.contact">Связаться</span>
-        </button>
-      </div>
+
+  
+  <div id="preloader" class="preloader" role="status" aria-live="polite" aria-busy="true">
+    <div class="preloader__inner">
+      <img class="preloader__logo" src="../assets/icons/logo.svg" alt="Pascal Vent" width="196" height="61">
+      <div class="preloader__spinner" aria-hidden="true"></div>
+      <p class="preloader__text">Загрузка...</p>
     </div>
-    <nav class="header__mobile-nav" id="mobile-nav" data-i18n-aria="header.mobileNavAria" aria-label="Мобильное меню" hidden>
-      <ul class="header__mobile-list">
-        <li><a href="catalog.html" data-i18n="header.catalog">Каталог</a></li>
-        <li><a href="cart.html" data-i18n="header.cart">Корзина</a></li>
-        <li><a href="profile.html" data-i18n="header.profile">Профиль</a></li>
-      </ul>
-    </nav>
-  </header>
+  </div>
+
+
+  <div id="header" data-header></div>
 
   <main>
     <section class="account-page" aria-labelledby="profile-title">
       <div class="account-page__inner">
         <nav class="account-page__breadcrumbs" aria-label="Хлебные крошки">
-          <a href="index.html" data-i18n="category.home">Главная</a>
+          <a href="../index.html" data-i18n="category.home">Главная</a>
           <span aria-hidden="true">/</span>
           <span data-i18n="profile.title">Профиль</span>
         </nav>
@@ -183,7 +151,7 @@
 
   <div data-footer></div>
 
-  <script type="module" src="../js/profile.js"></script>
-  <script type="module" src="../js/header.js"></script>
+  <script type="module" src="../js/main.js"></script>
+  <script type="module" src="../js/pages/profile.js"></script>
 </body>
 </html>

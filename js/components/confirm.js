@@ -1,5 +1,5 @@
 import { Modal } from './modal.js';
-import i18n from '../i18n.js';
+import i18n from '../common/i18n.js';
 
 export function showConfirm(message, options = {}) {
   return Modal.confirm(message, {
