@@ -4,12 +4,12 @@
   <script>(function(){try{var t=localStorage.getItem('theme');document.documentElement.setAttribute('data-theme',t==='dark'?'dark':'light');}catch(e){document.documentElement.setAttribute('data-theme','light');}})();</script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Контакты — Pascal Vent</title>
-  <meta name="description" content="Контакты Pascal Vent: телефоны, email, адрес в Могилёве и карта проезда.">
+  <title>О нас — Pascal Vent</title>
+  <meta name="description" content="О компании Pascal Vent: опыт, проекты и контакты в Могилёве — телефоны, email, адрес и карта.">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
 
   <link rel="stylesheet" href="../css/variables.css">
   <link rel="stylesheet" href="../css/preloader.css">
@@ -22,6 +22,9 @@
   <link rel="stylesheet" href="../css/theme.css">
 </head>
 <body data-page="contacts">
+
+
+  
   <div id="preloader" class="preloader" role="status" aria-live="polite" aria-busy="true">
     <div class="preloader__inner">
       <img class="preloader__logo" src="../assets/icons/logo.svg" alt="Pascal Vent" width="196" height="61">
@@ -29,6 +32,9 @@
       <p class="preloader__text">Загрузка...</p>
     </div>
   </div>
+
+
+
   <header class="header header--page">
     <div class="header__inner">
       <a href="../index.html" class="header__logo" data-i18n-aria="header.logoAria" aria-label="Pascal Vent — главная">
@@ -40,9 +46,8 @@
       <nav class="header__nav" data-i18n-aria="header.navAria" aria-label="Основное меню">
         <ul class="nav__list">
           <li><a href="../index.html#services" data-i18n="header.services">Услуги</a></li>
-          <li><a href="../index.html#about" data-i18n="header.about">О Нас</a></li>
           <li><a href="catalog.html" data-i18n="header.catalog">Каталог</a></li>
-          <li><a href="contacts.html" data-i18n="header.contacts" aria-current="page">Контакты</a></li>
+          <li><a href="contacts.html" data-i18n="header.about" aria-current="page">О Нас</a></li>
         </ul>
       </nav>
       <div class="header__actions">
@@ -73,7 +78,7 @@
               <p class="header-settings__label" data-i18n="header.themeLabel">Тема</p>
               <div class="theme-switch" role="group" data-i18n-aria="header.themeAria" aria-label="Тема оформления">
                 <button type="button" class="theme-switch__btn" data-theme-toggle="light" aria-pressed="false" aria-label="Светлая тема" title="Светлая">
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="1.8"/><path d="M12 2v2.5M12 19.5V22M4.5 12H2M22 12h-2.5M5.6 5.6l1.8 1.8M16.6 16.6l1.8 1.8M18.4 5.6l-1.8 1.8M7.4 16.6l-1.8 1.8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="1.8"/><path d="M12 2v2.5M12 19.5V22M4.5 12H2M22 12h-2.5M5.6 5.6l1.8 1.8M16.6 16.6l1.8 1.8M18.4 5.6l-1.8 1.8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
                 </button>
                 <button type="button" class="theme-switch__btn" data-theme-toggle="dark" aria-pressed="false" aria-label="Тёмная тема" title="Тёмная">
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M19 14.5A7.5 7.5 0 1 1 9.5 5a6 6 0 0 0 9.5 9.5Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
@@ -102,7 +107,7 @@
       <ul class="header__mobile-list">
         <li><a href="../index.html#services" data-i18n="header.services">Услуги</a></li>
         <li><a href="catalog.html" data-i18n="header.catalog">Каталог</a></li>
-        <li><a href="contacts.html" data-i18n="header.contacts" aria-current="page">Контакты</a></li>
+        <li><a href="contacts.html" data-i18n="header.about" aria-current="page">О Нас</a></li>
         <li><a href="profile.html" data-i18n="header.profile">Профиль</a></li>
       </ul>
     </nav>
@@ -110,76 +115,133 @@
 
   <main>
     <section class="contacts-page" aria-labelledby="contacts-title">
+      <div class="contacts-page__glow" aria-hidden="true"></div>
       <div class="contacts-page__inner">
         <nav class="account-page__breadcrumbs" aria-label="Хлебные крошки">
           <a href="../index.html" data-i18n="category.home">Главная</a>
           <span aria-hidden="true">/</span>
-          <span data-i18n="header.contacts">Контакты</span>
+          <span data-i18n="header.about">О Нас</span>
         </nav>
 
         <header class="contacts-page__header">
-          <p class="contacts-page__eyebrow" data-i18n="contacts.eyebrow">Как нас найти</p>
-          <h1 class="contacts-page__title" id="contacts-title" data-i18n="contacts.title">Контакты</h1>
+          <p class="contacts-page__eyebrow" data-i18n="contacts.eyebrow">Компания Pascal Vent</p>
+          <h1 class="contacts-page__title" id="contacts-title" data-i18n="contacts.title">О нас</h1>
           <p class="contacts-page__lead" data-i18n="contacts.lead">
-            Свяжитесь с нами удобным способом — ответим на вопросы по вентиляции, кондиционированию и подбору оборудования.
+            Проектируем и монтируем системы вентиляции и кондиционирования — с индивидуальным подходом, современным оборудованием и сервисом, к которому возвращаются.
           </p>
         </header>
 
-        <div class="contacts-layout">
-          <div class="contacts-cards">
-            <article class="contacts-card">
-              <div class="contacts-card__icon" aria-hidden="true">
-                <img src="../assets/images/footer-icon-phone.svg" alt="" width="22" height="23">
-              </div>
-              <div class="contacts-card__body">
-                <h2 class="contacts-card__title" data-i18n="contacts.phonesTitle">Телефоны</h2>
-                <a class="contacts-card__link" href="tel:+375222736331" data-i18n="footer.phone1">+375 222 73 63 31</a>
-                <a class="contacts-card__link" href="tel:+375293678929" data-i18n="footer.phone2">+375 29 367 89 29</a>
-              </div>
-            </article>
-
-            <article class="contacts-card">
-              <div class="contacts-card__icon" aria-hidden="true">
-                <img src="../assets/images/footer-icon-envelope.svg" alt="" width="24" height="18">
-              </div>
-              <div class="contacts-card__body">
-                <h2 class="contacts-card__title" data-i18n="contacts.emailTitle">Email</h2>
-                <a class="contacts-card__link" href="mailto:PascalVent@mail.ru" data-i18n="footer.email">PascalVent@mail.ru</a>
-              </div>
-            </article>
-
-            <article class="contacts-card">
-              <div class="contacts-card__icon" aria-hidden="true">
-                <img src="../assets/images/footer-icon-pin.svg" alt="" width="24" height="31">
-              </div>
-              <div class="contacts-card__body">
-                <h2 class="contacts-card__title" data-i18n="contacts.addressTitle">Адрес</h2>
-                <p class="contacts-card__text" data-i18n-html="footer.address.full">Республика Беларусь, г. Могилёв<br>ул. Первомайская, д. 29</p>
-              </div>
-            </article>
-
-            <article class="contacts-card">
-              <div class="contacts-card__icon" aria-hidden="true">
-                <img src="../assets/images/footer-icon-calendar.svg" alt="" width="22" height="22">
-              </div>
-              <div class="contacts-card__body">
-                <h2 class="contacts-card__title" data-i18n="modal.contact.scheduleTitle">График работы</h2>
-                <p class="contacts-card__text" data-i18n-html="footer.hours">Пн - Сб: 9:00 - 19:00<br>Вс: выходной</p>
-              </div>
-            </article>
+        <section class="contacts-about" aria-labelledby="about-features-title">
+          <div class="contacts-about__story">
+            <div class="contacts-about__brand">
+              <span class="contacts-about__brand-name" data-i18n="about.brand">Pascal vent</span>
+              <span class="contacts-about__brand-line" aria-hidden="true"></span>
+            </div>
+            <h2 class="contacts-about__subtitle" id="about-features-title" data-i18n="about.subtitle">Особенности</h2>
+            <div class="contacts-about__text">
+              <p data-i18n="about.text1">Мы любим то, чем занимаемся – поэтому у нас индивидуальный подход к каждому человеку, креативные решения для проекта любой сложности и высокий уровень клиентского сервиса.</p>
+              <p data-i18n-html="about.text2">Именно поэтому нам доверяют сложнейшие задачи, рекомендуют нас и возвращаются вновь. Доверьте нам воплощение ваших самых изысканных и технологичных задач, и мы сделаем всё с высочайшим уровнем сервиса <strong>Pascal Vent</strong>.</p>
+              <p data-i18n-html="about.text3"><strong>Pascal Vent</strong> гарантирует сертифицированные современные системы, оборудование, качественные материалы и самые оптимальные решения под любой бюджет.</p>
+            </div>
           </div>
 
-          <aside class="contacts-cta">
-            <p class="contacts-cta__eyebrow" data-i18n="contacts.ctaEyebrow">Нужна консультация?</p>
-            <h2 class="contacts-cta__title" data-i18n="contacts.ctaTitle">Оставьте заявку — перезвоним</h2>
-            <p class="contacts-cta__text" data-i18n="contacts.ctaText">
-              Расскажите о задаче, и мы подберём решение по вентиляции или климату под ваш объект.
+          <div class="contacts-about__stats" role="list">
+            <article class="contacts-about__stat" role="listitem">
+              <p class="contacts-about__stat-value">
+                <span class="contacts-about__stat-num" data-i18n="about.stat1.value">10</span>
+                <span class="contacts-about__stat-label" data-i18n="about.stat1.label"> лет на рынке</span>
+              </p>
+              <p class="contacts-about__stat-desc" data-i18n-html="about.stat1.desc">Работаем<br>как единое целое</p>
+            </article>
+            <article class="contacts-about__stat" role="listitem">
+              <p class="contacts-about__stat-value">
+                <span class="contacts-about__stat-num" data-i18n="about.stat2.value">+ 11</span>
+                <span class="contacts-about__stat-label" data-i18n="about.stat2.label"> лет стажа</span>
+              </p>
+              <p class="contacts-about__stat-desc" data-i18n="about.stat2.desc">Опытные и обученые специалисты своего дела</p>
+            </article>
+            <article class="contacts-about__stat" role="listitem">
+              <p class="contacts-about__stat-value">
+                <span class="contacts-about__stat-num" data-i18n="about.stat3.value">+ 180</span>
+                <span class="contacts-about__stat-label" data-i18n="about.stat3.label"> клиентов</span>
+              </p>
+              <p class="contacts-about__stat-desc" data-i18n="about.stat3.desc">Число счастливых клиентов за этот период</p>
+            </article>
+            <article class="contacts-about__stat" role="listitem">
+              <p class="contacts-about__stat-value">
+                <span class="contacts-about__stat-num" data-i18n="about.stat4.value">+ 470</span>
+                <span class="contacts-about__stat-label" data-i18n="about.stat4.label"> проектов</span>
+              </p>
+              <p class="contacts-about__stat-desc" data-i18n-html="about.stat4.desc">Большое количество<br>реализованных проектов</p>
+            </article>
+          </div>
+        </section>
+
+        <section class="contacts-reach" aria-labelledby="contacts-reach-title">
+          <div class="contacts-reach__intro">
+            <p class="contacts-reach__eyebrow" data-i18n="contacts.reachEyebrow">Связь с нами</p>
+            <h2 class="contacts-reach__title" id="contacts-reach-title" data-i18n="contacts.reachTitle">Контакты</h2>
+            <p class="contacts-reach__lead" data-i18n="contacts.reachLead">
+              Напишите или позвоните — ответим по вентиляции, кондиционированию и подбору оборудования.
             </p>
-            <button class="contacts-cta__btn" type="button" data-modal="request" data-i18n="contacts.ctaButton">
-              Оставить заявку
-            </button>
-          </aside>
-        </div>
+          </div>
+
+          <div class="contacts-layout">
+            <div class="contacts-cards">
+              <article class="contacts-card">
+                <div class="contacts-card__icon" aria-hidden="true">
+                  <img src="../assets/images/footer-icon-phone.svg" alt="" width="22" height="23">
+                </div>
+                <div class="contacts-card__body">
+                  <h3 class="contacts-card__title" data-i18n="contacts.phonesTitle">Телефоны</h3>
+                  <a class="contacts-card__link" href="tel:+375222736331" data-i18n="footer.phone1">+375 222 73 63 31</a>
+                  <a class="contacts-card__link" href="tel:+375293678929" data-i18n="footer.phone2">+375 29 367 89 29</a>
+                </div>
+              </article>
+
+              <article class="contacts-card">
+                <div class="contacts-card__icon" aria-hidden="true">
+                  <img src="../assets/images/footer-icon-envelope.svg" alt="" width="24" height="18">
+                </div>
+                <div class="contacts-card__body">
+                  <h3 class="contacts-card__title" data-i18n="contacts.emailTitle">Email</h3>
+                  <a class="contacts-card__link" href="mailto:PascalVent@mail.ru" data-i18n="footer.email">PascalVent@mail.ru</a>
+                </div>
+              </article>
+
+              <article class="contacts-card">
+                <div class="contacts-card__icon" aria-hidden="true">
+                  <img src="../assets/images/footer-icon-pin.svg" alt="" width="24" height="31">
+                </div>
+                <div class="contacts-card__body">
+                  <h3 class="contacts-card__title" data-i18n="contacts.addressTitle">Адрес</h3>
+                  <p class="contacts-card__text" data-i18n-html="footer.address.full">Республика Беларусь, г. Могилёв<br>ул. Первомайская, д. 29</p>
+                </div>
+              </article>
+
+              <article class="contacts-card">
+                <div class="contacts-card__icon" aria-hidden="true">
+                  <img src="../assets/images/footer-icon-calendar.svg" alt="" width="22" height="22">
+                </div>
+                <div class="contacts-card__body">
+                  <h3 class="contacts-card__title" data-i18n="modal.contact.scheduleTitle">График работы</h3>
+                  <p class="contacts-card__text" data-i18n-html="footer.hours">Пн - Сб: 9:00 - 19:00<br>Вс: выходной</p>
+                </div>
+              </article>
+            </div>
+
+            <aside class="contacts-cta">
+              <p class="contacts-cta__eyebrow" data-i18n="contacts.ctaEyebrow">Нужна консультация?</p>
+              <h2 class="contacts-cta__title" data-i18n="contacts.ctaTitle">Оставьте заявку — перезвоним</h2>
+              <p class="contacts-cta__text" data-i18n="contacts.ctaText">
+                Расскажите о задаче, и мы подберём решение по вентиляции или климату под ваш объект.
+              </p>
+              <button class="contacts-cta__btn" type="button" data-modal="request" data-i18n="contacts.ctaButton">
+                Оставить заявку
+              </button>
+            </aside>
+          </div>
+        </section>
 
         <section class="contacts-map" aria-labelledby="contacts-map-title">
           <div class="contacts-map__intro">

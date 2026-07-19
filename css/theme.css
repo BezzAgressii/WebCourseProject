@@ -343,6 +343,13 @@ body {
   background: var(--gradient-hero);
 }
 
+[data-theme='dark'] .contacts-page {
+  background:
+    radial-gradient(ellipse 70% 50% at 100% 0%, rgba(92, 205, 106, 0.1) 0%, transparent 55%),
+    radial-gradient(ellipse 55% 40% at 0% 30%, rgba(36, 48, 40, 0.9) 0%, transparent 50%),
+    var(--gradient-hero);
+}
+
 [data-theme='dark'] .product-card,
 [data-theme='dark'] .product-page__panel,
 [data-theme='dark'] .product-page__detail-card,
@@ -355,6 +362,26 @@ body {
 [data-theme='dark'] .category-page__sidebar,
 [data-theme='dark'] .contacts-card,
 [data-theme='dark'] .contacts-info,
+[data-theme='dark'] .contacts-about__story,
+[data-theme='dark'] .contacts-about__stat {
+  background: var(--bg-card);
+  border-color: rgba(255, 255, 255, 0.08);
+  box-shadow: 0 14px 36px rgba(0, 0, 0, 0.28);
+}
+
+[data-theme='dark'] .contacts-about__subtitle,
+[data-theme='dark'] .contacts-about__text strong,
+[data-theme='dark'] .contacts-about__stat-label,
+[data-theme='dark'] .contacts-reach__title {
+  color: var(--text-primary);
+}
+
+[data-theme='dark'] .contacts-about__text,
+[data-theme='dark'] .contacts-about__stat-desc,
+[data-theme='dark'] .contacts-reach__lead {
+  color: var(--text-secondary);
+}
+
 [data-theme='dark'] .auth-card,
 [data-theme='dark'] .admin-panel,
 [data-theme='dark'] .admin-card,

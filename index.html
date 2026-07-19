@@ -16,7 +16,6 @@
   <link rel="stylesheet" href="css/header.css">
   <link rel="stylesheet" href="css/main.css">
   <link rel="stylesheet" href="css/services.css">
-  <link rel="stylesheet" href="css/about.css">
   <link rel="stylesheet" href="css/benefits.css">
   <link rel="stylesheet" href="css/showcase.css">
   <link rel="stylesheet" href="css/steps.css">
@@ -51,11 +50,10 @@
 
         <ul class="nav__list">
           <li><a href="#services" data-i18n="header.services">Услуги</a></li>
-          <li><a href="#about" data-i18n="header.about">О Нас</a></li>
           <li><a href="#benefits" data-i18n="header.benefits">Польза Продукта</a></li>
           <li><a href="pages/catalog.html" data-i18n="header.catalog">Каталог</a></li>
           <li><a href="#steps" data-i18n="header.steps">Этапы Работы</a></li>
-          <li><a href="pages/contacts.html" data-i18n="header.contacts">Контакты</a></li>
+          <li><a href="pages/contacts.html" data-i18n="header.about">О Нас</a></li>
         </ul>
       </nav>
 
@@ -120,11 +118,10 @@
     <nav class="header__mobile-nav" id="mobile-nav" data-i18n-aria="header.mobileNavAria" aria-label="Мобильное меню" hidden>
       <ul class="header__mobile-list">
         <li><a href="#services" data-i18n="header.services">Услуги</a></li>
-        <li><a href="#about" data-i18n="header.about">О Нас</a></li>
         <li><a href="#benefits" data-i18n="header.benefits">Польза Продукта</a></li>
         <li><a href="pages/catalog.html" data-i18n="header.catalog">Каталог</a></li>
         <li><a href="#steps" data-i18n="header.steps">Этапы Работы</a></li>
-        <li><a href="pages/contacts.html" data-i18n="header.contacts">Контакты</a></li>
+        <li><a href="pages/contacts.html" data-i18n="header.about">О Нас</a></li>
       </ul>
     </nav>
   </header>
@@ -553,77 +550,6 @@
     </div>
 
     <img class="cta-form__fan" src="assets/images/cta-fan.svg" alt="" aria-hidden="true" width="209" height="236">
-
-  </section>
-
-  <section class="about" id="about" aria-labelledby="about-title">
-
-    <div class="about__content">
-
-      <div class="about__blobs" aria-hidden="true">
-        <div class="about__blob about__blob--large"></div>
-        <div class="about__blob about__blob--sm about__blob--1"></div>
-        <div class="about__blob about__blob--sm about__blob--2"></div>
-        <div class="about__blob about__blob--sm about__blob--3"></div>
-        <div class="about__blob about__blob--sm about__blob--4"></div>
-      </div>
-
-      <article class="about__card">
-        <div class="about__card-head">
-          <div class="about__card-head-row">
-            <h2 class="about__title" id="about-title" data-i18n="about.title">о нас</h2>
-            <div class="about__brand">
-              <span class="about__brand-name" data-i18n="about.brand">Pascal vent</span>
-              <span class="about__brand-line" aria-hidden="true"></span>
-            </div>
-          </div>
-          <h3 class="about__subtitle" data-i18n="about.subtitle">Особенности</h3>
-        </div>
-
-        <div class="about__text">
-          <p data-i18n="about.text1">Мы любим то, чем занимаемся – поэтому у нас индивидуальный подход к каждому человеку, креативные решения для проекта любой сложности и высокий уровень клиентского сервиса.</p>
-          <p data-i18n-html="about.text2">Именно поэтому нам доверяют сложнейшие задачи, рекомендуют нас и возвращаются вновь. Доверьте нам воплощение ваших самых изысканных и технологичных задач, и мы сделаем всё с высочайшим уровнем сервиса <strong>Pascal Vent</strong>.</p>
-          <p data-i18n-html="about.text3"><strong>Pascal Vent</strong> гарантирует сертифицированные современные системы, оборудование, качественные материалы и самые оптимальные решения под любой бюджет.</p>
-        </div>
-      </article>
-
-      <div class="about__stats">
-
-        <article class="about__stat">
-          <p class="about__stat-value">
-            <span class="about__stat-num" data-i18n="about.stat1.value">10</span>
-            <span class="about__stat-label" data-i18n="about.stat1.label"> лет на рынке</span>
-          </p>
-          <p class="about__stat-desc" data-i18n-html="about.stat1.desc">Работаем<br>как единое целое</p>
-        </article>
-
-        <article class="about__stat">
-          <p class="about__stat-value">
-            <span class="about__stat-num" data-i18n="about.stat2.value">+ 11</span>
-            <span class="about__stat-label" data-i18n="about.stat2.label"> лет стажа</span>
-          </p>
-          <p class="about__stat-desc" data-i18n="about.stat2.desc">Опытные и обученые специалисты своего дела</p>
-        </article>
-
-        <article class="about__stat">
-          <p class="about__stat-value">
-            <span class="about__stat-num" data-i18n="about.stat3.value">+ 180</span>
-            <span class="about__stat-label" data-i18n="about.stat3.label"> клиентов</span>
-          </p>
-          <p class="about__stat-desc" data-i18n="about.stat3.desc">Число счастливых клиентов за этот период</p>
-        </article>
-
-        <article class="about__stat">
-          <p class="about__stat-value">
-            <span class="about__stat-num" data-i18n="about.stat4.value">+ 470</span>
-            <span class="about__stat-label" data-i18n="about.stat4.label"> проектов</span>
-          </p>
-          <p class="about__stat-desc" data-i18n-html="about.stat4.desc">Большое количество<br>реализованных проектов</p>
-        </article>
-
-      </div>
-
-    </div>
 
   </section>
 
