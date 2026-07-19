@@ -181,6 +181,64 @@
   object-fit: cover;
   border-radius: 39px;
   display: block;
+  opacity: 0;
+  transform: translateY(36px) scale(0.96);
+  transition:
+    opacity 0.75s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.55s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.45s ease,
+    filter 0.45s ease;
+  will-change: transform, opacity;
+  cursor: default;
+}
+
+.benefits__gallery.is-visible .benefits__photo {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+.benefits__gallery.is-visible .benefits__photo--1 {
+  transition-delay: 0.05s;
+}
+
+.benefits__gallery.is-visible .benefits__photo--2 {
+  transition-delay: 0.18s;
+}
+
+.benefits__gallery.is-visible .benefits__photo--3 {
+  transition-delay: 0.3s;
+}
+
+.benefits__gallery.is-visible .benefits__photo--4 {
+  transition-delay: 0.42s;
+}
+
+.benefits__gallery.is-visible .benefits__photo:hover {
+  z-index: 3;
+  transform: translateY(-14px) scale(1.035);
+  filter: brightness(1.04) saturate(1.06);
+  transition-delay: 0s;
+}
+
+.benefits__gallery.is-visible .benefits__photo--1:hover,
+.benefits__gallery.is-visible .benefits__photo--4:hover {
+  box-shadow: 0 22px 40px rgba(26, 26, 26, 0.28);
+}
+
+.benefits__gallery.is-visible .benefits__photo--2:hover,
+.benefits__gallery.is-visible .benefits__photo--3:hover {
+  box-shadow: 0 22px 40px rgba(26, 26, 26, 0.38);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .benefits__photo,
+  .benefits__gallery.is-visible .benefits__photo,
+  .benefits__gallery.is-visible .benefits__photo:hover {
+    opacity: 1;
+    transform: none;
+    filter: none;
+    transition: none;
+  }
 }
 
 .benefits__photo--1 {

@@ -155,6 +155,9 @@ server.post('/api/callback', (request, response) => {
     phone: String(request.body?.phone || '').trim(),
     status: 'new',
     userId: request.body?.userId ?? null,
+    objectType: String(request.body?.objectType || '').trim() || null,
+    objectTypeKey: String(request.body?.objectTypeKey || '').trim() || null,
+    source: String(request.body?.source || '').trim() || null,
     createdAt: request.body?.createdAt || new Date().toISOString()
   };
 

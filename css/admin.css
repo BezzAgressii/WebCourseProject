@@ -414,6 +414,33 @@
   color: #2f6b3a;
 }
 
+.admin-badge--object {
+  max-width: 220px;
+  white-space: normal;
+  text-align: left;
+  line-height: 1.25;
+  background: rgba(88, 150, 220, 0.16);
+  color: #2f5f8f;
+  border-radius: 12px;
+}
+
+.admin-table__badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 8px;
+}
+
+.admin-table__muted {
+  color: var(--color-gray);
+  font-size: 13px;
+}
+
+.admin-table--callbacks th:nth-child(3),
+.admin-table--callbacks td:nth-child(3) {
+  min-width: 160px;
+}
+
 .admin-empty {
   margin: 0;
   padding: 36px;

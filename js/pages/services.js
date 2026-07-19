@@ -19,6 +19,19 @@ const SERVICE_LISTS = {
   ]
 };
 
+const SERVICE_PHOTOS = {
+  ventilation: {
+    desktop: 'assets/images/services-photo.png',
+    mobile: 'assets/images/services-photo-mobile.png',
+    altKey: 'services.photoAlt.ventilation'
+  },
+  conditioning: {
+    desktop: 'assets/images/benefits-photo-1.png',
+    mobile: 'assets/images/benefits-photo-1.png',
+    altKey: 'services.photoAlt.conditioning'
+  }
+};
+
 function renderServicesList(listElement, category) {
   const keys = SERVICE_LISTS[category] || SERVICE_LISTS.ventilation;
 
@@ -28,6 +41,58 @@ function renderServicesList(listElement, category) {
       <span class="services__item-text" data-i18n="${key}">${i18n.t(key)}</span>
     </li>
   `).join('');
+}
+
+function updateServicesPhoto(section, category) {
+  const photoWrap = section.querySelector('.services__panel-photo');
+  const picture = photoWrap?.querySelector('picture');
+  const img = photoWrap?.querySelector('img');
+  const source = picture?.querySelector('source');
+  const config = SERVICE_PHOTOS[category] || SERVICE_PHOTOS.ventilation;
+
+  if (!img) {
+    return;
+  }
+
+  const nextAlt = i18n.t(config.altKey) || img.alt;
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  const applySources = () => {
+    if (source) {
+      source.srcset = config.mobile;
+    }
+
+    img.src = config.desktop;
+    img.alt = nextAlt;
+    img.dataset.i18nAlt = config.altKey;
+  };
+
+  if (reduceMotion || img.getAttribute('src') === config.desktop) {
+    applySources();
+    photoWrap?.classList.remove('is-switching');
+    return;
+  }
+
+  photoWrap?.classList.add('is-switching');
+
+  window.setTimeout(() => {
+    applySources();
+
+    const finish = () => {
+      photoWrap?.classList.remove('is-switching');
+      img.removeEventListener('load', finish);
+    };
+
+    if (img.complete) {
+      window.requestAnimationFrame(() => {
+        photoWrap?.classList.remove('is-switching');
+      });
+      return;
+    }
+
+    img.addEventListener('load', finish, { once: true });
+    window.setTimeout(finish, 400);
+  }, 180);
 }
 
 export function initServicesTabs() {
@@ -53,6 +118,7 @@ export function initServicesTabs() {
 
     list.dataset.servicesCategory = category;
     renderServicesList(list, category);
+    updateServicesPhoto(section, category);
   };
 
   tabs.forEach((tab) => {
@@ -63,6 +129,7 @@ export function initServicesTabs() {
   document.addEventListener('languageChanged', () => {
     const active = section.querySelector('.services__tab--active')?.dataset.servicesTab || 'ventilation';
     renderServicesList(list, active);
+    updateServicesPhoto(section, active);
   });
 
   const initial = section.querySelector('.services__tab--active')?.dataset.servicesTab || 'ventilation';

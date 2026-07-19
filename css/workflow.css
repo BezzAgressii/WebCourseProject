@@ -22,6 +22,16 @@
   text-transform: capitalize;
   margin: 0 0 60px;
   max-width: 977px;
+  opacity: 0;
+  transform: translateY(24px);
+  transition:
+    opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.workflow__title.is-inview {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 .workflow__steps {
@@ -50,6 +60,17 @@
   position: absolute;
   display: block;
   height: auto;
+  opacity: 0;
+  transform: scale(0.96);
+  transform-origin: center;
+  transition:
+    opacity 0.65s ease,
+    transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.workflow__line.is-inview {
+  opacity: 1;
+  transform: scale(1);
 }
 
 .workflow__line--1 { left: 151px;  top: 273px;  width: 527px; }
@@ -61,6 +82,70 @@
 .workflow__step {
   position: absolute;
   z-index: 1;
+  opacity: 0;
+  transition:
+    opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: transform, opacity;
+}
+
+.workflow__step--1,
+.workflow__step--3,
+.workflow__step--5 {
+  transform: translateX(-40px);
+}
+
+.workflow__step--2,
+.workflow__step--4,
+.workflow__step--6 {
+  transform: translateX(40px);
+}
+
+.workflow__step--7 {
+  transform: translateY(36px);
+}
+
+.workflow__step.is-inview {
+  opacity: 1;
+  transform: translate(0, 0);
+}
+
+.workflow__step.is-inview:hover {
+  z-index: 2;
+  transform: translateY(-8px);
+}
+
+.workflow__step.is-inview:hover .workflow__illus {
+  opacity: 0.78;
+  transform: scale(1.05);
+}
+
+.workflow__step.is-inview:hover .workflow__step-title {
+  color: #5fad69;
+  transform: scale(1.045);
+}
+
+.workflow__step.is-inview:hover .workflow__step-text {
+  color: #3d5240;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .workflow__title,
+  .workflow__title.is-inview,
+  .workflow__line,
+  .workflow__line.is-inview,
+  .workflow__step,
+  .workflow__step.is-inview,
+  .workflow__step.is-inview:hover,
+  .workflow__illus,
+  .workflow__step.is-inview:hover .workflow__illus,
+  .workflow__step-title,
+  .workflow__step.is-inview:hover .workflow__step-title {
+    opacity: 1;
+    transform: none;
+    animation: none;
+    transition: none;
+  }
 }
 
 .workflow__illus {
@@ -69,6 +154,11 @@
   opacity: 0.5;
   pointer-events: none;
   user-select: none;
+  transform: scale(1);
+  transform-origin: center center;
+  transition:
+    opacity 0.4s ease,
+    transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .workflow__step-title {
@@ -79,6 +169,27 @@
   color: #78C081;
   text-transform: capitalize;
   margin: 0 0 8px;
+  display: inline-block;
+  transform: scale(1);
+  transition:
+    color 0.35s ease,
+    transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.workflow__step--1 .workflow__step-title,
+.workflow__step--3 .workflow__step-title,
+.workflow__step--5 .workflow__step-title {
+  transform-origin: left center;
+}
+
+.workflow__step--2 .workflow__step-title,
+.workflow__step--4 .workflow__step-title,
+.workflow__step--6 .workflow__step-title {
+  transform-origin: right center;
+}
+
+.workflow__step--7 .workflow__step-title {
+  transform-origin: center center;
 }
 
 .workflow__step-text {
@@ -87,6 +198,7 @@
   line-height: 27px;
   color: #495E4C;
   margin: 0;
+  transition: color 0.35s ease;
 }
 
 .workflow__step--1 {

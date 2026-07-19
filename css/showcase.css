@@ -110,18 +110,29 @@
   display: flex;
   flex-direction: column;
   width: 257px;
-  height: 135px;
+  height: 168px;
   border-radius: 25px;
   overflow: hidden;
   box-shadow: 0 0 10px 0 rgba(73, 93, 76, 0.1);
   background: #fff;
   cursor: pointer;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  transition:
+    transform 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.4s ease;
 }
 
 .showcase-card:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 6px 20px 0 rgba(73, 93, 76, 0.18);
+  z-index: 2;
+  transform: translateY(-8px);
+  box-shadow: 0 16px 32px 0 rgba(73, 93, 76, 0.2);
+}
+
+.showcase-card:focus-visible {
+  outline: none;
+  transform: translateY(-8px);
+  box-shadow:
+    0 16px 32px 0 rgba(73, 93, 76, 0.2),
+    0 0 0 3px rgba(92, 205, 106, 0.45);
 }
 
 .showcase-card__image {
@@ -138,6 +149,16 @@
   object-fit: cover;
   display: block;
   box-shadow: 0 2px 4px 0 rgba(46, 35, 25, 0.3);
+  transform: scale(1);
+  transition:
+    transform 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+    filter 0.4s ease;
+}
+
+.showcase-card:hover .showcase-card__image img,
+.showcase-card:focus-visible .showcase-card__image img {
+  transform: scale(1.08);
+  filter: brightness(1.04) saturate(1.05);
 }
 
 .showcase-card__badge {
@@ -156,30 +177,57 @@
   font-weight: 600;
   color: #495D4C;
   white-space: nowrap;
+  z-index: 1;
+  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.showcase-card:hover .showcase-card__badge {
+  transform: translateX(3px);
 }
 
 .showcase-card__footer {
   flex: 1;
-  min-height: 43px;
+  min-height: 76px;
   background: #fff;
   display: flex;
   align-items: center;
-  padding: 0 15px;
+  padding: 8px 15px 10px;
+  box-sizing: border-box;
+  transition: background 0.35s ease;
 }
 
 .showcase-card__footer--tall {
-  min-height: 52px;
+  min-height: 76px;
   height: auto;
   align-items: flex-start;
-  padding-top: 4px;
+  padding-top: 8px;
 }
 
 .showcase-card__name {
   font-family: var(--font-display);
   font-size: 16px;
   font-weight: 500;
-  line-height: 24px;
+  line-height: 22px;
   color: var(--color-accent-green);
+  transition: color 0.3s ease;
+}
+
+.showcase-card:hover .showcase-card__name {
+  color: #5fad69;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .showcase-card,
+  .showcase-card:hover,
+  .showcase-card:focus-visible,
+  .showcase-card__image img,
+  .showcase-card:hover .showcase-card__image img,
+  .showcase-card__badge,
+  .showcase-card:hover .showcase-card__badge {
+    transform: none;
+    filter: none;
+    transition: none;
+  }
 }
 
 @media (max-width: 1300px) {

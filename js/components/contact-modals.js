@@ -46,7 +46,7 @@ function showAdminForbidden() {
   });
 }
 
-export function openRequestModal() {
+export function openRequestModal(options = {}) {
   if (isAdmin()) {
     showAdminForbidden();
     return;
@@ -56,11 +56,18 @@ export function openRequestModal() {
     return;
   }
 
+  const objectType = String(options.objectType || '').trim();
+  const objectTypeKey = String(options.objectTypeKey || '').trim();
+  const objectTypeHtml = objectType
+    ? `<p class="pv-modal__object-type"><span class="pv-modal__object-type-label">${i18n.t('modal.request.objectType')}</span> <strong>${escapeHtml(objectType)}</strong></p>`
+    : '';
+
   Modal.open({
     variant: 'pv',
     type: 'request',
     titleHtml: titleWithAccent(i18n.t('modal.request.title1'), i18n.t('modal.request.title2')),
     body: `
+      ${objectTypeHtml}
       <form class="pv-modal__form" id="pv-request-form" novalidate>
         <div class="pv-modal__field">
           <label class="visually-hidden" for="pv-request-name">${i18n.t('footer.name')}</label>
@@ -118,12 +125,23 @@ export function openRequestModal() {
         submit.disabled = true;
 
         try {
-          await api.createCallback({
+          const payload = {
             name: nameInput.value.trim(),
             phone: phoneInput.value.trim(),
             userId: getCurrentUser()?.id ?? null,
             createdAt: new Date().toISOString()
-          });
+          };
+
+          if (objectType) {
+            payload.objectType = objectType;
+            payload.source = 'showcase';
+          }
+
+          if (objectTypeKey) {
+            payload.objectTypeKey = objectTypeKey;
+          }
+
+          await api.createCallback(payload);
 
           Modal.close({ silent: true });
           Modal.showSuccess(i18n.t('modal.request.successMessage'), {
@@ -141,6 +159,15 @@ export function openRequestModal() {
       });
     }
   });
+}
+
+function escapeHtml(value) {
+  return String(value)
+    .replaceAll('&', '&amp;')
+    .replaceAll('<', '&lt;')
+    .replaceAll('>', '&gt;')
+    .replaceAll('"', '&quot;')
+    .replaceAll("'", '&#39;');
 }
 
 export function openContactModal() {

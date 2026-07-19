@@ -148,6 +148,25 @@
   gap: 14px;
 }
 
+.pv-modal__object-type {
+  margin: 0 0 4px;
+  padding: 12px 14px;
+  border-radius: 14px;
+  background: rgba(92, 205, 106, 0.12);
+  color: var(--color-dark-green, #495e4c);
+  font-family: var(--font-body);
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+.pv-modal__object-type-label {
+  color: var(--color-gray, #7b897d);
+}
+
+.pv-modal__object-type strong {
+  font-weight: 700;
+}
+
 .pv-modal__field {
   display: grid;
 }

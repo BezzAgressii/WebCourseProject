@@ -331,21 +331,28 @@ class AdminPage {
     this.elements.callbacksBody.innerHTML = callbacks.map((callback) => {
       const isGuest = callback.userId === null || callback.userId === undefined || callback.userId === '';
       const user = isGuest ? null : this.users.find((item) => String(item.id) === String(callback.userId));
-      const typeLabel = isGuest ? 'Гость' : 'Пользователь';
-      const typeClass = isGuest ? 'admin-badge--guest' : 'admin-badge--user';
+      const accountLabel = isGuest ? 'Гость' : 'Пользователь';
+      const accountClass = isGuest ? 'admin-badge--guest' : 'admin-badge--user';
       const status = callback.status === 'processed' ? 'processed' : 'new';
       const userMeta = user
         ? [user.email, user.nickname].filter(Boolean).join(' · ')
         : (isGuest ? 'Без аккаунта' : `ID ${callback.userId}`);
+      const objectType = String(callback.objectType || '').trim();
+      const objectTypeCell = objectType
+        ? `<span class="admin-badge admin-badge--object">${this.escapeHtml(objectType)}</span>`
+        : '<span class="admin-table__muted">Не указан</span>';
 
       return `
         <tr>
           <td>
             <div class="admin-table__name">${this.escapeHtml(callback.name)}</div>
             <div class="admin-table__meta">${this.escapeHtml(userMeta)}</div>
+            <div class="admin-table__badges">
+              <span class="admin-badge ${accountClass}">${accountLabel}</span>
+            </div>
           </td>
           <td><a class="admin-table__phone" href="tel:${this.escapeHtml(String(callback.phone).replace(/[^\d+]/g, ''))}">${this.escapeHtml(callback.phone)}</a></td>
-          <td><span class="admin-badge ${typeClass}">${typeLabel}</span></td>
+          <td>${objectTypeCell}</td>
           <td>
             <select class="admin-callback-status admin-callback-status--${status}" data-callback-status data-callback-id="${this.escapeHtml(callback.id)}" aria-label="Статус заявки">
               ${this.renderCallbackStatusOptions(status)}

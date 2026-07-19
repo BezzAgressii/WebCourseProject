@@ -143,6 +143,16 @@
   border-radius: 35px;
   overflow: hidden;
   scroll-snap-align: start;
+  box-shadow: 0 0 0 rgba(26, 26, 26, 0);
+  transition:
+    transform 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.45s ease;
+}
+
+.portfolio__card:hover {
+  z-index: 2;
+  transform: translateY(-10px);
+  box-shadow: 0 22px 42px rgba(26, 26, 26, 0.28);
 }
 
 .portfolio__card--featured {
@@ -158,6 +168,15 @@
   height: 100%;
   object-fit: cover;
   display: block;
+  transform: scale(1);
+  transition:
+    transform 0.55s cubic-bezier(0.22, 1, 0.36, 1),
+    filter 0.45s ease;
+}
+
+.portfolio__card:hover .portfolio__card-photo {
+  transform: scale(1.07);
+  filter: brightness(1.04) saturate(1.05);
 }
 
 .portfolio__card-badge {
@@ -174,6 +193,11 @@
   border-radius: 0 15px 15px 0;
   box-sizing: border-box;
   overflow: hidden;
+  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.portfolio__card:hover .portfolio__card-badge {
+  transform: translateX(4px);
 }
 
 .portfolio__card-badge img {
@@ -192,6 +216,14 @@
   bottom: 0;
   padding: 24px 20px 28px;
   background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.55) 100%);
+  transition:
+    padding 0.4s ease,
+    background 0.4s ease;
+}
+
+.portfolio__card:hover .portfolio__card-caption {
+  padding-bottom: 36px;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.72) 100%);
 }
 
 .portfolio__card-title {
@@ -202,6 +234,11 @@
   color: #fff;
   text-transform: capitalize;
   margin: 0;
+  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.portfolio__card:hover .portfolio__card-title {
+  transform: translateY(-3px);
 }
 
 .portfolio__card-subtitle {
@@ -210,6 +247,44 @@
   line-height: 1.4;
   color: #fff;
   margin: 6px 0 0;
+  opacity: 0.88;
+  transform: translateY(4px);
+  transition:
+    opacity 0.4s ease,
+    transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.portfolio__card:hover .portfolio__card-subtitle {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.portfolio__card:not(.portfolio__card--featured) .portfolio__card-title {
+  font-size: 20px;
+  line-height: 28px;
+}
+
+.portfolio__card:not(.portfolio__card--featured) .portfolio__card-subtitle {
+  font-size: 14px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .portfolio__card,
+  .portfolio__card:hover,
+  .portfolio__card-photo,
+  .portfolio__card:hover .portfolio__card-photo,
+  .portfolio__card-badge,
+  .portfolio__card:hover .portfolio__card-badge,
+  .portfolio__card-caption,
+  .portfolio__card:hover .portfolio__card-caption,
+  .portfolio__card-title,
+  .portfolio__card:hover .portfolio__card-title,
+  .portfolio__card-subtitle,
+  .portfolio__card:hover .portfolio__card-subtitle {
+    transform: none;
+    filter: none;
+    transition: none;
+  }
 }
 
 @media (max-width: 768px) {
