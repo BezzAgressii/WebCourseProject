@@ -9,7 +9,7 @@ const __dirname = path.dirname(__filename);
 const dataDirectory = path.join(__dirname, 'data');
 const databasePath = path.join(dataDirectory, 'db.json');
 const fallbackDatabasePath = path.join(__dirname, 'db.json');
-const catalogImagesRoot = path.join(__dirname, 'assets', 'images', 'catalog');
+const catalogImagesRoot = path.join(__dirname, 'assets', 'images', 'download');
 const port = 3000;
 
 const upload = multer({
@@ -82,9 +82,10 @@ function sanitizeDatabase() {
 }
 
 function sanitizeFileName(originalName) {
-  const extension = path.extname(originalName || '').toLowerCase() || '.jpg';
+  const sourceName = String(originalName || 'image');
+  const extension = path.extname(sourceName).toLowerCase() || '.jpg';
   const baseName = path
-    .basename(originalName || 'image', extension)
+    .basename(sourceName, extension)
     .replace(/[^a-zA-Z0-9-_]/g, '-')
     .replace(/-+/g, '-')
     .replace(/^-|-$/g, '')
@@ -401,19 +402,35 @@ server.post('/api/products-with-images', upload.array('images', 8), (request, re
       return;
     }
 
-    const productId = productData.id || `product-${Date.now()}`;
-    const productFolder = path.join(catalogImagesRoot, productId);
-    fs.mkdirSync(productFolder, { recursive: true });
+    const db = router.db;
+
+    if (!db.has('products').value()) {
+      db.set('products', []).write();
+    }
+
+    const incomingId = productData.id != null && productData.id !== ''
+      ? Number(productData.id)
+      : NaN;
+    const productId = Number.isFinite(incomingId)
+      ? incomingId
+      : (db.get('products').value() || []).reduce((max, product) => {
+        const id = Number(product.id);
+        return Number.isFinite(id) ? Math.max(max, id) : max;
+      }, 0) + 1;
+    const productIdKey = String(productId);
+
+    fs.mkdirSync(catalogImagesRoot, { recursive: true });
 
     const images = files.map((file) => {
       const safeName = sanitizeFileName(file.originalname);
-      const absolutePath = path.join(productFolder, safeName);
+      const fileName = `${productIdKey}-${safeName}`;
+      const absolutePath = path.join(catalogImagesRoot, fileName);
       fs.writeFileSync(absolutePath, file.buffer);
-      return `assets/images/catalog/${productId}/${safeName}`;
+      return `assets/images/download/${fileName}`;
     });
 
     if (!images.length && Array.isArray(productData.images) && productData.images.length) {
-      images.push(...productData.images);
+      images.push(...productData.images.map((item) => String(item)));
     }
 
     const newProduct = {
@@ -422,16 +439,11 @@ server.post('/api/products-with-images', upload.array('images', 8), (request, re
       images
     };
 
-    const db = router.db;
-
-    if (!db.has('products').value()) {
-      db.set('products', []).write();
-    }
-
-    const existing = db.get('products').find({ id: productId }).value();
+    const existing = db.get('products').find({ id: productId }).value()
+      || db.get('products').find({ id: productIdKey }).value();
 
     if (existing) {
-      db.get('products').find({ id: productId }).assign(newProduct).write();
+      db.get('products').find({ id: existing.id }).assign(newProduct).write();
     } else {
       db.get('products').push(newProduct).write();
     }

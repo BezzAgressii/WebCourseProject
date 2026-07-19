@@ -42,10 +42,12 @@ class ProductPage {
   }
 
   render() {
-    if (!this.product || !this.product.details) {
+    if (!this.product) {
       this.elements.content.innerHTML = `<p class="product-page__empty">${this.t('unavailable')}</p>`;
       return;
     }
+
+    this.product.details = this.product.details || {};
 
     if (this.product.category === 'conditioning') {
       this.renderConditioningProduct();
@@ -78,10 +80,10 @@ class ProductPage {
             <ul class="product-page__summary">
               ${this.summaryItem('brand', details.brand)}
               ${this.summaryItem('model', details.model)}
-              ${this.summaryItem('equipmentType', details.type_i18n[i18n.currentLang] || details.type_i18n.ru)}
-              ${this.summaryItem('recommendedArea', `${this.product.area} м²`)}
+              ${this.summaryItem('equipmentType', details.type_i18n?.[i18n.currentLang] || details.type_i18n?.ru)}
+              ${this.summaryItem('recommendedArea', this.withUnit(this.product.area, 'м²'))}
               ${this.summaryItem('availability', availability)}
-              ${this.summaryItem('warranty', `${details.warrantyYears} ${this.t('years')}`)}
+              ${this.summaryItem('warranty', details.warrantyYears != null ? `${details.warrantyYears} ${this.t('years')}` : null)}
             </ul>
           </section>
           <div class="product-page__purchase">
@@ -92,28 +94,28 @@ class ProductPage {
       </div>
       <div class="product-page__details">
         ${this.detailBlock(this.t('performanceAndEfficiency'), [
-          ['maximumAirflow', `${this.product.performance} м³/час`],
-          ['maximumStaticPressure', `${details.staticPressure} Па`],
+          ['maximumAirflow', this.withUnit(this.product.performance, 'м³/час')],
+          ['maximumStaticPressure', this.withUnit(details.staticPressure, 'Па')],
           ['recuperatorType', this.getRecuperatorLabel(this.product.recuperatorType)],
-          ['recoveryEfficiency', details.recoveryEfficiency ? `${this.t('upTo')} ${details.recoveryEfficiency}%` : '—'],
-          ['noiseLevel', `${details.noiseLevel} дБ`]
+          ['recoveryEfficiency', details.recoveryEfficiency ? `${this.t('upTo')} ${details.recoveryEfficiency}%` : null],
+          ['noiseLevel', this.withUnit(details.noiseLevel, 'дБ')]
         ])}
         ${this.detailBlock(this.t('electricalParameters'), [
-          ['maxPower', `${this.product.maxPower} кВт`],
-          ['heaterPower', `${details.heaterPower} кВт`],
+          ['maxPower', this.withUnit(this.product.maxPower, 'кВт')],
+          ['heaterPower', this.withUnit(details.heaterPower, 'кВт')],
           ['powerSupply', details.powerSupply],
-          ['nominalCurrent', `${details.nominalCurrent} А`]
+          ['nominalCurrent', this.withUnit(details.nominalCurrent, 'А')]
         ])}
         ${this.detailBlock(this.t('material'), [
-          ['bodyMaterial', this.t(details.bodyMaterial)]
+          ['bodyMaterial', details.bodyMaterial ? this.t(details.bodyMaterial) : null]
         ])}
         ${this.detailBlock(this.t('dimensionsAndWeight'), [
-          ['width', `${details.width} см`],
-          ['height', `${details.height} см`],
-          ['depth', `${details.depth} см`],
-          ['netWeight', `${details.netWeight} кг`],
+          ['width', this.withUnit(details.width, 'см')],
+          ['height', this.withUnit(details.height, 'см')],
+          ['depth', this.withUnit(details.depth, 'см')],
+          ['netWeight', this.withUnit(details.netWeight, 'кг')],
           ['packageDimensions', details.packageDimensions],
-          ['grossWeight', `${details.grossWeight} кг`]
+          ['grossWeight', this.withUnit(details.grossWeight, 'кг')]
         ])}
       </div>
     `;
@@ -142,7 +144,7 @@ class ProductPage {
               ${this.summaryItem('model', details.model)}
               ${this.summaryItem('installationType', this.getInstallationLabel(product.installType))}
               ${this.summaryItem('inverterTechnology', this.t(product.isInverter ? 'inverter' : 'onOff'))}
-              ${this.summaryItem('recommendedArea', `${product.area} м²`)}
+              ${this.summaryItem('recommendedArea', this.withUnit(product.area, 'м²'))}
               ${this.summaryItem('availability', this.getAvailability())}
             </ul>
           </section>
@@ -154,32 +156,34 @@ class ProductPage {
       </div>
       <div class="product-page__details">
         ${this.detailBlock(this.t('operationAndClimate'), [
-          ['minimumHeatingTemp', `${this.t('upTo')} ${product.heatingTemp} °C`],
-          ['minimumCoolingTemp', `${this.t('upTo')} ${details.coolingMinTemp} °C`],
-          ['maximumOperatingTemp', `${this.t('upTo')} +${details.maxOperatingTemp} °C`],
+          ['minimumHeatingTemp', product.heatingTemp != null ? `${this.t('upTo')} ${product.heatingTemp} °C` : null],
+          ['minimumCoolingTemp', details.coolingMinTemp != null ? `${this.t('upTo')} ${details.coolingMinTemp} °C` : null],
+          ['maximumOperatingTemp', details.maxOperatingTemp != null ? `${this.t('upTo')} +${details.maxOperatingTemp} °C` : null],
           ['refrigerant', details.refrigerant]
         ])}
         ${this.detailBlock(this.t('controlAndSmartFeatures'), [
-          ['wifiControl', this.getWifiLabel(details.wifiMode)],
-          ['smartHome', details.smartHomeMode === 'alica' ? this.t('smartHomeYes') : this.t('no')],
+          ['wifiControl', this.getWifiLabel(details.wifiMode || (product.hasWifi ? 'builtIn' : 'none'))],
+          ['smartHome', product.hasSmartHome || details.smartHomeMode === 'alica' ? this.t('smartHomeYes') : this.t('no')],
           ['remoteControl', details.remoteControl ? this.t('yes') : this.t('no')],
-          ['indoorNoise', `${details.indoorNoiseMin} / ${details.indoorNoiseMax} дБ`],
-          ['outdoorNoise', `${details.outdoorNoise} дБ`]
+          ['indoorNoise', details.indoorNoiseMin != null && details.indoorNoiseMax != null
+            ? `${details.indoorNoiseMin} / ${details.indoorNoiseMax} дБ`
+            : null],
+          ['outdoorNoise', this.withUnit(details.outdoorNoise, 'дБ')]
         ])}
         ${this.detailBlock(this.t('electricalDetails'), [
-          ['maxPower', `${product.maxPower} кВт`],
-          ['coolingPower', `${product.coolingPower} кВт`],
-          ['heatingPower', `${product.heatingPower} кВт`],
+          ['maxPower', this.withUnit(product.maxPower, 'кВт')],
+          ['coolingPower', this.withUnit(product.coolingPower, 'кВт')],
+          ['heatingPower', this.withUnit(product.heatingPower, 'кВт')],
           ['powerSupply', details.powerSupply],
-          ['nominalCurrent', `${details.nominalCurrent} А`]
+          ['nominalCurrent', this.withUnit(details.nominalCurrent, 'А')]
         ])}
         ${this.detailBlock(this.t('designAndDimensions'), [
           ['color', this.getColorLabel(product.color)],
-          ['width', `${details.width} см`],
-          ['height', `${details.height} см`],
-          ['depth', `${details.depth} см`],
-          ['netWeight', `${details.netWeight} кг`],
-          ['grossWeight', `${details.grossWeight} кг`]
+          ['width', this.withUnit(details.width, 'см')],
+          ['height', this.withUnit(details.height, 'см')],
+          ['depth', this.withUnit(details.depth, 'см')],
+          ['netWeight', this.withUnit(details.netWeight, 'кг')],
+          ['grossWeight', this.withUnit(details.grossWeight, 'кг')]
         ])}
       </div>
     `;
@@ -208,7 +212,7 @@ class ProductPage {
               ${this.summaryItem('mountType', this.getMountLabel(product.mountType))}
               ${this.summaryItem('chassis', product.hasChassis ? this.t('chassisYes') : this.t('chassisNo'))}
               ${this.summaryItem('availability', this.getAvailability())}
-              ${this.summaryItem('warranty', `${details.warrantyYears} ${this.t('years')}`)}
+              ${this.summaryItem('warranty', details.warrantyYears != null ? `${details.warrantyYears} ${this.t('years')}` : null)}
             </ul>
           </section>
           <div class="product-page__purchase">
@@ -219,23 +223,23 @@ class ProductPage {
       </div>
       <div class="product-page__details">
         ${this.detailBlock(this.t('dehumidificationPerformance'), [
-          ['moistureRemoval', `${product.moistureRemoval} л/сутки`],
-          ['airflow', `${product.performance} м³/час`]
+          ['moistureRemoval', this.withUnit(product.moistureRemoval, 'л/сутки')],
+          ['airflow', this.withUnit(product.performance, 'м³/час')]
         ])}
         ${this.detailBlock(this.t('electricityAndSafety'), [
-          ['powerSupply', `${product.powerType} В`],
+          ['powerSupply', product.powerType != null ? `${product.powerType} В` : null],
           ['protectionClass', details.protectionClass]
         ])}
         ${this.detailBlock(this.t('condensateAndConstruction'), [
           ['drainPump', product.hasDrainPump ? this.t('yes') : this.t('no')],
-          ['noiseLevel', `${product.noiseLevel} дБ`]
+          ['noiseLevel', this.withUnit(product.noiseLevel, 'дБ')]
         ])}
         ${this.detailBlock(this.t('dimensionsAndWeight'), [
-          ['width', `${details.width} см`],
-          ['height', `${details.height} см`],
-          ['depth', `${details.depth} см`],
-          ['netWeight', `${details.netWeight} кг`],
-          ['grossWeight', `${details.grossWeight} кг`]
+          ['width', this.withUnit(details.width, 'см')],
+          ['height', this.withUnit(details.height, 'см')],
+          ['depth', this.withUnit(details.depth, 'см')],
+          ['netWeight', this.withUnit(details.netWeight, 'кг')],
+          ['grossWeight', this.withUnit(details.grossWeight, 'кг')]
         ])}
       </div>
     `;
@@ -332,7 +336,7 @@ class ProductPage {
           ${this.escapeHtml(this.t(key))}
           ${renderSpecTooltipTrigger(key, i18n.currentLang)}
         </span>
-        <strong>${this.escapeHtml(value)}</strong>
+        <strong>${this.escapeHtml(this.formatValue(value))}</strong>
       </li>
     `;
   }
@@ -350,12 +354,34 @@ class ProductPage {
                   ${renderSpecTooltipTrigger(key, i18n.currentLang)}
                 </span>
               </dt>
-              <dd>${this.escapeHtml(value)}</dd>
+              <dd>${this.escapeHtml(this.formatValue(value))}</dd>
             </div>
           `).join('')}
         </dl>
       </section>
     `;
+  }
+
+  formatValue(value, unit = '') {
+    if (value == null || value === '' || value === 'undefined' || Number.isNaN(value)) {
+      return '—';
+    }
+
+    const text = String(value).trim();
+
+    if (!text || text === 'undefined' || text === 'null' || text.includes('undefined')) {
+      return '—';
+    }
+
+    return unit ? `${text} ${unit}` : text;
+  }
+
+  withUnit(value, unit) {
+    if (value == null || value === '' || Number.isNaN(value)) {
+      return '—';
+    }
+
+    return `${value} ${unit}`;
   }
 
   t(key) {
@@ -378,7 +404,7 @@ class ProductPage {
   }
 
   escapeHtml(value) {
-    return String(value)
+    return String(value ?? '')
       .replaceAll('&', '&amp;')
       .replaceAll('<', '&lt;')
       .replaceAll('>', '&gt;')

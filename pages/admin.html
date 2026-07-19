@@ -184,96 +184,117 @@
 
   <div class="admin-modal" id="product-modal" hidden>
     <div class="admin-modal__backdrop" data-close-modal></div>
-    <section class="admin-modal__dialog" role="dialog" aria-modal="true" aria-labelledby="product-modal-title">
+    <section class="admin-modal__dialog admin-modal__dialog--product" role="dialog" aria-modal="true" aria-labelledby="product-modal-title">
       <button class="admin-modal__close" type="button" data-close-modal aria-label="Закрыть">×</button>
       <h2 class="admin-modal__title" id="product-modal-title">Добавить товар</h2>
 
       <form class="admin-form" id="product-form" novalidate>
         <input type="hidden" name="id" id="product-id">
 
-        <div class="admin-form__grid">
-          <label class="admin-form__field admin-form__field--full">
-            <span class="admin-form__label">Название (RU) *</span>
-            <input class="admin-form__input" name="nameRu" required>
-            <span class="admin-form__error" data-error-for="nameRu"></span>
-          </label>
+        <section class="admin-form__section">
+          <div class="admin-form__section-head">
+            <h3 class="admin-form__section-title">Основное</h3>
+            <p class="admin-form__section-desc">Название, категория и цена</p>
+          </div>
+          <div class="admin-form__grid">
+            <label class="admin-form__field admin-form__field--full">
+              <span class="admin-form__label">Название (RU) *</span>
+              <input class="admin-form__input" name="nameRu" required>
+              <span class="admin-form__error" data-error-for="nameRu"></span>
+            </label>
 
-          <label class="admin-form__field">
-            <span class="admin-form__label">Название (BE)</span>
-            <input class="admin-form__input" name="nameBe">
-            <span class="admin-form__error" data-error-for="nameBe"></span>
-          </label>
+            <label class="admin-form__field">
+              <span class="admin-form__label">Название (BE)</span>
+              <input class="admin-form__input" name="nameBe">
+              <span class="admin-form__error" data-error-for="nameBe"></span>
+            </label>
 
-          <label class="admin-form__field">
-            <span class="admin-form__label">Название (EN)</span>
-            <input class="admin-form__input" name="nameEn">
-            <span class="admin-form__error" data-error-for="nameEn"></span>
-          </label>
+            <label class="admin-form__field">
+              <span class="admin-form__label">Название (EN)</span>
+              <input class="admin-form__input" name="nameEn">
+              <span class="admin-form__error" data-error-for="nameEn"></span>
+            </label>
 
-          <label class="admin-form__field">
-            <span class="admin-form__label">Категория *</span>
-            <select class="admin-form__select" name="category" required>
-              <option value="">Выберите категорию</option>
-              <option value="ventilation">Вентиляция</option>
-              <option value="conditioning">Кондиционирование</option>
-              <option value="pools">Бассейны</option>
-            </select>
-            <span class="admin-form__error" data-error-for="category"></span>
-          </label>
+            <label class="admin-form__field">
+              <span class="admin-form__label">Категория *</span>
+              <select class="admin-form__select" name="category" required>
+                <option value="">Выберите категорию</option>
+                <option value="ventilation">Вентиляция</option>
+                <option value="conditioning">Кондиционирование</option>
+                <option value="pools">Бассейны</option>
+              </select>
+              <span class="admin-form__error" data-error-for="category"></span>
+            </label>
 
-          <label class="admin-form__field">
-            <span class="admin-form__label">Подкатегория *</span>
-            <select class="admin-form__select" name="subcategory" required>
-              <option value="">Сначала выберите категорию</option>
-            </select>
-            <span class="admin-form__error" data-error-for="subcategory"></span>
-          </label>
+            <label class="admin-form__field">
+              <span class="admin-form__label">Подкатегория *</span>
+              <select class="admin-form__select" name="subcategory" required>
+                <option value="">Сначала выберите категорию</option>
+              </select>
+              <span class="admin-form__error" data-error-for="subcategory"></span>
+            </label>
 
-          <label class="admin-form__field">
-            <span class="admin-form__label">Цена *</span>
-            <input class="admin-form__input" name="price" type="number" min="1" step="1" required>
-            <span class="admin-form__error" data-error-for="price"></span>
-          </label>
+            <label class="admin-form__field">
+              <span class="admin-form__label">Цена *</span>
+              <input class="admin-form__input" name="price" type="number" min="1" step="1" required>
+              <span class="admin-form__error" data-error-for="price"></span>
+            </label>
 
-          <label class="admin-form__field">
-            <span class="admin-form__label">Производительность, м³/ч</span>
-            <input class="admin-form__input" name="performance" type="number" min="0" step="1">
-            <span class="admin-form__error" data-error-for="performance"></span>
-          </label>
+            <label class="admin-form__field admin-form__check">
+              <input type="checkbox" name="inStock" checked>
+              <span>В наличии</span>
+            </label>
+          </div>
+        </section>
 
-          <label class="admin-form__field">
-            <span class="admin-form__label">Площадь, м²</span>
-            <input class="admin-form__input" name="area" type="number" min="0" step="1">
-            <span class="admin-form__error" data-error-for="area"></span>
-          </label>
+        <section class="admin-form__section">
+          <div class="admin-form__section-head">
+            <h3 class="admin-form__section-title">Параметры каталога</h3>
+            <p class="admin-form__section-desc">Поля зависят от категории и подкатегории</p>
+          </div>
+          <p class="admin-form__placeholder" id="product-attrs-empty">Выберите категорию и подкатегорию, чтобы увидеть параметры</p>
+          <div class="admin-form__grid" id="product-attrs" hidden></div>
+        </section>
 
-          <label class="admin-form__field">
-            <span class="admin-form__label">Макс. мощность, кВт</span>
-            <input class="admin-form__input" name="maxPower" type="number" min="0" step="0.1">
-            <span class="admin-form__error" data-error-for="maxPower"></span>
-          </label>
+        <section class="admin-form__section">
+          <div class="admin-form__section-head">
+            <h3 class="admin-form__section-title">Карточка товара</h3>
+            <p class="admin-form__section-desc">Бренд, модель и краткие характеристики для витрины</p>
+          </div>
+          <div class="admin-form__grid">
+            <label class="admin-form__field">
+              <span class="admin-form__label">Бренд</span>
+              <input class="admin-form__input" name="brand" autocomplete="off">
+              <span class="admin-form__error" data-error-for="brand"></span>
+            </label>
 
-          <label class="admin-form__field">
-            <span class="admin-form__label">Бренд</span>
-            <input class="admin-form__input" name="brand">
-            <span class="admin-form__error" data-error-for="brand"></span>
-          </label>
+            <label class="admin-form__field">
+              <span class="admin-form__label">Модель</span>
+              <input class="admin-form__input" name="model" autocomplete="off">
+              <span class="admin-form__error" data-error-for="model"></span>
+            </label>
 
-          <label class="admin-form__field">
-            <span class="admin-form__label">Модель</span>
-            <input class="admin-form__input" name="model">
-            <span class="admin-form__error" data-error-for="model"></span>
-          </label>
+            <label class="admin-form__field admin-form__field--full">
+              <span class="admin-form__label">Характеристики *</span>
+              <textarea class="admin-form__textarea" name="specs" rows="4" placeholder="Каждая характеристика с новой строки" required></textarea>
+              <span class="admin-form__hint">Минимум одна строка — отображается в карточке товара</span>
+              <span class="admin-form__error" data-error-for="specs"></span>
+            </label>
+          </div>
+        </section>
 
-          <label class="admin-form__field admin-form__field--full">
-            <span class="admin-form__label">Характеристики *</span>
-            <textarea class="admin-form__textarea" name="specs" rows="3" placeholder="Каждая характеристика с новой строки" required></textarea>
-            <span class="admin-form__hint">Минимум одна строка</span>
-            <span class="admin-form__error" data-error-for="specs"></span>
-          </label>
+        <section class="admin-form__section">
+          <div class="admin-form__section-head">
+            <h3 class="admin-form__section-title">Изображения *</h3>
+            <p class="admin-form__section-desc">До 8 файлов PNG, JPG или WEBP</p>
+          </div>
+
+          <div class="admin-form__current-images" id="product-current-images" hidden>
+            <p class="admin-form__hint">Текущие изображения товара</p>
+            <div class="admin-form__current-images-grid" id="product-current-images-grid"></div>
+          </div>
 
           <div class="admin-form__field admin-form__field--full">
-            <span class="admin-form__label">Изображения товара *</span>
             <div class="image-uploader">
               <div class="image-uploader__dropzone" id="product-images-dropzone" role="button" tabindex="0">
                 <p class="image-uploader__title">Перетащите изображения сюда</p>
@@ -285,12 +306,7 @@
               <span class="image-uploader__error" data-error-for="images"></span>
             </div>
           </div>
-
-          <label class="admin-form__field admin-form__check">
-            <input type="checkbox" name="inStock" checked>
-            <span>В наличии</span>
-          </label>
-        </div>
+        </section>
 
         <div class="admin-form__actions">
           <button class="admin-button" type="submit" id="product-form-submit">Сохранить</button>

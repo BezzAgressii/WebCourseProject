@@ -4,30 +4,17 @@ import { Modal } from '../components/modal.js';
 import { showConfirm } from '../components/confirm.js';
 import ImageUploader from '../utils/loadImages.js';
 import ThemeManager from '../common/theme.js';
+import {
+  SUBCATEGORIES,
+  CATEGORY_LABELS,
+  INSTALL_TYPE_BY_SUBCATEGORY,
+  SUBCATEGORY_BY_INSTALL_TYPE,
+  getAdminAttributeFields,
+  coerceAttrValue,
+  formatAttrValueForInput
+} from '../utils/admin-product-fields.js';
 
 ThemeManager.init();
-
-const SUBCATEGORIES = {
-  ventilation: [
-    { value: 'supply-exhaust', label: 'Приточно-вытяжные установки' },
-    { value: 'high-filtration', label: 'Системы высокой фильтрации' },
-    { value: 'humidifiers', label: 'Увлажнители' }
-  ],
-  conditioning: [
-    { value: 'nastennye', label: 'Настенные' },
-    { value: 'kanalnye', label: 'Канальные' },
-    { value: 'all', label: 'Все типы' }
-  ],
-  pools: [
-    { value: 'osushiteli', label: 'Осушители' }
-  ]
-};
-
-const CATEGORY_LABELS = {
-  ventilation: 'Вентиляция',
-  conditioning: 'Кондиционирование',
-  pools: 'Бассейны'
-};
 
 const DEFAULT_IMAGES = [
   'assets/images/services-photo.png',
@@ -62,7 +49,11 @@ class AdminPage {
       modalTitle: document.getElementById('product-modal-title'),
       form: document.getElementById('product-form'),
       submit: document.getElementById('product-form-submit'),
-      subcategory: document.querySelector('[name="subcategory"]')
+      subcategory: document.querySelector('[name="subcategory"]'),
+      attrs: document.getElementById('product-attrs'),
+      attrsEmpty: document.getElementById('product-attrs-empty'),
+      currentImages: document.getElementById('product-current-images'),
+      currentImagesGrid: document.getElementById('product-current-images-grid')
     };
   }
 
@@ -105,19 +96,28 @@ class AdminPage {
 
     this.elements.form.elements.category.addEventListener('change', () => {
       this.fillSubcategories(this.elements.form.elements.category.value);
+      this.renderAttributeFields();
       this.validateField(this.elements.form.elements.category);
       this.validateField(this.elements.form.elements.subcategory);
     });
 
-    [...this.elements.form.elements].forEach((element) => {
-      if (!element.name || element.type === 'hidden' || element.type === 'checkbox') {
-        return;
+    this.elements.form.elements.subcategory.addEventListener('change', () => {
+      const values = this.getCurrentAttrValues();
+      const category = this.elements.form.elements.category.value;
+      const subcategory = this.elements.form.elements.subcategory.value;
+
+      if (category === 'conditioning') {
+        const installType = INSTALL_TYPE_BY_SUBCATEGORY[subcategory];
+        if (installType) {
+          values.installType = installType;
+        }
       }
 
-      const eventName = element.tagName === 'SELECT' ? 'change' : 'input';
-      element.addEventListener(eventName, () => this.validateField(element));
-      element.addEventListener('blur', () => this.validateField(element));
+      this.renderAttributeFields(values);
+      this.validateField(this.elements.form.elements.subcategory);
     });
+
+    this.bindStaticFieldValidation();
 
     this.elements.form.addEventListener('submit', (event) => this.handleSubmit(event));
 
@@ -451,7 +451,7 @@ class AdminPage {
 
     return this.products.filter((product) => {
       const name = product.name_i18n?.ru || '';
-      const matchesQuery = !query || name.toLowerCase().includes(query) || product.id.toLowerCase().includes(query);
+      const matchesQuery = !query || name.toLowerCase().includes(query) || String(product.id).toLowerCase().includes(query);
       const matchesCategory = !category || product.category === category;
       return matchesQuery && matchesCategory;
     });
@@ -499,6 +499,19 @@ class AdminPage {
     }).join('');
   }
 
+  bindStaticFieldValidation() {
+    ['nameRu', 'nameBe', 'nameEn', 'category', 'subcategory', 'price', 'brand', 'model', 'specs'].forEach((name) => {
+      const element = this.elements.form.elements[name];
+      if (!element) {
+        return;
+      }
+
+      const eventName = element.tagName === 'SELECT' ? 'change' : 'input';
+      element.addEventListener(eventName, () => this.validateField(element));
+      element.addEventListener('blur', () => this.validateField(element));
+    });
+  }
+
   fillSubcategories(category, selected = '') {
     const options = SUBCATEGORIES[category] || [];
     this.elements.subcategory.innerHTML = options.length
@@ -510,13 +523,157 @@ class AdminPage {
     }
   }
 
+  getCurrentAttrValues() {
+    const values = {};
+    this.elements.attrs?.querySelectorAll('[data-attr-field]').forEach((input) => {
+      values[input.dataset.attrField] = input.value;
+    });
+    return values;
+  }
+
+  syncInstallTypeFromSubcategory() {
+    const category = this.elements.form.elements.category.value;
+    const subcategory = this.elements.form.elements.subcategory.value;
+
+    if (category !== 'conditioning') {
+      return;
+    }
+
+    const installType = INSTALL_TYPE_BY_SUBCATEGORY[subcategory];
+    const installInput = this.elements.attrs?.querySelector('[data-attr-field="installType"]');
+
+    if (installType && installInput) {
+      installInput.value = installType;
+    }
+  }
+
+  renderAttributeFields(presetValues = {}) {
+    const category = this.elements.form.elements.category.value;
+    const subcategory = this.elements.form.elements.subcategory.value;
+    const fields = getAdminAttributeFields(category, subcategory);
+
+    if (!this.elements.attrs || !this.elements.attrsEmpty) {
+      return;
+    }
+
+    if (!fields.length) {
+      this.elements.attrs.hidden = true;
+      this.elements.attrs.innerHTML = '';
+      this.elements.attrsEmpty.hidden = false;
+      return;
+    }
+
+    this.elements.attrsEmpty.hidden = true;
+    this.elements.attrs.hidden = false;
+    this.elements.attrs.innerHTML = fields.map((field) => this.renderAttrFieldHtml(field, presetValues[field.field])).join('');
+
+    if (category === 'conditioning' && !presetValues.installType) {
+      this.syncInstallTypeFromSubcategory();
+    }
+
+    this.elements.attrs.querySelectorAll('[data-attr-field]').forEach((input) => {
+      const eventName = input.tagName === 'SELECT' ? 'change' : 'input';
+      input.addEventListener(eventName, () => {
+        if (input.dataset.attrField === 'installType') {
+          const nextSub = SUBCATEGORY_BY_INSTALL_TYPE[input.value];
+          if (nextSub && this.elements.form.elements.category.value === 'conditioning') {
+            this.elements.form.elements.subcategory.value = nextSub;
+          }
+        }
+        this.validateField(input);
+      });
+      input.addEventListener('blur', () => this.validateField(input));
+    });
+  }
+
+  renderAttrFieldHtml(field, rawValue) {
+    const value = formatAttrValueForInput(field.field, rawValue);
+    const error = `<span class="admin-form__error" data-error-for="${field.field}"></span>`;
+
+    if (field.input === 'select') {
+      const options = [
+        '<option value="">Не выбрано</option>',
+        ...field.options.map((option) => {
+          const selected = String(option.value) === String(value) ? ' selected' : '';
+          return `<option value="${option.value}"${selected}>${option.label}</option>`;
+        })
+      ].join('');
+
+      return `
+        <label class="admin-form__field">
+          <span class="admin-form__label">${field.label}</span>
+          <select class="admin-form__select" name="${field.field}" data-attr-field="${field.field}">
+            ${options}
+          </select>
+          ${error}
+        </label>
+      `;
+    }
+
+    if (field.input === 'boolean') {
+      return `
+        <label class="admin-form__field">
+          <span class="admin-form__label">${field.label}</span>
+          <select class="admin-form__select" name="${field.field}" data-attr-field="${field.field}">
+            <option value="">Не выбрано</option>
+            <option value="true"${value === 'true' ? ' selected' : ''}>Да</option>
+            <option value="false"${value === 'false' ? ' selected' : ''}>Нет</option>
+          </select>
+          ${error}
+        </label>
+      `;
+    }
+
+    if (field.input === 'number') {
+      const min = field.min != null ? ` min="${field.min}"` : '';
+      const max = field.max != null ? ` max="${field.max}"` : '';
+      const step = field.step != null ? ` step="${field.step}"` : ' step="any"';
+
+      return `
+        <label class="admin-form__field">
+          <span class="admin-form__label">${field.label}</span>
+          <input class="admin-form__input" name="${field.field}" data-attr-field="${field.field}" type="number"${min}${max}${step} value="${value}">
+          ${error}
+        </label>
+      `;
+    }
+
+    return `
+      <label class="admin-form__field">
+        <span class="admin-form__label">${field.label}</span>
+        <input class="admin-form__input" name="${field.field}" data-attr-field="${field.field}" type="text" value="${this.escapeHtml(value)}">
+        ${error}
+      </label>
+    `;
+  }
+
+  renderCurrentImages(product) {
+    const images = Array.isArray(product?.images) ? product.images.filter(Boolean) : [];
+
+    if (!this.elements.currentImages || !this.elements.currentImagesGrid) {
+      return;
+    }
+
+    if (!images.length) {
+      this.elements.currentImages.hidden = true;
+      this.elements.currentImagesGrid.innerHTML = '';
+      return;
+    }
+
+    this.elements.currentImages.hidden = false;
+    this.elements.currentImagesGrid.innerHTML = images.map((src) => `
+      <img class="admin-form__current-image" src="../${src.replace(/^\.\.\//, '')}" alt="">
+    `).join('');
+  }
+
   openProductModal(productId = null) {
     this.editingId = productId;
     this.elements.form.reset();
     this.imageUploader?.clear();
     this.clearErrors();
+    this.renderCurrentImages(null);
 
-    const product = productId ? this.products.find((item) => item.id === productId) : null;
+    const product = productId ? this.products.find((item) => String(item.id) === String(productId)) : null;
     this.elements.modalTitle.textContent = product ? 'Редактировать товар' : 'Добавить товар';
     this.elements.submit.textContent = product ? 'Сохранить изменения' : 'Добавить товар';
 
@@ -528,31 +685,33 @@ class AdminPage {
       this.elements.form.elements.category.value = product.category || '';
       this.fillSubcategories(product.category, product.subcategory || '');
       this.elements.form.elements.price.value = product.price ?? '';
-      this.elements.form.elements.performance.value = product.performance ?? '';
-      this.elements.form.elements.area.value = product.area ?? '';
-      this.elements.form.elements.maxPower.value = product.maxPower ?? '';
       this.elements.form.elements.brand.value = product.brand || product.details?.brand || '';
       this.elements.form.elements.model.value = product.details?.model || '';
       this.elements.form.elements.specs.value = Array.isArray(product.specs) ? product.specs.join('\n') : '';
       this.elements.form.elements.inStock.checked = Boolean(product.inStock);
+      this.renderAttributeFields(product);
+      this.renderCurrentImages(product);
     } else {
       this.elements.form.elements.id.value = '';
       this.fillSubcategories('');
       this.elements.form.elements.inStock.checked = true;
+      this.renderAttributeFields();
     }
 
     this.elements.modal.hidden = false;
-    document.body.style.overflow = 'hidden';
-    this.elements.form.elements.nameRu.focus();
+    document.documentElement.classList.add('is-modal-open');
+    this.elements.form.elements.nameRu.focus({ preventScroll: true });
   }
 
   closeProductModal() {
     this.elements.modal.hidden = true;
-    document.body.style.overflow = '';
+    document.documentElement.classList.remove('is-modal-open');
     this.editingId = null;
     this.elements.form.reset();
     this.imageUploader?.clear();
     this.clearErrors();
+    this.renderAttributeFields();
+    this.renderCurrentImages(null);
   }
 
   clearErrors() {
@@ -583,7 +742,8 @@ class AdminPage {
       return true;
     }
 
-    const value = input.type === 'number' ? input.value : input.value.trim();
+    const rawValue = input.value ?? '';
+    const value = input.type === 'number' ? String(rawValue) : String(rawValue).trim();
     let message = '';
 
     switch (input.name) {
@@ -603,19 +763,21 @@ class AdminPage {
           message = 'Укажите цену больше 0';
         }
         break;
-      case 'performance':
-      case 'area':
-      case 'maxPower':
-        if (value !== '' && Number(value) < 0) {
-          message = 'Значение не может быть отрицательным';
-        }
-        break;
       case 'specs':
         if (!value || !value.split('\n').some((line) => line.trim())) {
           message = 'Добавьте хотя бы одну характеристику';
         }
         break;
       default:
+        if (
+          input.type === 'number'
+          && value !== ''
+          && Number(value) < 0
+          && input.name !== 'heatingTemp'
+          && input.name !== 'winterTemp'
+        ) {
+          message = 'Значение не может быть отрицательным';
+        }
         break;
     }
 
@@ -626,7 +788,7 @@ class AdminPage {
   validateImages() {
     const selectedFiles = this.imageUploader?.getSelectedFiles() || [];
     const existing = this.editingId
-      ? this.products.find((item) => item.id === this.editingId)
+      ? this.products.find((item) => String(item.id) === String(this.editingId))
       : null;
     const hasExistingImages = Array.isArray(existing?.images) && existing.images.length > 0;
 
@@ -645,10 +807,30 @@ class AdminPage {
   }
 
   validateForm() {
-    const fields = ['nameRu', 'category', 'subcategory', 'price', 'specs', 'performance', 'area', 'maxPower'];
-    const fieldsValid = fields.every((name) => this.validateField(this.elements.form.elements[name]));
+    const baseFields = ['nameRu', 'category', 'subcategory', 'price', 'specs'];
+    const attrFields = [...(this.elements.attrs?.querySelectorAll('[data-attr-field]') || [])];
+    const fieldsValid = baseFields.every((name) => this.validateField(this.elements.form.elements[name]));
+    const attrsValid = attrFields.every((input) => this.validateField(input));
     const imagesValid = this.validateImages();
-    return fieldsValid && imagesValid;
+    const isValid = fieldsValid && attrsValid && imagesValid;
+
+    if (!isValid) {
+      const invalid = this.elements.form.querySelector('.admin-form__field--invalid, .image-uploader__error:not(:empty)');
+      invalid?.scrollIntoView({ block: 'center', behavior: 'smooth' });
+    }
+
+    return isValid;
+  }
+
+  collectAttributePayload() {
+    const payload = {};
+
+    this.elements.attrs?.querySelectorAll('[data-attr-field]').forEach((input) => {
+      const field = input.dataset.attrField;
+      payload[field] = coerceAttrValue(field, input.value);
+    });
+
+    return payload;
   }
 
   buildProductPayload() {
@@ -664,23 +846,32 @@ class AdminPage {
     const brand = form.elements.brand.value.trim();
     const model = form.elements.model.value.trim();
     const category = form.elements.category.value;
-    const existing = this.editingId ? this.products.find((item) => item.id === this.editingId) : null;
+    const subcategory = form.elements.subcategory.value;
+    const existing = this.editingId
+      ? this.products.find((item) => String(item.id) === String(this.editingId))
+      : null;
     const selectedFiles = this.imageUploader?.getSelectedFiles() || [];
+    const attrs = this.collectAttributePayload();
+
+    if (category === 'conditioning') {
+      const installFromSub = INSTALL_TYPE_BY_SUBCATEGORY[subcategory];
+      if (installFromSub && (attrs.installType == null || attrs.installType === '')) {
+        attrs.installType = installFromSub;
+      }
+    }
 
     const payload = {
       name_i18n: { ru: nameRu, be: nameBe, en: nameEn },
       category,
-      subcategory: form.elements.subcategory.value,
+      subcategory,
       price: Number(form.elements.price.value),
       specs,
-      performance: form.elements.performance.value === '' ? null : Number(form.elements.performance.value),
-      area: form.elements.area.value === '' ? null : Number(form.elements.area.value),
-      maxPower: form.elements.maxPower.value === '' ? null : Number(form.elements.maxPower.value),
       inStock: form.elements.inStock.checked,
-      brand: brand || existing?.brand || undefined,
+      brand: brand || attrs.brand || existing?.brand || '',
+      ...attrs,
       details: {
         ...(existing?.details || {}),
-        brand: brand || existing?.details?.brand || '',
+        brand: brand || attrs.brand || existing?.details?.brand || '',
         model: model || existing?.details?.model || ''
       }
     };
@@ -690,40 +881,21 @@ class AdminPage {
     }
 
     if (!this.editingId) {
-      payload.id = this.generateProductId(category);
-      payload.equipmentType = this.defaultEquipmentType(category);
-      payload.winterTemp = null;
-      payload.heaterType = null;
-      payload.recuperatorType = null;
-      payload.powerType = '220';
-      payload.bodyMaterial = 'galvanized-steel';
+      payload.id = this.generateProductId();
     } else {
-      payload.id = this.editingId;
+      payload.id = Number(this.editingId) || this.editingId;
     }
 
     return payload;
   }
 
-  defaultEquipmentType(category) {
-    if (category === 'conditioning') {
-      return 'wall-mounted';
-    }
+  generateProductId() {
+    const maxId = this.products.reduce((max, product) => {
+      const id = Number(product.id);
+      return Number.isFinite(id) ? Math.max(max, id) : max;
+    }, 0);
 
-    if (category === 'pools') {
-      return 'dehumidifier';
-    }
-
-    return 'compact';
-  }
-
-  generateProductId(category) {
-    const prefix = {
-      ventilation: 'pv-vent',
-      conditioning: 'pv-cond',
-      pools: 'pv-pool'
-    }[category] || 'pv-item';
-
-    return `${prefix}-${Date.now().toString().slice(-6)}`;
+    return maxId + 1;
   }
 
   async handleSubmit(event) {
@@ -736,8 +908,18 @@ class AdminPage {
       return;
     }
 
-    const payload = this.buildProductPayload();
+    let payload;
     const selectedFiles = this.imageUploader?.getSelectedFiles() || [];
+
+    try {
+      payload = this.buildProductPayload();
+    } catch (error) {
+      Modal.showError(error.message || 'Не удалось собрать данные товара', {
+        title: 'Ошибка формы'
+      });
+      return;
+    }
+
     this.elements.submit.disabled = true;
 
     try {
@@ -767,7 +949,7 @@ class AdminPage {
   }
 
   async handleDelete(productId) {
-    const product = this.products.find((item) => item.id === productId);
+    const product = this.products.find((item) => String(item.id) === String(productId));
     const name = product?.name_i18n?.ru || productId;
     const confirmed = await showConfirm(`Удалить товар «${name}»?`, {
       title: 'Удаление товара',

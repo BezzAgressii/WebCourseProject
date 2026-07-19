@@ -43,7 +43,7 @@ class CartPage {
 
   async loadProducts() {
     const products = await api.getProducts();
-    this.products = new Map(products.map((product) => [product.id, product]));
+    this.products = new Map(products.map((product) => [String(product.id), product]));
   }
 
   async refreshCart() {
@@ -54,7 +54,7 @@ class CartPage {
   getLines() {
     return this.cartItems
       .map((item) => {
-        const product = this.products.get(item.productId);
+        const product = this.products.get(String(item.productId));
 
         if (!product) {
           return null;

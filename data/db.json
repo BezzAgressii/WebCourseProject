@@ -1,7 +1,7 @@
 {
   "products": [
     {
-      "id": "pv-vent-001",
+      "id": 1,
       "name_i18n": {
         "ru": "Приточно-вытяжная установка AirFlow 500",
         "be": "Прытокава-выцяжная ўстаноўка AirFlow 500",
@@ -49,13 +49,14 @@
       },
       "inStock": true,
       "images": [
-        "assets/images/services-photo.png",
-        "assets/images/portfolio-photo-1.png",
-        "assets/images/benefits-photo-1.png"
-      ]
+        "assets/images/download/1-1784449460384-1.webp",
+        "assets/images/download/1-1784449460386-3.webp",
+        "assets/images/download/1-1784449460387-2.webp"
+      ],
+      "brand": "iVent"
     },
     {
-      "id": "pv-vent-002",
+      "id": 2,
       "name_i18n": {
         "ru": "Приточно-вытяжная установка VentPro 800",
         "be": "Прытокава-выцяжная ўстаноўка VentPro 800",
@@ -103,13 +104,16 @@
       },
       "inStock": true,
       "images": [
-        "assets/images/portfolio-photo-1.png",
-        "assets/images/services-photo.png",
-        "assets/images/portfolio-photo-2.png"
-      ]
+        "assets/images/download/2-1784449651898-FUNAI_FUJI_ERW-150_01.png",
+        "assets/images/download/2-1784449651900-2020_FUNAI_FUJI_005.png",
+        "assets/images/download/2-1784449651902-2020_FUNAI_FUJI_004.png",
+        "assets/images/download/2-1784449651902-FUNAI_FUJI_ERW-150_02.png",
+        "assets/images/download/2-1784449651903-2020_FUNAI_FUJI_002.png"
+      ],
+      "brand": "VentPro"
     },
     {
-      "id": "pv-vent-003",
+      "id": 3,
       "name_i18n": {
         "ru": "Приточно-вытяжная установка NordAir 1200",
         "be": "Прытокава-выцяжная ўстаноўка NordAir 1200",
@@ -157,13 +161,15 @@
       },
       "inStock": false,
       "images": [
-        "assets/images/services-photo-mobile.png",
-        "assets/images/portfolio-photo-3.png",
-        "assets/images/benefits-photo-2.png"
-      ]
+        "assets/images/download/3-1784449754402-FuJI-Black-34-R-2.jpg",
+        "assets/images/download/3-1784449754403-FuJI-Black-front.jpg",
+        "assets/images/download/3-1784449754404-FuJI-Black-34-L-2.jpg",
+        "assets/images/download/3-1784449754405-FuJI-Black-34-L-gor.jpg"
+      ],
+      "brand": "NordAir"
     },
     {
-      "id": "pv-vent-004",
+      "id": 4,
       "name_i18n": {
         "ru": "Установка высокой фильтрации PureAir 600",
         "be": "Устаноўка высокай фільтрацыі PureAir 600",
@@ -211,13 +217,66 @@
       },
       "inStock": true,
       "images": [
-        "assets/images/benefits-photo-1.png",
-        "assets/images/services-photo.png",
-        "assets/images/portfolio-photo-4.png"
-      ]
+        "assets/images/download/4-1784449993030-600HS-Plus-L-Model-326.png",
+        "assets/images/download/4-1784449993032-600-HS-Plus-L-No-Doors.png"
+      ],
+      "brand": "PureAir"
     },
     {
-      "id": "pv-vent-005",
+      "id": 5,
+      "name_i18n": {
+        "ru": "Установка высокой фильтрации CleanBox 900",
+        "be": "Устаноўка высокай фільтрацыі CleanBox 900",
+        "en": "CleanBox 900 high-filtration unit"
+      },
+      "category": "ventilation",
+      "subcategory": "high-filtration",
+      "price": 7120,
+      "specs": [
+        "900 м³/ч",
+        "до 120 м²",
+        "Многоступенчатая фильтрация"
+      ],
+      "performance": 900,
+      "area": 120,
+      "maxPower": 2.1,
+      "equipmentType": "filtration",
+      "winterTemp": null,
+      "heaterType": null,
+      "recuperatorType": null,
+      "powerType": "380",
+      "bodyMaterial": "galvanized-steel",
+      "details": {
+        "brand": "CleanBox",
+        "model": "CleanBox 900 Pro",
+        "type_i18n": {
+          "ru": "Приточная установка высокой фильтрации",
+          "be": "Прытокавая ўстаноўка высокай фільтрацыі",
+          "en": "High-filtration supply air unit"
+        },
+        "staticPressure": 480,
+        "recoveryEfficiency": 0,
+        "noiseLevel": 44,
+        "warrantyYears": 3,
+        "heaterPower": 1.5,
+        "powerSupply": "380–400 В (3 фазы)",
+        "nominalCurrent": 5.2,
+        "bodyMaterial": "galvanizedSteel",
+        "width": 102,
+        "height": 45,
+        "depth": 72,
+        "netWeight": 54,
+        "packageDimensions": "115 × 55 × 82 см",
+        "grossWeight": 62
+      },
+      "inStock": true,
+      "images": [
+        "assets/images/download/5-1784450119460-image.jpg"
+      ],
+      "brand": "CleanBox"
+    },
+    {
+      "id": 6,
       "name_i18n": {
         "ru": "Канальный увлажнитель HumidAir 300",
         "be": "Канальны ўвільгатняльнік HumidAir 300",
@@ -250,126 +309,163 @@
         },
         "staticPressure": 180,
         "recoveryEfficiency": 0,
-        "noiseLevel": 29,
+        "noiseLevel": 28,
         "warrantyYears": 2,
         "heaterPower": 0,
         "powerSupply": "220–240 В (1 фаза)",
         "nominalCurrent": 2.7,
         "bodyMaterial": "polypropylene",
-        "width": 52,
-        "height": 29,
-        "depth": 44,
-        "netWeight": 16,
-        "packageDimensions": "62 × 39 × 54 см",
-        "grossWeight": 20
+        "width": 54,
+        "height": 28,
+        "depth": 42,
+        "netWeight": 12,
+        "packageDimensions": "62 × 36 × 50 см",
+        "grossWeight": 15
       },
       "inStock": true,
       "images": [
-        "assets/images/benefits-photo-2.png",
-        "assets/images/services-photo-mobile.png",
-        "assets/images/portfolio-photo-1.png"
-      ]
+        "assets/images/download/6-1784450272047-evuvq5sddzet5whi9jeqon13me3lue1z.webp",
+        "assets/images/download/6-1784450272053-fjfkdvpps6ra4hun9dfe9mskivgsl3g6.webp",
+        "assets/images/download/6-1784450272054-mdt77ckyzuj82zl6wh6q4lsv8azjgddi.webp",
+        "assets/images/download/6-1784450272055-6tvw55qf9ydqwt91v0otoanxuolv4tn0.webp",
+        "assets/images/download/6-1784450272056-yzf64la5rnhz4b0kjr7tifu9lgk0e6t5.webp"
+      ],
+      "brand": "HumidAir"
     },
     {
-      "id": "pv-cond-001",
+      "id": 7,
       "name_i18n": {
-        "ru": "Инверторный кондиционер AUX ASW-H12",
-        "be": "Інвертарны кандыцыянер AUX ASW-H12",
-        "en": "AUX ASW-H12 inverter air conditioner"
+        "ru": "Канальный увлажнитель MistFlow 550",
+        "be": "Канальны ўвільгатняльнік MistFlow 550",
+        "en": "MistFlow 550 duct humidifier"
       },
-      "category": "conditioning",
-      "subcategory": "nastennye",
-      "price": 2150,
+      "category": "ventilation",
+      "subcategory": "humidifiers",
+      "price": 3840,
       "specs": [
-        "AUX",
-        "3.5 кВт",
-        "до 35 м²"
+        "550 м³/ч",
+        "до 80 м²",
+        "Паровое увлажнение"
       ],
       "performance": 550,
-      "area": 35,
-      "maxPower": 1.1,
-      "equipmentType": "wall-mounted",
-      "brand": "AUX",
-      "installType": "wall",
-      "isInverter": true,
-      "color": "white",
-      "hasWifi": true,
-      "hasSmartHome": true,
-      "coolingPower": 3.5,
-      "heatingPower": 3.8,
-      "heatingTemp": -15,
-      "winterTemp": null,
-      "heaterType": null,
-      "recuperatorType": null,
-      "powerType": "220",
-      "bodyMaterial": "polypropylene",
-      "inStock": true,
-      "images": [
-        "assets/images/portfolio-photo-2.png",
-        "assets/images/portfolio-photo-1.png",
-        "assets/images/portfolio-photo-4.png"
-      ]
-    },
-    {
-      "id": "pv-cond-002",
-      "name_i18n": {
-        "ru": "Канальный кондиционер Ballu BLCI-24",
-        "be": "Канальны кандыцыянер Ballu BLCI-24",
-        "en": "Ballu BLCI-24 ducted air conditioner"
-      },
-      "category": "conditioning",
-      "subcategory": "kanalnye",
-      "price": 5840,
-      "specs": [
-        "Ballu",
-        "7.1 кВт",
-        "до 70 м²"
-      ],
-      "performance": 1100,
-      "area": 70,
-      "maxPower": 2.2,
-      "equipmentType": "ducted",
-      "brand": "Ballu",
-      "installType": "duct",
-      "isInverter": true,
-      "color": "matte-white",
-      "hasWifi": false,
-      "hasSmartHome": true,
-      "coolingPower": 7.1,
-      "heatingPower": 7.6,
-      "heatingTemp": -20,
+      "area": 80,
+      "maxPower": 1.2,
+      "equipmentType": "humidifier",
       "winterTemp": null,
       "heaterType": null,
       "recuperatorType": null,
       "powerType": "220",
       "bodyMaterial": "galvanized-steel",
+      "details": {
+        "brand": "MistFlow",
+        "model": "MistFlow 550 Steam",
+        "type_i18n": {
+          "ru": "Канальный паровой увлажнитель",
+          "be": "Канальны паравы ўвільгатняльнік",
+          "en": "Ducted steam humidifier"
+        },
+        "staticPressure": 220,
+        "recoveryEfficiency": 0,
+        "noiseLevel": 34,
+        "warrantyYears": 2,
+        "heaterPower": 1.1,
+        "powerSupply": "220–240 В (1 фаза)",
+        "nominalCurrent": 5,
+        "bodyMaterial": "galvanizedSteel",
+        "width": 68,
+        "height": 34,
+        "depth": 48,
+        "netWeight": 21,
+        "packageDimensions": "78 × 42 × 56 см",
+        "grossWeight": 25
+      },
       "inStock": true,
       "images": [
-        "assets/images/portfolio-photo-3.png",
-        "assets/images/portfolio-photo-2.png",
-        "assets/images/benefits-photo-1.png"
-      ]
+        "assets/images/download/7-1784450350704-mjruko2vgkks3qlnhezl1z1kcjfuous8.webp",
+        "assets/images/download/7-1784450350705-5ga82e2jh5x14s1qj6zpnv64o2tm7jgc.webp",
+        "assets/images/download/7-1784450350722-020k4czcnxpyi0z3upch3qtx9y8rkwdr.webp"
+      ],
+      "brand": "MistFlow"
     },
     {
-      "id": "pv-cond-003",
+      "id": 8,
       "name_i18n": {
-        "ru": "Настенный кондиционер Breeon BRC-09",
-        "be": "Насценны кандыцыянер Breeon BRC-09",
-        "en": "Breeon BRC-09 wall-mounted air conditioner"
+        "ru": "Настенный кондиционер Breeon BRC-07",
+        "be": "Насценны кандыцыянер Breeon BRC-07",
+        "en": "Breeon BRC-07 wall air conditioner"
       },
       "category": "conditioning",
       "subcategory": "nastennye",
-      "price": 1680,
+      "price": 449,
       "specs": [
         "Breeon",
+        "2.0 кВт",
+        "до 20 м²"
+      ],
+      "performance": 350,
+      "area": 20,
+      "maxPower": 0.65,
+      "brand": "Breeon",
+      "installType": "wall",
+      "isInverter": false,
+      "color": "white",
+      "hasWifi": false,
+      "hasSmartHome": false,
+      "coolingPower": 2,
+      "heatingPower": 2.2,
+      "heatingTemp": -7,
+      "powerType": "220",
+      "bodyMaterial": "polypropylene",
+      "details": {
+        "brand": "Breeon",
+        "model": "BRC-07",
+        "series": "BRC",
+        "coolingMinTemp": -10,
+        "maxOperatingTemp": 43,
+        "refrigerant": "R32",
+        "wifiMode": "none",
+        "smartHomeMode": "none",
+        "remoteControl": true,
+        "indoorNoiseMin": 24,
+        "indoorNoiseMax": 38,
+        "outdoorNoise": 52,
+        "powerSupply": "220–240 В (1 фаза)",
+        "nominalCurrent": 3.2,
+        "width": 79,
+        "height": 29,
+        "depth": 20,
+        "netWeight": 8.5,
+        "grossWeight": 10.2
+      },
+      "inStock": true,
+      "images": [
+        "assets/images/download/8-1784454748208-lorta111-800x600w.jpg",
+        "assets/images/download/8-1784454748210-loriot_neon_series_01-768x403.png",
+        "assets/images/download/8-1784454748211-loriot_neon_series_04-sboku.png",
+        "assets/images/download/8-1784454748213-loriot_neon_series_05-sverkhu.png",
+        "assets/images/download/8-1784454748214-neon-vneshniy-blok-sleva-600x400.png",
+        "assets/images/download/8-1784454748215-pult-dlya-neon-600x400.png"
+      ]
+    },
+    {
+      "id": 9,
+      "name_i18n": {
+        "ru": "Настенный кондиционер Chigo CS-09",
+        "be": "Насценны кандыцыянер Chigo CS-09",
+        "en": "Chigo CS-09 wall air conditioner"
+      },
+      "category": "conditioning",
+      "subcategory": "nastennye",
+      "price": 689,
+      "specs": [
+        "Chigo",
         "2.6 кВт",
         "до 25 м²"
       ],
-      "performance": 430,
+      "performance": 420,
       "area": 25,
-      "maxPower": 0.82,
-      "equipmentType": "wall-mounted",
-      "brand": "Breeon",
+      "maxPower": 0.78,
+      "brand": "Chigo",
       "installType": "wall",
       "isInverter": false,
       "color": "white",
@@ -378,60 +474,97 @@
       "coolingPower": 2.6,
       "heatingPower": 2.8,
       "heatingTemp": -7,
-      "winterTemp": null,
-      "heaterType": null,
-      "recuperatorType": null,
       "powerType": "220",
       "bodyMaterial": "polypropylene",
+      "details": {
+        "brand": "Chigo",
+        "model": "CS-09",
+        "series": "CS",
+        "coolingMinTemp": -10,
+        "maxOperatingTemp": 43,
+        "refrigerant": "R32",
+        "wifiMode": "none",
+        "smartHomeMode": "none",
+        "remoteControl": true,
+        "indoorNoiseMin": 23,
+        "indoorNoiseMax": 37,
+        "outdoorNoise": 51,
+        "powerSupply": "220–240 В (1 фаза)",
+        "nominalCurrent": 3.8,
+        "width": 81,
+        "height": 30,
+        "depth": 21,
+        "netWeight": 9.1,
+        "grossWeight": 11
+      },
       "inStock": true,
       "images": [
-        "assets/images/portfolio-photo-4.png",
-        "assets/images/portfolio-photo-1.png",
-        "assets/images/benefits-photo-2.png"
+        "assets/images/download/9-1784455060894-legend1-700x700-1.png",
+        "assets/images/download/9-1784455060897-legend-700x700-1.png",
+        "assets/images/download/9-1784455060898-da-h-3-700x700-1.png",
+        "assets/images/download/9-1784455060900-da-h-2-700x700-1.png"
       ]
     },
     {
-      "id": "pv-cond-004",
+      "id": 10,
       "name_i18n": {
-        "ru": "Кассетный кондиционер Chigo CCA-18",
-        "be": "Касетны кандыцыянер Chigo CCA-18",
-        "en": "Chigo CCA-18 cassette air conditioner"
+        "ru": "Инверторный кондиционер AUX ASW-H09",
+        "be": "Інвертарны кандыцыянер AUX ASW-H09",
+        "en": "AUX ASW-H09 inverter air conditioner"
       },
       "category": "conditioning",
-      "subcategory": "kassetnye",
-      "price": 4620,
+      "subcategory": "nastennye",
+      "price": 1190,
       "specs": [
-        "Chigo",
-        "5.3 кВт",
-        "до 55 м²"
+        "AUX",
+        "2.7 кВт",
+        "до 27 м²"
       ],
-      "performance": 850,
-      "area": 55,
-      "maxPower": 1.7,
-      "equipmentType": "cassette",
-      "brand": "Chigo",
-      "installType": "cassette",
-      "isInverter": false,
+      "performance": 450,
+      "area": 27,
+      "maxPower": 0.85,
+      "brand": "AUX",
+      "installType": "wall",
+      "isInverter": true,
       "color": "white",
-      "hasWifi": false,
+      "hasWifi": true,
       "hasSmartHome": false,
-      "coolingPower": 5.3,
-      "heatingPower": 5.8,
-      "heatingTemp": -10,
-      "winterTemp": null,
-      "heaterType": null,
-      "recuperatorType": null,
+      "coolingPower": 2.7,
+      "heatingPower": 2.9,
+      "heatingTemp": -15,
       "powerType": "220",
-      "bodyMaterial": "galvanized-steel",
+      "bodyMaterial": "polypropylene",
+      "details": {
+        "brand": "AUX",
+        "model": "ASW-H09",
+        "series": "ASW",
+        "coolingMinTemp": -15,
+        "maxOperatingTemp": 46,
+        "refrigerant": "R32",
+        "wifiMode": "builtIn",
+        "smartHomeMode": "none",
+        "remoteControl": true,
+        "indoorNoiseMin": 21,
+        "indoorNoiseMax": 36,
+        "outdoorNoise": 50,
+        "powerSupply": "220–240 В (1 фаза)",
+        "nominalCurrent": 4.1,
+        "width": 84,
+        "height": 31,
+        "depth": 22,
+        "netWeight": 9.8,
+        "grossWeight": 11.8
+      },
       "inStock": true,
       "images": [
-        "assets/images/portfolio-photo-1.png",
-        "assets/images/portfolio-photo-3.png",
-        "assets/images/benefits-photo-3.png"
+        "assets/images/download/10-1784455138640-1_727520.jpg",
+        "assets/images/download/10-1784455138641-2_727520.jpg",
+        "assets/images/download/10-1784455138642-3_727520.jpg",
+        "assets/images/download/10-1784455138643-4_727520.jpg"
       ]
     },
     {
-      "id": "pv-cond-005",
+      "id": 11,
       "name_i18n": {
         "ru": "Инверторный кондиционер Dahatsu DMI-12",
         "be": "Інвертарны кандыцыянер Dahatsu DMI-12",
@@ -439,7 +572,7 @@
       },
       "category": "conditioning",
       "subcategory": "nastennye",
-      "price": 2470,
+      "price": 1590,
       "specs": [
         "Dahatsu",
         "3.5 кВт",
@@ -448,7 +581,6 @@
       "performance": 580,
       "area": 35,
       "maxPower": 1.05,
-      "equipmentType": "wall-mounted",
       "brand": "Dahatsu",
       "installType": "wall",
       "isInverter": true,
@@ -458,100 +590,254 @@
       "coolingPower": 3.5,
       "heatingPower": 3.7,
       "heatingTemp": -15,
-      "winterTemp": null,
-      "heaterType": null,
-      "recuperatorType": null,
       "powerType": "220",
       "bodyMaterial": "polypropylene",
-      "inStock": false,
+      "details": {
+        "brand": "Dahatsu",
+        "model": "DMI-12",
+        "series": "DMI",
+        "coolingMinTemp": -15,
+        "maxOperatingTemp": 46,
+        "refrigerant": "R32",
+        "wifiMode": "builtIn",
+        "smartHomeMode": "none",
+        "remoteControl": true,
+        "indoorNoiseMin": 20,
+        "indoorNoiseMax": 35,
+        "outdoorNoise": 49,
+        "powerSupply": "220–240 В (1 фаза)",
+        "nominalCurrent": 5,
+        "width": 89,
+        "height": 32,
+        "depth": 23,
+        "netWeight": 11.2,
+        "grossWeight": 13.4
+      },
+      "inStock": true,
       "images": [
-        "assets/images/portfolio-photo-2.png",
-        "assets/images/portfolio-photo-4.png",
-        "assets/images/benefits-photo-1.png"
+        "assets/images/download/11-1784455264346-124319_split-sistema-breeon-prisma-brc-07tpo.jpg",
+        "assets/images/download/11-1784455264347-124321_split-sistema-breeon-prisma-brc-07tpo.jpg",
+        "assets/images/download/11-1784455264348-124320_split-sistema-breeon-prisma-brc-07tpo.jpg"
       ]
     },
     {
-      "id": "pv-cond-006",
+      "id": 12,
       "name_i18n": {
-        "ru": "Настенный кондиционер Daichi ICE25",
-        "be": "Насценны кандыцыянер Daichi ICE25",
-        "en": "Daichi ICE25 wall-mounted air conditioner"
+        "ru": "Настенный кондиционер Daichi ICE35",
+        "be": "Насценны кандыцыянер Daichi ICE35",
+        "en": "Daichi ICE35 wall air conditioner"
       },
       "category": "conditioning",
       "subcategory": "nastennye",
-      "price": 2890,
+      "price": 2190,
       "specs": [
         "Daichi",
-        "2.5 кВт",
-        "до 25 м²"
+        "3.5 кВт",
+        "до 35 м²"
       ],
-      "performance": 420,
-      "area": 25,
-      "maxPower": 0.78,
-      "equipmentType": "wall-mounted",
+      "performance": 560,
+      "area": 35,
+      "maxPower": 0.95,
       "brand": "Daichi",
       "installType": "wall",
       "isInverter": true,
       "color": "gold",
       "hasWifi": true,
       "hasSmartHome": true,
-      "coolingPower": 2.5,
-      "heatingPower": 2.8,
+      "coolingPower": 3.5,
+      "heatingPower": 3.8,
       "heatingTemp": -20,
-      "winterTemp": null,
-      "heaterType": null,
-      "recuperatorType": null,
       "powerType": "220",
       "bodyMaterial": "polypropylene",
+      "details": {
+        "brand": "Daichi",
+        "model": "ICE35",
+        "series": "ICE",
+        "coolingMinTemp": -20,
+        "maxOperatingTemp": 48,
+        "refrigerant": "R32",
+        "wifiMode": "builtIn",
+        "smartHomeMode": "alica",
+        "remoteControl": true,
+        "indoorNoiseMin": 19,
+        "indoorNoiseMax": 34,
+        "outdoorNoise": 48,
+        "powerSupply": "220–240 В (1 фаза)",
+        "nominalCurrent": 4.6,
+        "width": 90,
+        "height": 32,
+        "depth": 23,
+        "netWeight": 11.5,
+        "grossWeight": 13.8
+      },
       "inStock": true,
       "images": [
-        "assets/images/benefits-photo-1.png",
-        "assets/images/portfolio-photo-2.png",
-        "assets/images/portfolio-photo-3.png"
+        "assets/images/download/12-1784455656313-124319_split-sistema-breeon-prisma-brc-07tpo.jpg",
+        "assets/images/download/12-1784455656320-124321_split-sistema-breeon-prisma-brc-07tpo.jpg"
       ]
     },
     {
-      "id": "pv-cond-007",
+      "id": 13,
       "name_i18n": {
-        "ru": "Канальный кондиционер Denko DU-36",
-        "be": "Канальны кандыцыянер Denko DU-36",
-        "en": "Denko DU-36 ducted air conditioner"
+        "ru": "Кассетный кондиционер Ballu BLCA-18",
+        "be": "Касетны кандыцыянер Ballu BLCA-18",
+        "en": "Ballu BLCA-18 cassette air conditioner"
+      },
+      "category": "conditioning",
+      "subcategory": "kassetnye",
+      "price": 2890,
+      "specs": [
+        "Ballu",
+        "5.0 кВт",
+        "до 50 м²"
+      ],
+      "performance": 820,
+      "area": 50,
+      "maxPower": 1.6,
+      "brand": "Ballu",
+      "installType": "cassette",
+      "isInverter": true,
+      "color": "matte-white",
+      "hasWifi": false,
+      "hasSmartHome": true,
+      "coolingPower": 5,
+      "heatingPower": 5.4,
+      "heatingTemp": -15,
+      "powerType": "220",
+      "bodyMaterial": "galvanized-steel",
+      "details": {
+        "brand": "Ballu",
+        "model": "BLCA-18",
+        "series": "BLCA",
+        "coolingMinTemp": -15,
+        "maxOperatingTemp": 46,
+        "refrigerant": "R410A",
+        "wifiMode": "option",
+        "smartHomeMode": "alica",
+        "remoteControl": true,
+        "indoorNoiseMin": 28,
+        "indoorNoiseMax": 42,
+        "outdoorNoise": 54,
+        "powerSupply": "220–240 В (1 фаза)",
+        "nominalCurrent": 7.4,
+        "width": 84,
+        "height": 26,
+        "depth": 84,
+        "netWeight": 24,
+        "grossWeight": 28
+      },
+      "inStock": true,
+      "images": [
+        "assets/images/download/13-1784455677320-124321_split-sistema-breeon-prisma-brc-07tpo.jpg"
+      ]
+    },
+    {
+      "id": 14,
+      "name_i18n": {
+        "ru": "Канальный кондиционер Denko DU-24",
+        "be": "Канальны кандыцыянер Denko DU-24",
+        "en": "Denko DU-24 ducted air conditioner"
       },
       "category": "conditioning",
       "subcategory": "kanalnye",
-      "price": 8240,
+      "price": 3790,
       "specs": [
         "Denko",
-        "10.5 кВт",
-        "до 105 м²"
+        "7.0 кВт",
+        "до 70 м²"
       ],
-      "performance": 1650,
-      "area": 105,
-      "maxPower": 3.5,
-      "equipmentType": "ducted",
+      "performance": 1100,
+      "area": 70,
+      "maxPower": 2.2,
       "brand": "Denko",
       "installType": "duct",
       "isInverter": true,
       "color": "matte-white",
       "hasWifi": false,
       "hasSmartHome": true,
-      "coolingPower": 10.5,
-      "heatingPower": 11.2,
-      "heatingTemp": -25,
-      "winterTemp": null,
-      "heaterType": null,
-      "recuperatorType": null,
-      "powerType": "380",
+      "coolingPower": 7,
+      "heatingPower": 7.5,
+      "heatingTemp": -20,
+      "powerType": "220",
       "bodyMaterial": "galvanized-steel",
-      "inStock": true,
+      "details": {
+        "brand": "Denko",
+        "model": "DU-24",
+        "series": "DU",
+        "coolingMinTemp": -20,
+        "maxOperatingTemp": 48,
+        "refrigerant": "R410A",
+        "wifiMode": "option",
+        "smartHomeMode": "alica",
+        "remoteControl": true,
+        "indoorNoiseMin": 30,
+        "indoorNoiseMax": 44,
+        "outdoorNoise": 56,
+        "powerSupply": "220–240 В (1 фаза)",
+        "nominalCurrent": 10.2,
+        "width": 110,
+        "height": 30,
+        "depth": 70,
+        "netWeight": 36,
+        "grossWeight": 42
+      },
+      "inStock": false,
       "images": [
-        "assets/images/benefits-photo-2.png",
-        "assets/images/portfolio-photo-3.png",
-        "assets/images/portfolio-photo-4.png"
+        "assets/images/download/14-1784455784792-p1ta59mtlumqlwh38rayc2th6yo7wmmb-500x400-1.jpg",
+        "assets/images/download/14-1784455784793-753d7725b2a1c518b6416b5203349ffc-scaled-1-768x76.jpg",
+        "assets/images/download/14-1784455784794-f02ee814bb97c7e936ebbf629568cdc6.jpg",
+        "assets/images/download/14-1784455784796-3c082f0d006a70d63e0692d2c0dd3616-scaled-1-2048x2.jpg"
       ]
     },
     {
-      "id": "pv-pool-001",
+      "id": 15,
+      "name_i18n": {
+        "ru": "Осушитель воздуха PoolDry 50",
+        "be": "Асушальнік паветра PoolDry 50",
+        "en": "PoolDry 50 dehumidifier"
+      },
+      "category": "pools",
+      "subcategory": "osushiteli",
+      "price": 4290,
+      "specs": [
+        "50 л/сутки",
+        "до 60 м²",
+        "Напольный монтаж"
+      ],
+      "performance": 500,
+      "area": 60,
+      "maxPower": 1.2,
+      "brand": "PoolDry",
+      "moistureRemoval": 50,
+      "roomVolume": 150,
+      "mountType": "floor",
+      "hasChassis": true,
+      "hasDrainPump": false,
+      "noiseLevel": 42,
+      "powerType": "220",
+      "bodyMaterial": "polypropylene",
+      "details": {
+        "brand": "PoolDry",
+        "model": "PD-50",
+        "series": "PD",
+        "warrantyYears": 2,
+        "protectionClass": "IPX4",
+        "width": 42,
+        "height": 68,
+        "depth": 38,
+        "netWeight": 28,
+        "grossWeight": 32
+      },
+      "inStock": false,
+      "images": [
+        "assets/images/download/15-1784455872820-67e9be2a0c01e-500x500.webp",
+        "assets/images/download/15-1784455872821-67e9be2a22b96-500x500.webp",
+        "assets/images/download/15-1784455872822-67e9be2a31d7e-500x500.webp",
+        "assets/images/download/15-1784455872823-67e9be2a3cbf0-500x500.webp"
+      ]
+    },
+    {
+      "id": 16,
       "name_i18n": {
         "ru": "Осушитель воздуха PoolDry 90",
         "be": "Асушальнік паветра PoolDry 90",
@@ -568,7 +854,6 @@
       "performance": 900,
       "area": 100,
       "maxPower": 2.1,
-      "equipmentType": "dehumidifier",
       "brand": "PoolDry",
       "moistureRemoval": 90,
       "roomVolume": 250,
@@ -576,54 +861,159 @@
       "hasChassis": true,
       "hasDrainPump": true,
       "noiseLevel": 48,
-      "winterTemp": null,
-      "heaterType": null,
-      "recuperatorType": null,
       "powerType": "220",
       "bodyMaterial": "polypropylene",
+      "details": {
+        "brand": "PoolDry",
+        "model": "PD-90",
+        "series": "PD",
+        "warrantyYears": 2,
+        "protectionClass": "IPX4",
+        "width": 48,
+        "height": 78,
+        "depth": 42,
+        "netWeight": 38,
+        "grossWeight": 44
+      },
       "inStock": true,
       "images": [
-        "assets/images/card-pools.png",
-        "assets/images/benefits-photo-3.png",
-        "assets/images/portfolio-photo-1.png"
+        "assets/images/download/16-1784455962348-66e0c6c49cf84-500x500.webp",
+        "assets/images/download/16-1784455962350-66e0c6c4dc2fb-500x500.webp",
+        "assets/images/download/16-1784455962351-66e0c6c52e0d0-500x500.webp"
       ]
     },
     {
-      "id": "pv-pool-002",
+      "id": 17,
       "name_i18n": {
-        "ru": "Канальный осушитель AquaVent 160",
-        "be": "Канальны асушальнік AquaVent 160",
-        "en": "AquaVent 160 ducted dehumidifier"
+        "ru": "Настенный осушитель AquaVent Wall 70",
+        "be": "Насценны асушальнік AquaVent Wall 70",
+        "en": "AquaVent Wall 70 dehumidifier"
       },
       "category": "pools",
       "subcategory": "osushiteli",
-      "price": 11800,
+      "price": 6150,
       "specs": [
-        "160 л/сутки",
-        "1650 м³/ч",
+        "70 л/сутки",
+        "до 80 м²",
+        "Настенный монтаж"
+      ],
+      "performance": 700,
+      "area": 80,
+      "maxPower": 1.6,
+      "brand": "AquaVent",
+      "moistureRemoval": 70,
+      "roomVolume": 200,
+      "mountType": "wall",
+      "hasChassis": false,
+      "hasDrainPump": true,
+      "noiseLevel": 45,
+      "powerType": "220",
+      "bodyMaterial": "polypropylene",
+      "details": {
+        "brand": "AquaVent",
+        "model": "Wall 70",
+        "series": "Wall",
+        "warrantyYears": 2,
+        "protectionClass": "IPX4",
+        "width": 86,
+        "height": 52,
+        "depth": 24,
+        "netWeight": 31,
+        "grossWeight": 36
+      },
+      "inStock": true,
+      "images": [
+        "assets/images/download/17-1784456140739-2-1-1-72a366d1abc80c5ba36d588c81e64ebd.webp",
+        "assets/images/download/17-1784456140745-2-2-72a366d1abc80c5ba36d588c81e64ebd.webp"
+      ]
+    },
+    {
+      "id": 18,
+      "name_i18n": {
+        "ru": "Канальный осушитель AquaVent 120",
+        "be": "Канальны асушальнік AquaVent 120",
+        "en": "AquaVent 120 ducted dehumidifier"
+      },
+      "category": "pools",
+      "subcategory": "osushiteli",
+      "price": 9680,
+      "specs": [
+        "120 л/сутки",
+        "1200 м³/ч",
         "Подключение к воздуховодам"
       ],
-      "performance": 1650,
-      "area": 180,
-      "maxPower": 4.3,
-      "equipmentType": "dehumidifier",
+      "performance": 1200,
+      "area": 140,
+      "maxPower": 3.2,
       "brand": "AquaVent",
-      "moistureRemoval": 160,
-      "roomVolume": 450,
+      "moistureRemoval": 120,
+      "roomVolume": 350,
       "mountType": "duct",
       "hasChassis": false,
       "hasDrainPump": true,
-      "noiseLevel": 52,
-      "winterTemp": null,
-      "heaterType": null,
-      "recuperatorType": null,
+      "noiseLevel": 50,
       "powerType": "380",
       "bodyMaterial": "galvanized-steel",
+      "details": {
+        "brand": "AquaVent",
+        "model": "AV-120",
+        "series": "AV",
+        "warrantyYears": 3,
+        "protectionClass": "IP54",
+        "width": 95,
+        "height": 45,
+        "depth": 58,
+        "netWeight": 52,
+        "grossWeight": 60
+      },
+      "inStock": true,
+      "images": [
+        "assets/images/download/18-1784456288921-e2inllkc6xmgqcwo0zye1zhh0czydsg9.webp"
+      ]
+    },
+    {
+      "id": 19,
+      "name_i18n": {
+        "ru": "Осушитель воздуха PoolDry 140",
+        "be": "Асушальнік паветра PoolDry 140",
+        "en": "PoolDry 140 dehumidifier"
+      },
+      "category": "pools",
+      "subcategory": "osushiteli",
+      "price": 10450,
+      "specs": [
+        "140 л/сутки",
+        "до 160 м²",
+        "Дренажный насос"
+      ],
+      "performance": 1400,
+      "area": 160,
+      "maxPower": 3.8,
+      "brand": "PoolDry",
+      "moistureRemoval": 140,
+      "roomVolume": 400,
+      "mountType": "floor",
+      "hasChassis": true,
+      "hasDrainPump": true,
+      "noiseLevel": 51,
+      "powerType": "380",
+      "bodyMaterial": "galvanized-steel",
+      "details": {
+        "brand": "PoolDry",
+        "model": "PD-140",
+        "series": "PD",
+        "warrantyYears": 3,
+        "protectionClass": "IPX4",
+        "width": 56,
+        "height": 92,
+        "depth": 48,
+        "netWeight": 55,
+        "grossWeight": 64
+      },
       "inStock": false,
       "images": [
-        "assets/images/benefits-photo-3.png",
-        "assets/images/card-pools.png",
-        "assets/images/portfolio-photo-4.png"
+        "assets/images/download/19-1784456365200-456551562_w640_h640_osushitel-vozduha-royal.webp",
+        "assets/images/download/19-1784456365202-425166285_w640_h640_osushitel-vozduha-royal.webp"
       ]
     }
   ],
@@ -674,7 +1064,7 @@
       "userId": 2,
       "items": [
         {
-          "productId": "pv-vent-001",
+          "productId": 1,
           "name": "Приточно-вытяжная установка AirFlow 500",
           "name_i18n": {
             "ru": "Приточно-вытяжная установка AirFlow 500",
@@ -684,7 +1074,7 @@
           "price": 4890,
           "quantity": 1,
           "lineTotal": 4890,
-          "image": "assets/images/services-photo.png"
+          "image": "assets/images/download/product-1-1.jpg"
         }
       ],
       "total": 4890,
@@ -696,33 +1086,33 @@
       "userId": 2,
       "items": [
         {
-          "productId": "pv-cond-001",
-          "name": "Настенный кондиционер CoolWall 9",
+          "productId": 10,
+          "name": "Инверторный кондиционер AUX ASW-H09",
           "name_i18n": {
-            "ru": "Настенный кондиционер CoolWall 9",
-            "be": "Насценны кандыцыянер CoolWall 9",
-            "en": "CoolWall 9 wall-mounted air conditioner"
+            "ru": "Инверторный кондиционер AUX ASW-H09",
+            "be": "Інвертарны кандыцыянер AUX ASW-H09",
+            "en": "AUX ASW-H09 inverter air conditioner"
           },
-          "price": 2590,
+          "price": 1190,
           "quantity": 2,
-          "lineTotal": 5180,
-          "image": "assets/images/portfolio-photo-3.png"
+          "lineTotal": 2380,
+          "image": "assets/images/download/product-10-1.jpg"
         },
         {
-          "productId": "pv-vent-002",
-          "name": "Приточная установка FreshAir 300",
+          "productId": 2,
+          "name": "Приточно-вытяжная установка VentPro 800",
           "name_i18n": {
-            "ru": "Приточная установка FreshAir 300",
-            "be": "Прытокавая ўстаноўка FreshAir 300",
-            "en": "FreshAir 300 supply unit"
+            "ru": "Приточно-вытяжная установка VentPro 800",
+            "be": "Прытокава-выцяжная ўстаноўка VentPro 800",
+            "en": "VentPro 800 supply and exhaust unit"
           },
-          "price": 3190,
+          "price": 6720,
           "quantity": 1,
-          "lineTotal": 3190,
-          "image": "assets/images/portfolio-photo-2.png"
+          "lineTotal": 6720,
+          "image": "assets/images/download/product-2-1.jpg"
         }
       ],
-      "total": 8370,
+      "total": 9100,
       "status": "shipped",
       "createdAt": "2026-07-16T10:20:00.000Z"
     },
@@ -731,20 +1121,20 @@
       "userId": 3,
       "items": [
         {
-          "productId": "pv-pool-001",
-          "name": "Осушитель воздуха PoolDry 60",
+          "productId": 16,
+          "name": "Осушитель воздуха PoolDry 90",
           "name_i18n": {
-            "ru": "Осушитель воздуха PoolDry 60",
-            "be": "Асушальнік паветра PoolDry 60",
-            "en": "PoolDry 60 dehumidifier"
+            "ru": "Осушитель воздуха PoolDry 90",
+            "be": "Асушальнік паветра PoolDry 90",
+            "en": "PoolDry 90 dehumidifier"
           },
-          "price": 6450,
+          "price": 7390,
           "quantity": 1,
-          "lineTotal": 6450,
-          "image": "assets/images/card-pools.png"
+          "lineTotal": 7390,
+          "image": "assets/images/download/product-16-1.jpg"
         }
       ],
-      "total": 6450,
+      "total": 7390,
       "status": "shipped",
       "createdAt": "2026-07-14T12:00:00.000Z"
     },
@@ -753,7 +1143,7 @@
       "userId": 2,
       "items": [
         {
-          "productId": "pv-vent-001",
+          "productId": 1,
           "name": "Приточно-вытяжная установка AirFlow 500",
           "name_i18n": {
             "ru": "Приточно-вытяжная установка AirFlow 500",
@@ -763,7 +1153,7 @@
           "price": 4890,
           "quantity": 1,
           "lineTotal": 4890,
-          "image": "assets/images/services-photo.png"
+          "image": "assets/images/download/product-1-1.jpg"
         }
       ],
       "total": 4890,
@@ -777,15 +1167,15 @@
       "userId": 2,
       "items": [
         {
-          "productId": "pv-cond-001",
+          "productId": 10,
           "quantity": 2
         },
         {
-          "productId": "pv-cond-002",
+          "productId": 13,
           "quantity": 1
         }
       ],
-      "updatedAt": "2026-07-18T19:55:03.561Z"
+      "updatedAt": "2026-07-19T06:48:03.796Z"
     }
   ],
   "callbacks": [
@@ -835,11 +1225,18 @@
     },
     {
       "id": 7,
-      "name": "денис",
+      "name": "Денис",
       "phone": "+375 (24) 902-34-90",
       "status": "new",
       "userId": 2,
       "createdAt": "2026-07-19T04:40:33.631Z"
+    },
+    {
+      "id": 8,
+      "name": "Юра",
+      "phone": "+375 (32) 412-30-41",
+      "status": "new",
+      "createdAt": "2026-07-19T06:43:31.376Z"
     }
   ]
 }

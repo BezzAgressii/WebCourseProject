@@ -566,10 +566,28 @@ body {
   color: #8eb8e8;
 }
 
-[data-theme='dark'] .admin-modal__dialog {
-  background: var(--bg-card);
+[data-theme='dark'] .admin-form__section {
+  background: linear-gradient(180deg, rgba(36, 48, 40, 0.95) 0%, rgba(30, 40, 33, 0.98) 100%);
+  border-color: rgba(255, 255, 255, 0.08);
+}
+
+[data-theme='dark'] .admin-form__section-title {
   color: var(--text-primary);
-  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.45);
+}
+
+[data-theme='dark'] .admin-form__section-desc,
+[data-theme='dark'] .admin-form__placeholder {
+  color: var(--text-secondary);
+}
+
+[data-theme='dark'] .admin-form__placeholder {
+  background: rgba(255, 255, 255, 0.03);
+  border-color: rgba(255, 255, 255, 0.12);
+}
+
+[data-theme='dark'] .admin-form__current-image {
+  background: var(--bg-tertiary);
+  border-color: rgba(255, 255, 255, 0.08);
 }
 
 [data-theme='dark'] .admin-modal__title {
@@ -591,6 +609,44 @@ body {
   background: var(--bg-input);
   border-color: var(--border-light);
   color: var(--text-primary);
+}
+
+[data-theme='dark'] .image-uploader__dropzone {
+  border-color: rgba(120, 192, 129, 0.35);
+  background: linear-gradient(180deg, rgba(92, 205, 106, 0.12) 0%, rgba(30, 40, 33, 0.95) 100%);
+  color: var(--text-primary);
+}
+
+[data-theme='dark'] .image-uploader__dropzone:hover,
+[data-theme='dark'] .image-uploader__dropzone:focus-visible,
+[data-theme='dark'] .image-uploader__dropzone--active {
+  border-color: var(--color-accent-green);
+  background: linear-gradient(180deg, rgba(92, 205, 106, 0.2) 0%, rgba(36, 48, 40, 0.98) 100%);
+  box-shadow: 0 0 0 3px rgba(92, 205, 106, 0.18);
+}
+
+[data-theme='dark'] .image-uploader__title {
+  color: var(--text-primary);
+}
+
+[data-theme='dark'] .image-uploader__hint,
+[data-theme='dark'] .image-uploader__name {
+  color: var(--text-secondary);
+}
+
+[data-theme='dark'] .image-uploader__browse {
+  background: rgba(92, 205, 106, 0.2);
+  color: #9be0a4;
+}
+
+[data-theme='dark'] .image-uploader__item {
+  background: var(--bg-elevated);
+  border-color: rgba(255, 255, 255, 0.08);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.28);
+}
+
+[data-theme='dark'] .image-uploader__preview {
+  background: var(--bg-tertiary);
 }
 
 [data-theme='dark'] .profile-hero {
@@ -722,10 +778,20 @@ body {
 
 [data-theme='dark'] .pv-modal__dialog,
 [data-theme='dark'] .auth-modal__dialog,
-[data-theme='dark'] .modal__dialog,
-[data-theme='dark'] .pv-modal {
+[data-theme='dark'] .modal__dialog {
   background: var(--bg-card);
   color: var(--text-primary);
+}
+
+[data-theme='dark'] .pv-modal,
+[data-theme='dark'] .auth-modal {
+  background: transparent;
+}
+
+[data-theme='dark'] .pv-modal__backdrop,
+[data-theme='dark'] .auth-modal__backdrop {
+  background: rgba(10, 14, 12, 0.55);
+  backdrop-filter: blur(6px);
 }
 
 [data-theme='dark'] .pv-modal__object-type {
@@ -735,6 +801,11 @@ body {
 
 [data-theme='dark'] .pv-modal__object-type-label {
   color: var(--text-secondary);
+}
+
+/* Alerts must stay above admin product modal (admin 320, auth.css default 200) */
+.auth-modal {
+  z-index: 520;
 }
 
 /* Hardcoded greys used as body copy in several sections */

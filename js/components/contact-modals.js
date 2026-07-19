@@ -271,7 +271,8 @@ export function initContactModals() {
 
     if (contactTrigger) {
       event.preventDefault();
-      void i18n.init().then(() => openContactModal());
+      event.stopPropagation();
+      openContactModal();
       return;
     }
 
@@ -284,7 +285,8 @@ export function initContactModals() {
     }
 
     event.preventDefault();
-    void i18n.init().then(() => openRequestModal());
+    event.stopPropagation();
+    openRequestModal();
   });
 
   document.addEventListener('submit', (event) => {

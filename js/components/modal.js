@@ -4,8 +4,15 @@ function assetUrl(relativeFromJsComponents) {
   return new URL(relativeFromJsComponents, import.meta.url).href;
 }
 
+function stylesheetPresent(pathPart) {
+  return [...document.querySelectorAll('link[rel="stylesheet"]')].some((link) => {
+    const href = link.getAttribute('href') || link.href || '';
+    return href.includes(pathPart);
+  });
+}
+
 function ensureModalStyles() {
-  if (!document.querySelector('link[data-auth-css]')) {
+  if (!stylesheetPresent('auth.css') && !document.querySelector('link[data-auth-css]')) {
     const authLink = document.createElement('link');
     authLink.rel = 'stylesheet';
     authLink.href = assetUrl('../../css/auth.css');
@@ -13,12 +20,24 @@ function ensureModalStyles() {
     document.head.append(authLink);
   }
 
-  if (!document.querySelector('link[data-contact-modals-css]')) {
+  if (!stylesheetPresent('contact-modals.css') && !document.querySelector('link[data-contact-modals-css]')) {
     const link = document.createElement('link');
     link.rel = 'stylesheet';
     link.href = assetUrl('../../css/contact-modals.css');
     link.dataset.contactModalsCss = '';
     document.head.append(link);
+  }
+}
+
+function focusWithoutScroll(element) {
+  if (!element || typeof element.focus !== 'function') {
+    return;
+  }
+
+  try {
+    element.focus({ preventScroll: true });
+  } catch {
+    element.focus();
   }
 }
 
@@ -36,6 +55,7 @@ class Modal {
   #onClose = null;
   #settled = false;
   #stack = [];
+  #scrollY = null;
 
   get isOpen() {
     return Boolean(this.#root) || this.#stack.length > 0;
@@ -93,15 +113,21 @@ class Modal {
     this.#lockScroll(true);
 
     requestAnimationFrame(() => {
+      if (this.#root !== root) {
+        return;
+      }
+
       root.classList.add('is-open');
+
+      const focusTarget = root.querySelector(
+        '[data-modal-focus], .pv-modal__input, .auth-modal__close, .pv-modal__close, button, [href], input'
+      );
+      focusWithoutScroll(focusTarget);
+
+      if (typeof options.onReady === 'function') {
+        options.onReady(root);
+      }
     });
-
-    const focusTarget = root.querySelector('[data-modal-focus], .auth-modal__close, .pv-modal__close, button, [href], input');
-    focusTarget?.focus?.();
-
-    if (typeof options.onReady === 'function') {
-      options.onReady(root);
-    }
 
     return root;
   }
@@ -230,7 +256,7 @@ class Modal {
     document.addEventListener('keydown', onKeyDown);
     document.body.append(root);
     requestAnimationFrame(() => root.classList.add('is-open'));
-    root.querySelector('.auth-modal__close')?.focus();
+    focusWithoutScroll(root.querySelector('.auth-modal__close'));
     return root;
   }
 
@@ -245,12 +271,25 @@ class Modal {
     entry.onClose?.();
 
     if (this.#root) {
-      this.#root.querySelector('.pv-modal__close, .auth-modal__close')?.focus();
+      focusWithoutScroll(this.#root.querySelector('.pv-modal__input, .pv-modal__close, .auth-modal__close'));
     }
   }
 
   #lockScroll(lock) {
-    document.body.style.overflow = lock ? 'hidden' : '';
+    if (lock) {
+      this.#scrollY = window.scrollY || window.pageYOffset || 0;
+      document.documentElement.classList.add('is-modal-open');
+      document.body.dataset.modalScrollLock = 'true';
+      return;
+    }
+
+    document.documentElement.classList.remove('is-modal-open');
+    delete document.body.dataset.modalScrollLock;
+
+    if (typeof this.#scrollY === 'number') {
+      window.scrollTo(0, this.#scrollY);
+      this.#scrollY = null;
+    }
   }
 
   #bindChrome(root, options) {

@@ -197,10 +197,20 @@
   line-height: 1.2;
 }
 
+.product-page__overview {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.product-page__overview > .product-page__title {
+  margin-bottom: 0;
+}
+
 .product-page__summary {
   display: grid;
   gap: 12px;
-  margin: 0 0 24px;
+  margin: 0;
   padding: 0;
   list-style: none;
 }

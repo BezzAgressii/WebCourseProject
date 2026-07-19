@@ -450,7 +450,7 @@
 
 /* Notifications/confirm must sit above the product form modal */
 .auth-modal {
-  z-index: 420;
+  z-index: 520;
 }
 
 .admin-modal {
@@ -485,6 +485,12 @@
   box-shadow: 0 24px 60px rgba(73, 93, 76, 0.2);
 }
 
+.admin-modal__dialog--product {
+  width: min(920px, 100%);
+  max-height: min(92vh, 960px);
+  padding: 28px 28px 22px;
+}
+
 .admin-modal__title {
   margin: 0 40px 20px 0;
   font-family: var(--font-display);
@@ -507,13 +513,73 @@
 
 .admin-form {
   display: grid;
-  gap: 16px;
+  gap: 18px;
+}
+
+.admin-form__section {
+  display: grid;
+  gap: 14px;
+  padding: 18px;
+  border: 1px solid rgba(73, 93, 76, 0.1);
+  border-radius: 20px;
+  background: linear-gradient(180deg, rgba(245, 249, 246, 0.9) 0%, rgba(255, 255, 255, 0.98) 100%);
+}
+
+.admin-form__section-head {
+  display: grid;
+  gap: 4px;
+}
+
+.admin-form__section-title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--color-dark-green);
+}
+
+.admin-form__section-desc {
+  margin: 0;
+  font-size: 13px;
+  color: var(--color-gray);
+}
+
+.admin-form__placeholder {
+  margin: 0;
+  padding: 18px;
+  border: 1px dashed rgba(73, 93, 76, 0.22);
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.7);
+  color: var(--color-gray);
+  font-size: 14px;
+  text-align: center;
 }
 
 .admin-form__grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 14px;
+}
+
+.admin-form__current-images {
+  display: grid;
+  gap: 10px;
+}
+
+.admin-form__current-images-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(88px, 1fr));
+  gap: 10px;
+}
+
+.admin-form__current-image {
+  display: block;
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: cover;
+  border-radius: 12px;
+  background: #edf5ef;
+  border: 1px solid rgba(73, 93, 76, 0.12);
 }
 
 .admin-form__field {
@@ -612,6 +678,17 @@
 }
 
 @media (max-width: 640px) {
+  .admin-modal__dialog,
+  .admin-modal__dialog--product {
+    padding: 20px 16px 16px;
+    border-radius: 20px;
+  }
+
+  .admin-form__section {
+    padding: 14px;
+    border-radius: 16px;
+  }
+
   .admin-form__grid {
     grid-template-columns: 1fr;
   }
