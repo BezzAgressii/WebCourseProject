@@ -59,7 +59,7 @@ export function openRequestModal(options = {}) {
   const objectType = String(options.objectType || '').trim();
   const objectTypeKey = String(options.objectTypeKey || '').trim();
   const objectTypeHtml = objectType
-    ? `<p class="pv-modal__object-type"><span class="pv-modal__object-type-label">${i18n.t('modal.request.objectType')}</span> <strong>${escapeHtml(objectType)}</strong></p>`
+    ? `<p class="pv-modal__object-type"><span class="pv-modal__object-type-label">${i18n.t('modal.request.objectType')}</span> <strong data-object-type></strong></p>`
     : '';
 
   Modal.open({
@@ -82,6 +82,12 @@ export function openRequestModal(options = {}) {
     `,
     footerHtml: brandFooter(),
     onReady: (modal) => {
+      const objectTypeEl = modal.querySelector('[data-object-type]');
+
+      if (objectTypeEl) {
+        objectTypeEl.textContent = objectType;
+      }
+
       const form = modal.querySelector('#pv-request-form');
       const nameInput = form.elements.name;
       const phoneInput = form.elements.phone;
@@ -159,15 +165,6 @@ export function openRequestModal(options = {}) {
       });
     }
   });
-}
-
-function escapeHtml(value) {
-  return String(value)
-    .replaceAll('&', '&amp;')
-    .replaceAll('<', '&lt;')
-    .replaceAll('>', '&gt;')
-    .replaceAll('"', '&quot;')
-    .replaceAll("'", '&#39;');
 }
 
 export function openContactModal() {

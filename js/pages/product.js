@@ -6,12 +6,14 @@ import { Modal } from '../components/modal.js';
 import { createImageSlider } from '../components/slider.js';
 import { initSpecTooltips, renderSpecTooltipTrigger } from '../components/spec-tooltip.js';
 
+const SUPPORTED_CATEGORIES = new Set(['ventilation', 'conditioning', 'pools']);
+
 class ProductPage {
   constructor() {
     this.product = null;
+    this.refs = null;
     this.elements = {
       content: document.getElementById('product-content')
-      
     };
   }
 
@@ -42,126 +44,156 @@ class ProductPage {
   }
 
   render() {
-    if (!this.product) {
-      this.elements.content.innerHTML = `<p class="product-page__empty">${this.t('unavailable')}</p>`;
+    if (!this.product || !SUPPORTED_CATEGORIES.has(this.product.category)) {
+      this.refs = null;
+      this.elements.content.replaceChildren();
+      const empty = document.createElement('p');
+      empty.className = 'product-page__empty';
+      empty.textContent = this.t('unavailable');
+      this.elements.content.append(empty);
       return;
     }
 
     this.product.details = this.product.details || {};
-
-    if (this.product.category === 'conditioning') {
-      this.renderConditioningProduct();
-      return;
-    }
-
-    if (this.product.category === 'pools') {
-      this.renderPoolProduct();
-      return;
-    }
-
-    if (this.product.category !== 'ventilation') {
-      this.elements.content.innerHTML = `<p class="product-page__empty">${this.t('unavailable')}</p>`;
-      return;
-    }
-
-    const productName = this.product.name_i18n[i18n.currentLang] || this.product.name_i18n.ru;
-    const details = this.product.details;
-    const availability = this.getAvailability();
-
-    document.title = `${productName} — Pascal Vent`;
-    this.elements.content.innerHTML = `
-      <a class="product-page__back" href="category.html?category=ventilation">← ${this.t('backToCatalog')}</a>
-      <div class="product-page__hero">
-        <div class="product-page__image-wrap" data-product-gallery></div>
-        <div class="product-page__overview">
-          <h1 class="product-page__title">${this.escapeHtml(productName)}</h1>
-          <section class="product-page__detail-card">
-            <h2 class="product-page__detail-title">${this.t('mainParameters')}</h2>
-            <ul class="product-page__summary">
-              ${this.summaryItem('brand', details.brand)}
-              ${this.summaryItem('model', details.model)}
-              ${this.summaryItem('equipmentType', details.type_i18n?.[i18n.currentLang] || details.type_i18n?.ru)}
-              ${this.summaryItem('recommendedArea', this.withUnit(this.product.area, 'м²'))}
-              ${this.summaryItem('availability', availability)}
-              ${this.summaryItem('warranty', details.warrantyYears != null ? `${details.warrantyYears} ${this.t('years')}` : null)}
-            </ul>
-          </section>
-          <div class="product-page__purchase">
-            <span class="product-page__price">${this.formatPrice(this.product.price)}</span>
-            ${this.getOrderButtonHtml()}
-          </div>
-        </div>
-      </div>
-      <div class="product-page__details">
-        ${this.detailBlock(this.t('performanceAndEfficiency'), [
-          ['maximumAirflow', this.withUnit(this.product.performance, 'м³/час')],
-          ['maximumStaticPressure', this.withUnit(details.staticPressure, 'Па')],
-          ['recuperatorType', this.getRecuperatorLabel(this.product.recuperatorType)],
-          ['recoveryEfficiency', details.recoveryEfficiency ? `${this.t('upTo')} ${details.recoveryEfficiency}%` : null],
-          ['noiseLevel', this.withUnit(details.noiseLevel, 'дБ')]
-        ])}
-        ${this.detailBlock(this.t('electricalParameters'), [
-          ['maxPower', this.withUnit(this.product.maxPower, 'кВт')],
-          ['heaterPower', this.withUnit(details.heaterPower, 'кВт')],
-          ['powerSupply', details.powerSupply],
-          ['nominalCurrent', this.withUnit(details.nominalCurrent, 'А')]
-        ])}
-        ${this.detailBlock(this.t('material'), [
-          ['bodyMaterial', details.bodyMaterial ? this.t(details.bodyMaterial) : null]
-        ])}
-        ${this.detailBlock(this.t('dimensionsAndWeight'), [
-          ['width', this.withUnit(details.width, 'см')],
-          ['height', this.withUnit(details.height, 'см')],
-          ['depth', this.withUnit(details.depth, 'см')],
-          ['netWeight', this.withUnit(details.netWeight, 'кг')],
-          ['packageDimensions', details.packageDimensions],
-          ['grossWeight', this.withUnit(details.grossWeight, 'кг')]
-        ])}
-      </div>
-    `;
-
-    this.initGallery(productName);
+    this.mountShell();
+    this.renderHeader();
+    this.renderMainInfo();
+    this.renderDetails();
+    this.initGallery(this.getProductName());
     this.bindOrderButton();
   }
 
-  renderConditioningProduct() {
-    const product = this.product;
-    const details = product.details;
-    const name = product.name_i18n[i18n.currentLang] || product.name_i18n.ru;
-
-    document.title = `${name} — Pascal Vent`;
+  mountShell() {
     this.elements.content.innerHTML = `
-      <a class="product-page__back" href="category.html?category=conditioning">← ${this.t('backToCatalog')}</a>
+      <a class="product-page__back" data-product-back></a>
       <div class="product-page__hero">
         <div class="product-page__image-wrap" data-product-gallery></div>
         <div class="product-page__overview">
-          <h1 class="product-page__title">${this.escapeHtml(name)}</h1>
+          <h1 class="product-page__title" data-product-title></h1>
           <section class="product-page__detail-card">
-            <h2 class="product-page__detail-title">${this.t('mainParameters')}</h2>
-            <ul class="product-page__summary">
-              ${this.summaryItem('brand', product.brand)}
-              ${this.summaryItem('series', details.series)}
-              ${this.summaryItem('model', details.model)}
-              ${this.summaryItem('installationType', this.getInstallationLabel(product.installType))}
-              ${this.summaryItem('inverterTechnology', this.t(product.isInverter ? 'inverter' : 'onOff'))}
-              ${this.summaryItem('recommendedArea', this.withUnit(product.area, 'м²'))}
-              ${this.summaryItem('availability', this.getAvailability())}
-            </ul>
+            <h2 class="product-page__detail-title" data-product-summary-title></h2>
+            <ul class="product-page__summary" data-product-summary></ul>
           </section>
-          <div class="product-page__purchase">
-            <span class="product-page__price">${this.formatPrice(product.price)}</span>
-            ${this.getOrderButtonHtml()}
+          <div class="product-page__purchase" data-product-purchase>
+            <span class="product-page__price" data-product-price></span>
           </div>
         </div>
       </div>
-      <div class="product-page__details">
-        ${this.detailBlock(this.t('operationAndClimate'), [
+      <div class="product-page__details" data-product-details></div>
+    `;
+
+    this.refs = {
+      back: this.elements.content.querySelector('[data-product-back]'),
+      title: this.elements.content.querySelector('[data-product-title]'),
+      summaryTitle: this.elements.content.querySelector('[data-product-summary-title]'),
+      summary: this.elements.content.querySelector('[data-product-summary]'),
+      price: this.elements.content.querySelector('[data-product-price]'),
+      purchase: this.elements.content.querySelector('[data-product-purchase]'),
+      details: this.elements.content.querySelector('[data-product-details]'),
+      gallery: this.elements.content.querySelector('[data-product-gallery]')
+    };
+  }
+
+  renderHeader() {
+    const name = this.getProductName();
+
+    document.title = `${name} — Pascal Vent`;
+    this.refs.back.href = this.getCatalogHref();
+    this.refs.back.textContent = `← ${this.t('backToCatalog')}`;
+    this.refs.title.textContent = name;
+  }
+
+  renderMainInfo() {
+    this.refs.summaryTitle.textContent = this.t('mainParameters');
+    this.refs.summary.innerHTML = this.getSummaryRows()
+      .map(([key, value]) => this.summaryItem(key, value))
+      .join('');
+    this.refs.price.textContent = this.formatPrice(this.product.price);
+
+    this.refs.purchase.querySelector('[data-action="create-order"]')?.remove();
+
+    if (!isAdmin()) {
+      const orderButton = document.createElement('button');
+      orderButton.className = 'product-page__order';
+      orderButton.type = 'button';
+      orderButton.dataset.action = 'create-order';
+      orderButton.textContent = this.t('order');
+      this.refs.purchase.append(orderButton);
+    }
+  }
+
+  renderDetails() {
+    this.refs.details.innerHTML = this.getDetailSections()
+      .map(([title, rows]) => this.detailBlock(title, rows))
+      .join('');
+  }
+
+  getProductName() {
+    return this.product.name_i18n[i18n.currentLang] || this.product.name_i18n.ru;
+  }
+
+  getCatalogHref() {
+    const { category, subcategory } = this.product;
+
+    if (category === 'ventilation') {
+      const slug = subcategory || 'supply-exhaust';
+      return `category.html?category=ventilation&subcategory=${encodeURIComponent(slug)}`;
+    }
+
+    return `category.html?category=${encodeURIComponent(category)}`;
+  }
+
+  getSummaryRows() {
+    const product = this.product;
+    const details = product.details;
+
+    if (product.category === 'conditioning') {
+      return [
+        ['brand', product.brand],
+        ['series', details.series],
+        ['model', details.model],
+        ['installationType', this.getInstallationLabel(product.installType)],
+        ['inverterTechnology', this.t(product.isInverter ? 'inverter' : 'onOff')],
+        ['recommendedArea', this.withUnit(product.area, 'м²')],
+        ['availability', this.getAvailability()]
+      ];
+    }
+
+    if (product.category === 'pools') {
+      return [
+        ['brand', product.brand],
+        ['series', details.series],
+        ['model', details.model],
+        ['mountType', this.getMountLabel(product.mountType)],
+        ['chassis', product.hasChassis ? this.t('chassisYes') : this.t('chassisNo')],
+        ['availability', this.getAvailability()],
+        ['warranty', details.warrantyYears != null ? `${details.warrantyYears} ${this.t('years')}` : null]
+      ];
+    }
+
+    return [
+      ['brand', details.brand],
+      ['model', details.model],
+      ['equipmentType', details.type_i18n?.[i18n.currentLang] || details.type_i18n?.ru],
+      ['recommendedArea', this.withUnit(product.area, 'м²')],
+      ['availability', this.getAvailability()],
+      ['warranty', details.warrantyYears != null ? `${details.warrantyYears} ${this.t('years')}` : null]
+    ];
+  }
+
+  getDetailSections() {
+    const product = this.product;
+    const details = product.details;
+
+    if (product.category === 'conditioning') {
+      return [
+        [this.t('operationAndClimate'), [
           ['minimumHeatingTemp', product.heatingTemp != null ? `${this.t('upTo')} ${product.heatingTemp} °C` : null],
           ['minimumCoolingTemp', details.coolingMinTemp != null ? `${this.t('upTo')} ${details.coolingMinTemp} °C` : null],
           ['maximumOperatingTemp', details.maxOperatingTemp != null ? `${this.t('upTo')} +${details.maxOperatingTemp} °C` : null],
           ['refrigerant', details.refrigerant]
-        ])}
-        ${this.detailBlock(this.t('controlAndSmartFeatures'), [
+        ]],
+        [this.t('controlAndSmartFeatures'), [
           ['wifiControl', this.getWifiLabel(details.wifiMode || (product.hasWifi ? 'builtIn' : 'none'))],
           ['smartHome', product.hasSmartHome || details.smartHomeMode === 'alica' ? this.t('smartHomeYes') : this.t('no')],
           ['remoteControl', details.remoteControl ? this.t('yes') : this.t('no')],
@@ -169,89 +201,80 @@ class ProductPage {
             ? `${details.indoorNoiseMin} / ${details.indoorNoiseMax} дБ`
             : null],
           ['outdoorNoise', this.withUnit(details.outdoorNoise, 'дБ')]
-        ])}
-        ${this.detailBlock(this.t('electricalDetails'), [
+        ]],
+        [this.t('electricalDetails'), [
           ['maxPower', this.withUnit(product.maxPower, 'кВт')],
           ['coolingPower', this.withUnit(product.coolingPower, 'кВт')],
           ['heatingPower', this.withUnit(product.heatingPower, 'кВт')],
           ['powerSupply', details.powerSupply],
           ['nominalCurrent', this.withUnit(details.nominalCurrent, 'А')]
-        ])}
-        ${this.detailBlock(this.t('designAndDimensions'), [
+        ]],
+        [this.t('designAndDimensions'), [
           ['color', this.getColorLabel(product.color)],
           ['width', this.withUnit(details.width, 'см')],
           ['height', this.withUnit(details.height, 'см')],
           ['depth', this.withUnit(details.depth, 'см')],
           ['netWeight', this.withUnit(details.netWeight, 'кг')],
           ['grossWeight', this.withUnit(details.grossWeight, 'кг')]
-        ])}
-      </div>
-    `;
-    this.initGallery(name);
-    this.bindOrderButton();
-  }
+        ]]
+      ];
+    }
 
-  renderPoolProduct() {
-    const product = this.product;
-    const details = product.details;
-    const name = product.name_i18n[i18n.currentLang] || product.name_i18n.ru;
-
-    document.title = `${name} — Pascal Vent`;
-    this.elements.content.innerHTML = `
-      <a class="product-page__back" href="category.html?category=pools">← ${this.t('backToCatalog')}</a>
-      <div class="product-page__hero">
-        <div class="product-page__image-wrap" data-product-gallery></div>
-        <div class="product-page__overview">
-          <h1 class="product-page__title">${this.escapeHtml(name)}</h1>
-          <section class="product-page__detail-card">
-            <h2 class="product-page__detail-title">${this.t('mainParameters')}</h2>
-            <ul class="product-page__summary">
-              ${this.summaryItem('brand', product.brand)}
-              ${this.summaryItem('series', details.series)}
-              ${this.summaryItem('model', details.model)}
-              ${this.summaryItem('mountType', this.getMountLabel(product.mountType))}
-              ${this.summaryItem('chassis', product.hasChassis ? this.t('chassisYes') : this.t('chassisNo'))}
-              ${this.summaryItem('availability', this.getAvailability())}
-              ${this.summaryItem('warranty', details.warrantyYears != null ? `${details.warrantyYears} ${this.t('years')}` : null)}
-            </ul>
-          </section>
-          <div class="product-page__purchase">
-            <span class="product-page__price">${this.formatPrice(product.price)}</span>
-            ${this.getOrderButtonHtml()}
-          </div>
-        </div>
-      </div>
-      <div class="product-page__details">
-        ${this.detailBlock(this.t('dehumidificationPerformance'), [
+    if (product.category === 'pools') {
+      return [
+        [this.t('dehumidificationPerformance'), [
           ['moistureRemoval', this.withUnit(product.moistureRemoval, 'л/сутки')],
           ['airflow', this.withUnit(product.performance, 'м³/час')]
-        ])}
-        ${this.detailBlock(this.t('electricityAndSafety'), [
+        ]],
+        [this.t('electricityAndSafety'), [
           ['powerSupply', product.powerType != null ? `${product.powerType} В` : null],
           ['protectionClass', details.protectionClass]
-        ])}
-        ${this.detailBlock(this.t('condensateAndConstruction'), [
+        ]],
+        [this.t('condensateAndConstruction'), [
           ['drainPump', product.hasDrainPump ? this.t('yes') : this.t('no')],
           ['noiseLevel', this.withUnit(product.noiseLevel, 'дБ')]
-        ])}
-        ${this.detailBlock(this.t('dimensionsAndWeight'), [
+        ]],
+        [this.t('dimensionsAndWeight'), [
           ['width', this.withUnit(details.width, 'см')],
           ['height', this.withUnit(details.height, 'см')],
           ['depth', this.withUnit(details.depth, 'см')],
           ['netWeight', this.withUnit(details.netWeight, 'кг')],
           ['grossWeight', this.withUnit(details.grossWeight, 'кг')]
-        ])}
-      </div>
-    `;
-    this.initGallery(name);
-    this.bindOrderButton();
+        ]]
+      ];
+    }
+
+    return [
+      [this.t('performanceAndEfficiency'), [
+        ['maximumAirflow', this.withUnit(product.performance, 'м³/час')],
+        ['maximumStaticPressure', this.withUnit(details.staticPressure, 'Па')],
+        ['recuperatorType', this.getRecuperatorLabel(product.recuperatorType)],
+        ['recoveryEfficiency', details.recoveryEfficiency ? `${this.t('upTo')} ${details.recoveryEfficiency}%` : null],
+        ['noiseLevel', this.withUnit(details.noiseLevel, 'дБ')]
+      ]],
+      [this.t('electricalParameters'), [
+        ['maxPower', this.withUnit(product.maxPower, 'кВт')],
+        ['heaterPower', this.withUnit(details.heaterPower, 'кВт')],
+        ['powerSupply', details.powerSupply],
+        ['nominalCurrent', this.withUnit(details.nominalCurrent, 'А')]
+      ]],
+      [this.t('material'), [
+        ['bodyMaterial', details.bodyMaterial ? this.t(details.bodyMaterial) : null]
+      ]],
+      [this.t('dimensionsAndWeight'), [
+        ['width', this.withUnit(details.width, 'см')],
+        ['height', this.withUnit(details.height, 'см')],
+        ['depth', this.withUnit(details.depth, 'см')],
+        ['netWeight', this.withUnit(details.netWeight, 'кг')],
+        ['packageDimensions', details.packageDimensions],
+        ['grossWeight', this.withUnit(details.grossWeight, 'кг')]
+      ]]
+    ];
   }
 
   initGallery(alt) {
-    const container = this.elements.content.querySelector('[data-product-gallery]');
     const images = (this.product.images || []).map((src) => `../${src}`);
-
-    createImageSlider(container, images, alt);
+    createImageSlider(this.refs.gallery, images, alt);
   }
 
   getAvailability() {
@@ -302,7 +325,7 @@ class ProductPage {
   }
 
   bindOrderButton() {
-    const orderButton = this.elements.content.querySelector('[data-action="create-order"]');
+    const orderButton = this.refs?.purchase?.querySelector('[data-action="create-order"]');
 
     if (!orderButton) {
       return;
@@ -321,22 +344,14 @@ class ProductPage {
     });
   }
 
-  getOrderButtonHtml() {
-    if (isAdmin()) {
-      return '';
-    }
-
-    return `<button class="product-page__order" type="button" data-action="create-order">${this.t('order')}</button>`;
-  }
-
   summaryItem(key, value) {
     return `
       <li class="product-page__summary-item">
         <span class="product-page__spec-label">
-          ${this.escapeHtml(this.t(key))}
+          ${this.t(key)}
           ${renderSpecTooltipTrigger(key, i18n.currentLang)}
         </span>
-        <strong>${this.escapeHtml(this.formatValue(value))}</strong>
+        <strong>${this.formatValue(value)}</strong>
       </li>
     `;
   }
@@ -344,17 +359,17 @@ class ProductPage {
   detailBlock(title, rows) {
     return `
       <section class="product-page__detail-card">
-        <h2 class="product-page__detail-title">${this.escapeHtml(title)}</h2>
+        <h2 class="product-page__detail-title">${title}</h2>
         <dl class="product-page__detail-list">
           ${rows.map(([key, value]) => `
             <div class="product-page__detail-row">
               <dt>
                 <span class="product-page__spec-label">
-                  ${this.escapeHtml(this.t(key))}
+                  ${this.t(key)}
                   ${renderSpecTooltipTrigger(key, i18n.currentLang)}
                 </span>
               </dt>
-              <dd>${this.escapeHtml(this.formatValue(value))}</dd>
+              <dd>${this.formatValue(value)}</dd>
             </div>
           `).join('')}
         </dl>
@@ -401,15 +416,6 @@ class ProductPage {
 
   formatPrice(price) {
     return `${new Intl.NumberFormat(i18n.currentLang).format(price)} ${i18n.t('common.currency')}`;
-  }
-
-  escapeHtml(value) {
-    return String(value ?? '')
-      .replaceAll('&', '&amp;')
-      .replaceAll('<', '&lt;')
-      .replaceAll('>', '&gt;')
-      .replaceAll('"', '&quot;')
-      .replaceAll("'", '&#039;');
   }
 }
 

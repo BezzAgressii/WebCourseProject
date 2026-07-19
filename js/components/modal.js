@@ -41,14 +41,6 @@ function focusWithoutScroll(element) {
   }
 }
 
-function escapeHtml(value) {
-  return String(value ?? '')
-    .replaceAll('&', '&amp;')
-    .replaceAll('<', '&lt;')
-    .replaceAll('>', '&gt;')
-    .replaceAll('"', '&quot;');
-}
-
 class Modal {
   #root = null;
   #onKeyDown = null;
@@ -317,31 +309,31 @@ class Modal {
 
   #renderAlertShell(root, options) {
     const type = options.type || 'info';
-    const title = escapeHtml(options.title || '');
-    const message = escapeHtml(options.message || '');
-    const closeLabel = escapeHtml(options.closeLabel || i18n.t('common.close') || 'OK');
-    const actionLabel = escapeHtml(options.actionLabel || 'OK');
-    const confirmLabel = escapeHtml(options.confirmLabel || actionLabel);
-    const cancelLabel = escapeHtml(options.cancelLabel || closeLabel);
+    const title = options.title || '';
+    const message = options.message || '';
+    const closeLabel = options.closeLabel || i18n.t('common.close') || 'OK';
+    const actionLabel = options.actionLabel || 'OK';
+    const confirmLabel = options.confirmLabel || actionLabel;
+    const cancelLabel = options.cancelLabel || closeLabel;
 
-    let actions;
+    let actionsHtml;
 
     if (typeof options.onConfirm === 'function') {
-      actions = `
+      actionsHtml = `
         <div class="auth-modal__actions">
-          <button class="auth-modal__button" type="button" data-action="confirm">${confirmLabel}</button>
-          <button class="auth-modal__button auth-modal__button--ghost" type="button" data-action="close">${cancelLabel}</button>
+          <button class="auth-modal__button" type="button" data-action="confirm" data-label="confirm"></button>
+          <button class="auth-modal__button auth-modal__button--ghost" type="button" data-action="close" data-label="cancel"></button>
         </div>
       `;
     } else if (options.actionHref) {
-      actions = `
+      actionsHtml = `
         <div class="auth-modal__actions">
-          <a class="auth-modal__button" href="${escapeHtml(options.actionHref)}">${actionLabel}</a>
-          <button class="auth-modal__button auth-modal__button--ghost" type="button" data-action="close">${closeLabel}</button>
+          <a class="auth-modal__button" data-action-link data-label="action"></a>
+          <button class="auth-modal__button auth-modal__button--ghost" type="button" data-action="close" data-label="close"></button>
         </div>
       `;
     } else {
-      actions = `<button class="auth-modal__button" type="button" data-action="close">${closeLabel}</button>`;
+      actionsHtml = `<button class="auth-modal__button" type="button" data-action="close" data-label="close"></button>`;
     }
 
     root.className = `auth-modal auth-modal--${type}`;
@@ -351,17 +343,44 @@ class Modal {
     root.innerHTML = `
       <div class="auth-modal__backdrop" data-action="close"></div>
       <section class="auth-modal__dialog auth-modal__dialog--${type}">
-        <button class="auth-modal__close" type="button" data-action="close" aria-label="${closeLabel}">×</button>
-        <h2 class="auth-modal__title" id="app-modal-title">${title}</h2>
-        <p class="auth-modal__message">${message}</p>
-        ${actions}
+        <button class="auth-modal__close" type="button" data-action="close" data-label="close-icon">×</button>
+        <h2 class="auth-modal__title" id="app-modal-title"></h2>
+        <p class="auth-modal__message"></p>
+        ${actionsHtml}
       </section>
     `;
+
+    root.querySelector('.auth-modal__title').textContent = title;
+    root.querySelector('.auth-modal__message').textContent = message;
+
+    const closeIcon = root.querySelector('[data-label="close-icon"]');
+    closeIcon.setAttribute('aria-label', closeLabel);
+
+    const confirmBtn = root.querySelector('[data-label="confirm"]');
+    const cancelBtn = root.querySelector('[data-label="cancel"]');
+    const closeBtn = root.querySelector('[data-label="close"]');
+    const actionLink = root.querySelector('[data-action-link]');
+
+    if (confirmBtn) {
+      confirmBtn.textContent = confirmLabel;
+    }
+
+    if (cancelBtn) {
+      cancelBtn.textContent = cancelLabel;
+    }
+
+    if (closeBtn) {
+      closeBtn.textContent = closeLabel;
+    }
+
+    if (actionLink) {
+      actionLink.href = options.actionHref;
+      actionLink.textContent = actionLabel;
+    }
   }
 
   #renderPvShell(root, content, options) {
     const type = options.type || 'dialog';
-    const titleHtml = options.titleHtml || escapeHtml(options.title || '');
     const bodyHtml = content instanceof Node
       ? ''
       : (content || options.body || options.bodyHtml || '');
@@ -373,14 +392,25 @@ class Modal {
     root.innerHTML = `
       <div class="pv-modal__backdrop" data-action="close"></div>
       <section class="pv-modal__dialog">
-        <button class="pv-modal__close" type="button" data-action="close" aria-label="${escapeHtml(i18n.t('common.close'))}">×</button>
+        <button class="pv-modal__close" type="button" data-action="close" aria-label="">×</button>
         <header class="pv-modal__header">
-          <h2 class="pv-modal__title">${titleHtml}</h2>
+          <h2 class="pv-modal__title"></h2>
         </header>
         <div class="pv-modal__body" data-modal-body></div>
         ${footerHtml}
       </section>
     `;
+
+    const closeButton = root.querySelector('.pv-modal__close');
+    const titleEl = root.querySelector('.pv-modal__title');
+
+    closeButton.setAttribute('aria-label', i18n.t('common.close'));
+
+    if (options.titleHtml) {
+      titleEl.innerHTML = options.titleHtml;
+    } else {
+      titleEl.textContent = options.title || '';
+    }
 
     const body = root.querySelector('[data-modal-body]');
 
@@ -398,10 +428,12 @@ class Modal {
     root.innerHTML = `
       <div class="auth-modal__backdrop" data-action="close"></div>
       <section class="auth-modal__dialog">
-        <button class="auth-modal__close" type="button" data-action="close" aria-label="${escapeHtml(i18n.t('common.close'))}">×</button>
+        <button class="auth-modal__close" type="button" data-action="close" aria-label="">×</button>
         <div data-modal-body></div>
       </section>
     `;
+
+    root.querySelector('.auth-modal__close').setAttribute('aria-label', i18n.t('common.close'));
 
     const body = root.querySelector('[data-modal-body]');
 

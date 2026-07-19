@@ -79,14 +79,6 @@ class ProfilePage {
     }).format(new Date(value));
   }
 
-  escapeHtml(value) {
-    return String(value ?? '')
-      .replaceAll('&', '&amp;')
-      .replaceAll('<', '&lt;')
-      .replaceAll('>', '&gt;')
-      .replaceAll('"', '&quot;');
-  }
-
   statusLabel(status) {
     return i18n.t(`profile.status.${status}`) || status;
   }
@@ -135,20 +127,20 @@ class ProfilePage {
     this.elements.orders.innerHTML = this.orders.map((order) => {
       const itemsHtml = (order.items || []).map((item) => {
         const name = item.name_i18n?.[i18n.currentLang] || item.name || item.productId;
-        return `<li>${this.escapeHtml(name)} × ${item.quantity}</li>`;
+        return `<li>${name} × ${item.quantity}</li>`;
       }).join('');
 
       return `
         <article class="profile-order">
           <div class="profile-order__head">
             <div>
-              <h3 class="profile-order__id">${this.escapeHtml(i18n.t('profile.order'))} ${this.escapeHtml(order.id)}</h3>
-              <p class="profile-order__date">${this.escapeHtml(this.formatDate(order.createdAt))}</p>
+              <h3 class="profile-order__id">${i18n.t('profile.order')} ${order.id}</h3>
+              <p class="profile-order__date">${this.formatDate(order.createdAt)}</p>
             </div>
-            <span class="profile-order__status profile-order__status--${this.escapeHtml(order.status)}">${this.escapeHtml(this.statusLabel(order.status))}</span>
+            <span class="profile-order__status profile-order__status--${order.status}">${this.statusLabel(order.status)}</span>
           </div>
           <ul class="profile-order__items">${itemsHtml}</ul>
-          <p class="profile-order__total">${this.escapeHtml(i18n.t('profile.orderTotal'))}: ${this.formatPrice(order.total)}</p>
+          <p class="profile-order__total">${i18n.t('profile.orderTotal')}: ${this.formatPrice(order.total)}</p>
         </article>
       `;
     }).join('');

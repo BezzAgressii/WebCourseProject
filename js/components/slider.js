@@ -108,16 +108,11 @@ export function createImageSlider(container, images, alt) {
   let index = 0;
   const hasMultipleImages = images.length > 1;
   const total = images.length;
-  const escapedAlt = String(alt || '')
-    .replaceAll('&', '&amp;')
-    .replaceAll('<', '&lt;')
-    .replaceAll('>', '&gt;')
-    .replaceAll('"', '&quot;');
 
   container.innerHTML = `
     <div class="image-slider${hasMultipleImages ? ' image-slider--multiple' : ''}">
       <div class="image-slider__stage">
-        <img class="image-slider__image" src="${images[0]}" alt="${escapedAlt}">
+        <img class="image-slider__image" src="${images[0]}" alt="">
         ${hasMultipleImages ? `
           <button class="image-slider__button image-slider__button--prev" type="button" aria-label="Предыдущее изображение">‹</button>
           <button class="image-slider__button image-slider__button--next" type="button" aria-label="Следующее изображение">›</button>
@@ -156,6 +151,8 @@ export function createImageSlider(container, images, alt) {
   const thumbsPrev = container.querySelector('.image-slider__thumbs-nav--prev');
   const thumbsNext = container.querySelector('.image-slider__thumbs-nav--next');
   const thumbsWrap = container.querySelector('.image-slider__thumbs');
+
+  image.alt = String(alt || '');
 
   if (!hasMultipleImages) {
     return;

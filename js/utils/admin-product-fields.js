@@ -2,9 +2,9 @@ import FILTER_CONFIG from './filter-config.js';
 
 export const SUBCATEGORIES = {
   ventilation: [
-    { value: 'supply-exhaust', label: 'Приточно-вытяжные установки' },
-    { value: 'high-filtration', label: 'Системы высокой фильтрации' },
-    { value: 'humidifiers', label: 'Увлажнители' }
+    { value: 'supply', label: 'Приточные установки' },
+    { value: 'exhaust', label: 'Вытяжные системы' },
+    { value: 'supply-exhaust', label: 'Приточно-вытяжные (с рекуперацией)' }
   ],
   conditioning: [
     { value: 'nastennye', label: 'Настенные' },

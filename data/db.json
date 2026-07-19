@@ -171,12 +171,12 @@
     {
       "id": 4,
       "name_i18n": {
-        "ru": "Установка высокой фильтрации PureAir 600",
-        "be": "Устаноўка высокай фільтрацыі PureAir 600",
-        "en": "PureAir 600 high-filtration unit"
+        "ru": "Приточная установка PureAir 600",
+        "be": "Прытокавая ўстаноўка PureAir 600",
+        "en": "PureAir 600 supply unit"
       },
       "category": "ventilation",
-      "subcategory": "high-filtration",
+      "subcategory": "supply",
       "price": 5480,
       "specs": [
         "600 м³/ч",
@@ -186,9 +186,9 @@
       "performance": 600,
       "area": 85,
       "maxPower": 1.5,
-      "equipmentType": "filtration",
-      "winterTemp": null,
-      "heaterType": null,
+      "equipmentType": "compact",
+      "winterTemp": -25,
+      "heaterType": "electric",
       "recuperatorType": null,
       "powerType": "220",
       "bodyMaterial": "galvanized-steel",
@@ -196,9 +196,9 @@
         "brand": "PureAir",
         "model": "PureAir 600 H13",
         "type_i18n": {
-          "ru": "Приточная установка высокой фильтрации",
-          "be": "Прытокавая ўстаноўка высокай фільтрацыі",
-          "en": "High-filtration supply air unit"
+          "ru": "Приточная установка",
+          "be": "Прытокавая ўстаноўка",
+          "en": "Supply air unit"
         },
         "staticPressure": 360,
         "recoveryEfficiency": 0,
@@ -225,12 +225,12 @@
     {
       "id": 5,
       "name_i18n": {
-        "ru": "Установка высокой фильтрации CleanBox 900",
-        "be": "Устаноўка высокай фільтрацыі CleanBox 900",
-        "en": "CleanBox 900 high-filtration unit"
+        "ru": "Приточная установка CleanBox 900",
+        "be": "Прытокавая ўстаноўка CleanBox 900",
+        "en": "CleanBox 900 supply unit"
       },
       "category": "ventilation",
-      "subcategory": "high-filtration",
+      "subcategory": "supply",
       "price": 7120,
       "specs": [
         "900 м³/ч",
@@ -240,9 +240,9 @@
       "performance": 900,
       "area": 120,
       "maxPower": 2.1,
-      "equipmentType": "filtration",
-      "winterTemp": null,
-      "heaterType": null,
+      "equipmentType": "central",
+      "winterTemp": -32,
+      "heaterType": "electric",
       "recuperatorType": null,
       "powerType": "380",
       "bodyMaterial": "galvanized-steel",
@@ -250,9 +250,9 @@
         "brand": "CleanBox",
         "model": "CleanBox 900 Pro",
         "type_i18n": {
-          "ru": "Приточная установка высокой фильтрации",
-          "be": "Прытокавая ўстаноўка высокай фільтрацыі",
-          "en": "High-filtration supply air unit"
+          "ru": "Приточная установка",
+          "be": "Прытокавая ўстаноўка",
+          "en": "Supply air unit"
         },
         "staticPressure": 480,
         "recoveryEfficiency": 0,
@@ -278,34 +278,34 @@
     {
       "id": 6,
       "name_i18n": {
-        "ru": "Канальный увлажнитель HumidAir 300",
-        "be": "Канальны ўвільгатняльнік HumidAir 300",
-        "en": "HumidAir 300 duct humidifier"
+        "ru": "Вытяжная система ExhaustAir 300",
+        "be": "Выцяжная сістэма ExhaustAir 300",
+        "en": "ExhaustAir 300 exhaust system"
       },
       "category": "ventilation",
-      "subcategory": "humidifiers",
+      "subcategory": "exhaust",
       "price": 2960,
       "specs": [
         "300 м³/ч",
         "до 45 м²",
-        "Ультразвуковое увлажнение"
+        "Тихая вытяжка"
       ],
       "performance": 300,
       "area": 45,
       "maxPower": 0.6,
-      "equipmentType": "humidifier",
+      "equipmentType": "compact",
       "winterTemp": null,
       "heaterType": null,
       "recuperatorType": null,
       "powerType": "220",
       "bodyMaterial": "polypropylene",
       "details": {
-        "brand": "HumidAir",
-        "model": "HumidAir 300 Ultra",
+        "brand": "ExhaustAir",
+        "model": "ExhaustAir 300 Quiet",
         "type_i18n": {
-          "ru": "Канальный ультразвуковой увлажнитель",
-          "be": "Канальны ультрагукавы ўвільгатняльнік",
-          "en": "Ducted ultrasonic humidifier"
+          "ru": "Вытяжная вентиляционная система",
+          "be": "Выцяжная вентыляцыйная сістэма",
+          "en": "Exhaust ventilation system"
         },
         "staticPressure": 180,
         "recoveryEfficiency": 0,
@@ -330,45 +330,45 @@
         "assets/images/download/6-1784450272055-6tvw55qf9ydqwt91v0otoanxuolv4tn0.webp",
         "assets/images/download/6-1784450272056-yzf64la5rnhz4b0kjr7tifu9lgk0e6t5.webp"
       ],
-      "brand": "HumidAir"
+      "brand": "ExhaustAir"
     },
     {
       "id": 7,
       "name_i18n": {
-        "ru": "Канальный увлажнитель MistFlow 550",
-        "be": "Канальны ўвільгатняльнік MistFlow 550",
-        "en": "MistFlow 550 duct humidifier"
+        "ru": "Вытяжная система VentOut 550",
+        "be": "Выцяжная сістэма VentOut 550",
+        "en": "VentOut 550 exhaust system"
       },
       "category": "ventilation",
-      "subcategory": "humidifiers",
+      "subcategory": "exhaust",
       "price": 3840,
       "specs": [
         "550 м³/ч",
         "до 80 м²",
-        "Паровое увлажнение"
+        "Канальная вытяжка"
       ],
       "performance": 550,
       "area": 80,
       "maxPower": 1.2,
-      "equipmentType": "humidifier",
+      "equipmentType": "central",
       "winterTemp": null,
       "heaterType": null,
       "recuperatorType": null,
       "powerType": "220",
       "bodyMaterial": "galvanized-steel",
       "details": {
-        "brand": "MistFlow",
-        "model": "MistFlow 550 Steam",
+        "brand": "VentOut",
+        "model": "VentOut 550 Duct",
         "type_i18n": {
-          "ru": "Канальный паровой увлажнитель",
-          "be": "Канальны паравы ўвільгатняльнік",
-          "en": "Ducted steam humidifier"
+          "ru": "Канальная вытяжная система",
+          "be": "Канальная выцяжная сістэма",
+          "en": "Ducted exhaust system"
         },
         "staticPressure": 220,
         "recoveryEfficiency": 0,
         "noiseLevel": 34,
         "warrantyYears": 2,
-        "heaterPower": 1.1,
+        "heaterPower": 0,
         "powerSupply": "220–240 В (1 фаза)",
         "nominalCurrent": 5,
         "bodyMaterial": "galvanizedSteel",
@@ -385,7 +385,7 @@
         "assets/images/download/7-1784450350705-5ga82e2jh5x14s1qj6zpnv64o2tm7jgc.webp",
         "assets/images/download/7-1784450350722-020k4czcnxpyi0z3upch3qtx9y8rkwdr.webp"
       ],
-      "brand": "MistFlow"
+      "brand": "VentOut"
     },
     {
       "id": 8,

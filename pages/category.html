@@ -16,6 +16,7 @@
   <link rel="stylesheet" href="../css/main.css">
   <link rel="stylesheet" href="../css/cta-form.css">
   <link rel="stylesheet" href="../css/category.css">
+  <link rel="stylesheet" href="../css/spec-tooltip.css">
   <link rel="stylesheet" href="../css/auth.css">
   <link rel="stylesheet" href="../css/footer.css">
   <link rel="stylesheet" href="../css/theme.css">
@@ -112,11 +113,28 @@
     <section class="category-page" aria-labelledby="page-title">
       <div class="category-page__inner">
         <nav class="category-page__breadcrumbs" data-i18n-aria="category.breadcrumbsAria" aria-label="Хлебные крошки">
-          <a href="../index.html" data-i18n="category.home">Главная</a>
-          <span aria-hidden="true">/</span>
-          <a href="catalog.html" data-i18n="header.catalog">Каталог</a>
-          <span aria-hidden="true">/</span>
-          <span id="breadcrumb-current"></span>
+          <ol class="category-page__breadcrumb-list">
+            <li class="category-page__breadcrumb-item">
+              <a class="category-page__breadcrumb-link" href="../index.html">
+                <svg class="category-page__breadcrumb-home" width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M4 10.5 12 4l8 6.5V20a1 1 0 0 1-1 1h-5.5v-6h-3v6H5a1 1 0 0 1-1-1v-9.5Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
+                </svg>
+                <span data-i18n="category.home">Главная</span>
+              </a>
+            </li>
+            <li class="category-page__breadcrumb-item">
+              <svg class="category-page__breadcrumb-sep" width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              <a class="category-page__breadcrumb-link" href="catalog.html" data-i18n="header.catalog">Каталог</a>
+            </li>
+            <li class="category-page__breadcrumb-item">
+              <svg class="category-page__breadcrumb-sep" width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              <span class="category-page__breadcrumb-current" id="breadcrumb-current" aria-current="page"></span>
+            </li>
+          </ol>
         </nav>
         <h1 class="category-page__title" id="page-title"></h1>
         <div class="category-page__layout">
@@ -180,6 +198,13 @@
                 </select>
               </label>
             </div>
+            <div
+              class="category-page__active-filters"
+              id="active-filters"
+              data-i18n-aria="category.activeFiltersAria"
+              aria-label="Выбранные фильтры"
+              hidden
+            ></div>
             <div class="products-grid" id="products-grid" aria-live="polite"></div>
             <nav class="category-page__pagination" id="pagination" aria-label="Пагинация"></nav>
           </section>

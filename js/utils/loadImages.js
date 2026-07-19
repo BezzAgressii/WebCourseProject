@@ -105,9 +105,9 @@ export class ImageUploader {
 
       return `
         <article class="image-uploader__item">
-          <img class="image-uploader__preview" src="${url}" alt="${this.escapeHtml(file.name)}">
+          <img class="image-uploader__preview" src="${url}" alt="${file.name}">
           <button class="image-uploader__remove" type="button" data-remove-image="${index}" aria-label="Удалить изображение">×</button>
-          <p class="image-uploader__name">${this.escapeHtml(file.name)}</p>
+          <p class="image-uploader__name">${file.name}</p>
         </article>
       `;
     }).join('');
@@ -126,14 +126,6 @@ export class ImageUploader {
   revokeObjectUrls() {
     this.objectUrls.forEach((url) => URL.revokeObjectURL(url));
     this.objectUrls = [];
-  }
-
-  escapeHtml(value) {
-    return String(value ?? '')
-      .replaceAll('&', '&amp;')
-      .replaceAll('<', '&lt;')
-      .replaceAll('>', '&gt;')
-      .replaceAll('"', '&quot;');
   }
 }
 

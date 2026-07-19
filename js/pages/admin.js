@@ -165,7 +165,7 @@ class AdminPage {
       this.products = await api.getProducts();
       this.renderProducts();
     } catch (error) {
-      this.elements.tableBody.innerHTML = `<tr><td colspan="5"><p class="admin-empty">${this.escapeHtml(error.message)}</p></td></tr>`;
+      this.elements.tableBody.innerHTML = `<tr><td colspan="5"><p class="admin-empty">${error.message}</p></td></tr>`;
     }
   }
 
@@ -181,7 +181,7 @@ class AdminPage {
       this.renderOrders();
     } catch (error) {
       this.elements.ordersCount.textContent = 'Всего заказов: 0';
-      this.elements.ordersBody.innerHTML = `<tr><td colspan="5"><p class="admin-empty">${this.escapeHtml(error.message || 'Не удалось загрузить заказы')}</p></td></tr>`;
+      this.elements.ordersBody.innerHTML = `<tr><td colspan="5"><p class="admin-empty">${error.message || 'Не удалось загрузить заказы'}</p></td></tr>`;
     }
   }
 
@@ -195,7 +195,7 @@ class AdminPage {
       this.renderCallbacks();
     } catch (error) {
       this.elements.callbacksCount.textContent = 'Всего заявок: 0';
-      this.elements.callbacksBody.innerHTML = `<tr><td colspan="5"><p class="admin-empty">${this.escapeHtml(error.message || 'Не удалось загрузить заявки')}</p></td></tr>`;
+      this.elements.callbacksBody.innerHTML = `<tr><td colspan="5"><p class="admin-empty">${error.message || 'Не удалось загрузить заявки'}</p></td></tr>`;
     }
   }
 
@@ -283,21 +283,21 @@ class AdminPage {
       const itemsHtml = items.length
         ? items.map((item) => {
           const name = item.name_i18n?.ru || item.name || item.productId;
-          return `<li>${this.escapeHtml(name)} × ${this.escapeHtml(item.quantity)}</li>`;
+          return `<li>${name} × ${item.quantity}</li>`;
         }).join('')
         : '<li>Нет товаров</li>';
 
       return `
         <tr>
           <td>
-            <div class="admin-table__name">${this.escapeHtml(customer.name)}</div>
-            <div class="admin-table__meta">${this.escapeHtml(customer.contact)}</div>
+            <div class="admin-table__name">${customer.name}</div>
+            <div class="admin-table__meta">${customer.contact}</div>
           </td>
-          <td class="admin-table__date">${this.escapeHtml(this.formatDate(order.createdAt))}</td>
+          <td class="admin-table__date">${this.formatDate(order.createdAt)}</td>
           <td><ul class="admin-order-items">${itemsHtml}</ul></td>
           <td><span class="admin-table__price">${this.formatPrice(order.total)}</span></td>
           <td>
-            <select class="admin-order-status" data-order-status data-order-id="${this.escapeHtml(order.id)}" aria-label="Статус заказа ${this.escapeHtml(order.id)}">
+            <select class="admin-order-status" data-order-status data-order-id="${order.id}" aria-label="Статус заказа ${order.id}">
               ${this.renderStatusOptions(order.status)}
             </select>
           </td>
@@ -339,26 +339,26 @@ class AdminPage {
         : (isGuest ? 'Без аккаунта' : `ID ${callback.userId}`);
       const objectType = String(callback.objectType || '').trim();
       const objectTypeCell = objectType
-        ? `<span class="admin-badge admin-badge--object">${this.escapeHtml(objectType)}</span>`
+        ? `<span class="admin-badge admin-badge--object">${objectType}</span>`
         : '<span class="admin-table__muted">Не указан</span>';
 
       return `
         <tr>
           <td>
-            <div class="admin-table__name">${this.escapeHtml(callback.name)}</div>
-            <div class="admin-table__meta">${this.escapeHtml(userMeta)}</div>
+            <div class="admin-table__name">${callback.name}</div>
+            <div class="admin-table__meta">${userMeta}</div>
             <div class="admin-table__badges">
               <span class="admin-badge ${accountClass}">${accountLabel}</span>
             </div>
           </td>
-          <td><a class="admin-table__phone" href="tel:${this.escapeHtml(String(callback.phone).replace(/[^\d+]/g, ''))}">${this.escapeHtml(callback.phone)}</a></td>
+          <td><a class="admin-table__phone" href="tel:${String(callback.phone).replace(/[^\d+]/g, '')}">${callback.phone}</a></td>
           <td>${objectTypeCell}</td>
           <td>
-            <select class="admin-callback-status admin-callback-status--${status}" data-callback-status data-callback-id="${this.escapeHtml(callback.id)}" aria-label="Статус заявки">
+            <select class="admin-callback-status admin-callback-status--${status}" data-callback-status data-callback-id="${callback.id}" aria-label="Статус заявки">
               ${this.renderCallbackStatusOptions(status)}
             </select>
           </td>
-          <td class="admin-table__date">${this.escapeHtml(this.formatDate(callback.createdAt))}</td>
+          <td class="admin-table__date">${this.formatDate(callback.createdAt)}</td>
         </tr>
       `;
     }).join('');
@@ -475,23 +475,23 @@ class AdminPage {
         <tr>
           <td>
             <div class="admin-table__product">
-              <img class="admin-table__image" src="${this.escapeHtml(image)}" alt="">
+              <img class="admin-table__image" src="${image}" alt="">
               <div>
-                <div class="admin-table__name">${this.escapeHtml(name)}</div>
-                <div class="admin-table__meta">${this.escapeHtml(product.id)}</div>
+                <div class="admin-table__name">${name}</div>
+                <div class="admin-table__meta">${product.id}</div>
               </div>
             </div>
           </td>
           <td>
-            <div>${this.escapeHtml(CATEGORY_LABELS[product.category] || product.category)}</div>
-            <div class="admin-table__meta">${this.escapeHtml(product.subcategory || '—')}</div>
+            <div>${CATEGORY_LABELS[product.category] || product.category}</div>
+            <div class="admin-table__meta">${product.subcategory || '—'}</div>
           </td>
           <td>${this.formatPrice(product.price)}</td>
           <td><span class="admin-table__stock${stockClass}">${stockText}</span></td>
           <td>
             <div class="admin-table__actions">
-              <button class="admin-button admin-button--ghost admin-button--small" type="button" data-action="edit" data-product-id="${this.escapeHtml(product.id)}">Изменить</button>
-              <button class="admin-button admin-button--danger admin-button--small" type="button" data-action="delete" data-product-id="${this.escapeHtml(product.id)}">Удалить</button>
+              <button class="admin-button admin-button--ghost admin-button--small" type="button" data-action="edit" data-product-id="${product.id}">Изменить</button>
+              <button class="admin-button admin-button--danger admin-button--small" type="button" data-action="delete" data-product-id="${product.id}">Удалить</button>
             </div>
           </td>
         </tr>
@@ -641,7 +641,7 @@ class AdminPage {
     return `
       <label class="admin-form__field">
         <span class="admin-form__label">${field.label}</span>
-        <input class="admin-form__input" name="${field.field}" data-attr-field="${field.field}" type="text" value="${this.escapeHtml(value)}">
+        <input class="admin-form__input" name="${field.field}" data-attr-field="${field.field}" type="text" value="${value}">
         ${error}
       </label>
     `;
@@ -977,14 +977,6 @@ class AdminPage {
 
   formatPrice(price) {
     return `${new Intl.NumberFormat('ru-RU').format(price || 0)}\u00A0<span class="currency-icon" aria-hidden="true"></span>`;
-  }
-
-  escapeHtml(value) {
-    return String(value ?? '')
-      .replaceAll('&', '&amp;')
-      .replaceAll('<', '&lt;')
-      .replaceAll('>', '&gt;')
-      .replaceAll('"', '&quot;');
   }
 }
 

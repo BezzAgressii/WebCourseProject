@@ -1,99 +1,77 @@
+const VENTILATION_COMMON = [
+  { type: 'range', field: 'price', labelKey: 'category.price', min: 0, max: 15000, step: 100 },
+  { type: 'range', field: 'performance', labelKey: 'category.performance', min: 0, max: 2000, step: 50 },
+  { type: 'range', field: 'area', labelKey: 'category.area', min: 0, max: 250, step: 5 },
+  {
+    type: 'checkbox',
+    field: 'equipmentType',
+    labelKey: 'category.equipmentType',
+    options: [
+      { value: 'compact', labelKey: 'category.equipment.compact' },
+      { value: 'central', labelKey: 'category.equipment.central' }
+    ]
+  },
+  {
+    type: 'checkbox',
+    field: 'winterTemp',
+    labelKey: 'category.winterTemp',
+    options: [
+      { value: '-25', labelKey: 'category.winter.-25' },
+      { value: '-32', labelKey: 'category.winter.-32' },
+      { value: '-35', labelKey: 'category.winter.-35' },
+      { value: '-45', labelKey: 'category.winter.-45' }
+    ]
+  },
+  {
+    type: 'radio',
+    field: 'heaterType',
+    labelKey: 'category.heaterType',
+    options: [
+      { value: 'electric', labelKey: 'category.heater.electric' },
+      { value: 'liquid', labelKey: 'category.heater.liquid' }
+    ]
+  },
+  { type: 'range', field: 'maxPower', labelKey: 'category.maxPower', min: 0, max: 10, step: 0.1 },
+  {
+    type: 'checkbox',
+    field: 'powerType',
+    labelKey: 'category.powerType',
+    style: 'pills',
+    options: [
+      { value: '220', labelKey: 'category.voltage.220' },
+      { value: '380', labelKey: 'category.voltage.380' }
+    ]
+  },
+  {
+    type: 'checkbox',
+    field: 'bodyMaterial',
+    labelKey: 'category.bodyMaterial',
+    options: [
+      { value: 'galvanized-steel', labelKey: 'category.body.galvanizedSteel' },
+      { value: 'polypropylene', labelKey: 'category.body.polypropylene' }
+    ]
+  },
+  { type: 'boolean', field: 'inStock', labelKey: 'category.inStockOnly' }
+];
+
+const VENTILATION_RECUPERATOR = {
+  type: 'radio',
+  field: 'recuperatorType',
+  labelKey: 'category.recuperatorType',
+  options: [
+    { value: 'plate', labelKey: 'category.recuperator.plate' },
+    { value: 'rotary', labelKey: 'category.recuperator.rotary' }
+  ]
+};
+
 const FILTER_CONFIG = {
+  ventilation_all: [...VENTILATION_COMMON],
+  ventilation_supply: [...VENTILATION_COMMON],
+  ventilation_exhaust: [...VENTILATION_COMMON],
   'ventilation_supply-exhaust': [
-    { type: 'range', field: 'price', labelKey: 'category.price', min: 0, max: 15000, step: 100 },
-    { type: 'range', field: 'performance', labelKey: 'category.performance', min: 0, max: 2000, step: 50 },
-    { type: 'range', field: 'area', labelKey: 'category.area', min: 0, max: 250, step: 5 },
-    {
-      type: 'checkbox',
-      field: 'equipmentType',
-      labelKey: 'category.equipmentType',
-      options: [
-        { value: 'compact', labelKey: 'category.equipment.compact' },
-        { value: 'central', labelKey: 'category.equipment.central' }
-      ]
-    },
-    {
-      type: 'checkbox',
-      field: 'winterTemp',
-      labelKey: 'category.winterTemp',
-      options: [
-        { value: '-25', labelKey: 'category.winter.-25' },
-        { value: '-32', labelKey: 'category.winter.-32' },
-        { value: '-35', labelKey: 'category.winter.-35' },
-        { value: '-45', labelKey: 'category.winter.-45' }
-      ]
-    },
-    {
-      type: 'radio',
-      field: 'heaterType',
-      labelKey: 'category.heaterType',
-      options: [
-        { value: 'electric', labelKey: 'category.heater.electric' },
-        { value: 'liquid', labelKey: 'category.heater.liquid' }
-      ]
-    },
-    {
-      type: 'radio',
-      field: 'recuperatorType',
-      labelKey: 'category.recuperatorType',
-      options: [
-        { value: 'plate', labelKey: 'category.recuperator.plate' },
-        { value: 'rotary', labelKey: 'category.recuperator.rotary' }
-      ]
-    },
-    { type: 'range', field: 'maxPower', labelKey: 'category.maxPower', min: 0, max: 10, step: 0.1 },
-    {
-      type: 'checkbox',
-      field: 'powerType',
-      labelKey: 'category.powerType',
-      style: 'pills',
-      options: [
-        { value: '220', labelKey: 'category.voltage.220' },
-        { value: '380', labelKey: 'category.voltage.380' }
-      ]
-    },
-    {
-      type: 'checkbox',
-      field: 'bodyMaterial',
-      labelKey: 'category.bodyMaterial',
-      options: [
-        { value: 'galvanized-steel', labelKey: 'category.body.galvanizedSteel' },
-        { value: 'polypropylene', labelKey: 'category.body.polypropylene' }
-      ]
-    },
-    { type: 'boolean', field: 'inStock', labelKey: 'category.inStockOnly' }
-  ],
-  'ventilation_high-filtration': [
-    { type: 'range', field: 'price', labelKey: 'category.price', min: 0, max: 15000, step: 100 },
-    { type: 'range', field: 'performance', labelKey: 'category.performance', min: 0, max: 2000, step: 50 },
-    { type: 'range', field: 'area', labelKey: 'category.area', min: 0, max: 250, step: 5 },
-    { type: 'range', field: 'maxPower', labelKey: 'category.maxPower', min: 0, max: 10, step: 0.1 },
-    {
-      type: 'checkbox',
-      field: 'powerType',
-      labelKey: 'category.powerType',
-      style: 'pills',
-      options: [
-        { value: '220', labelKey: 'category.voltage.220' },
-        { value: '380', labelKey: 'category.voltage.380' }
-      ]
-    }
-  ],
-  'ventilation_humidifiers': [
-    { type: 'range', field: 'price', labelKey: 'category.price', min: 0, max: 15000, step: 100 },
-    { type: 'range', field: 'performance', labelKey: 'category.performance', min: 0, max: 2000, step: 50 },
-    { type: 'range', field: 'area', labelKey: 'category.area', min: 0, max: 250, step: 5 },
-    { type: 'range', field: 'maxPower', labelKey: 'category.maxPower', min: 0, max: 10, step: 0.1 },
-    {
-      type: 'checkbox',
-      field: 'powerType',
-      labelKey: 'category.powerType',
-      style: 'pills',
-      options: [
-        { value: '220', labelKey: 'category.voltage.220' },
-        { value: '380', labelKey: 'category.voltage.380' }
-      ]
-    }
+    ...VENTILATION_COMMON.slice(0, 6),
+    VENTILATION_RECUPERATOR,
+    ...VENTILATION_COMMON.slice(6)
   ],
   conditioning_all: [
     { type: 'range', field: 'price', labelKey: 'category.price', min: 0, max: 15000, step: 100 },

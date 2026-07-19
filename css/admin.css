@@ -139,7 +139,36 @@
 .admin-main__actions {
   display: flex;
   flex-wrap: wrap;
+  align-items: center;
   gap: 12px;
+}
+
+.admin-theme {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 46px;
+  padding: 6px 10px 6px 14px;
+  border: 1px solid rgba(73, 93, 76, 0.14);
+  border-radius: 16px;
+  background: linear-gradient(180deg, #fff 0%, #f5faf6 100%);
+  box-shadow: 0 4px 14px rgba(73, 93, 76, 0.06);
+}
+
+.admin-theme__label {
+  color: var(--color-gray);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+.admin-theme .theme-switch {
+  gap: 6px;
+}
+
+.admin-theme .theme-switch__btn {
+  width: 34px;
+  height: 34px;
 }
 
 .admin-button {

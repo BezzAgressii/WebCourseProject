@@ -72,14 +72,6 @@ class CartPage {
     return `${new Intl.NumberFormat(i18n.currentLang).format(price)} ${i18n.t('common.currency')}`;
   }
 
-  escapeHtml(value) {
-    return String(value)
-      .replaceAll('&', '&amp;')
-      .replaceAll('<', '&lt;')
-      .replaceAll('>', '&gt;')
-      .replaceAll('"', '&quot;');
-  }
-
   render() {
     const lines = this.getLines();
     const hasItems = lines.length > 0;
@@ -103,21 +95,21 @@ class CartPage {
       const detailUrl = `product.html?id=${encodeURIComponent(product.id)}`;
 
       return `
-        <article class="cart-item" data-product-id="${this.escapeHtml(product.id)}">
+        <article class="cart-item" data-product-id="${product.id}">
           <a class="cart-item__media" href="${detailUrl}">
-            <img src="${this.escapeHtml(image)}" alt="${this.escapeHtml(name)}" loading="lazy">
+            <img src="${image}" alt="${name}" loading="lazy">
           </a>
           <div class="cart-item__content">
-            <a class="cart-item__title" href="${detailUrl}">${this.escapeHtml(name)}</a>
-            <p class="cart-item__unit">${this.escapeHtml(i18n.t('cart.unitPrice'))}: ${this.formatPrice(product.price)}</p>
+            <a class="cart-item__title" href="${detailUrl}">${name}</a>
+            <p class="cart-item__unit">${i18n.t('cart.unitPrice')}: ${this.formatPrice(product.price)}</p>
             <div class="cart-item__controls">
               <div class="cart-qty">
-                <button class="cart-qty__btn" type="button" data-action="decrease" aria-label="${this.escapeHtml(i18n.t('cart.decrease'))}">−</button>
-                <input class="cart-qty__input" type="number" min="1" value="${quantity}" data-action="quantity" aria-label="${this.escapeHtml(i18n.t('cart.quantity'))}">
-                <button class="cart-qty__btn" type="button" data-action="increase" aria-label="${this.escapeHtml(i18n.t('cart.increase'))}">+</button>
+                <button class="cart-qty__btn" type="button" data-action="decrease" aria-label="${i18n.t('cart.decrease')}">−</button>
+                <input class="cart-qty__input" type="number" min="1" value="${quantity}" data-action="quantity" aria-label="${i18n.t('cart.quantity')}">
+                <button class="cart-qty__btn" type="button" data-action="increase" aria-label="${i18n.t('cart.increase')}">+</button>
               </div>
               <p class="cart-item__line-total">${this.formatPrice(lineTotal)}</p>
-              <button class="cart-item__remove" type="button" data-action="remove">${this.escapeHtml(i18n.t('cart.remove'))}</button>
+              <button class="cart-item__remove" type="button" data-action="remove">${i18n.t('cart.remove')}</button>
             </div>
           </div>
         </article>

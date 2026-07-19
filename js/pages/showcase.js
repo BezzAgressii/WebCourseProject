@@ -1,6 +1,4 @@
-/**
- * Showcase cards → request modal with object type preset.
- */
+
 import i18n from '../common/i18n.js';
 import { openRequestModal } from '../components/contact-modals.js';
 

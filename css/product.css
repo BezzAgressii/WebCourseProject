@@ -23,7 +23,7 @@
 
 .product-page__hero {
   display: grid;
-  grid-template-columns: minmax(280px, 0.95fr) minmax(320px, 1.05fr);
+  grid-template-columns: minmax(260px, 0.88fr) minmax(360px, 1.12fr);
   gap: clamp(28px, 5vw, 64px);
   align-items: start;
   margin-bottom: clamp(36px, 5vw, 64px);
@@ -201,15 +201,34 @@
   display: flex;
   flex-direction: column;
   gap: 20px;
+  min-width: 0;
 }
 
 .product-page__overview > .product-page__title {
   margin-bottom: 0;
 }
 
+.product-page__overview > .product-page__detail-card {
+  width: 100%;
+  min-width: 0;
+  overflow: visible;
+  padding: 32px 36px 34px;
+  border-radius: 28px;
+  box-sizing: border-box;
+}
+
+.product-page__overview .product-page__detail-title {
+  margin: 0 0 22px;
+  padding: 0 2px;
+}
+
+.product-page__overview .product-page__summary {
+  padding: 0 4px;
+}
+
 .product-page__summary {
   display: grid;
-  gap: 12px;
+  gap: 14px;
   margin: 0;
   padding: 0;
   list-style: none;
@@ -218,11 +237,17 @@
 .product-page__summary-item {
   display: flex;
   justify-content: space-between;
-  gap: 18px;
-  padding-bottom: 12px;
+  align-items: flex-start;
+  gap: 16px 24px;
+  padding-bottom: 14px;
   border-bottom: 1px solid rgba(120, 192, 129, 0.25);
   color: var(--color-gray);
   font-size: 15px;
+}
+
+.product-page__summary-item:last-child {
+  padding-bottom: 0;
+  border-bottom: 0;
 }
 
 .product-page__spec-label {
@@ -232,108 +257,18 @@
 }
 
 .product-page__summary-item .product-page__spec-label {
-  max-width: 70%;
+  max-width: min(68%, 320px);
+  min-width: 0;
+  flex: 1 1 auto;
 }
 
 .product-page__summary-item strong {
+  flex: 0 1 auto;
+  max-width: 42%;
   color: var(--color-dark-green);
   font-weight: 600;
   text-align: right;
-}
-
-.spec-tooltip {
-  position: relative;
-  display: inline-flex;
-  flex-shrink: 0;
-  align-items: center;
-  justify-content: center;
-  width: 20px;
-  height: 20px;
-  padding: 0;
-  border: 0;
-  background: transparent;
-  cursor: help;
-}
-
-.spec-tooltip__icon {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 18px;
-  height: 18px;
-  border-radius: 50%;
-  background: rgba(120, 192, 129, 0.14);
-  color: var(--color-accent-green);
-  box-shadow: inset 0 0 0 1px rgba(120, 192, 129, 0.28);
-  transition:
-    color 0.22s ease,
-    background-color 0.22s ease,
-    box-shadow 0.22s ease,
-    transform 0.22s ease;
-}
-
-.spec-tooltip__svg {
-  display: block;
-  width: 14px;
-  height: 14px;
-}
-
-.spec-tooltip:hover .spec-tooltip__icon,
-.spec-tooltip.is-open .spec-tooltip__icon {
-  background: var(--color-btn-green);
-  color: #fff;
-  box-shadow:
-    0 4px 12px rgba(92, 205, 106, 0.35),
-    inset 0 0 0 1px rgba(255, 255, 255, 0.12);
-  transform: scale(1.08);
-}
-
-.spec-tooltip:focus-visible .spec-tooltip__icon {
-  outline: 2px solid var(--color-btn-green);
-  outline-offset: 2px;
-}
-
-.spec-tooltip__bubble {
-  position: absolute;
-  bottom: calc(100% + 10px);
-  left: 50%;
-  z-index: 30;
-  width: max-content;
-  max-width: min(280px, 70vw);
-  padding: 10px 12px;
-  border-radius: 12px;
-  background: #2f3d32;
-  box-shadow: 0 10px 28px rgba(47, 61, 50, 0.28);
-  color: #fff;
-  font-family: var(--font-body);
-  font-size: 13px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: 1.45;
-  text-align: left;
-  white-space: normal;
-  opacity: 0;
-  visibility: hidden;
-  pointer-events: none;
-  transform: translateX(-50%) translateY(4px);
-  transition: opacity 0.22s ease, visibility 0.22s ease, transform 0.22s ease;
-}
-
-.spec-tooltip__bubble::after {
-  content: '';
-  position: absolute;
-  top: 100%;
-  left: 50%;
-  border: 6px solid transparent;
-  border-top-color: #2f3d32;
-  transform: translateX(-50%);
-}
-
-.spec-tooltip.is-open .spec-tooltip__bubble {
-  opacity: 1;
-  visibility: visible;
-  pointer-events: auto;
-  transform: translateX(-50%) translateY(0);
+  word-break: break-word;
 }
 
 .product-page__purchase {
@@ -341,10 +276,12 @@
   align-items: center;
   flex-wrap: wrap;
   gap: 18px;
-  padding: 22px;
-  border-radius: 22px;
+  min-height: 84px;
+  padding: 28px 36px;
+  border-radius: 28px;
   background: #fff;
   box-shadow: 0 8px 28px rgba(73, 93, 76, 0.07);
+  box-sizing: border-box;
 }
 
 .product-page__price {
@@ -376,9 +313,10 @@
 }
 
 .product-page__detail-card {
+  overflow: visible;
   padding: clamp(22px, 3vw, 32px);
   border: 1px solid rgba(120, 192, 129, 0.25);
-  border-radius: 24px;
+  border-radius: 28px;
   background: #fff;
 }
 

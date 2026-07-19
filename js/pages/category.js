@@ -1,5 +1,6 @@
 import api from '../utils/api.js';
 import FILTER_CONFIG from '../utils/filter-config.js';
+import { SUBCATEGORIES } from '../utils/admin-product-fields.js';
 import i18n from '../common/i18n.js';
 import { isAdmin, isAuthenticated } from '../utils/auth-session.js';
 import { addToCart } from '../utils/cart-storage.js';
@@ -7,6 +8,8 @@ import { showConfirm } from '../components/confirm.js';
 import { Modal } from '../components/modal.js';
 import { createHoverCarousel } from '../components/slider.js';
 import { initCategoryMobileControls } from '../components/category-mobile-controls.js';
+import { initSpecTooltips, renderSpecTooltipTrigger } from '../components/spec-tooltip.js';
+import { createActiveFiltersController } from '../components/active-filters.js';
 
 class CategoryPage {
   constructor() {
@@ -18,12 +21,14 @@ class CategoryPage {
     this.currentPage = 1;
     this.productsPerPage = 6;
     this.mobileControls = null;
+    this.activeFilters = null;
     this.elements = {
       breadcrumb: document.getElementById('breadcrumb-current'),
       title: document.getElementById('page-title'),
       form: document.getElementById('filters-form'),
       search: document.getElementById('search-input'),
       generatedFilters: document.getElementById('generated-filters'),
+      activeFilters: document.getElementById('active-filters'),
       reset: document.getElementById('reset-filters'),
       sort: document.getElementById('sort-select'),
       count: document.getElementById('products-count'),
@@ -36,8 +41,22 @@ class CategoryPage {
     await i18n.init();
     this.readUrlParameters();
     await this.loadProducts();
+    this.activeFilters = createActiveFiltersController({
+      root: this.elements.activeFilters,
+      filtersRoot: this.elements.generatedFilters,
+      searchInput: this.elements.search,
+      getState: () => ({
+        category: this.category,
+        subcategory: this.subcategory,
+        categoryKey: this.categoryKey
+      }),
+      onApply: () => this.applyFilters(),
+      onSubcategoryChange: (value) => this.setSubcategory(value),
+      onRangeReset: (field) => this.updateRangeFill(field)
+    });
     this.renderPage();
     this.bindEvents();
+    initSpecTooltips(this.elements.form);
     this.mobileControls = initCategoryMobileControls({
       root: document.querySelector('.category-page'),
       sortSelect: this.elements.sort,
@@ -67,7 +86,8 @@ class CategoryPage {
     this.categoryKey = `${this.category}_${this.subcategory}`;
 
     if (!FILTER_CONFIG[this.categoryKey]) {
-      this.categoryKey = `${this.category}_${defaultSubcategories[this.category]}`;
+      this.subcategory = defaultSubcategories[this.category];
+      this.categoryKey = `${this.category}_${this.subcategory}`;
     }
   }
 
@@ -86,17 +106,72 @@ class CategoryPage {
     this.elements.title.textContent = title;
     this.elements.breadcrumb.textContent = title;
     document.title = `${title} — Pascal Vent`;
-    this.renderFilters(this.categoryKey);
+    this.renderFilters();
     this.applyFilters();
     i18n.translatePage();
   }
 
-  renderFilters(categoryKey) {
-    const filters = FILTER_CONFIG[categoryKey] || [];
+  updateUrlSubcategory() {
+    const url = new URL(window.location.href);
+    url.searchParams.set('category', this.category);
 
-    this.elements.generatedFilters.innerHTML = filters
-      .map((filter) => this.renderFilter(filter))
-      .join('');
+    if (this.category === 'ventilation' && this.subcategory && this.subcategory !== 'all') {
+      url.searchParams.set('subcategory', this.subcategory);
+    } else {
+      url.searchParams.delete('subcategory');
+    }
+
+    history.replaceState({}, '', url);
+  }
+
+  setSubcategory(value) {
+    const nextValue = value || 'all';
+    const nextKey = `ventilation_${nextValue}`;
+
+    if (this.subcategory === nextValue && FILTER_CONFIG[nextKey]) {
+      this.applyFilters();
+      return;
+    }
+
+    this.subcategory = nextValue;
+    this.categoryKey = FILTER_CONFIG[nextKey] ? nextKey : 'ventilation_all';
+    this.updateUrlSubcategory();
+    this.renderFilters();
+    this.applyFilters();
+    i18n.translatePage();
+  }
+
+  renderSubcategoryFilter() {
+    const options = SUBCATEGORIES.ventilation || [];
+    const tooltip = renderSpecTooltipTrigger('subcategory', i18n.currentLang);
+    const checks = options.map((option) => {
+      const checked = option.value === this.subcategory ? ' checked' : '';
+      const label = i18n.t(`category.subcategory.${option.value}`);
+
+      return `
+        <label class="category-page__check">
+          <input type="radio" name="subcategory" value="${option.value}"${checked}>
+          <span data-i18n="category.subcategory.${option.value}">${label}</span>
+        </label>
+      `;
+    }).join('');
+
+    return `
+      <fieldset class="category-page__filter-group" data-filter="subcategory">
+        <legend class="category-page__label">
+          <span class="category-page__label-text" data-i18n="category.systemType">${i18n.t('category.systemType')}</span>
+          ${tooltip}
+        </legend>
+        <div class="category-page__checkboxes">${checks}</div>
+      </fieldset>
+    `;
+  }
+
+  renderFilters() {
+    const filters = FILTER_CONFIG[this.categoryKey] || [];
+    const subcategoryHtml = this.category === 'ventilation' ? this.renderSubcategoryFilter() : '';
+
+    this.elements.generatedFilters.innerHTML = `${subcategoryHtml}${filters.map((filter) => this.renderFilter(filter)).join('')}`;
 
     this.elements.generatedFilters.querySelectorAll('[data-filter-range-min]').forEach((input) => {
       this.updateRangeFill(input.dataset.filterRangeMin);
@@ -104,10 +179,18 @@ class CategoryPage {
   }
 
   renderFilter(filter) {
+    const tooltip = renderSpecTooltipTrigger(filter.field, i18n.currentLang);
+    const legend = `
+      <legend class="category-page__label">
+        <span class="category-page__label-text" data-i18n="${filter.labelKey}">${i18n.t(filter.labelKey)}</span>
+        ${tooltip}
+      </legend>
+    `;
+
     if (filter.type === 'range') {
       return `
         <fieldset class="category-page__filter-group" data-filter="${filter.field}">
-          <legend class="category-page__label" data-i18n="${filter.labelKey}">${i18n.t(filter.labelKey)}</legend>
+          ${legend}
           <div class="category-page__price">
             <input class="category-page__input" type="number" min="${filter.min}" max="${filter.max}" step="${filter.step}" data-filter-min="${filter.field}" data-i18n-placeholder="common.from" placeholder="${i18n.t('common.from')}">
             <input class="category-page__input" type="number" min="${filter.min}" max="${filter.max}" step="${filter.step}" data-filter-max="${filter.field}" data-i18n-placeholder="common.to" placeholder="${i18n.t('common.to')}">
@@ -124,7 +207,10 @@ class CategoryPage {
       return `
         <label class="category-page__check category-page__stock-filter">
           <input type="checkbox" data-filter-boolean="${filter.field}">
-          <span data-i18n="${filter.labelKey}">${i18n.t(filter.labelKey)}</span>
+          <span class="category-page__stock-filter-text">
+            <span data-i18n="${filter.labelKey}">${i18n.t(filter.labelKey)}</span>
+            ${tooltip}
+          </span>
         </label>
       `;
     }
@@ -145,7 +231,7 @@ class CategoryPage {
 
     return `
       <fieldset class="category-page__filter-group" data-filter="${filter.field}">
-        <legend class="category-page__label" data-i18n="${filter.labelKey}">${i18n.t(filter.labelKey)}</legend>
+        ${legend}
         <div class="category-page__checkboxes${modifier}">${options}</div>
       </fieldset>
     `;
@@ -154,9 +240,16 @@ class CategoryPage {
   applyFilters(resetPage = true) {
     const query = this.elements.search.value.trim();
     const filters = FILTER_CONFIG[this.categoryKey] || [];
+    const bySubcategory = this.searchProducts(query).filter((product) => {
+      if (this.category === 'conditioning' || this.subcategory === 'all') {
+        return true;
+      }
+
+      return product.subcategory === this.subcategory;
+    });
     const filteredProducts = filters.reduce((products, filter) => {
       return products.filter((product) => this.matchesFilter(product, filter));
-    }, this.searchProducts(query));
+    }, bySubcategory);
 
     if (resetPage) {
       this.currentPage = 1;
@@ -164,6 +257,7 @@ class CategoryPage {
 
     this.filteredProducts = this.sortProducts(filteredProducts, this.sortCriteria);
     this.renderProducts(this.filteredProducts);
+    this.activeFilters?.render();
   }
 
   matchesFilter(product, filter) {
@@ -237,7 +331,7 @@ class CategoryPage {
 
     this.elements.grid.innerHTML = filteredProducts.length
       ? pageProducts.map((product) => this.renderProductCard(product)).join('')
-      : `<p class="category-page__empty">${this.escapeHtml(i18n.t('category.empty'))}</p>`;
+      : `<p class="category-page__empty">${i18n.t('category.empty')}</p>`;
 
     pageProducts.forEach((product) => {
       const image = this.elements.grid.querySelector(`[data-product-image="${product.id}"]`);
@@ -270,16 +364,16 @@ class CategoryPage {
     const detailUrl = `product.html?id=${encodeURIComponent(product.id)}`;
     const cartButton = isAdmin()
       ? ''
-      : `<button class="product-card__cart" type="button" data-action="add-to-cart" data-product-id="${this.escapeHtml(product.id)}" aria-label="${this.escapeHtml(i18n.t('category.addToCart'))}" title="${this.escapeHtml(i18n.t('category.addToCart'))}">🛒</button>`;
+      : `<button class="product-card__cart" type="button" data-action="add-to-cart" data-product-id="${product.id}" aria-label="${i18n.t('category.addToCart')}" title="${i18n.t('category.addToCart')}">🛒</button>`;
 
     return `
-      <article class="product-card" data-product-href="${this.escapeHtml(detailUrl)}" role="link" tabindex="0" aria-label="${this.escapeHtml(name)}">
+      <article class="product-card" data-product-href="${detailUrl}" role="link" tabindex="0" aria-label="${name}">
         <div class="product-card__image-wrap">
-          <img class="product-card__image" data-product-image="${this.escapeHtml(product.id)}" src="${this.escapeHtml(image)}" alt="${this.escapeHtml(name)}" loading="lazy">
-          <span class="product-card__stock${stockClass}">${this.escapeHtml(i18n.t(stockKey))}</span>
+          <img class="product-card__image" data-product-image="${product.id}" src="${image}" alt="${name}" loading="lazy">
+          <span class="product-card__stock${stockClass}">${i18n.t(stockKey)}</span>
         </div>
         <div class="product-card__body">
-          <h2 class="product-card__title">${this.escapeHtml(name)}</h2>
+          <h2 class="product-card__title">${name}</h2>
           <ul class="product-card__specs">${details}</ul>
           <p class="product-card__price">${this.formatPrice(product.price)}</p>
           ${cartButton ? `<div class="product-card__actions">${cartButton}</div>` : ''}
@@ -291,21 +385,21 @@ class CategoryPage {
   getProductDetails(product) {
     if (this.category === 'conditioning') {
       return [
-        `<li><strong>${this.escapeHtml(i18n.t('category.brand'))}:</strong> ${this.escapeHtml(product.brand)}</li>`,
-        `<li><strong>${this.escapeHtml(i18n.t('category.coolingPower'))}:</strong> ${this.escapeHtml(product.coolingPower)} кВт</li>`,
-        `<li><strong>${this.escapeHtml(i18n.t('category.area'))}:</strong> ${this.escapeHtml(product.area)} м²</li>`
+        `<li><strong>${i18n.t('category.brand')}:</strong> ${product.brand}</li>`,
+        `<li><strong>${i18n.t('category.coolingPower')}:</strong> ${product.coolingPower} кВт</li>`,
+        `<li><strong>${i18n.t('category.area')}:</strong> ${product.area} м²</li>`
       ].join('');
     }
 
     if (this.category === 'pools') {
       return [
-        `<li><strong>${this.escapeHtml(i18n.t('category.brand'))}:</strong> ${this.escapeHtml(product.brand)}</li>`,
-        `<li><strong>${this.escapeHtml(i18n.t('category.moistureRemoval'))}:</strong> ${this.escapeHtml(product.moistureRemoval)} л/сутки</li>`,
-        `<li><strong>${this.escapeHtml(i18n.t('category.mountType'))}:</strong> ${this.escapeHtml(i18n.t(`category.mount.${product.mountType}`))}</li>`
+        `<li><strong>${i18n.t('category.brand')}:</strong> ${product.brand}</li>`,
+        `<li><strong>${i18n.t('category.moistureRemoval')}:</strong> ${product.moistureRemoval} л/сутки</li>`,
+        `<li><strong>${i18n.t('category.mountType')}:</strong> ${i18n.t(`category.mount.${product.mountType}`)}</li>`
       ].join('');
     }
 
-    return product.specs.map((spec) => `<li>${this.escapeHtml(spec)}</li>`).join('');
+    return product.specs.map((spec) => `<li>${spec}</li>`).join('');
   }
 
   bindEvents() {
@@ -322,16 +416,37 @@ class CategoryPage {
     });
 
     this.elements.generatedFilters.addEventListener('input', (event) => {
+      if (event.target.matches('input[name="subcategory"]')) {
+        return;
+      }
+
       this.syncRangeInputs(event.target);
       this.applyFilters();
     });
 
-    this.elements.generatedFilters.addEventListener('change', () => this.applyFilters());
+    this.elements.generatedFilters.addEventListener('change', (event) => {
+      if (event.target.matches('input[name="subcategory"]')) {
+        this.setSubcategory(event.target.value);
+        return;
+      }
+
+      this.applyFilters();
+    });
 
     this.elements.reset.addEventListener('click', () => {
-      this.elements.form.reset();
-      this.resetRangeInputs();
+      if (this.category === 'ventilation') {
+        this.subcategory = 'all';
+        this.categoryKey = 'ventilation_all';
+        this.updateUrlSubcategory();
+        this.renderFilters();
+      } else {
+        this.elements.form.reset();
+        this.resetRangeInputs();
+      }
+
+      this.elements.search.value = '';
       this.applyFilters();
+      i18n.translatePage();
     });
 
     this.elements.sort.addEventListener('change', () => {
@@ -517,15 +632,6 @@ class CategoryPage {
     const parsed = Number(value);
 
     return value !== '' && Number.isFinite(parsed) ? parsed : null;
-  }
-
-  escapeHtml(value) {
-    return String(value)
-      .replaceAll('&', '&amp;')
-      .replaceAll('<', '&lt;')
-      .replaceAll('>', '&gt;')
-      .replaceAll('"', '&quot;')
-      .replaceAll("'", '&#039;');
   }
 }
 
