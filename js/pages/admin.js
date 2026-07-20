@@ -16,6 +16,11 @@ import {
 
 ThemeManager.init();
 
+document.documentElement.removeAttribute('data-accessibility');
+document.documentElement.removeAttribute('data-color-scheme');
+document.documentElement.removeAttribute('data-font-size');
+document.documentElement.removeAttribute('data-images');
+
 const DEFAULT_IMAGES = [
   'assets/images/services-photo.png',
   'assets/images/portfolio-photo-1.png',

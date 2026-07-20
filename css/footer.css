@@ -31,10 +31,10 @@
   width: 100%;
   max-width: var(--page-max);
   margin: 0 auto;
-  padding: clamp(56px, 6vw, 86px) clamp(24px, 9vw, 135px) clamp(48px, 5vw, 72px);
+  padding: clamp(3.5rem, 6vw, 5.375rem) clamp(1.5rem, 9vw, 8.4375rem) clamp(3rem, 5vw, 4.5rem);
   display: grid;
   grid-template-columns: minmax(0, 406px) minmax(240px, 1fr) minmax(0, 290px);
-  column-gap: clamp(32px, 5vw, 120px);
+  column-gap: clamp(2rem, 5vw, 7.5rem);
   row-gap: 0;
   align-items: start;
 }
@@ -62,7 +62,7 @@
   display: block;
   width: min(352px, 100%);
   line-height: 0;
-  margin-bottom: clamp(20px, 3vw, 30px);
+  margin-bottom: clamp(1.25rem, 3vw, 1.875rem);
 }
 
 .footer__logo--mobile {
@@ -88,16 +88,16 @@
 
 .footer__about {
   font-family: var(--font-body);
-  font-size: clamp(13px, 1.5vw, 14px);
+  font-size: clamp(0.8125rem, 1.5vw, 0.875rem);
   line-height: 1.7;
-  color: #7CA381;
-  margin: 0 0 clamp(20px, 3vw, 25px);
+  color: var(--color-desc);
+  margin: 0 0 clamp(1.25rem, 3vw, 1.5625rem);
   max-width: 406px;
 }
 
 .footer__about strong {
   font-weight: 600;
-  color: #7CA381;
+  color: var(--color-desc);
 }
 
 .footer__divider {
@@ -105,27 +105,27 @@
   width: 100%;
   max-width: 406px;
   height: 1px;
-  background: #78C081;
+  background: var(--color-accent-green);
   border-radius: 1.5px;
-  margin-bottom: clamp(20px, 3vw, 28px);
+  margin-bottom: clamp(1.25rem, 3vw, 1.75rem);
 }
 
 .footer__tagline {
   margin: 0;
   font-family: var(--font-display);
-  font-size: clamp(18px, 2.2vw, 22px);
+  font-size: clamp(1.125rem, 2.2vw, 1.375rem);
   line-height: 1.35;
   max-width: 372px;
 }
 
 .footer__tagline-main {
-  color: #495E4C;
+  color: var(--color-dark-green);
   font-weight: 400;
   text-transform: capitalize;
 }
 
 .footer__tagline-accent {
-  color: #78C081;
+  color: var(--color-accent-green);
   font-weight: 600;
 }
 
@@ -133,11 +133,11 @@
 
 .footer__section-title {
   font-family: var(--font-display);
-  font-size: clamp(22px, 2.5vw, 26px);
+  font-size: clamp(1.375rem, 2.5vw, 1.625rem);
   font-weight: 400;
   line-height: 1.35;
-  color: #495E4C;
-  margin: 0 0 clamp(20px, 3vw, 25px);
+  color: var(--color-dark-green);
+  margin: 0 0 clamp(1.25rem, 3vw, 1.5625rem);
 }
 
 .footer__contact-list,
@@ -205,9 +205,9 @@
 
 .footer__contact-text {
   font-family: var(--font-body);
-  font-size: clamp(15px, 1.6vw, 16px);
+  font-size: clamp(0.9375rem, 1.6vw, 1rem);
   line-height: 1.5;
-  color: #7B897D;
+  color: var(--color-gray);
   margin: 0;
   flex-shrink: 0;
   min-width: max-content;
@@ -219,7 +219,7 @@
 }
 
 .footer__contact-text--small {
-  font-size: clamp(13px, 1.5vw, 14px);
+  font-size: clamp(0.8125rem, 1.5vw, 0.875rem);
   line-height: 1.45;
 }
 
@@ -230,14 +230,14 @@
 }
 
 .footer__contact-text a:hover {
-  color: #78C081;
+  color: var(--color-accent-green);
 }
 
 .footer__contact-rule {
   width: 222px;
   max-width: 100%;
   height: 1px;
-  background: #BEE1C2;
+  background: var(--color-accent-pale);
   border-radius: 0.5px;
   margin: 18px 0;
 }
@@ -266,31 +266,31 @@
   width: 100%;
   height: 49px;
   padding: 0 20px;
-  border: none;
+  border: 1px solid var(--footer-input-border);
   border-radius: 15px;
-  background: #fff;
-  box-shadow: 0 0 10px 0 rgba(73, 93, 76, 0.1);
+  background: var(--footer-input-bg);
+  box-shadow: var(--input-shadow);
   font-family: var(--font-body);
-  font-size: 14px;
-  color: #495E4C;
+  font-size: 0.875rem;
+  color: var(--color-dark-green);
   outline: none;
   transition: box-shadow 0.2s ease;
   box-sizing: border-box;
 }
 
 .footer__field input::placeholder {
-  color: rgba(124, 163, 129, 0.7);
+  color: var(--text-placeholder);
 }
 
 .footer__field input:focus {
-  box-shadow: 0 0 14px 0 rgba(73, 93, 76, 0.2);
+  box-shadow: var(--input-shadow-focus);
 }
 
 .footer__submit {
   position: relative;
   width: min(229px, 100%);
   height: 75px;
-  background: rgba(120, 192, 129, 0.25);
+  background: var(--bg-btn-wrap);
   border: none;
   border-radius: 20px;
   cursor: pointer;
@@ -304,9 +304,9 @@
   content: '';
   position: absolute;
   inset: 10px;
-  background: #5CCD6A;
+  background: var(--color-btn-green);
   border-radius: 17px;
-  box-shadow: inset 2px -2px 12px 0 rgba(34, 111, 33, 0.36);
+  box-shadow: var(--shadow-btn-inset);
   transition: opacity 0.2s ease;
 }
 
@@ -318,11 +318,11 @@
   position: relative;
   z-index: 1;
   font-family: var(--font-display);
-  font-size: 15px;
+  font-size: 0.9375rem;
   font-weight: 700;
   letter-spacing: 0.04em;
   text-transform: uppercase;
-  color: #fff;
+  color: var(--text-on-primary);
 }
 
 
@@ -366,7 +366,7 @@
   }
 
   .footer__about {
-    font-size: 13px;
+    font-size: 0.8125rem;
     line-height: 1.7;
     margin: 0 0 20px;
     max-width: 100%;
@@ -381,7 +381,7 @@
   }
 
   .footer__tagline {
-    font-size: 18px;
+    font-size: 1.125rem;
     line-height: 24px;
     max-width: 100%;
     margin: 0;
@@ -389,13 +389,13 @@
   }
 
   .footer__tagline-main {
-    color: #495E4C;
+    color: var(--color-dark-green);
     font-weight: 400;
     text-transform: capitalize;
   }
 
   .footer__tagline-accent {
-    color: #78C081;
+    color: var(--color-accent-green);
     font-weight: 600;
     text-transform: capitalize;
   }
@@ -417,7 +417,7 @@
   }
 
   .footer__section-title {
-    font-size: 22px;
+    font-size: 1.375rem;
     line-height: 30px;
     font-weight: 600;
     margin: 0 0 20px;
@@ -476,14 +476,14 @@
   }
 
   .footer__contact-text {
-    font-size: 13px;
+    font-size: 0.8125rem;
     line-height: 18px;
     flex-shrink: 0;
     min-width: 0;
   }
 
   .footer__contact-text--small {
-    font-size: 13px;
+    font-size: 0.8125rem;
     line-height: 18px;
   }
 
@@ -509,7 +509,7 @@
   .footer__field input {
     height: 49px;
     padding: 0 20px;
-    font-size: 14px;
+    font-size: 0.875rem;
   }
 
   .footer__submit {
@@ -555,7 +555,7 @@
 @media (min-width: 769px) and (max-width: 1100px) {
   .footer__content {
     grid-template-columns: minmax(0, 1fr) minmax(240px, max-content);
-    row-gap: clamp(32px, 4vw, 48px);
+    row-gap: clamp(2rem, 4vw, 3rem);
   }
 
   .footer__form-block {

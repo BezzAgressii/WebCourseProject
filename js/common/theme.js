@@ -1,23 +1,38 @@
 /**
  * Light / dark theme manager.
- * Persists choice in localStorage under key "theme".
+ * Persists explicit choice in localStorage under key "theme".
+ * When unset, follows prefers-color-scheme.
  */
 const STORAGE_KEY = 'theme';
-const DEFAULT_THEME = 'light';
 
 const ThemeManager = {
   init() {
     const saved = localStorage.getItem(STORAGE_KEY);
-    const theme = saved === 'dark' || saved === 'light' ? saved : DEFAULT_THEME;
-    this.setTheme(theme);
+
+    if (saved === 'dark' || saved === 'light') {
+      this.applyTheme(saved);
+    } else {
+      this.applyTheme(this.getSystemTheme());
+    }
+
     this.bindEvents();
+    this.bindSystemPreference();
+  },
+
+  getSystemTheme() {
+    return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+  },
+
+  applyTheme(theme) {
+    const next = theme === 'dark' ? 'dark' : 'light';
+    document.documentElement.setAttribute('data-theme', next);
+    this.updateThemeButtons();
   },
 
   setTheme(theme) {
     const next = theme === 'dark' ? 'dark' : 'light';
-    document.documentElement.setAttribute('data-theme', next);
     localStorage.setItem(STORAGE_KEY, next);
-    this.updateThemeButtons();
+    this.applyTheme(next);
   },
 
   toggleTheme() {
@@ -44,8 +59,31 @@ const ThemeManager = {
     });
   },
 
+  bindSystemPreference() {
+    if (this._systemBound || !window.matchMedia) {
+      return;
+    }
+
+    this._systemBound = true;
+    const media = window.matchMedia('(prefers-color-scheme: dark)');
+    const onChange = (event) => {
+      const saved = localStorage.getItem(STORAGE_KEY);
+      if (saved === 'dark' || saved === 'light') {
+        return;
+      }
+
+      this.applyTheme(event.matches ? 'dark' : 'light');
+    };
+
+    if (typeof media.addEventListener === 'function') {
+      media.addEventListener('change', onChange);
+    } else if (typeof media.addListener === 'function') {
+      media.addListener(onChange);
+    }
+  },
+
   updateThemeButtons() {
-    const current = document.documentElement.getAttribute('data-theme') || DEFAULT_THEME;
+    const current = document.documentElement.getAttribute('data-theme') || this.getSystemTheme();
     document.querySelectorAll('[data-theme-toggle]').forEach((button) => {
       const isActive = button.getAttribute('data-theme-toggle') === current;
       button.classList.toggle('active', isActive);

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="ru" class="is-preload" data-theme="light">
 <head>
-  <script>(function(){try{var t=localStorage.getItem('theme');document.documentElement.setAttribute('data-theme',t==='dark'?'dark':'light');}catch(e){document.documentElement.setAttribute('data-theme','light');}})();</script>
+  <script>(function(){try{var d=document.documentElement;var t=localStorage.getItem('theme');var theme=(t==='dark'||t==='light')?t:(window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');d.setAttribute('data-theme',theme);var raw=localStorage.getItem('accessibility');if(!raw)return;var s=JSON.parse(raw);var on=!!(s.enabled!==undefined?s.enabled:s.active);if(!s||!on)return;d.setAttribute('data-accessibility','active');if(s.colorScheme)d.setAttribute('data-color-scheme',s.colorScheme);if(s.fontSize)d.setAttribute('data-font-size',s.fontSize);var imgs=s.imagesEnabled!==undefined?!!s.imagesEnabled:s.images!=='hidden';d.setAttribute('data-images',imgs?'visible':'hidden');}catch(e){document.documentElement.setAttribute('data-theme','light');}})();</script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta data-i18n-page-title="page.categoryTitle">
@@ -20,6 +20,7 @@
   <link rel="stylesheet" href="../css/auth.css">
   <link rel="stylesheet" href="../css/footer.css">
   <link rel="stylesheet" href="../css/theme.css">
+  <link rel="stylesheet" href="../css/accessibility.css">
 </head>
 <body data-page="category">
   <div id="preloader" class="preloader" role="status" aria-live="polite" aria-busy="true">
@@ -80,6 +81,32 @@
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M19 14.5A7.5 7.5 0 1 1 9.5 5a6 6 0 0 0 9.5 9.5Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
                 </button>
               </div>
+            </div>
+            <div class="header-settings__group">
+              <p class="header-settings__label" data-i18n="header.a11yLabel">Доступность</p>
+              <button type="button" class="a11y-toggle" data-a11y-toggle aria-pressed="false">
+                <span data-i18n="header.a11yEnable">Версия для слабовидящих</span>
+              </button>
+            </div>
+            <div class="header-settings__group" data-accessibility-panel hidden>
+              <p class="header-settings__label" data-i18n="header.a11ySchemeLabel">Цветовая схема</p>
+              <div class="a11y-schemes" role="group" aria-label="Цветовая схема">
+                <button type="button" class="a11y-schemes__btn" data-a11y-scheme="black-yellow" data-i18n-aria="header.a11yScheme.black-yellow" aria-label="Чёрный / жёлтый" title="Чёрный / жёлтый"></button>
+                <button type="button" class="a11y-schemes__btn" data-a11y-scheme="black-white" data-i18n-aria="header.a11yScheme.black-white" aria-label="Чёрный / белый" title="Чёрный / белый"></button>
+                <button type="button" class="a11y-schemes__btn" data-a11y-scheme="white-black" data-i18n-aria="header.a11yScheme.white-black" aria-label="Белый / чёрный" title="Белый / чёрный"></button>
+                <button type="button" class="a11y-schemes__btn" data-a11y-scheme="blue-yellow" data-i18n-aria="header.a11yScheme.blue-yellow" aria-label="Синий / жёлтый" title="Синий / жёлтый"></button>
+              </div>
+              <p class="header-settings__label" data-i18n="header.a11yFontLabel">Размер шрифта</p>
+              <div class="a11y-fonts" role="group" aria-label="Размер шрифта">
+                <button type="button" class="a11y-fonts__btn" data-font-size="normal" data-i18n-aria="header.a11yFont.normal" aria-label="Обычный" title="Обычный">A</button>
+                <button type="button" class="a11y-fonts__btn" data-font-size="increased" data-i18n-aria="header.a11yFont.increased" aria-label="Увеличенный" title="Увеличенный">A+</button>
+                <button type="button" class="a11y-fonts__btn" data-font-size="large" data-i18n-aria="header.a11yFont.large" aria-label="Крупный" title="Крупный">A++</button>
+                <button type="button" class="a11y-fonts__btn" data-font-size="extra-large" data-i18n-aria="header.a11yFont.extra-large" aria-label="Очень крупный" title="Очень крупный">A+++</button>
+              </div>
+              <button type="button" class="a11y-images" data-a11y-images aria-pressed="false">
+                <span data-i18n="header.a11yHideImages">Скрыть изображения</span>
+              </button>
+              <button type="button" class="a11y-reset" data-a11y-reset data-i18n="header.a11yReset">Сбросить настройки</button>
             </div>
           </div>
         </div>

@@ -26,8 +26,8 @@ const SERVICE_PHOTOS = {
     altKey: 'services.photoAlt.ventilation'
   },
   conditioning: {
-    desktop: 'assets/images/benefits-photo-1.png',
-    mobile: 'assets/images/benefits-photo-1.png',
+    desktop: 'assets/images/services-photo-air.png',
+    mobile: 'assets/images/services-photo-air-mobile.png',
     altKey: 'services.photoAlt.conditioning'
   }
 };

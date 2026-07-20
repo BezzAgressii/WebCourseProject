@@ -32,7 +32,7 @@
   flex-direction: column;
   gap: 0;
   font-family: var(--font-display);
-  font-size: 45px;
+  font-size: 2.8125rem;
   font-weight: 600;
   line-height: 60px;
   color: var(--text-primary);
@@ -50,7 +50,7 @@
   flex-shrink: 0;
   width: 100px;
   height: 2px;
-  background: #78C081;
+  background: var(--color-accent-green);
   border-radius: 1.5px;
 }
 
@@ -65,10 +65,10 @@
 
 .steps__promo-title {
   font-family: var(--font-display);
-  font-size: 26px;
+  font-size: 1.625rem;
   font-weight: 500;
   line-height: 35px;
-  color: #78C081;
+  color: var(--color-accent-green);
   text-transform: capitalize;
   margin: 0 0 12px;
 }
@@ -97,7 +97,7 @@
 
 .steps__promo-text {
   font-family: var(--font-body);
-  font-size: 16px;
+  font-size: 1rem;
   line-height: 24px;
   color: var(--text-desc);
 }
@@ -198,7 +198,7 @@
   width: 100px;
   height: 100px;
   border-radius: 50%;
-  background: var(--bg-tertiary);
+  background: var(--bg-panel);
   flex-shrink: 0;
   box-shadow: 0 0 0 rgba(120, 192, 129, 0);
   transition:
@@ -209,7 +209,7 @@
 
 .steps__item.is-inview:hover .steps__circle {
   transform: scale(1.1);
-  background: #dff8e2;
+  background: var(--bg-hover-mint);
   box-shadow: 0 14px 28px rgba(120, 192, 129, 0.32);
 }
 
@@ -229,7 +229,7 @@
 .steps__label {
   margin-top: 20px;
   font-family: var(--font-body);
-  font-size: 24px;
+  font-size: 1.5rem;
   font-weight: 600;
   line-height: 29px;
   color: var(--text-primary);
@@ -242,7 +242,7 @@
 }
 
 .steps__item.is-inview:hover .steps__label {
-  color: #5fad69;
+  color: var(--color-accent-hover);
   transform: scale(1.06);
 }
 
@@ -334,7 +334,7 @@
   .steps__item--3 .steps__circle img { width: 47px; }
 
   .steps__label {
-    font-size: 22px;
+    font-size: 1.375rem;
     line-height: 27px;
   }
 
@@ -350,7 +350,7 @@
 
 @media (max-width: 1100px) {
   .steps__title {
-    font-size: 38px;
+    font-size: 2.375rem;
     line-height: 50px;
   }
 
@@ -374,7 +374,7 @@
     order: 2;
     margin-bottom: 48px;
     height: auto;
-    min-height: clamp(480px, 114vw, 565px);
+    min-height: clamp(30rem, 114vw, 35.3125rem);
     width: 100%;
     max-width: 496px;
     aspect-ratio: 496 / 565;
@@ -468,10 +468,10 @@
   .steps__item--2 .steps__label,
   .steps__item--3 .steps__label {
     position: static;
-    margin-top: clamp(8px, 2.5vw, 20px);
+    margin-top: clamp(0.5rem, 2.5vw, 1.25rem);
     margin-left: 0;
     align-self: center;
-    font-size: clamp(14px, 4.2vw, 24px);
+    font-size: clamp(0.875rem, 4.2vw, 1.5rem);
     line-height: 1.2;
     text-align: center;
     white-space: normal;
@@ -506,7 +506,7 @@
   }
 
   .steps__title {
-    font-size: 28px;
+    font-size: 1.75rem;
     line-height: 38px;
   }
 
@@ -516,13 +516,13 @@
   }
 
   .steps__promo-title {
-    font-size: 26px;
+    font-size: 1.625rem;
     line-height: 35px;
     margin-bottom: 12px;
   }
 
   .steps__promo-text {
-    font-size: 16px;
+    font-size: 1rem;
     line-height: 26px;
   }
 
@@ -537,7 +537,7 @@
 
 @media (max-width: 375px) {
   .steps__title {
-    font-size: 28px;
+    font-size: 1.75rem;
     line-height: 38px;
   }
 

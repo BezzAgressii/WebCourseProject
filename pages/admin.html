@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="ru" class="is-preload" data-theme="light">
 <head>
-  <script>(function(){try{var t=localStorage.getItem('theme');document.documentElement.setAttribute('data-theme',t==='dark'?'dark':'light');}catch(e){document.documentElement.setAttribute('data-theme','light');}})();</script>
+  <script>(function(){try{var d=document.documentElement;var t=localStorage.getItem('theme');var theme=(t==='dark'||t==='light')?t:(window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');d.setAttribute('data-theme',theme);d.removeAttribute('data-accessibility');d.removeAttribute('data-color-scheme');d.removeAttribute('data-font-size');d.removeAttribute('data-images');}catch(e){document.documentElement.setAttribute('data-theme','light');}})();</script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Админ-панель — Pascal Vent</title>

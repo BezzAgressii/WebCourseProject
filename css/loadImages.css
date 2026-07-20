@@ -43,7 +43,7 @@
 .image-uploader__title {
   margin: 0;
   font-family: var(--font-display);
-  font-size: 16px;
+  font-size: 1rem;
   font-weight: 700;
   line-height: 1.3;
   color: var(--color-dark-green);
@@ -51,7 +51,7 @@
 
 .image-uploader__hint {
   margin: 0;
-  font-size: 13px;
+  font-size: 0.8125rem;
   line-height: 1.4;
   color: var(--color-gray);
 }
@@ -65,8 +65,8 @@
   padding: 0 14px;
   border-radius: 999px;
   background: rgba(92, 205, 106, 0.16);
-  color: #2f6b3a;
-  font-size: 13px;
+  color: var(--color-success-strong);
+  font-size: 0.8125rem;
   font-weight: 700;
 }
 
@@ -84,7 +84,7 @@
   padding: 8px;
   border: 1px solid rgba(73, 93, 76, 0.12);
   border-radius: 14px;
-  background: #fff;
+  background: var(--bg-card);
   box-shadow: 0 8px 20px rgba(73, 93, 76, 0.08);
 }
 
@@ -94,7 +94,7 @@
   aspect-ratio: 1;
   object-fit: cover;
   border-radius: 10px;
-  background: #edf5ef;
+  background: var(--bg-surface-tint);
 }
 
 .image-uploader__remove {
@@ -106,15 +106,15 @@
   border: 0;
   border-radius: 50%;
   background: rgba(194, 79, 79, 0.95);
-  color: #fff;
-  font-size: 18px;
+  color: var(--text-light);
+  font-size: 1.125rem;
   line-height: 1;
   cursor: pointer;
   box-shadow: 0 4px 12px rgba(194, 79, 79, 0.35);
 }
 
 .image-uploader__remove:hover {
-  background: #a03d3d;
+  background: var(--color-error-strong);
 }
 
 .image-uploader__name {
@@ -122,18 +122,18 @@
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  font-size: 11px;
+  font-size: 0.6875rem;
   color: var(--color-gray);
 }
 
 .image-uploader__error {
   min-height: 16px;
-  color: #c24f4f;
-  font-size: 12px;
+  color: var(--text-error);
+  font-size: 0.75rem;
 }
 
 .admin-form__field--invalid .image-uploader__dropzone {
-  border-color: #d25d5d;
+  border-color: var(--border-error);
   box-shadow: 0 0 0 3px rgba(210, 93, 93, 0.14);
 }
 

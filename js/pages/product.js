@@ -65,7 +65,36 @@ class ProductPage {
 
   mountShell() {
     this.elements.content.innerHTML = `
-      <a class="product-page__back" data-product-back></a>
+      <nav class="category-page__breadcrumbs" data-i18n-aria="category.breadcrumbsAria" aria-label="Хлебные крошки">
+        <ol class="category-page__breadcrumb-list">
+          <li class="category-page__breadcrumb-item">
+            <a class="category-page__breadcrumb-link" href="../index.html">
+              <svg class="category-page__breadcrumb-home" width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M4 10.5 12 4l8 6.5V20a1 1 0 0 1-1 1h-5.5v-6h-3v6H5a1 1 0 0 1-1-1v-9.5Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
+              </svg>
+              <span data-i18n="category.home">Главная</span>
+            </a>
+          </li>
+          <li class="category-page__breadcrumb-item">
+            <svg class="category-page__breadcrumb-sep" width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <a class="category-page__breadcrumb-link" href="catalog.html" data-i18n="header.catalog">Каталог</a>
+          </li>
+          <li class="category-page__breadcrumb-item">
+            <svg class="category-page__breadcrumb-sep" width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <a class="category-page__breadcrumb-link" href="#" data-product-category-link></a>
+          </li>
+          <li class="category-page__breadcrumb-item">
+            <svg class="category-page__breadcrumb-sep" width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <span class="category-page__breadcrumb-current" aria-current="page" data-i18n="product.details">Подробнее</span>
+          </li>
+        </ol>
+      </nav>
       <div class="product-page__hero">
         <div class="product-page__image-wrap" data-product-gallery></div>
         <div class="product-page__overview">
@@ -83,7 +112,7 @@ class ProductPage {
     `;
 
     this.refs = {
-      back: this.elements.content.querySelector('[data-product-back]'),
+      categoryLink: this.elements.content.querySelector('[data-product-category-link]'),
       title: this.elements.content.querySelector('[data-product-title]'),
       summaryTitle: this.elements.content.querySelector('[data-product-summary-title]'),
       summary: this.elements.content.querySelector('[data-product-summary]'),
@@ -98,8 +127,8 @@ class ProductPage {
     const name = this.getProductName();
 
     document.title = `${name} — Pascal Vent`;
-    this.refs.back.href = this.getCatalogHref();
-    this.refs.back.textContent = `← ${this.t('backToCatalog')}`;
+    this.refs.categoryLink.href = this.getCategoryHref();
+    this.refs.categoryLink.textContent = i18n.t(`catalog.${this.product.category}`);
     this.refs.title.textContent = name;
   }
 
@@ -108,7 +137,7 @@ class ProductPage {
     this.refs.summary.innerHTML = this.getSummaryRows()
       .map(([key, value]) => this.summaryItem(key, value))
       .join('');
-    this.refs.price.textContent = this.formatPrice(this.product.price);
+    this.refs.price.innerHTML = this.formatPrice(this.product.price);
 
     this.refs.purchase.querySelector('[data-action="create-order"]')?.remove();
 
@@ -132,7 +161,7 @@ class ProductPage {
     return this.product.name_i18n[i18n.currentLang] || this.product.name_i18n.ru;
   }
 
-  getCatalogHref() {
+  getCategoryHref() {
     const { category, subcategory } = this.product;
 
     if (category === 'ventilation') {
@@ -415,7 +444,7 @@ class ProductPage {
   }
 
   formatPrice(price) {
-    return `${new Intl.NumberFormat(i18n.currentLang).format(price)} ${i18n.t('common.currency')}`;
+    return `${new Intl.NumberFormat(i18n.currentLang).format(price)}\u00A0${i18n.t('common.currency')}`;
   }
 }
 

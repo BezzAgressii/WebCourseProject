@@ -27,7 +27,7 @@
 .about__blob {
   position: absolute;
   border-radius: 50%;
-  background: rgba(186, 255, 195, 0.5);
+  background: var(--about-blob-bg);
 }
 
 .about__blob--large {
@@ -56,7 +56,7 @@
   width: 531px;
   min-height: 580px;
   padding: 33px 45px 45px;
-  background: #fff;
+  background: var(--bg-card);
   border-radius: 50px;
   box-shadow: 0 0 10px 0 rgba(73, 93, 76, 0.1);
 }
@@ -75,7 +75,7 @@
 
 .about__title {
   font-family: var(--font-display);
-  font-size: 45px;
+  font-size: 2.8125rem;
   font-weight: 600;
   line-height: 60px;
   color: var(--text-primary);
@@ -91,11 +91,11 @@
 .about__brand-name {
   display: block;
   font-family: var(--font-display);
-  font-size: 21px;
+  font-size: 1.3125rem;
   font-weight: 300;
   letter-spacing: 0.02em;
   text-transform: uppercase;
-  color: #78C081;
+  color: var(--color-accent-green);
   line-height: 26px;
 }
 
@@ -104,13 +104,13 @@
   width: 166px;
   height: 1px;
   margin-top: 3px;
-  background: #78C081;
+  background: var(--color-accent-green);
   border-radius: 1.5px;
 }
 
 .about__subtitle {
   font-family: var(--font-display);
-  font-size: 45px;
+  font-size: 2.8125rem;
   font-weight: 600;
   line-height: 60px;
   color: var(--text-primary);
@@ -120,7 +120,7 @@
 
 .about__text {
   font-family: var(--font-body);
-  font-size: 16px;
+  font-size: 1rem;
   line-height: 26px;
   color: var(--text-muted);
   margin: 0;
@@ -170,7 +170,7 @@
   width: 122px;
   height: 122px;
   border-radius: 50%;
-  background: rgba(186, 255, 195, 0.5);
+  background: var(--about-blob-bg);
   filter: blur(50px);
   transform: translateX(-50%);
   z-index: -1;
@@ -181,7 +181,7 @@
   margin: 0 0 15px;
   font-family: var(--font-display);
   font-weight: 500;
-  color: #78C081;
+  color: var(--color-accent-green);
   line-height: 1.2;
   max-width: 100%;
   white-space: normal;
@@ -189,12 +189,12 @@
 }
 
 .about__stat-num {
-  font-size: clamp(28px, 4vw, 35px);
+  font-size: clamp(1.75rem, 4vw, 2.1875rem);
   font-weight: 600;
 }
 
 .about__stat-label {
-  font-size: clamp(18px, 3.2vw, 24px);
+  font-size: clamp(1.125rem, 3.2vw, 1.5rem);
   font-weight: 600;
 }
 
@@ -202,9 +202,9 @@
   margin: 0 auto;
   max-width: 100%;
   font-family: var(--font-body);
-  font-size: clamp(14px, 2.5vw, 16px);
+  font-size: clamp(0.875rem, 2.5vw, 1rem);
   line-height: 1.5;
-  color: #7CA381;
+  color: var(--color-desc);
   text-align: center;
   white-space: normal;
   overflow-wrap: break-word;
@@ -250,7 +250,7 @@
     width: 100%;
     max-width: 100%;
     margin: 0 auto;
-    column-gap: clamp(24px, 5vw, 40px);
+    column-gap: clamp(1.5rem, 5vw, 2.5rem);
   }
 
   .about__stat {
@@ -280,7 +280,7 @@
 
   .about__title,
   .about__subtitle {
-    font-size: 32px;
+    font-size: 2rem;
     line-height: 42px;
   }
 
@@ -319,7 +319,7 @@
 @media (max-width: 480px) {
   .about__title,
   .about__subtitle {
-    font-size: 28px;
+    font-size: 1.75rem;
     line-height: 36px;
   }
 

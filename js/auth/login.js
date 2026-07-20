@@ -3,8 +3,10 @@ import i18n from '../common/i18n.js';
 import { Modal } from '../components/modal.js';
 import { bindPasswordToggles } from './password-toggle.js';
 import ThemeManager from '../common/theme.js';
+import AccessibilityManager from '../common/accessibility.js';
 
 ThemeManager.init();
+AccessibilityManager.init();
 
 class Login {
   constructor() {

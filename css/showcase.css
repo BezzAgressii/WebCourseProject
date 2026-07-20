@@ -22,7 +22,7 @@
   flex-direction: column;
   gap: 0;
   font-family: var(--font-display);
-  font-size: 45px;
+  font-size: 2.8125rem;
   font-weight: 600;
   line-height: 60px;
   color: var(--color-dark-green);
@@ -114,7 +114,7 @@
   border-radius: 25px;
   overflow: hidden;
   box-shadow: 0 0 10px 0 rgba(73, 93, 76, 0.1);
-  background: #fff;
+  background: var(--bg-card);
   cursor: pointer;
   transition:
     transform 0.4s cubic-bezier(0.22, 1, 0.36, 1),
@@ -170,12 +170,12 @@
   display: flex;
   align-items: center;
   gap: 0.3em;
-  background: #D9FADD;
+  background: var(--bg-panel);
   border-radius: 0 10px 10px 0;
   font-family: var(--font-body);
-  font-size: 15px;
+  font-size: 0.9375rem;
   font-weight: 600;
-  color: #495D4C;
+  color: var(--color-dark-green);
   white-space: nowrap;
   z-index: 1;
   transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
@@ -188,7 +188,7 @@
 .showcase-card__footer {
   flex: 1;
   min-height: 76px;
-  background: #fff;
+  background: var(--bg-card);
   display: flex;
   align-items: center;
   padding: 8px 15px 10px;
@@ -205,7 +205,7 @@
 
 .showcase-card__name {
   font-family: var(--font-display);
-  font-size: 16px;
+  font-size: 1rem;
   font-weight: 500;
   line-height: 22px;
   color: var(--color-accent-green);
@@ -213,7 +213,7 @@
 }
 
 .showcase-card:hover .showcase-card__name {
-  color: #5fad69;
+  color: var(--color-accent-hover);
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -270,7 +270,7 @@
 
 @media (max-width: 1100px) {
   .showcase__title-desktop {
-    font-size: 38px;
+    font-size: 2.375rem;
     line-height: 50px;
   }
 
@@ -365,10 +365,10 @@
     flex-direction: column;
     gap: 14px;
     font-family: var(--font-display);
-    font-size: 28px;
+    font-size: 1.75rem;
     font-weight: 600;
     line-height: 38px;
-    color: #495E4C;
+    color: var(--color-dark-green);
     text-transform: capitalize;
   }
 
@@ -517,7 +517,7 @@
   }
 
   .showcase-card__name {
-    font-size: 14px;
+    font-size: 0.875rem;
     line-height: 19px;
   }
 }
@@ -541,7 +541,7 @@
 
 @media (max-width: 375px) {
   .showcase__title-mobile {
-    font-size: 26px;
+    font-size: 1.625rem;
     line-height: 34px;
     gap: 12px;
   }
@@ -592,12 +592,12 @@
   }
 
   .showcase-card__name {
-    font-size: 13px;
+    font-size: 0.8125rem;
     line-height: 17px;
   }
 
   .showcase-card__badge {
-    font-size: 14px;
+    font-size: 0.875rem;
     height: 26px;
     padding: 0 12px;
   }
@@ -610,7 +610,7 @@
   }
 
   .showcase-card__name {
-    font-size: 12px;
+    font-size: 0.75rem;
     line-height: 16px;
   }
 }

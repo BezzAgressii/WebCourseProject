@@ -41,9 +41,9 @@
   width: 100%;
   max-width: 100%;
   overflow: hidden;
-  padding: clamp(28px, 5vw, 44px);
+  padding: clamp(1.75rem, 5vw, 2.75rem);
   border-radius: 28px;
-  background: rgba(255, 255, 255, 0.92);
+  background: var(--bg-card);
   box-shadow: 0 16px 42px rgba(73, 93, 76, 0.12);
   backdrop-filter: blur(6px);
 }
@@ -51,7 +51,7 @@
 .auth-card__title {
   margin: 0 0 28px;
   font-family: var(--font-display);
-  font-size: clamp(28px, 5vw, 40px);
+  font-size: clamp(1.75rem, 5vw, 2.5rem);
   font-weight: 700;
   line-height: 1.15;
   text-align: center;
@@ -68,7 +68,7 @@
 .auth-card__legend {
   margin-bottom: 14px;
   font-family: var(--font-display);
-  font-size: 20px;
+  font-size: 1.25rem;
   font-weight: 600;
   color: var(--color-dark-green);
 }
@@ -91,7 +91,7 @@
 }
 
 .auth-field__label {
-  font-size: 14px;
+  font-size: 0.875rem;
   font-weight: 600;
   color: var(--color-dark-green);
 }
@@ -111,11 +111,11 @@
   padding: 0 16px;
   border: 1px solid rgba(73, 93, 76, 0.22);
   border-radius: 15px;
-  background: #fff;
+  background: var(--bg-card);
   box-shadow: 0 0 10px 0 rgba(73, 93, 76, 0.08);
   color: var(--color-dark-green);
   font-family: var(--font-body);
-  font-size: 15px;
+  font-size: 0.9375rem;
   outline: none;
   transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
@@ -130,14 +130,14 @@
 }
 
 .auth-field--invalid .auth-field__input {
-  border-color: #d25d5d;
+  border-color: var(--border-error);
   box-shadow: 0 0 0 3px rgba(210, 93, 93, 0.12);
 }
 
 .auth-field__error {
   min-height: 16px;
-  color: #c24f4f;
-  font-size: 12px;
+  color: var(--text-error);
+  font-size: 0.75rem;
   line-height: 1.3;
 }
 
@@ -164,7 +164,7 @@
 .auth-password-toggle:hover,
 .auth-password-toggle:focus-visible {
   color: var(--color-dark-green);
-  background: rgba(92, 205, 106, 0.12);
+  background: var(--overlay-accent-hover);
   outline: none;
 }
 
@@ -194,7 +194,7 @@
   gap: 10px;
   margin: 12px 0 18px;
   cursor: pointer;
-  font-size: 14px;
+  font-size: 0.875rem;
   color: var(--color-dark-green);
   user-select: none;
 }
@@ -211,7 +211,7 @@
   margin-top: 14px;
   padding: 18px;
   border-radius: 16px;
-  background: rgba(217, 250, 221, 0.55);
+  background: var(--bg-tertiary);
   min-width: 0;
 }
 
@@ -221,7 +221,7 @@
   margin: 14px 0 0;
   padding: 0;
   list-style: none;
-  font-size: 13px;
+  font-size: 0.8125rem;
   color: var(--color-gray);
 }
 
@@ -252,9 +252,9 @@
   border-radius: 16px;
   background: var(--color-btn-green);
   box-shadow: var(--shadow-btn);
-  color: #fff;
+  color: var(--text-on-primary);
   font-family: var(--font-display);
-  font-size: 15px;
+  font-size: 0.9375rem;
   font-weight: 700;
   letter-spacing: 0.04em;
   text-transform: uppercase;
@@ -271,14 +271,14 @@
 }
 
 .auth-button--secondary {
-  background: #d9fadd;
+  background: var(--bg-tertiary);
   color: var(--color-dark-green);
   box-shadow: none;
 }
 
 .auth-link {
   color: var(--color-dark-green);
-  font-size: 14px;
+  font-size: 0.875rem;
   text-align: center;
   text-decoration: underline;
   text-underline-offset: 3px;
@@ -307,7 +307,7 @@
 .auth-modal__backdrop {
   position: absolute;
   inset: 0;
-  background: rgba(30, 50, 35, 0.55);
+  background: var(--overlay-backdrop-strong);
 }
 
 .auth-modal__dialog {
@@ -316,7 +316,7 @@
   width: min(420px, 100%);
   padding: 34px;
   border-radius: 22px;
-  background: #fff;
+  background: var(--bg-card);
   text-align: center;
   box-shadow: 0 16px 42px rgba(73, 93, 76, 0.18);
 }
@@ -324,7 +324,7 @@
 .auth-modal__title {
   margin: 0 0 12px;
   font-family: var(--font-display);
-  font-size: 25px;
+  font-size: 1.5625rem;
   color: var(--color-dark-green);
 }
 
@@ -340,7 +340,7 @@
   right: 13px;
   border: 0;
   background: transparent;
-  font-size: 25px;
+  font-size: 1.5625rem;
   color: var(--color-gray);
   cursor: pointer;
 }
@@ -354,7 +354,7 @@
   border: 0;
   border-radius: 12px;
   background: var(--color-btn-green);
-  color: #fff;
+  color: var(--text-on-primary);
   font-weight: 700;
   text-decoration: none;
   cursor: pointer;

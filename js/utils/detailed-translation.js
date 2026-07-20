@@ -85,7 +85,6 @@ const DETAILED_TRANSLATIONS = {
     noRecuperator: 'Без рекуператора',
     upTo: 'до',
     order: 'Заказать',
-    backToCatalog: 'Вернуться в каталог',
     unavailable: 'Товар не найден'
   },
   be: {
@@ -174,7 +173,6 @@ const DETAILED_TRANSLATIONS = {
     noRecuperator: 'Без рэкуператара',
     upTo: 'да',
     order: 'Замовіць',
-    backToCatalog: 'Вярнуцца ў каталог',
     unavailable: 'Тавар не знойдзены'
   },
   en: {
@@ -263,7 +261,6 @@ const DETAILED_TRANSLATIONS = {
     noRecuperator: 'No heat recovery',
     upTo: 'up to',
     order: 'Order now',
-    backToCatalog: 'Back to catalog',
     unavailable: 'Product not found'
   }
 };

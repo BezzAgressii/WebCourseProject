@@ -5,9 +5,11 @@ import { getCartCount } from '../utils/cart-storage.js';
 import { loadFooter } from './footer.js';
 import i18n from './i18n.js';
 import ThemeManager from './theme.js';
+import AccessibilityManager from './accessibility.js';
 
 initBurgerMenu();
 ThemeManager.init();
+AccessibilityManager.init();
 initHeaderSettings();
 void initHeaderExtras();
 

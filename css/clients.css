@@ -1,13 +1,12 @@
 .clients {
-  --clients-surface: var(--bg-tertiary);
   position: relative;
-  background: var(--clients-surface);
+  background: var(--clients-section-bg);
   padding: 72px 0 80px;
   margin-top: -40px;
   overflow-x: clip;
   z-index: 1;
   border-radius: 40px 40px 0 0;
-  box-shadow: 0 -24px 48px rgba(73, 93, 76, 0.06);
+  box-shadow: var(--clients-section-shadow);
 }
 
 .clients__content-wrap {
@@ -26,7 +25,7 @@
 
 .clients__title {
   font-family: var(--font-display);
-  font-size: 45px;
+  font-size: 2.8125rem;
   font-weight: 600;
   line-height: 60px;
   color: var(--text-primary);
@@ -50,7 +49,7 @@
 
 .clients__desc {
   font-family: var(--font-body);
-  font-size: 16px;
+  font-size: 1rem;
   line-height: 26px;
   color: var(--text-secondary);
   margin: 0;
@@ -76,15 +75,15 @@
   -webkit-mask-image: linear-gradient(
     90deg,
     transparent 0%,
-    #000 6%,
-    #000 94%,
+    var(--color-black) 6%,
+    var(--color-black) 94%,
     transparent 100%
   );
   mask-image: linear-gradient(
     90deg,
     transparent 0%,
-    #000 6%,
-    #000 94%,
+    var(--color-black) 6%,
+    var(--color-black) 94%,
     transparent 100%
   );
 }
@@ -103,14 +102,15 @@
   width: 258px;
   height: 116px;
   border-radius: 30px;
-  background: var(--bg-elevated);
-  box-shadow: var(--shadow-md);
-  border: 1px solid var(--border-light);
+  background: var(--clients-card-bg, var(--bg-elevated));
+  box-shadow: var(--clients-card-shadow, var(--shadow-md));
+  border: 1px solid var(--clients-card-border, var(--border-light));
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 16px 20px;
   overflow: hidden;
+  backdrop-filter: blur(10px);
 }
 
 .clients__card-name {
@@ -121,7 +121,7 @@
   gap: 0;
   margin: 0;
   max-width: 100%;
-  color: var(--text-primary);
+  color: var(--clients-card-text);
   line-height: 1;
   text-align: center;
   white-space: nowrap;
@@ -129,14 +129,14 @@
 
 .clients__card-name-part--serif {
   font-family: 'Playfair Display', Georgia, 'Times New Roman', serif;
-  font-size: 34px;
+  font-size: 2.125rem;
   font-weight: 700;
   letter-spacing: -0.04em;
 }
 
 .clients__card-name-part--sans {
   font-family: 'Montserrat', var(--font-display), sans-serif;
-  font-size: 17px;
+  font-size: 1.0625rem;
   font-weight: 700;
   letter-spacing: 0.06em;
   text-transform: uppercase;
@@ -178,11 +178,11 @@
 }
 
 .clients__nav-btn--prev {
-  background: rgba(255, 255, 255, 0.45);
+  background: var(--clients-card-bg);
 }
 
 .clients__nav-btn--next {
-  background: rgba(120, 192, 129, 0.25);
+  background: var(--portfolio-nav-bg-hover);
 }
 
 .clients__nav-btn img {
@@ -211,7 +211,7 @@
   }
 
   .clients__title {
-    font-size: 32px;
+    font-size: 2rem;
     line-height: 42px;
     margin-bottom: 16px;
   }
@@ -238,11 +238,11 @@
   }
 
   .clients__card-name-part--serif {
-    font-size: 28px;
+    font-size: 1.75rem;
   }
 
   .clients__card-name-part--sans {
-    font-size: 14px;
+    font-size: 0.875rem;
     letter-spacing: 0.05em;
   }
 
@@ -269,7 +269,7 @@
   }
 
   .clients__title {
-    font-size: 26px;
+    font-size: 1.625rem;
     line-height: 34px;
   }
 
@@ -278,7 +278,7 @@
   }
 
   .clients__desc {
-    font-size: 14px;
+    font-size: 0.875rem;
     line-height: 22px;
   }
 
@@ -291,11 +291,11 @@
   }
 
   .clients__card-name-part--serif {
-    font-size: 24px;
+    font-size: 1.5rem;
   }
 
   .clients__card-name-part--sans {
-    font-size: 12px;
+    font-size: 0.75rem;
     letter-spacing: 0.04em;
   }
 
@@ -320,51 +320,14 @@
 
 @media (min-width: 769px) and (max-width: 1300px) {
   .clients__content-wrap {
-    padding-left: clamp(40px, 6vw, 135px);
-    padding-right: clamp(40px, 6vw, 135px);
+    padding-left: clamp(2.5rem, 6vw, 8.4375rem);
+    padding-right: clamp(2.5rem, 6vw, 8.4375rem);
     grid-template-columns: minmax(0, 520px) 1fr;
     column-gap: 40px;
   }
 
   .clients__title {
-    font-size: clamp(32px, 3.4vw, 45px);
-    line-height: clamp(42px, 4.2vw, 60px);
+    font-size: clamp(2rem, 3.4vw, 2.8125rem);
+    line-height: clamp(2.625rem, 4.2vw, 3.75rem);
   }
-}
-
-/* Dark theme */
-[data-theme='dark'] .clients {
-  --clients-surface: #152019;
-  background: var(--clients-surface);
-  box-shadow: 0 -28px 56px rgba(0, 0, 0, 0.28);
-}
-
-[data-theme='dark'] .clients__card {
-  background: rgba(255, 255, 255, 0.06);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  box-shadow:
-    0 1px 0 rgba(255, 255, 255, 0.08) inset,
-    0 10px 28px rgba(0, 0, 0, 0.22);
-  backdrop-filter: blur(10px);
-}
-
-[data-theme='dark'] .clients__card-name {
-  color: #e8f1ea;
-}
-
-[data-theme='dark'] .clients__cards-viewport {
-  -webkit-mask-image: linear-gradient(
-    90deg,
-    transparent 0%,
-    #000 8%,
-    #000 92%,
-    transparent 100%
-  );
-  mask-image: linear-gradient(
-    90deg,
-    transparent 0%,
-    #000 8%,
-    #000 92%,
-    transparent 100%
-  );
 }

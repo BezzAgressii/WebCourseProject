@@ -14,7 +14,7 @@
 .services__main {
   display: flex;
   align-items: stretch;
-  padding-left: clamp(24px, 9vw, 135px);
+  padding-left: clamp(1.5rem, 9vw, 8.4375rem);
   max-width: 100%;
 }
 
@@ -30,7 +30,7 @@
   flex-direction: column;
   gap: 0;
   font-family: var(--font-display);
-  font-size: 45px;
+  font-size: 2.8125rem;
   font-weight: 600;
   line-height: 60px;
   color: var(--text-primary);
@@ -55,7 +55,7 @@
 
 .services__desc {
   font-family: var(--font-body);
-  font-size: 16px;
+  font-size: 1rem;
   line-height: 26px;
   color: var(--text-muted);
   margin-top: 32px;
@@ -65,7 +65,7 @@
   flex: 1;
   display: flex;
   align-items: stretch;
-  background: var(--bg-tertiary);
+  background: var(--bg-panel);
   border-radius: 65px 0 0 65px;
   overflow: hidden;
   height: 575px;
@@ -97,7 +97,7 @@
 }
 
 .services__tab:hover:not(.services__tab--active) {
-  background: rgba(120, 192, 129, 0.22);
+  background: var(--overlay-accent-subtle);
 }
 
 .services__tab:hover:not(.services__tab--active) .services__tab-icon {
@@ -119,8 +119,17 @@
   box-shadow: var(--shadow-btn);
 }
 
+.services__tab--active .services__tab-label {
+  color: var(--text-on-primary);
+}
+
+.services__tab--active .services__tab-icon {
+  filter: var(--tab-active-icon-filter);
+  opacity: 1;
+}
+
 .services__tab--active:hover {
-  background: #54c463;
+  background: var(--color-accent-bright);
   box-shadow: var(--shadow-btn), 0 8px 18px rgba(34, 111, 33, 0.18);
 }
 
@@ -128,14 +137,12 @@
   width: 30px;
   height: auto;
   display: block;
-
-  filter: brightness(0) invert(1);
-  opacity: 0.9;
+  filter: none;
+  opacity: 0.7;
   transition: opacity 0.25s ease, transform 0.25s ease, filter 0.25s ease;
 }
 
 .services__tab:not(.services__tab--active) .services__tab-icon {
-  filter: none;
   opacity: 0.7;
 }
 
@@ -145,16 +152,16 @@
   text-orientation: mixed;
   transform: rotate(180deg);
   font-family: var(--font-body);
-  font-size: 11px;
+  font-size: 0.6875rem;
   font-weight: 500;
   letter-spacing: 0.03em;
   white-space: nowrap;
-  color: #fff;
+  color: var(--text-light);
   transition: color 0.25s ease;
 }
 
 .services__tab:not(.services__tab--active) .services__tab-label {
-  color: #7CA381;
+  color: var(--color-desc);
 }
 
 .services__list {
@@ -188,7 +195,7 @@
 
 .services__item-text {
   font-family: var(--font-body);
-  font-size: 18px;
+  font-size: 1.125rem;
   line-height: 28px;
   color: var(--text-primary);
   padding-top: 3px;
@@ -240,7 +247,7 @@
   }
 
   .services__item-text {
-    font-size: 16px;
+    font-size: 1rem;
   }
 }
 
@@ -259,7 +266,7 @@
   }
 
   .services__title {
-    font-size: 38px;
+    font-size: 2.375rem;
     line-height: 50px;
   }
 }
@@ -311,7 +318,7 @@
   .services__tab-label {
     writing-mode: horizontal-tb;
     transform: none;
-    font-size: 14px;
+    font-size: 0.875rem;
     font-weight: 400;
     letter-spacing: 0;
     text-align: center;
@@ -328,16 +335,16 @@
   }
 
   .services__tab:not(.services__tab--active) {
-    background: #fff;
+    background: var(--bg-card);
     box-shadow: none;
   }
 
   .services__tab:hover:not(.services__tab--active) {
-    background: rgba(217, 250, 221, 0.95);
+    background: var(--services-mobile-panel);
   }
 
   .services__tab:not(.services__tab--active) .services__tab-label {
-    color: #7CA281;
+    color: var(--color-desc);
   }
 
   .services__tab--active {
@@ -346,11 +353,11 @@
   }
 
   .services__tab--active:hover {
-    background: #54c463;
+    background: var(--color-accent-bright);
   }
 
   .services__tab--active .services__tab-label {
-    color: #fff;
+    color: var(--text-on-primary);
   }
 
   .services__list {
@@ -372,7 +379,7 @@
   }
 
   .services__item-text {
-    font-size: 16px;
+    font-size: 1rem;
     line-height: 26px;
     padding-top: 4px;
   }
@@ -400,7 +407,7 @@
   }
 
   .services__title {
-    font-size: 28px;
+    font-size: 1.75rem;
     line-height: 40px;
   }
 }

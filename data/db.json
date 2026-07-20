@@ -1167,15 +1167,15 @@
       "userId": 2,
       "items": [
         {
-          "productId": 10,
+          "productId": "10",
           "quantity": 2
         },
         {
-          "productId": 13,
+          "productId": "13",
           "quantity": 1
         }
       ],
-      "updatedAt": "2026-07-19T06:48:03.796Z"
+      "updatedAt": "2026-07-20T14:23:15.969Z"
     }
   ],
   "callbacks": [

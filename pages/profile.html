@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="ru" class="is-preload" data-theme="light">
 <head>
-  <script>(function(){try{var t=localStorage.getItem('theme');document.documentElement.setAttribute('data-theme',t==='dark'?'dark':'light');}catch(e){document.documentElement.setAttribute('data-theme','light');}})();</script>
+  <script>(function(){try{var d=document.documentElement;var t=localStorage.getItem('theme');var theme=(t==='dark'||t==='light')?t:(window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');d.setAttribute('data-theme',theme);var raw=localStorage.getItem('accessibility');if(!raw)return;var s=JSON.parse(raw);var on=!!(s.enabled!==undefined?s.enabled:s.active);if(!s||!on)return;d.setAttribute('data-accessibility','active');if(s.colorScheme)d.setAttribute('data-color-scheme',s.colorScheme);if(s.fontSize)d.setAttribute('data-font-size',s.fontSize);var imgs=s.imagesEnabled!==undefined?!!s.imagesEnabled:s.images!=='hidden';d.setAttribute('data-images',imgs?'visible':'hidden');}catch(e){document.documentElement.setAttribute('data-theme','light');}})();</script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Профиль — Pascal Vent</title>
@@ -17,7 +17,9 @@
   <link rel="stylesheet" href="../css/profile.css">
   <link rel="stylesheet" href="../css/auth.css">
   <link rel="stylesheet" href="../css/footer.css">
+  <link rel="stylesheet" href="../css/contact-modals.css">
   <link rel="stylesheet" href="../css/theme.css">
+  <link rel="stylesheet" href="../css/accessibility.css">
 </head>
 <body data-page="profile">
 
@@ -31,7 +33,121 @@
   </div>
 
 
-  <div id="header" data-header></div>
+  <header class="header header--page">
+    <div class="header__inner">
+
+      <a href="../index.html" class="header__logo" data-i18n-aria="header.logoAria" aria-label="Pascal Vent — главная">
+        <picture>
+          <source media="(max-width: 480px)" srcset="../assets/images/footer-mobile-logo.svg">
+          <img src="../assets/icons/logo.svg" alt="Pascal Vent">
+        </picture>
+      </a>
+
+      <nav class="header__nav" data-i18n-aria="header.navAria" aria-label="Основное меню">
+        <ul class="nav__list">
+          <li><a href="../index.html#services" data-i18n="header.services">Услуги</a></li>
+          <li><a href="../index.html#benefits" data-i18n="header.benefits">Польза Продукта</a></li>
+          <li><a href="catalog.html" data-i18n="header.catalog">Каталог</a></li>
+          <li><a href="../index.html#steps" data-i18n="header.steps">Этапы Работы</a></li>
+          <li><a href="contacts.html" data-i18n="header.about">О Нас</a></li>
+        </ul>
+      </nav>
+
+      <div class="header__actions">
+        <div class="header-settings">
+          <button
+            type="button"
+            class="header-settings__toggle"
+            aria-expanded="false"
+            aria-controls="header-settings-panel"
+            data-i18n-aria="header.settingsAria"
+            aria-label="Настройки"
+            title="Настройки"
+          >
+            <svg class="header-settings__icon" width="20" height="20" viewBox="0 0 24 24" aria-hidden="true">
+              <path fill="currentColor" d="M19.14 12.94c.04-.31.06-.63.06-.94s-.02-.63-.06-.94l2.03-1.58a.49.49 0 0 0 .12-.61l-1.92-3.32a.49.49 0 0 0-.59-.22l-2.39.96c-.5-.4-1.04-.71-1.62-.94l-.36-2.54a.48.48 0 0 0-.48-.41h-3.84a.48.48 0 0 0-.48.41l-.36 2.54c-.58.23-1.12.54-1.62.94l-2.39-.96a.49.49 0 0 0-.59.22L2.74 8.87a.48.48 0 0 0 .12.61l2.03 1.58c-.04.31-.06.63-.06.94s.02.63.06.94L2.86 14.5a.49.49 0 0 0-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.4 1.04.71 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.48-.41l.36-2.54c.58-.23 1.12-.54 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32a.48.48 0 0 0-.12-.61l-2.01-1.58zM12 15.6A3.6 3.6 0 1 1 12 8.4a3.6 3.6 0 0 1 0 7.2z"/>
+            </svg>
+          </button>
+          <div class="header-settings__panel" id="header-settings-panel" hidden>
+            <div class="header-settings__group">
+              <p class="header-settings__label" data-i18n="header.languageLabel">Язык</p>
+              <div class="lang-switch" role="group" data-i18n-aria="header.langAria" aria-label="Выбор языка">
+                <button type="button" class="lang-switch__btn" data-lang="ru" aria-pressed="true">RU</button>
+                <button type="button" class="lang-switch__btn" data-lang="be" aria-pressed="false">BE</button>
+                <button type="button" class="lang-switch__btn" data-lang="en" aria-pressed="false">EN</button>
+              </div>
+            </div>
+            <div class="header-settings__group">
+              <p class="header-settings__label" data-i18n="header.themeLabel">Тема</p>
+              <div class="theme-switch" role="group" data-i18n-aria="header.themeAria" aria-label="Тема оформления">
+                <button type="button" class="theme-switch__btn" data-theme-toggle="light" aria-pressed="false" aria-label="Светлая тема" title="Светлая">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="1.8"/><path d="M12 2v2.5M12 19.5V22M4.5 12H2M22 12h-2.5M5.6 5.6l1.8 1.8M16.6 16.6l1.8 1.8M18.4 5.6l-1.8 1.8M7.4 16.6l-1.8 1.8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+                </button>
+                <button type="button" class="theme-switch__btn" data-theme-toggle="dark" aria-pressed="false" aria-label="Тёмная тема" title="Тёмная">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M19 14.5A7.5 7.5 0 1 1 9.5 5a6 6 0 0 0 9.5 9.5Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
+                </button>
+              </div>
+            </div>
+            <div class="header-settings__group">
+              <p class="header-settings__label" data-i18n="header.a11yLabel">Доступность</p>
+              <button type="button" class="a11y-toggle" data-a11y-toggle aria-pressed="false">
+                <span data-i18n="header.a11yEnable">Версия для слабовидящих</span>
+              </button>
+            </div>
+            <div class="header-settings__group" data-accessibility-panel hidden>
+              <p class="header-settings__label" data-i18n="header.a11ySchemeLabel">Цветовая схема</p>
+              <div class="a11y-schemes" role="group" aria-label="Цветовая схема">
+                <button type="button" class="a11y-schemes__btn" data-a11y-scheme="black-yellow" data-i18n-aria="header.a11yScheme.black-yellow" aria-label="Чёрный / жёлтый" title="Чёрный / жёлтый"></button>
+                <button type="button" class="a11y-schemes__btn" data-a11y-scheme="black-white" data-i18n-aria="header.a11yScheme.black-white" aria-label="Чёрный / белый" title="Чёрный / белый"></button>
+                <button type="button" class="a11y-schemes__btn" data-a11y-scheme="white-black" data-i18n-aria="header.a11yScheme.white-black" aria-label="Белый / чёрный" title="Белый / чёрный"></button>
+                <button type="button" class="a11y-schemes__btn" data-a11y-scheme="blue-yellow" data-i18n-aria="header.a11yScheme.blue-yellow" aria-label="Синий / жёлтый" title="Синий / жёлтый"></button>
+              </div>
+              <p class="header-settings__label" data-i18n="header.a11yFontLabel">Размер шрифта</p>
+              <div class="a11y-fonts" role="group" aria-label="Размер шрифта">
+                <button type="button" class="a11y-fonts__btn" data-font-size="normal" data-i18n-aria="header.a11yFont.normal" aria-label="Обычный" title="Обычный">A</button>
+                <button type="button" class="a11y-fonts__btn" data-font-size="increased" data-i18n-aria="header.a11yFont.increased" aria-label="Увеличенный" title="Увеличенный">A+</button>
+                <button type="button" class="a11y-fonts__btn" data-font-size="large" data-i18n-aria="header.a11yFont.large" aria-label="Крупный" title="Крупный">A++</button>
+                <button type="button" class="a11y-fonts__btn" data-font-size="extra-large" data-i18n-aria="header.a11yFont.extra-large" aria-label="Очень крупный" title="Очень крупный">A+++</button>
+              </div>
+              <button type="button" class="a11y-images" data-a11y-images aria-pressed="false">
+                <span data-i18n="header.a11yHideImages">Скрыть изображения</span>
+              </button>
+              <button type="button" class="a11y-reset" data-a11y-reset data-i18n="header.a11yReset">Сбросить настройки</button>
+            </div>
+          </div>
+        </div>
+
+        <a class="header__profile" href="profile.html" data-header-profile data-i18n-aria="header.profile" aria-label="Профиль" aria-current="page">
+          <svg class="header__profile-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <circle cx="12" cy="8" r="3.5" stroke="currentColor" stroke-width="1.8"/>
+            <path d="M5 19.5c1.8-3.2 4.2-4.8 7-4.8s5.2 1.6 7 4.8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+          </svg>
+        </a>
+
+        <button class="header__burger" type="button" data-i18n-aria="header.openMenu" aria-label="Открыть меню" aria-expanded="false" aria-controls="mobile-nav">
+          <span class="header__burger-line" aria-hidden="true"></span>
+          <span class="header__burger-line" aria-hidden="true"></span>
+          <span class="header__burger-line" aria-hidden="true"></span>
+        </button>
+
+        <button class="header__btn" type="button" data-modal="contact" data-i18n-aria="header.contact" aria-label="Связаться">
+          <span class="header__btn-text" data-i18n="header.contact">Связаться</span>
+        </button>
+      </div>
+
+    </div>
+
+    <nav class="header__mobile-nav" id="mobile-nav" data-i18n-aria="header.mobileNavAria" aria-label="Мобильное меню" hidden>
+      <ul class="header__mobile-list">
+        <li><a href="../index.html#services" data-i18n="header.services">Услуги</a></li>
+        <li><a href="../index.html#benefits" data-i18n="header.benefits">Польза Продукта</a></li>
+        <li><a href="catalog.html" data-i18n="header.catalog">Каталог</a></li>
+        <li><a href="../index.html#steps" data-i18n="header.steps">Этапы Работы</a></li>
+        <li><a href="contacts.html" data-i18n="header.about">О Нас</a></li>
+        <li><a href="profile.html" data-i18n="header.profile" aria-current="page">Профиль</a></li>
+      </ul>
+    </nav>
+  </header>
 
   <main>
     <section class="account-page" aria-labelledby="profile-title">
@@ -120,24 +236,47 @@
                 hidden
               >
                 <form class="profile-settings" id="profile-settings-form" novalidate>
-                  <div class="profile-settings__grid">
-                    <label class="profile-settings__field">
-                      <span class="profile-settings__label" data-i18n="auth.register.firstName">Имя</span>
-                      <input class="profile-settings__input" name="firstName" required>
-                    </label>
-                    <label class="profile-settings__field">
-                      <span class="profile-settings__label" data-i18n="auth.register.lastName">Фамилия</span>
-                      <input class="profile-settings__input" name="lastName" required>
-                    </label>
-                    <label class="profile-settings__field">
-                      <span class="profile-settings__label" data-i18n="auth.register.email">Email</span>
-                      <input class="profile-settings__input" name="email" type="email" required>
-                    </label>
-                    <label class="profile-settings__field">
-                      <span class="profile-settings__label" data-i18n="auth.register.phone">Телефон</span>
-                      <input class="profile-settings__input" name="phone" type="tel" autocomplete="tel" required>
-                    </label>
+                  <header class="profile-settings__header">
+                    <div class="profile-settings__header-icon" aria-hidden="true">
+                      <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+                        <path d="M12 15.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7Z" stroke="currentColor" stroke-width="1.8"/>
+                        <path d="M19.4 13a7.8 7.8 0 0 0 .05-2l2-1.55-2-3.46-2.4.96a7.9 7.9 0 0 0-1.73-1l-.36-2.55h-4l-.36 2.55a7.9 7.9 0 0 0-1.73 1l-2.4-.96-2 3.46 2 1.55a7.8 7.8 0 0 0 0 2l-2 1.55 2 3.46 2.4-.96c.53.42 1.11.75 1.73 1l.36 2.55h4l.36-2.55c.62-.25 1.2-.58 1.73-1l2.4.96 2-3.46-2-1.55Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
+                      </svg>
+                    </div>
+                    <div class="profile-settings__header-text">
+                      <h2 class="profile-settings__title" data-i18n="profile.settingsTitle">Настройки</h2>
+                      <p class="profile-settings__lead" data-i18n="profile.settingsLead">Обновите личные данные — они используются для заказов и связи с вами</p>
+                    </div>
+                  </header>
+
+                  <div class="profile-settings__section">
+                    <p class="profile-settings__section-title" data-i18n="profile.settingsPersonal">Личные данные</p>
+                    <div class="profile-settings__grid">
+                      <label class="profile-settings__field">
+                        <span class="profile-settings__label" data-i18n="auth.register.firstName">Имя</span>
+                        <input class="profile-settings__input" name="firstName" autocomplete="given-name" required>
+                      </label>
+                      <label class="profile-settings__field">
+                        <span class="profile-settings__label" data-i18n="auth.register.lastName">Фамилия</span>
+                        <input class="profile-settings__input" name="lastName" autocomplete="family-name" required>
+                      </label>
+                    </div>
                   </div>
+
+                  <div class="profile-settings__section">
+                    <p class="profile-settings__section-title" data-i18n="profile.settingsContacts">Контакты</p>
+                    <div class="profile-settings__grid">
+                      <label class="profile-settings__field">
+                        <span class="profile-settings__label" data-i18n="auth.register.email">Email</span>
+                        <input class="profile-settings__input" name="email" type="email" autocomplete="email" required>
+                      </label>
+                      <label class="profile-settings__field">
+                        <span class="profile-settings__label" data-i18n="auth.register.phone">Телефон</span>
+                        <input class="profile-settings__input" name="phone" type="tel" autocomplete="tel" required>
+                      </label>
+                    </div>
+                  </div>
+
                   <div class="profile-settings__actions">
                     <button class="profile-button" type="submit" data-i18n="profile.save">Сохранить</button>
                     <button class="profile-button profile-button--ghost" type="button" id="profile-logout" data-i18n="profile.logout">Выйти</button>
