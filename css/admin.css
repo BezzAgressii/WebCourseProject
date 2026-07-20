@@ -1,3 +1,23 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  min-height: 100%;
+  background: var(--bg-primary);
+}
+
+body {
+  overflow-x: hidden;
+  color: var(--color-dark-green);
+  font-family: var(--font-body);
+}
+
 .admin-page {
   min-height: 100vh;
   display: grid;
@@ -153,6 +173,12 @@
   border-radius: 16px;
   background: var(--admin-form-section-bg);
   box-shadow: 0 4px 14px rgba(73, 93, 76, 0.06);
+}
+
+.admin-theme--sidebar {
+  width: 100%;
+  justify-content: space-between;
+  box-sizing: border-box;
 }
 
 .admin-theme__label {
@@ -576,9 +602,9 @@
 .admin-form__placeholder {
   margin: 0;
   padding: 18px;
-  border: 1px dashed rgba(73, 93, 76, 0.22);
+  border: 1px dashed color-mix(in srgb, var(--color-dark-green) 22%, transparent);
   border-radius: 14px;
-  background: rgba(255, 255, 255, 0.7);
+  background: color-mix(in srgb, var(--bg-card) 80%, transparent);
   color: var(--color-gray);
   font-size: 0.875rem;
   text-align: center;

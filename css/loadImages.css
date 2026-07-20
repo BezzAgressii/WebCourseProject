@@ -9,10 +9,9 @@
   gap: 6px;
   min-height: 148px;
   padding: 28px 20px;
-  border: 2px dashed rgba(73, 93, 76, 0.28);
+  border: 2px dashed var(--admin-dropzone-border);
   border-radius: 16px;
-  background:
-    linear-gradient(180deg, rgba(217, 250, 221, 0.45) 0%, rgba(255, 255, 255, 0.9) 100%);
+  background: var(--admin-dropzone-bg);
   color: var(--color-dark-green);
   text-align: center;
   cursor: pointer;
@@ -27,16 +26,14 @@
 .image-uploader__dropzone:focus-visible {
   outline: none;
   border-color: var(--color-accent-green);
-  background:
-    linear-gradient(180deg, rgba(217, 250, 221, 0.7) 0%, rgba(255, 255, 255, 0.95) 100%);
-  box-shadow: 0 0 0 3px rgba(92, 205, 106, 0.16);
+  background: var(--admin-dropzone-bg-hover);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-accent-green) 18%, transparent);
 }
 
 .image-uploader__dropzone--active {
   border-color: var(--color-btn-green);
-  background:
-    linear-gradient(180deg, rgba(92, 205, 106, 0.22) 0%, rgba(217, 250, 221, 0.55) 100%);
-  box-shadow: 0 0 0 3px rgba(92, 205, 106, 0.22);
+  background: var(--admin-dropzone-bg-active);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-accent-green) 24%, transparent);
   transform: scale(1.01);
 }
 
@@ -63,9 +60,10 @@
   min-height: 34px;
   margin-top: 8px;
   padding: 0 14px;
+  border: 1px solid color-mix(in srgb, var(--color-accent-green) 35%, transparent);
   border-radius: 999px;
-  background: rgba(92, 205, 106, 0.16);
-  color: var(--color-success-strong);
+  background: var(--admin-dropzone-browse-bg);
+  color: var(--admin-dropzone-browse-text);
   font-size: 0.8125rem;
   font-weight: 700;
 }
@@ -82,10 +80,10 @@
   gap: 6px;
   min-width: 0;
   padding: 8px;
-  border: 1px solid rgba(73, 93, 76, 0.12);
+  border: 1px solid color-mix(in srgb, var(--border-color) 90%, transparent);
   border-radius: 14px;
   background: var(--bg-card);
-  box-shadow: 0 8px 20px rgba(73, 93, 76, 0.08);
+  box-shadow: 0 8px 20px color-mix(in srgb, var(--text-primary) 8%, transparent);
 }
 
 .image-uploader__preview {
@@ -134,7 +132,7 @@
 
 .admin-form__field--invalid .image-uploader__dropzone {
   border-color: var(--border-error);
-  box-shadow: 0 0 0 3px rgba(210, 93, 93, 0.14);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--border-error) 28%, transparent);
 }
 
 @media (prefers-reduced-motion: reduce) {

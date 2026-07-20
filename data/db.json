@@ -1078,7 +1078,7 @@
         }
       ],
       "total": 4890,
-      "status": "processing",
+      "status": "delivered",
       "createdAt": "2026-07-15T17:55:05.723Z"
     },
     {
@@ -1113,7 +1113,7 @@
         }
       ],
       "total": 9100,
-      "status": "shipped",
+      "status": "cancelled",
       "createdAt": "2026-07-16T10:20:00.000Z"
     },
     {
@@ -1157,7 +1157,7 @@
         }
       ],
       "total": 4890,
-      "status": "cancelled",
+      "status": "processing",
       "createdAt": "2026-07-13T09:15:00.000Z"
     }
   ],

@@ -187,7 +187,11 @@
   --admin-sidebar-shadow: 8px 0 28px rgba(73, 93, 76, 0.12);
   --admin-form-section-bg: linear-gradient(180deg, var(--bg-surface-soft) 0%, var(--bg-card) 100%);
   --admin-dropzone-bg: linear-gradient(180deg, var(--overlay-accent-hover) 0%, var(--bg-card) 100%);
+  --admin-dropzone-bg-hover: linear-gradient(180deg, color-mix(in srgb, var(--color-accent-green) 18%, var(--bg-card)) 0%, var(--bg-card) 100%);
+  --admin-dropzone-bg-active: linear-gradient(180deg, color-mix(in srgb, var(--color-accent-green) 24%, var(--bg-card)) 0%, var(--bg-surface-soft) 100%);
   --admin-dropzone-border: rgba(120, 192, 129, 0.35);
+  --admin-dropzone-browse-bg: color-mix(in srgb, var(--color-accent-green) 16%, var(--bg-card));
+  --admin-dropzone-browse-text: var(--color-success-strong);
   --admin-table-hover: rgba(73, 93, 76, 0.04);
 
   --clients-card-bg: rgba(255, 255, 255, 0.45);
@@ -395,8 +399,12 @@ html[data-theme='dark'] {
 
   --admin-sidebar-shadow: 8px 0 28px rgba(0, 0, 0, 0.28);
   --admin-form-section-bg: linear-gradient(180deg, rgba(36, 48, 40, 0.95) 0%, rgba(30, 40, 33, 0.98) 100%);
-  --admin-dropzone-bg: linear-gradient(180deg, rgba(92, 205, 106, 0.12) 0%, rgba(30, 40, 33, 0.95) 100%);
-  --admin-dropzone-border: rgba(120, 192, 129, 0.35);
+  --admin-dropzone-bg: linear-gradient(180deg, rgba(92, 205, 106, 0.1) 0%, rgba(24, 32, 27, 0.98) 100%);
+  --admin-dropzone-bg-hover: linear-gradient(180deg, rgba(92, 205, 106, 0.18) 0%, rgba(28, 38, 31, 0.98) 100%);
+  --admin-dropzone-bg-active: linear-gradient(180deg, rgba(92, 205, 106, 0.26) 0%, rgba(32, 44, 35, 0.98) 100%);
+  --admin-dropzone-border: rgba(120, 192, 129, 0.42);
+  --admin-dropzone-browse-bg: rgba(92, 205, 106, 0.22);
+  --admin-dropzone-browse-text: #d7f5db;
   --admin-table-hover: rgba(255, 255, 255, 0.03);
 
   --clients-card-bg: rgba(255, 255, 255, 0.06);

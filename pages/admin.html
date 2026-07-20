@@ -30,6 +30,18 @@
         <img src="../assets/icons/logo.svg" alt="Pascal Vent">
       </a>
 
+      <div class="admin-theme admin-theme--sidebar" aria-label="Тема оформления">
+        <span class="admin-theme__label">Тема</span>
+        <div class="theme-switch theme-switch--admin" role="group" aria-label="Тема оформления">
+          <button type="button" class="theme-switch__btn" data-theme-toggle="light" aria-pressed="false" aria-label="Светлая тема" title="Светлая">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="1.8"/><path d="M12 2v2.5M12 19.5V22M4.5 12H2M22 12h-2.5M5.6 5.6l1.8 1.8M16.6 16.6l1.8 1.8M18.4 5.6l-1.8 1.8M7.4 16.6l-1.8 1.8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+          </button>
+          <button type="button" class="theme-switch__btn" data-theme-toggle="dark" aria-pressed="false" aria-label="Тёмная тема" title="Тёмная">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M19 14.5A7.5 7.5 0 1 1 9.5 5a6 6 0 0 0 9.5 9.5Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
+          </button>
+        </div>
+      </div>
+
       <div class="admin-sidebar__user">
         <span class="admin-sidebar__user-label">Администратор</span>
         <span class="admin-sidebar__user-name" id="admin-user-name">—</span>
@@ -64,17 +76,6 @@
         <header class="admin-main__header">
           <h1 class="admin-main__title" id="admin-products-title">Товары</h1>
           <div class="admin-main__actions">
-            <div class="admin-theme" aria-label="Тема оформления">
-              <span class="admin-theme__label">Тема</span>
-              <div class="theme-switch theme-switch--admin" role="group" aria-label="Тема оформления">
-                <button type="button" class="theme-switch__btn" data-theme-toggle="light" aria-pressed="false" aria-label="Светлая тема" title="Светлая">
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="1.8"/><path d="M12 2v2.5M12 19.5V22M4.5 12H2M22 12h-2.5M5.6 5.6l1.8 1.8M16.6 16.6l1.8 1.8M18.4 5.6l-1.8 1.8M7.4 16.6l-1.8 1.8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
-                </button>
-                <button type="button" class="theme-switch__btn" data-theme-toggle="dark" aria-pressed="false" aria-label="Тёмная тема" title="Тёмная">
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M19 14.5A7.5 7.5 0 1 1 9.5 5a6 6 0 0 0 9.5 9.5Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
-                </button>
-              </div>
-            </div>
             <button class="admin-button" type="button" id="admin-add-product">Добавить товар</button>
           </div>
         </header>

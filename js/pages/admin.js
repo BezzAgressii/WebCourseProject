@@ -35,6 +35,8 @@ class AdminPage {
     this.users = [];
     this.editingId = null;
     this.imageUploader = null;
+    this.activeTab = 'products';
+    this.ignoreNavClickUntil = 0;
     this.elements = {
       userName: document.getElementById('admin-user-name'),
       logout: document.getElementById('admin-logout'),
@@ -79,6 +81,9 @@ class AdminPage {
 
     this.bindEvents();
     await this.loadProducts();
+
+    const initialTab = this.getTabFromHash() || 'products';
+    this.showTab(initialTab, { load: initialTab !== 'products', syncHash: true });
   }
 
   bindEvents() {
@@ -92,7 +97,23 @@ class AdminPage {
     this.elements.categoryFilter.addEventListener('change', () => this.renderProducts());
 
     this.elements.tabButtons.forEach((button) => {
-      button.addEventListener('click', () => this.openTab(button.dataset.adminTab));
+      button.addEventListener('click', (event) => {
+        if (Date.now() < this.ignoreNavClickUntil) {
+          event.preventDefault();
+          event.stopImmediatePropagation();
+          return;
+        }
+
+        this.openTab(button.dataset.adminTab);
+      });
+    });
+
+    window.addEventListener('hashchange', () => {
+      const tab = this.getTabFromHash();
+
+      if (tab && tab !== this.activeTab) {
+        this.showTab(tab, { load: true, syncHash: false });
+      }
     });
 
     this.elements.modal.querySelectorAll('[data-close-modal]').forEach((element) => {
@@ -139,11 +160,24 @@ class AdminPage {
       }
     });
 
+    const guardStatusInteraction = (event) => {
+      if (event.target.closest('[data-order-status], [data-callback-status], #admin-orders-status-filter, #admin-callbacks-status-filter')) {
+        this.armNavClickGuard();
+      }
+    };
+
+    this.elements.ordersBody.addEventListener('pointerdown', guardStatusInteraction, true);
+    this.elements.callbacksBody.addEventListener('pointerdown', guardStatusInteraction, true);
+    this.elements.ordersStatusFilter.addEventListener('pointerdown', guardStatusInteraction, true);
+    this.elements.callbacksStatusFilter.addEventListener('pointerdown', guardStatusInteraction, true);
+
     this.elements.ordersBody.addEventListener('change', (event) => {
       const statusSelect = event.target.closest('[data-order-status]');
 
       if (statusSelect) {
-        this.updateOrderStatus(statusSelect.dataset.orderId, statusSelect.value, statusSelect);
+        event.stopPropagation();
+        this.armNavClickGuard();
+        void this.updateOrderStatus(statusSelect.dataset.orderId, statusSelect.value, statusSelect);
       }
     });
 
@@ -151,12 +185,22 @@ class AdminPage {
       const statusSelect = event.target.closest('[data-callback-status]');
 
       if (statusSelect) {
-        this.updateCallbackStatus(statusSelect.dataset.callbackId, statusSelect.value, statusSelect);
+        event.stopPropagation();
+        this.armNavClickGuard();
+        void this.updateCallbackStatus(statusSelect.dataset.callbackId, statusSelect.value, statusSelect);
       }
     });
 
-    this.elements.ordersStatusFilter.addEventListener('change', () => this.renderOrders());
-    this.elements.callbacksStatusFilter.addEventListener('change', () => this.renderCallbacks());
+    this.elements.ordersStatusFilter.addEventListener('change', () => {
+      this.armNavClickGuard();
+      this.renderOrders();
+      this.keepCurrentTab();
+    });
+    this.elements.callbacksStatusFilter.addEventListener('change', () => {
+      this.armNavClickGuard();
+      this.renderCallbacks();
+      this.keepCurrentTab();
+    });
 
     document.addEventListener('keydown', (event) => {
       if (event.key === 'Escape' && !this.elements.modal.hidden) {
@@ -204,9 +248,33 @@ class AdminPage {
     }
   }
 
-  openTab(tabName) {
+  getTabFromHash() {
+    const hash = window.location.hash.replace(/^#/, '');
+    return ['products', 'orders', 'callbacks'].includes(hash) ? hash : null;
+  }
+
+  setTabHash(tabName) {
+    const nextHash = `#${tabName}`;
+
+    if (window.location.hash === nextHash) {
+      return;
+    }
+
+    window.history.replaceState(null, '', `${window.location.pathname}${window.location.search}${nextHash}`);
+  }
+
+  showTab(tabName, options = {}) {
     if (!['products', 'orders', 'callbacks'].includes(tabName)) {
       return;
+    }
+
+    const shouldLoad = options.load !== false;
+    const syncHash = options.syncHash !== false;
+
+    this.activeTab = tabName;
+
+    if (syncHash) {
+      this.setTabHash(tabName);
     }
 
     this.elements.tabButtons.forEach((button) => {
@@ -219,6 +287,10 @@ class AdminPage {
       panel.hidden = panel.dataset.adminPanel !== tabName;
     });
 
+    if (!shouldLoad) {
+      return;
+    }
+
     if (tabName === 'orders') {
       void this.loadOrders();
     }
@@ -226,6 +298,48 @@ class AdminPage {
     if (tabName === 'callbacks') {
       void this.loadCallbacks();
     }
+  }
+
+  openTab(tabName) {
+    this.showTab(tabName, { load: true, syncHash: true });
+  }
+
+  keepCurrentTab() {
+    this.showTab(this.activeTab || 'products', { load: false, syncHash: true });
+  }
+
+  armNavClickGuard() {
+    this.ignoreNavClickUntil = Date.now() + 1000;
+    this.elements.tabButtons.forEach((button) => {
+      button.style.pointerEvents = 'none';
+    });
+
+    window.clearTimeout(this.navGuardTimer);
+    this.navGuardTimer = window.setTimeout(() => {
+      this.elements.tabButtons.forEach((button) => {
+        button.style.pointerEvents = '';
+      });
+    }, 1000);
+
+    const swallowPointer = (event) => {
+      if (Date.now() >= this.ignoreNavClickUntil) {
+        document.removeEventListener('click', swallowPointer, true);
+        document.removeEventListener('pointerup', swallowPointer, true);
+        document.removeEventListener('mouseup', swallowPointer, true);
+        return;
+      }
+
+      if (!event.target.closest?.('[data-admin-tab]')) {
+        return;
+      }
+
+      event.preventDefault();
+      event.stopImmediatePropagation();
+    };
+
+    document.addEventListener('click', swallowPointer, true);
+    document.addEventListener('pointerup', swallowPointer, true);
+    document.addEventListener('mouseup', swallowPointer, true);
   }
 
   getUserLabel(userId) {
@@ -400,24 +514,30 @@ class AdminPage {
       return;
     }
 
+    const tab = 'orders';
+    this.activeTab = tab;
     select.disabled = true;
 
     try {
       const updated = await api.updateOrder(orderId, { status });
       this.orders = this.orders.map((order) =>
-        String(order.id) === String(orderId) ? { ...order, ...updated } : order
+        String(order.id) === String(orderId) ? { ...order, ...updated, status } : order
       );
       this.renderOrders();
-      Modal.showSuccess(`Статус заказа #${orderId} изменён`, {
-        title: 'Статус обновлён'
-      });
     } catch (error) {
-      select.value = previousOrder.status;
+      if (select.isConnected) {
+        select.value = previousOrder.status;
+      }
+
       Modal.showError(error.message || 'Не удалось изменить статус заказа', {
         title: 'Ошибка обновления'
       });
     } finally {
-      select.disabled = false;
+      this.showTab(tab, { load: false, syncHash: true });
+
+      if (select.isConnected) {
+        select.disabled = false;
+      }
     }
   }
 
@@ -429,24 +549,30 @@ class AdminPage {
       return;
     }
 
+    const tab = 'callbacks';
+    this.activeTab = tab;
     select.disabled = true;
 
     try {
       const updated = await api.updateCallback(callbackId, { status });
       this.callbacks = this.callbacks.map((callback) =>
-        String(callback.id) === String(callbackId) ? { ...callback, ...updated } : callback
+        String(callback.id) === String(callbackId) ? { ...callback, ...updated, status } : callback
       );
       this.renderCallbacks();
-      Modal.showSuccess('Статус заявки изменён', {
-        title: 'Статус обновлён'
-      });
     } catch (error) {
-      select.value = previousStatus;
+      if (select.isConnected) {
+        select.value = previousStatus;
+      }
+
       Modal.showError(error.message || 'Не удалось изменить статус заявки', {
         title: 'Ошибка обновления'
       });
     } finally {
-      select.disabled = false;
+      this.showTab(tab, { load: false, syncHash: true });
+
+      if (select.isConnected) {
+        select.disabled = false;
+      }
     }
   }
 
